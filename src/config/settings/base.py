@@ -23,7 +23,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Apps
-    'apps.public'
+    'apps.public',
+    
+    # Django modules
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [
