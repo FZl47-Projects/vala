@@ -1,13 +1,16 @@
-import os
 from pathlib import Path
+import os
+
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
-SECRET_KEY = 'django-insecure-yb@%1c&455k_g&y7w%+x13$vb*r24wo@=chrzp%5^aa5wd#%7&'
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-yb@%1c&455k_g&y7w%+x13$vb*r24wo@=chrzp%5^aa5wd#%7&')
 
-DEBUG = True
+DEBUG = os.getenv('DEBUG', True)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
+
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://127.0.0.1').split(',')
 
 # Application definition
 
@@ -18,7 +21,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # apps
+
+    # Apps
     'apps.public'
 ]
 
@@ -37,7 +41,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -51,13 +55,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'config.wsgi.application'
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -89,13 +86,16 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
-MEDIA_URL = 'media/'
+STATIC_ROOT = BASE_DIR / os.getenv('STATIC_ROOT', 'static')
 
 STATICFILES_DIRS = [
     BASE_DIR / 'static/assets'
 ]
 
-MEDIA_ROOT = BASE_DIR / 'static/media'
+# Media files (Images, Videos, docs)
+
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / os.getenv('MEDIA_ROOT', 'static/media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field

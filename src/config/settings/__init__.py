@@ -1,6 +1,9 @@
+from os import getenv
 from .base import *
 
-PRODUCTION = False
+
+PRODUCTION = getenv('PRODUCTION', False)
+
 if PRODUCTION:
     from .production import *
 else:
