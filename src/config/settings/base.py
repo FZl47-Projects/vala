@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 from pathlib import Path
 import os
 
@@ -24,8 +25,10 @@ INSTALLED_APPS = [
 
     # Apps
     'apps.public',
+    'apps.account',
     
     # Django modules
+    'phonenumber_field',
     'django_cleanup.apps.CleanupConfig',
 ]
 
@@ -77,7 +80,15 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGES = [
+    ("fa", _("Persian")),
+]
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, "locale"),
+]
+
+LANGUAGE_CODE = 'fa'
 
 TIME_ZONE = 'Asia/Tehran'
 
@@ -104,3 +115,7 @@ MEDIA_ROOT = BASE_DIR / os.getenv('MEDIA_ROOT', 'static/media')
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Custom user model
+AUTH_USER_MODEL = 'account.User'
