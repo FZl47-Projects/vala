@@ -3,6 +3,7 @@ from django.utils.translation import gettext as _
 from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
+from .utils import get_raw_phone_number
 from .enums import AccessLevelsEnum
 from .managers import UserManager
 
@@ -20,6 +21,9 @@ class User(AbstractBaseUser):
     is_admin = models.BooleanField(_("Admin"), default=False)
     access_level = models.CharField(_("Access level"), max_length=32, choices=ACCESS_LEVELS.choices, default=ACCESS_LEVELS.USER)
 
+    created_at = models.DateTimeField(_('Creation time'), auto_now_add=True)
+    updated_at = models.DateTimeField(_('Update time'), auto_now=True)
+
     objects = UserManager()  # Set UserManager as model object manager
 
     USERNAME_FIELD = "phone_number"
@@ -31,7 +35,12 @@ class User(AbstractBaseUser):
         verbose_name_plural = _("Users")
 
     def __str__(self):
-        return self.phone_number
+        phone_number = self.get_phone_number()
+        return phone_number
+
+    def get_phone_number(self):
+        if self.phone_number:
+            return get_raw_phone_number(self.phone_number)
 
     def has_perm(self, perm, obj=None):
         """ Does the user have a specific permission? """
