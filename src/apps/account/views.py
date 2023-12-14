@@ -1,5 +1,5 @@
+from django.views.generic import View, TemplateView
 from django.utils.translation import gettext as _
-from django.views.generic import TemplateView
 from django.shortcuts import redirect, render
 from django.contrib.auth import login
 from django.contrib import messages
@@ -19,6 +19,23 @@ class LoginView(TemplateView):
         if validate_form(request, form):
             user = form.cleaned_data
             login(request, user=user)
+
+            messages.success(request, _('Login successful.'))
+            return redirect('/')
+
+        return redirect('account:login')
+
+
+# Render Register view
+class RegisterView(View):
+
+    def post(self, request):
+        data = request.POST.copy()
+
+        form = forms.UserCreationForm(data=data)
+        if validate_form(request, form):
+            user = form.save()
+            # TODO: Login user and redirect to verify phone
 
             messages.success(request, _('Login successful.'))
             return redirect('/')

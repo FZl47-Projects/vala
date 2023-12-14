@@ -13,7 +13,7 @@ class UserAdmin(BaseUserAdmin):
     # The form to add user instances
     add_form = UserCreationForm
 
-    list_display = ('phone_number', 'email', 'access_level', 'is_active',)
+    list_display = ('phone_number', 'email', 'access_level', 'is_active', 'is_verified')
     list_display_links = ('phone_number', 'email',)
     readonly_fields = ('created_at', 'last_login',)
     list_filter = ('is_active', 'access_level',)
