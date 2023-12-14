@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-13 18:24+0330\n"
+"POT-Creation-Date: 2023-12-14 06:35+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,50 +18,94 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: .\apps\account\enums.py:7 .\apps\account\models.py:27
-msgid "User"
-msgstr ""
+#: .\apps\account\admin.py:22
+msgid "Personal info"
+msgstr "اطلاعات شخصی"
 
-#: .\apps\account\enums.py:8 .\apps\account\models.py:17
+#: .\apps\account\admin.py:23
+msgid "Permissions"
+msgstr "دسترسی‌ها"
+
+#: .\apps\account\admin.py:24
+msgid "Dates"
+msgstr "تاریخ‌ها"
+
+#: .\apps\account\enums.py:7 .\apps\account\models.py:34
+msgid "User"
+msgstr "کاربر"
+
+#: .\apps\account\enums.py:8 .\apps\account\models.py:21
 msgid "Admin"
-msgstr ""
+msgstr "ادمین"
 
 #: .\apps\account\enums.py:9
 msgid "Operator"
-msgstr ""
+msgstr "اپراتور"
+
+#: .\apps\account\forms.py:14 .\apps\account\models.py:16
+msgid "Phone number"
+msgstr "شماره تماس"
+
+#: .\apps\account\forms.py:15
+msgid "Password"
+msgstr "گذرواژه"
+
+#: .\apps\account\forms.py:16
+msgid "Password repeat"
+msgstr "تکرار گذرواژه"
+
+#: .\apps\account\forms.py:27
+msgid "Enter a valid phone number"
+msgstr "یک شماره تماس معتبر وارد کنید"
+
+#: .\apps\account\forms.py:38
+msgid "Passwords are not match."
+msgstr "گذرواژه یکسان نیست."
 
 #: .\apps\account\managers.py:20
 msgid "Users must have a mobile number!"
-msgstr ""
+msgstr "کاربران باید یک شماره تماس داشته باشند."
 
-#: .\apps\account\models.py:14
-msgid "Mobile number"
-msgstr ""
-
-#: .\apps\account\models.py:15
+#: .\apps\account\models.py:17
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1845
 msgid "Email address"
-msgstr ""
-
-#: .\apps\account\models.py:16
-msgid "Active"
-msgstr ""
+msgstr "نشانی الکترونیک"
 
 #: .\apps\account\models.py:18
+msgid "First name"
+msgstr "نام"
+
+#: .\apps\account\models.py:19
+msgid "Last name"
+msgstr "نام خانوادگی"
+
+#: .\apps\account\models.py:20
+msgid "Active"
+msgstr "فعال"
+
+#: .\apps\account\models.py:22
 msgid "Access level"
-msgstr ""
+msgstr "سطح دسترسی"
 
-#: .\apps\account\models.py:28
+#: .\apps\account\models.py:24
+msgid "Creation time"
+msgstr "زمان ایجاد"
+
+#: .\apps\account\models.py:25
+msgid "Update time"
+msgstr "زمان ویرایش"
+
+#: .\apps\account\models.py:35
 msgid "Users"
-msgstr ""
+msgstr "کاربران"
 
-#: .\config\settings\base.py:83
+#: .\config\settings\base.py:84
 msgid "Persian"
-msgstr ""
+msgstr "فارسی"
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:15
 msgid "Messages"
-msgstr ""
+msgstr "پیام‌ها"
 
 #: .\venv\Lib\site-packages\django\contrib\sitemaps\apps.py:8
 msgid "Site Maps"
