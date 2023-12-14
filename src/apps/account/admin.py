@@ -17,13 +17,13 @@ class UserAdmin(BaseUserAdmin):
     list_display_links = ('phone_number', 'email',)
     readonly_fields = ('created_at', 'last_login',)
     list_filter = ('is_active', 'access_level',)
+    radio_fields = {'access_level': admin.HORIZONTAL}
     fieldsets = (
         (None, {'fields': ('phone_number', 'password',)}),
         (_('Personal info'), {'fields': ('email', 'first_name', 'last_name',)}),
-        (_('Permissions'), {'fields': ('access_level', 'is_admin', 'is_active',)}),
+        (_('Permissions'), {'fields': ('access_level', 'is_active', 'is_verified', 'is_admin',)}),
         (_('Dates'), {'fields': ('last_login', 'created_at',)}),
     )
-    radio_fields = {'access_level': admin.HORIZONTAL}
 
     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
     # overrides get_fieldsets to use this attribute when creating a user.
@@ -34,7 +34,7 @@ class UserAdmin(BaseUserAdmin):
         }),
     )
 
-    # Add search fields and ordering fields
+    # Add search and ordering fields
     search_fields = ('phone_number', 'email')
     ordering = ('phone_number',)
     filter_horizontal = ()

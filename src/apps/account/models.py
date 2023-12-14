@@ -18,6 +18,7 @@ class User(AbstractBaseUser):
     first_name = models.CharField(_('First name'), max_length=128, null=True, blank=True)
     last_name = models.CharField(_('Last name'), max_length=128, null=True, blank=True)
     is_active = models.BooleanField(_("Active"), default=True)
+    is_verified = models.BooleanField(_('Verify'), default=False)
     is_admin = models.BooleanField(_("Admin"), default=False)
     access_level = models.CharField(_("Access level"), max_length=32, choices=ACCESS_LEVELS.choices, default=ACCESS_LEVELS.USER)
 
