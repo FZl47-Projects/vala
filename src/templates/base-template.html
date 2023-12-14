@@ -20,18 +20,16 @@
 
     <!-- Scripts -->
     <script src="{% static 'vendors/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/notify.js' %}"></script>
+    <script src="{% static 'vendors/sweetalert2.all.min.js' %}"></script>
+    <script src="{% static 'vendors/sweetalert-base.js' %}"></script>
     <script src="{% static 'js/jquery_3.7.0.min.js' %}"></script>
 
     <!-- Create notify for messages -->
     <script>
         {% for message in messages %}
-            createNotify({
-                title: '{{ message.tags }}' === 'success' ? 'موفق' : 'خطا',
-                message: '{{ message }}',
-                closeOnClick: true,
-                positionClass: 'nfc-top-right',
-                theme: '{{ message.tags }}'
+            Toast.fire({
+                icon: '{{ message.tags }}',
+                title: `{{ message }}`,
             })
         {% endfor %}
     </script>
