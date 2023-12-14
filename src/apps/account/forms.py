@@ -27,8 +27,7 @@ class UserCreationForm(forms.ModelForm):
         if not check_phone_number(phone_number):
             raise ValidationError(_('Enter a valid phone number'))
 
-        phone_number = get_coded_phone_number(phone_number)
-        return phone_number
+        return get_coded_phone_number(phone_number)
 
     def clean_password2(self):
         # Check that the two password entries match
@@ -60,7 +59,7 @@ class LoginForm(forms.Form):
         username = self.cleaned_data.get('username')
         password = self.cleaned_data.get('password')
 
-        # Check phone number format
+        # Check username format (username is phone number in here)
         if not check_phone_number(username):
             raise ValidationError(_('Enter a valid phone number'))
         username = get_coded_phone_number(username)
