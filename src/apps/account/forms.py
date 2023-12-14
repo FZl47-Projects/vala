@@ -1,5 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.utils.translation import gettext as _
+from django.contrib.auth import authenticate
 from django import forms
 
 from .utils import check_phone_number, get_coded_phone_number
@@ -46,5 +47,27 @@ class UserCreationForm(forms.ModelForm):
 
         if commit:
             user.save()
+
+        return user
+
+
+# Login form
+class LoginForm(forms.Form):
+    username = forms.CharField(max_length=11, required=True, widget=forms.TextInput)
+    password = forms.CharField(max_length=64, required=True, widget=forms.PasswordInput)
+
+    def clean(self):
+        username = self.cleaned_data.get('username')
+        password = self.cleaned_data.get('password')
+
+        # Check phone number format
+        if not check_phone_number(username):
+            raise ValidationError(_('Enter a valid phone number'))
+        username = get_coded_phone_number(username)
+
+        # Authenticate user
+        user = authenticate(username=username, password=password)
+        if user is None:
+            raise ValidationError(_('Entered data is incorrect'))
 
         return user

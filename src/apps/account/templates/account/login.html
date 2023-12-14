@@ -1,0 +1,190 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}ورود{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/sign-up.css' %}"/>
+{% endblock %}
+
+{% block body_class %}bg{% endblock %}
+
+{% block content %}
+    <div class="col-md-12 m-0">
+        <main class="main">
+            <!-- logo valla -->
+            <section class="logo-valla">
+                <div class="inner-logo-valla">
+                    <img src="{% static 'images/vala-logo.png' %}" alt="Vala logo">
+                </div>
+            </section>
+            <!-- logo valla -->
+
+            <!-- start-form login-register -->
+            <section class="signup-login-box">
+                <div class="inner-signup-login-box col-12 col-md-5">
+                    <div class="col-12">
+                        <!-- btn change tab -->
+                        <div class="btns-content">
+                            <div class="btn-category-user active">
+                                ورود
+                            </div>
+                            <div class="btn-category-user">
+                                ثبت نام
+                            </div>
+                        </div>
+                        <!-- btn change tab -->
+
+                        <!-- Start Login form -->
+                        <div class="content form-login active">
+                            <div class="forms px-4">
+                                <form method="POST" action="{% url 'account:login' %}" class="form form-login">
+                                    {% csrf_token %}
+                                    <h3 class="title pe-2">ورود</h3>
+                                    <div>
+                                        <div class="group-form">
+                                            <input type="text" id="phoneNumberInput" name="username">
+                                            <label for="phoneNumberInput">
+                                                :شماره همراه
+                                            </label>
+                                        </div>
+                                        <small></small>
+                                    </div>
+                                    <div>
+                                        <div class="group-form">
+                                            <input type="password" id="password-login" name="password">
+                                            <label for="password-login">
+                                                :رمز عبور
+                                            </label>
+                                        </div>
+                                        <small></small>
+                                    </div>
+                                    <div class="d-flex justify-content-end align-items-center check">
+                                        <div class="d-flex align-items-center justify-content-center gap-2 py-3 px-2">
+                                            <label for="rememberMe" class="fw-semibold">
+                                                مرا به خاطر بسپار
+                                            </label>
+                                            <input type="checkbox" id="rememberMe" name="check">
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" id="btn-login" class="btn-submit fw-semibold">
+                                        ورود
+                                    </button>
+                                    <div class="d-flex justify-content-center align-items-center my-2 form-text-1">
+                                        <a href="#" class="fw-semibold">
+                                            رمز عبورم را فراموش کردم
+                                        </a>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <!-- .End Login form -->
+
+                        <!-- Start Sign-up form -->
+                        <div class="content form-login">
+                            <div class="forms px-4">
+                                <!-- disposable-code -->
+                                <form method="POST" class="form form-disposable-code active mt-2">
+                                    {% csrf_token %}
+                                    <h3 class="title">
+                                        ثبت نام
+                                    </h3>
+                                    <div class="w-100">
+                                        <div class="group-form">
+                                            <input type="text" id="numberPhone" name="phoneNumber">
+                                            <label for="numberPhone">
+                                                :شماره همراه
+                                            </label>
+                                        </div>
+                                        <small></small>
+                                    </div>
+                                    <div>
+                                        <div class="group-form">
+                                            <input type="password" id="passRegisterInput" name="password">
+                                            <label for="passRegisterInput">
+                                                :رمز عبور
+                                            </label>
+                                        </div>
+                                        <small></small>
+                                    </div>
+                                    <div>
+                                        <div class="group-form">
+                                            <input type="password" id="passRepeatInput" name="password2">
+                                            <label for="passRepeatInput">
+                                                :تکرار رمز عبور
+                                            </label>
+                                        </div>
+                                        <small></small>
+                                    </div>
+                                    <button type="submit" class="btn-submit fw-semibold my-3">ارسال کد</button>
+                                </form>
+                                <!-- disposable-code -->
+
+                                <!-- form-confirm-code and register -->
+                                <form method="POST" class="form form-confirm-code">
+                                    <h3 class="title">تایید کد</h3>
+                                    <div>
+                                        <div class="group-form">
+                                            <input type="text" id="code" name="numberPhone">
+                                            <label for="code">
+                                                :کد ارسال شده
+                                            </label>
+                                        </div>
+                                        <small></small>
+                                    </div>
+                                    <div>
+                                        <div class="group-form">
+                                            <input type="password" id="password-signUp" name="password">
+                                            <label for="password-signUp">
+                                                :رمز عبور
+                                            </label>
+                                        </div>
+                                        <small></small>
+                                    </div>
+                                    <div>
+                                        <div class="group-form">
+                                            <input type="password" id="confirmPassword-signUP" name="confirmPassword">
+                                            <label for="confirmPassword-signUP">
+                                                :تکرار رمز عبور
+                                            </label>
+                                        </div>
+                                        <small></small>
+                                    </div>
+                                    <button type="submit" class="btn-submit">تایید کد</button>
+
+                                    <div class="d-flex justify-content-between align-items-center py-3 form-text-3">
+                                        <a href="#">ورود</a>
+                                        <div class="timer d-flex justify-content-between align-items-center">
+                                            <div class="time" id="time">
+                                                <span id="minute"></span>
+                                                :
+                                                <span id="second"></span>
+                                            </div>
+
+                                            <button type="button" class="btn-timer mx-2" id="btn-timer" disabled>
+                                                ارسال مجدد
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                                <!-- form-confirm-code and register -->
+                            </div>
+                        </div>
+                        <!-- .End Sign-up form -->
+
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    {% block scripts %}
+        <!-- PERSIAN TOOLS PACKAGE -->
+        <script src="https://cdn.jsdelivr.net/npm/@persian-tools/persian-tools/build/persian-tools.umd.js"></script>
+
+        <!-- MAIN JS -->
+        <script src="{% static 'js/sign-up.js' %}" type="module"></script>
+    {% endblock %}
+{% endblock %}
