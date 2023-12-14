@@ -1,0 +1,31 @@
+{% load static %}
+
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+    <title>{% block title %}{% endblock %}</title>
+    {% include 'includes/head-references.html' %}
+
+    <!-- Extra styles or links -->
+    {% block styles %}
+    {% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+    {% block content %}
+    {% endblock %}
+
+
+    <!-- Scripts -->
+    <script src="{% static 'vendors/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/notify.js' %}"></script>
+    <script src="{% static 'js/jquery_3.7.0.min.js' %}"></script>
+
+    <!-- Extra js -->
+    {% block scripts %}
+    {% endblock %}
+</body>
+
+</html>
