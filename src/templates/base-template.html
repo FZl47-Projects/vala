@@ -23,6 +23,19 @@
     <script src="{% static 'js/notify.js' %}"></script>
     <script src="{% static 'js/jquery_3.7.0.min.js' %}"></script>
 
+    <!-- Create notify for messages -->
+    <script>
+        {% for message in messages %}
+            createNotify({
+                title: '{{ message.tags }}' === 'success' ? 'موفق' : 'خطا',
+                message: '{{ message }}',
+                closeOnClick: true,
+                positionClass: 'nfc-top-right',
+                theme: '{{ message.tags }}'
+            })
+        {% endfor %}
+    </script>
+
     <!-- Extra js -->
     {% block scripts %}
     {% endblock %}
