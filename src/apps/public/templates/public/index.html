@@ -1,0 +1,587 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}خانه{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/index.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- Start Menu-fixed-right -->
+    {% include 'includes/sidebar.html' %}
+    <!-- .End Menu-fixed-right -->
+
+    <!-- Start Menu-bottom -->
+    {% include 'includes/bottom-menu.html' %}
+    <!-- .End Menu-bottom -->
+
+    <div class="container-fluid container-admin position-relative">
+        <!-- Start Menu -->
+        {% include 'includes/collapse-menu.html' %}
+        <!-- .End Menu -->
+
+        <!-- Start Menu-mobile-->
+        {% include 'includes/mobile-menu.html' %}
+        <!-- .End Menu-mobile -->
+
+        <!-- Start Modal-routine -->
+        {% include 'public/components/skin-routine.html' %}
+        <!-- .End Modal-routine -->
+
+        <!-- Start Free test modal -->
+        {% include 'public/components/free-test.html' %}
+        <!-- .End Free test modal -->
+
+        <div id="container-modals">
+            <div class="border-1 border-white rounded-4 overflow-hidden">
+                <img src="" alt="">
+            </div>
+            <div class="content-modal modal-hilight-pro">
+                <div class="inner-modal d-flex flex-column ">
+                    <div class="btn-exit display-1 text-white">×</div>
+                    <div class="border-1 border-white rounded-4 overflow-hidden ">
+                        <img class="h-100" src="{% static 'images/highlight-img/vala-highlight-1.jpg' %}" alt="Story title">
+                    </div>
+                    <p class="text-white text-justify my-4" style="font-size : 1.5em">استوری ۱</p>
+                    <div class="text-white">
+                        <button class="display-1 mx-2 btn-story next" onclick="nextHandler(0)">&lt;</button>
+                        <button class="display-1 mx-2 btn-story prev" onclick="prevHandler(0)">&gt;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="content-modal modal-hilight-pro">
+                <div class="inner-modal d-flex flex-column ">
+                    <div class="btn-exit display-1 text-white">×</div>
+                    <div class="border-1 border-white rounded-4 overflow-hidden ">
+                        <img class="h-100" src="{% static 'images/highlight-img/vala-highlight-2.jpg' %}" alt="Story title">
+                    </div>
+                    <p class="text-white text-justify my-4" style="font-size : 1.5em">استوری ۲</p>
+                    <div class="text-white">
+                        <button class="display-1 mx-2 btn-story next" onclick="nextHandler(1)">&lt;</button>
+                        <button class="display-1 mx-2 btn-story prev" onclick="prevHandler(1)">&gt;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="content-modal modal-hilight-pro">
+                <div class="inner-modal d-flex flex-column ">
+                    <div class="btn-exit display-1 text-white">×</div>
+                    <div class="border-1 border-white rounded-4 overflow-hidden ">
+                        <img class="h-100" src="{% static 'images/highlight-img/vala-highlight-3.jpg' %}" alt="Story title">
+                    </div>
+                    <p class="text-white text-justify my-4" style="font-size : 1.5em">استوری ۳</p>
+                    <div class="text-white">
+                        <button class="display-1 mx-2 btn-story next" onclick="nextHandler(2)">&lt;</button>
+                        <button class="display-1 mx-2 btn-story prev" onclick="prevHandler(2)">&gt;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="content-modal modal-hilight-pro">
+                <div class="inner-modal d-flex flex-column ">
+                    <div class="btn-exit display-1 text-white">×</div>
+                    <div class="border-1 border-white rounded-4 overflow-hidden ">
+                        <img class="h-100" src="{% static 'images/highlight-img/vala-highlight-4.jpg' %}" alt="Story title">
+                    </div>
+                    <p class="text-white text-justify my-4" style="font-size : 1.5em">استوری ۴</p>
+                    <div class="text-white">
+                        <button class="display-1 mx-2 btn-story next" onclick="nextHandler(3)">&lt;</button>
+                        <button class="display-1 mx-2 btn-story prev" onclick="prevHandler(3)">&gt;</button>
+                    </div>
+                </div>
+            </div>
+            <div class="content-modal modal-hilight-pro">
+                <div class="inner-modal d-flex flex-column ">
+                    <div class="btn-exit display-1 text-white">×</div>
+                    <div class="border-1 border-white rounded-4 overflow-hidden ">
+                        <img class="h-100" src="{% static 'images/highlight-img/vala-highlight-5.jpg' %}" alt="">
+                    </div>
+                    <p class="text-white text-justify my-4" style="font-size : 1.5em">استوری ۵</p>
+                    <div class="text-white">
+                        <button class="display-1 mx-2 btn-story next" onclick="nextHandler(4)">&lt;</button>
+                        <button class="display-1 mx-2 btn-story prev" onclick="prevHandler(4)">&gt;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <main class="main container-fluid container-admin">
+
+            <!-- Start Highlights -->
+            <div class="highlit-category ">
+                <div class="inner-highlit-category col-12 col-md-5">
+                    <div class="content-highlit" id="container-story">
+
+                        <div class="col-3 col-md-2 p-2 highlit-item story_item">
+                            <div class="highlit-item-inner">
+                                <img src="{% static 'images/highlight-img/vala-highlight-1.jpg' %}"
+                                     alt="">
+                            </div>
+                            <div class="highlit-title">هایلایت...</div>
+                        </div>
+
+                        <div class="col-3 col-md-2 p-2 highlit-item story_item">
+                            <div class="highlit-item-inner">
+                                <img src="{% static 'images/highlight-img/vala-highlight-2.jpg' %}"
+                                     alt="">
+                            </div>
+                            <div class="highlit-title">هایلایت...</div>
+                        </div>
+
+                        <div class="col-3 col-md-2 p-2 highlit-item story_item">
+                            <div class="highlit-item-inner">
+                                <img src="{% static 'images/highlight-img/vala-highlight-3.jpg' %}"
+                                     alt="">
+                            </div>
+                            <div class="highlit-title">هایلایت...</div>
+                        </div>
+
+                        <div class="col-3 col-md-2 p-2 highlit-item story_item">
+                            <div class="highlit-item-inner">
+                                <img src="{% static 'images/highlight-img/vala-highlight-4.jpg' %}"
+                                     alt="">
+                            </div>
+                            <div class="highlit-title">هایلایت...</div>
+                        </div>
+
+                        <div class="col-3 col-md-2 p-2 highlit-item story_item">
+                            <div class="highlit-item-inner">
+                                <img src="{% static 'images/highlight-img/vala-highlight-5.jpg' %}"
+                                     alt="">
+                            </div>
+                            <div class="highlit-title">هایلایت...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- .End Highlights -->
+
+            <!-- Start post category -->
+            <div class="posts-category posts-category-two">
+                <div class="inner-post-category w-100" id="posts-container">
+                    <div class="post-item col-3 col-md-12">
+                        <div class="col-12 col-md-4 col-lg-3 p-1">
+                            <div class="right-post-item">
+                                <img src="{% static 'images/post-img/vala-post-1.jpg' %}" alt="Post title">
+                            </div>
+                        </div>
+                        <div class="col-8 col-md-7 col-lg-8 p-1">
+                            <div class="left-post-item">
+                                <div class="title-post">فیشیال صورت</div>
+                                <div class="des-post"> بیش از 20 سالگی سن دارای علائمی همچون :پیری زودرس،آکنه هورمونی ،لکه های
+                                    پوستی و ...
+                                </div>
+                                <div class="text-white post-category-title">دسته: داروی گیاهی خوراکی</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-item col-3 col-md-12">
+                        <div class="col-12 col-md-4 col-lg-3 p-1">
+                            <div class="right-post-item">
+                                <img src="{% static 'images/post-img/vala-post-2.jpg' %}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-8 col-md-7 col-lg-8 p-1">
+                            <div class="left-post-item">
+                                <div class="title-post">کاربرد مزوژل</div>
+                                <div class="des-post"> افزایش خاصیت ارتجاعی،پوست گردن و کاهش خطوط آن
+                                    2:ار بین بردن ترک های پوستی
+                                    3:...
+                                </div>
+                                <div class="text-white post-category-title">دسته: پوست</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-item col-3 col-md-12">
+                        <div class="col-12 col-md-4 col-lg-3 p-1">
+                            <div class="right-post-item">
+                                <img src="{% static 'images/post-img/vala-post-3.jpg' %}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-8 col-md-7 col-lg-8 p-1">
+                            <div class="left-post-item">
+                                <div class="title-post">روتین پوستی روز</div>
+                                <div class="des-post"> به طور اصولی روتین پوستی روزها به همین ترتیبه ولی ممکنه بعضی جاها تغییر
+                                    کوچک و ...
+                                </div>
+                                <div class="text-white post-category-title">دسته: پوست</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-item col-3 col-md-12">
+                        <div class="col-12 col-md-4 col-lg-3 p-1">
+                            <div class="right-post-item">
+                                <img src="{% static 'images/post-img/vala-post-4.jpg' %}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-8 col-md-7 col-lg-8 p-1">
+                            <div class="left-post-item">
+                                <div class="title-post">خط خنده</div>
+                                <div class="des-post"> ایجائ خطوط در این ناحیه باعث میشود ،سن افراد بیشتر از سن واقعی به نظر برسد
+                                    تزر...
+                                </div>
+                                <div class="text-white post-category-title">دسته: پوست</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-item col-3 col-md-12">
+                        <div class="col-12 col-md-4 col-lg-3 p-1">
+                            <div class="right-post-item">
+                                <img src="{% static 'images/post-img/vala-post-5.jpg' %}"
+                                     alt="">
+                            </div>
+                        </div>
+                        <div class="col-8 col-md-7 col-lg-8 p-1">
+                            <div class="left-post-item">
+                                <div class="title-post">آیا ژل همان فیلر است ؟</div>
+                                <div class="des-post"> قسمت های قابل درمان با تزریق ژل یا تزریق فیلر
+                                    1:تزریق ژل خط اخم
+                                    2:تزریق ژل خ...
+                                </div>
+                                <div class="text-white post-category-title">دسته: پوست</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="post-item col-3 col-md-12">
+                        <div class="col-12 col-md-4 col-lg-3 p-1">
+                            <div class="right-post-item">
+                                <img src="{% static 'images/post-img/vala-post-6.jpg' %}" alt="">
+                            </div>
+                        </div>
+                        <div class="col-8 col-md-7 col-lg-8 p-1">
+                            <div class="left-post-item">
+                                <div class="title-post">مراقبت بعد از بوتاکس</div>
+                                <div class="des-post"> یه سری مراقبت بعد از بوتاکس لازمه و باید به بعد از اینکه بوتاکس تزریق شد به
+                                    توصی...
+                                </div>
+                                <div class="text-white post-category-title">دسته:پوست</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="big-container">
+                <div class="content-post">
+                    <img src="{% static 'images/post-img/vala-post-1.jpg' %}" alt="" class="Image title">
+
+                    <div class="inner-content-post-two">
+                        <div class="line">
+                            <div class="row">
+                                <div class="col-2 icon">
+                                    <div class="heart">
+                                        <img src="{% static 'images/icons/heart.png' %}" alt="Like" onclick="">
+                                    </div>
+                                    <div class="comment">
+                                        <img src="{% static 'images/icons/comment.png' %}" alt="Comment" onclick="">
+                                    </div>
+                                </div>
+                                <div class="col-10 pt-3">
+                                    <div class="up-content-post">
+                                        <div class="title-post">فیشیال صورت</div>
+                                        <div class="description">
+                                            بیش از 20 سالگی سن دارای علائمی همچون :پیری زودرس،آکنه هورمونی ،لکه های پوستی و
+                                            ...دارد.فیشیال را به عنوان یک درمان روتین دربرنامه داشته باشی و با انجام آن هر 1 ماه
+                                            یا سه هفته 1بار متناسب با پوست خود ،قطعا نتیجه خوبی به همراه دارد.
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="insert-comment col-10 mx-auto">
+                                <div class="image-insert mx-2">
+                                    <img src="{% static 'images/default/comment-default.png' %}" alt="فیشیال صورت">
+                                </div>
+                                <div class="comment-insert">
+                                    <input type="text" placeholder="کامنت ..." class="comment-input">
+                                    <button type="button" class="btn-send btn" onclick="addCommentPost(29, 0)">ارسال</button>
+                                </div>
+                            </div>
+
+                            <!-- Start post comments -->
+                            <div class="commentt">
+                                <div class="col-12 mt-3">
+                                    <div class="comment-item">
+                                        <div class="col-2 col-md-1 p-1">
+                                            <div class="imge-comment">
+                                                <img src="{% static 'images/default/comment-default.png' %}" width="55" height="52" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-10 col-md-11 test-comment p-1 text-right">
+                                            کامنت اول
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <div class="comment-item">
+                                        <div class="col-2 col-md-1 p-1">
+                                            <div class="imge-comment">
+                                                <img src="{% static 'images/portifilo/3.png' %}" width="55" height="52" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-10 col-md-11 test-comment p-1 text-right">
+                                            سلام
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 mt-3">
+                                    <div class="comment-item">
+                                        <div class="col-2 col-md-1 p-1">
+                                            <div class="imge-comment">
+                                                <img src="{% static 'images/portifilo/2.png' %}" width="55" height="52" alt="">
+                                            </div>
+                                        </div>
+                                        <div class="col-10 col-md-11 test-comment p-1 text-right">
+                                            عالیییی
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- .End post comments -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-post">
+                    <img src="{% static 'images/post-img/vala-post-2.jpg' %}"
+                         alt="" class="imge-post">
+                    <div class="inner-content-post-two">
+                        <div class="line">
+                            <div class="row">
+                                <div class="col-2 icon">
+                                    <div class="heart">
+                                        <img src="{% static 'images/icons/heart.png' %}" alt="" onclick="likeHandler(2, 30)">
+                                    </div>
+                                    <div class="comment">
+                                        <img src="{% static 'images/icons/comment.png' %}" alt="" onclick="addCommentPost(30)">
+                                    </div>
+                                </div>
+                                <div class="col-10 pt-3">
+                                    <div class="up-content-post">
+                                        <div class="title-post">کاربرد مزوژل</div>
+                                        <div class="description">
+                                            افزایش خاصیت ارتجاعی،پوست گردن و کاهش خطوط آن
+                                            2:ار بین بردن ترک های پوستی
+                                            3:از بین بردن غبغب
+                                            4:بهبود وضعیت پوست پشت دست
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="insert-comment col-10 mx-auto">
+                                <div class="image-insert mx-2">
+                                    <img src="{% static 'images/default/comment-default.png' %}" alt="کاربرد مزوژل">
+                                </div>
+                                <div class="comment-insert">
+                                    <input type="text" placeholder="کامنت ..." class="comment-input">
+                                    <button type="button" class="btn-send" onclick="addCommentPost(30, 1)">ارسال</button>
+                                </div>
+                            </div>
+
+                            <!-- Start post comments -->
+                            <div class="commentt">
+                            </div>
+                            <!-- .End post comments -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-post">
+                    <img src="{% static 'images/post-img/vala-post-3.jpg' %}"
+                         alt="" class="imge-post">
+                    <div class="inner-content-post-two">
+                        <div class="line">
+                            <div class="row">
+                                <div class="col-2 icon">
+                                    <div class="heart">
+                                        <img src="{% static 'images/icons/heart.png' %}" alt="" onclick="likeHandler(10, 31)">
+                                    </div>
+                                    <div class="comment">
+                                        <img src="{% static 'images/icons/comment.png' %}" alt="" onclick="addCommentPost(31)">
+                                    </div>
+                                </div>
+                                <div class="col-10 pt-3">
+                                    <div class="up-content-post">
+                                        <div class="title-post">روتین پوستی روز</div>
+                                        <div class="description">
+                                            به طور اصولی روتین پوستی روزها به همین ترتیبه ولی ممکنه بعضی جاها تغییر کوچک و جزئی
+                                            داشته باشه
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="insert-comment col-10 mx-auto">
+                                <div class="image-insert mx-2">
+                                    <img src="{% static 'images/default/comment-default.png' %}" alt="روتین پوستی روز">
+                                </div>
+                                <div class="comment-insert">
+                                    <input type="text" placeholder="کامنت ..." class="comment-input">
+                                    <button type="button" class="btn-send" onclick="addCommentPost(31, 2)">ارسال</button>
+                                </div>
+
+                            </div>
+
+                            <!-- Start post comments -->
+                            <div class="commentt">
+                            </div>
+                            <!-- .End post comments -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-post">
+                    <img src="{% static 'images/post-img/vala-post-4.jpg' %}"
+                         alt="" class="imge-post">
+                    <div class="inner-content-post-two">
+                        <div class="line">
+                            <div class="row">
+                                <div class="col-2 icon">
+                                    <div class="heart">
+                                        <img src="{% static 'images/icons/heart.png' %}" alt="" onclick="likeHandler(11, 32)">
+                                    </div>
+                                    <div class="comment">
+                                        <img src="{% static 'images/icons/comment.png' %}" alt="" onclick="addCommentPost(32)">
+                                    </div>
+                                </div>
+                                <div class="col-10 pt-3">
+                                    <div class="up-content-post">
+                                        <div class="title-post">خط خنده</div>
+                                        <div class="description">
+                                            ایجائ خطوط در این ناحیه باعث میشود ،سن افراد بیشتر از سن واقعی به نظر برسد
+                                            تزریق فیلر در این ناحیه با ایجاد حجم به طور قابل توجهی خطوط خنده را کاهش میده و به
+                                            افراد کمک میکنه تا ظاهر شاداب تری داشته باشند
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="insert-comment col-10 mx-auto">
+                                <div class="image-insert mx-2">
+                                    <img src="{% static 'images/default/comment-default.png' %}" alt="خط خنده">
+                                </div>
+                                <div class="comment-insert">
+                                    <input type="text" placeholder="کامنت ..." class="comment-input">
+                                    <button type="button" class="btn-send" onclick="addCommentPost(32, 3)">ارسال</button>
+                                </div>
+                            </div>
+
+                            <!-- Start post comments -->
+                            <div class="commentt">
+                            </div>
+                            <!-- .End post comments -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-post">
+                    <img src="{% static 'images/post-img/vala-post-5.jpg' %}" alt="" class="imge-post">
+
+                    <div class="inner-content-post-two">
+                        <div class="line">
+                            <div class="row">
+                                <div class="col-2 icon">
+                                    <div class="heart">
+                                        <img src="{% static 'images/icons/heart.png' %}" alt="" onclick="likeHandler(4, 33)">
+                                    </div>
+                                    <div class="comment">
+                                        <img src="{% static 'images/icons/comment.png' %}" alt="" onclick="addCommentPost(33)">
+                                    </div>
+                                </div>
+
+                                <div class="col-10 pt-3">
+                                    <div class="up-content-post">
+                                        <div class="title-post">آیا ژل همان فیلر است ؟</div>
+                                        <div class="description">
+                                            قسمت های قابل درمان با تزریق ژل یا تزریق فیلر
+                                            1:تزریق ژل خط اخم
+                                            2:تزریق ژل خط خنده
+                                            3:تزریق ژل زیر چشم
+                                            4:تزریق ژل لب
+                                            5:تزریق ژل بینی
+                                            6:تزریق ژل گونه
+                                            7:تزریق ژل چانه
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="insert-comment col-10 mx-auto">
+                                <div class="image-insert mx-2">
+                                    <img src="{% static 'images/default/comment-default.png' %}" alt="آیا ژل همان فیلر است ؟">
+                                </div>
+                                <div class="comment-insert">
+                                    <input type="text" placeholder="کامنت ..." class="comment-input">
+                                    <button type="button" class="btn-send" onclick="addCommentPost(33 ,4 )">ارسال</button>
+                                </div>
+                            </div>
+
+                            <!-- Start post comments -->
+                            <div class="commentt">
+                            </div>
+                            <!-- .End post comments -->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="content-post">
+                    <img src="{% static 'images/post-img/vala-post-6.jpg' %}" alt="" class="imge-post">
+
+                    <div class="inner-content-post-two">
+                        <div class="line">
+                            <div class="row">
+                                <div class="col-2 icon">
+                                    <div class="heart">
+                                        <img src="{% static 'images/icons/heart.png' %}" alt="" onclick="likeHandler(2, 34)">
+                                    </div>
+                                    <div class="comment">
+                                        <img src="{% static 'images/icons/comment.png' %}" alt="" onclick="addCommentPost(34)">
+                                    </div>
+                                </div>
+
+                                <div class="col-10 pt-3">
+                                    <div class="up-content-post">
+                                        <div class="title-post">مراقبت بعد از بوتاکس</div>
+                                        <div class="description">
+                                            یه سری مراقبت بعد از بوتاکس لازمه و باید به بعد از اینکه بوتاکس تزریق شد به توصیه های
+                                            پزشکتون عمل کنید تا نتیجه بهتری بگیرید
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="insert-comment col-10 mx-auto">
+                                <div class="image-insert mx-2">
+                                    <img src="{% static 'images/default/comment-default.png' %}" alt="مراقبت بعد از بوتاکس">
+                                </div>
+                                <div class="comment-insert">
+                                    <input type="text" placeholder="کامنت ..." class="comment-input">
+                                    <button type="button" class="btn-send" onclick="addCommentPost(34, 5)">ارسال</button>
+                                </div>
+                            </div>
+
+                            <!-- Start post comments -->
+                            <div class="commentt">
+                            </div>
+                            <!-- .End post comments -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/home.js' %}"></script>
+{% endblock %}
