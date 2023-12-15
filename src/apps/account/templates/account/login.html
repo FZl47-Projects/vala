@@ -1,0 +1,58 @@
+{% extends 'base/base_template.html' %}
+{% load static %}
+
+{% block Title %}
+    ورود به حساب کاربری
+{% endblock %}
+
+{% block Content %}
+    {% include 'base/components/header.html' %}
+    <div class="page-title-wrap">
+        <div class="page-title-area title-img-six">
+            <div class="title-shape"><img alt="Shape" src="{% static 'template/images/title/title-shape1.png' %}"></div>
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="title-content"><h2>ورود</h2>
+                        <ul>
+                            <li><a href="{% url 'public:index' %}">خانه</a></li>
+                            <li><span>ورود</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="user-area ptb-100">
+        <div class="container">
+            <div class="user-item">
+                <div class="user-shape"><img alt="Shape" src="{% static 'template/images/contact-shape1.png' %}"> <img alt="Shape"
+                                                                                                      src="{% static 'template/images/contact-shape2.png' %}">
+                </div>
+                <h2>ورود</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="form-group"><input class="form-control" type="tel" placeholder="شماره همراه" name="phonenumber" required></div>
+                    <div class="form-group"><input class="form-control" type="password" placeholder="رمز" name="password" required></div>
+                    <div class="form-group">
+                        <div class="form-check"><input class="form-check-input" id="defaultCheck7" type="checkbox"
+                                                       value="" required> <label class="form-check-label" for="defaultCheck7">
+                            تمامی
+                            <a href="#">شرایط و قوانین</a>
+                            سایت را می پذیرم </label></div>
+                    </div>
+                    <button class="btn common-btn two" type="submit">ورود</button>
+                    <h4>
+                        اکانت ندارید ؟
+                        <a href="{% url 'account:register' %}">ثبت نام</a>
+                    </h4>
+                       <h4 class="mt-2">
+                        گذرواژه خود را فراموش کرده اید ؟
+                        <a href="{% url 'account:register' %}">بازیابی رمز عبور</a>
+                    </h4>
+                </form>
+            </div>
+        </div>
+    </div>
+    {% include 'base/components/footer.html' %}
+{% endblock %}

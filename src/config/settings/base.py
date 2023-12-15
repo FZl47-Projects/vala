@@ -1,6 +1,8 @@
+"""
+    Django Version => 4.2.6
+"""
 from pathlib import Path
 import os
-
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
@@ -12,8 +14,6 @@ ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://127.0.0.1').split(',')
 
-# Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -23,10 +23,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     # Apps
+    'apps.core',
     'apps.public',
-    
-    # Django modules
+    'apps.account',
+
+    # Third Party Apps
     'django_cleanup.apps.CleanupConfig',
+    'django_q'
 ]
 
 MIDDLEWARE = [
@@ -53,6 +56,9 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
             ],
+            'libraries': {
+                'custom_tags': 'apps.core.templatetags.custom_tags'
+            }
         },
     },
 ]
@@ -74,19 +80,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# Internationalization
-# https://docs.djangoproject.com/en/4.1/topics/i18n/
-
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'fa-ir'
 
 TIME_ZONE = 'Asia/Tehran'
 
 USE_I18N = True
 
 USE_TZ = False
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/4.1/howto/static-files/
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / os.getenv('STATIC_ROOT', 'static')
@@ -95,12 +95,49 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static/assets'
 ]
 
-# Media files (Images, Videos, docs)
-
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / os.getenv('MEDIA_ROOT', 'static/media')
 
-# Default primary key field type
-# https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'account.User'  # custom user model
+LOGIN_URL = '/u/login-register'
+
+Q_CLUSTER = {
+    'name': 'django-q',
+    'timeout': 60,
+    'redis': {
+        'host': 'localhost',
+        'port': 6379,
+        'db': 0,
+        'socket_timeout': None,
+        'charset': 'utf-8',
+        'errors': 'strict',
+    }
+}
+
+MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
+
+REDIS_CONFIG = {
+    'HOST': 'localhost',
+    'PORT': '6379'
+}
+
+RESET_PASSWORD_CONFIG = {
+    'TIMEOUT': 300,  # by sec
+    'CODE_LENGTH': 6,
+    'STORE_BY': 'reset_password_phonenumber_{}'
+}
+
+CONFIRM_PHONENUMBER_CONFIG = {
+    'TIMEOUT': 300,  # by sec
+    'CODE_LENGTH': 6,
+    'STORE_BY': 'confirm_phonenumber_{}'
+}
+
+SMS_CONFIG = {
+    'API_KEY': os.environ.get('SMS_API_KEY'),
+    'API_URL': 'http://rest.ippanel.com/v1/messages/patterns/send',
+    'ORIGINATOR': '983000505'
+}

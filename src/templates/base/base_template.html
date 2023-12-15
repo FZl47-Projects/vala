@@ -1,0 +1,132 @@
+{% load static %}
+<!doctype html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+    <meta name="description" content="کارتکس سالن زیبایی والا"/>
+    {# TODO: should be completed #}
+    <!-- Add site Favicon -->
+    <link rel="icon" href="---" sizes="32x32"/>
+    <link rel="icon" href="---" sizes="192x192"/>
+    <link rel="apple-touch-icon" href="---"/>
+    <link rel="icon" type="image/x-icon" href="{% static 'images/logo.png' %}">
+    <meta name="msapplication-TileImage" content="---"/>
+
+
+    <!-- CSS -->
+    <link href="{% static 'styles/base.css' %}" rel="stylesheet">
+    <link href="{% static 'styles/form.css' %}" rel="stylesheet">
+    <link href="{% static 'styles/notify.css' %}" rel="stylesheet">
+    <link href="{% static 'fonts/fontawesome/css/all.css' %}" rel="stylesheet">
+
+    <link href="{% static 'template/css/bootstrap.rtl.min.css' %}" rel="stylesheet">
+    <link href="{% static 'template/css/boxicons.min.css' %}" rel="stylesheet">
+    <link href="{% static 'template/css/meanmenu.css' %}" rel="stylesheet">
+    <link href="{% static 'template/css/animate.min.css' %}" rel="stylesheet">
+    <link href="{% static 'template/css/owl.carousel.min.css' %}" rel="stylesheet">
+    <link href="{% static 'template/css/owl.theme.default.min.css' %}" rel="stylesheet">
+    <link href="{% static 'template/css/modal-video.min.css' %}" rel="stylesheet">
+    <link href="{% static 'template/css/odometer.min.css' %}" rel="stylesheet">
+    <link href="{% static 'template/css/settings.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'template/css/layers.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'template/css/navigation.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'template/css/nice-select.min.css' %}" rel="stylesheet">
+    <link href="{% static 'template/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'template/css/responsive.css' %}" rel="stylesheet">
+    <link href="{% static 'template/css/rtl.css' %}" rel="stylesheet">
+
+
+    <title>
+        {% block Title %}
+
+        {% endblock %}
+    </title>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+    {% block Link %}
+    {% endblock %}
+
+    {% block Style %}
+    {% endblock %}
+
+</head>
+<body>
+<div class="loader">
+    <div class="d-table">
+        <div class="d-table-cell">
+            <div class="loading">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+</div>
+{% block Content %}
+
+{% endblock %}
+<div class="go-top"><i class="bx bxs-up-arrow-alt"></i> <i class="bx bxs-up-arrow-alt"></i></div>
+
+<script src="{% static 'scripts/urls.js' %}"></script>
+<script src="{% static 'scripts/notify.js' %}"></script>
+<script src="{% static 'scripts/base.js' %}"></script>
+
+<script>
+    window.CSRF_TOKEN = '{{ csrf_token }}'
+    {% for message in messages %}
+        createNotify({
+            title: '{{ message.tags }}' == 'success' ? 'موفق' : 'خطا',
+            message: '{{ message }}',
+            theme: '{{ message.tags }}'
+        })
+    {% endfor %}
+</script>
+
+{#<script src="{% static 'template/js/vendor/jquery-3.6.0.min.js' %}"></script>#}
+
+
+<!-- Main JS -->
+<script src="{% static 'template/js/jquery-3.5.1.min.js' %}"></script>
+<script src="{% static 'template/js/popper.min.js' %}"></script>
+<script src="{% static 'template/js/bootstrap.min.js' %}"></script>
+<script src="{% static 'template/js/form-validator.min.js' %}"></script>
+<script src="{% static 'template/js/contact-form-script.js' %}"></script>
+<script src="{% static 'template/js/jquery.ajaxchimp.min.js' %}"></script>
+<script src="{% static 'template/js/jquery.meanmenu.js' %}"></script>
+<script src="{% static 'template/js/wow.min.js' %}"></script>
+<script src="{% static 'template/js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'template/js/jquery-modal-video.min.js' %}"></script>
+<script src="{% static 'template/js/odometer.min.js' %}"></script>
+<script src="{% static 'template/js/jquery.appear.min.js' %}"></script>
+<script src="{% static 'template/js/jquery.themepunch.tools.min.js' %}"></script>
+<script src="{% static 'template/js/jquery.themepunch.revolution.min.js' %}"></script>
+<script src="{% static 'template/js/extensions/revolution.extension.actions.min.js' %}"></script>
+<script src="{% static 'template/js/extensions/revolution.extension.carousel.min.js' %}"></script>
+<script src="{% static 'template/js/extensions/revolution.extension.kenburn.min.js' %}"></script>
+<script src="{% static 'template/js/extensions/revolution.extension.layeranimation.min.js' %}"></script>
+<script src="{% static 'template/js/extensions/revolution.extension.migration.min.js' %}"></script>
+<script src="{% static 'template/js/extensions/revolution.extension.navigation.min.js' %}"></script>
+<script src="{% static 'template/js/extensions/revolution.extension.parallax.min.js' %}"></script>
+<script src="{% static 'template/js/extensions/revolution.extension.slideanims.min.js' %}"></script>
+<script src="{% static 'template/js/extensions/revolution.extension.video.min.js' %}"></script>
+<script src="{% static 'template/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'template/js/custom.js' %}"></script>
+
+<script>
+    $(document).ready(function () {
+        document.querySelector('.loader').classList.add('d-none')
+    });
+</script>
+{% block Script %}
+{% endblock %}
+
+{% block Js %}
+{% endblock %}
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+@font-face {
+  font-family: Sahel;
+  src: url('../fonts/sahel-fd.eot');
+  src: url('../fonts/sahel-fd.eot@#iefix') format('embedded-opentype'),
+       url('../fonts/sahel-fd.woff2') format('woff2'),
+       url('../fonts/sahel-fd.woff') format('woff'),
+       url('../fonts/sahel-fd.ttf') format('truetype');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: Sahel;
+  src: url('../fonts/sahel-bold-fd.eot');
+  src: url('../fonts/sahel-bold-fd.eot@#iefix') format('embedded-opentype'),
+       url('../fonts/sahel-bold-fd.woff2') format('woff2'),
+       url('../fonts/sahel-bold-fd.woff') format('woff'),
+       url('../fonts/sahel-bold-fd.ttf') format('truetype');
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: Sahel;
+  src: url('../fonts/sahel-light-fd.eot');
+  src: url('../fonts/sahel-light-fd.eot@#iefix') format('embedded-opentype'),
+       url('../fonts/sahel-light-fd.woff2') format('woff2'),
+       url('../fonts/sahel-light-fd.woff') format('woff'),
+       url('../fonts/sahel-light-fd.ttf') format('truetype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: Sahel;
+  src: url('../fonts/sahel-semibold-fd.eot');
+  src: url('../fonts/sahel-semibold-fd.eot@#iefix') format('embedded-opentype'),
+       url('../fonts/sahel-semibold-fd.woff2') format('woff2'),
+       url('../fonts/sahel-semibold-fd.woff') format('woff'),
+       url('../fonts/sahel-semibold-fd.ttf') format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: Sahel;
+  src: url('../fonts/sahel-black-fd.eot');
+  src: url('../fonts/sahel-black-fd.eot@#iefix') format('embedded-opentype'),
+       url('../fonts/sahel-black-fd.woff2') format('woff2'),
+       url('../fonts/sahel-black-fd.woff') format('woff'),
+       url('../fonts/sahel-black-fd.ttf') format('truetype');
+  font-weight: 900;
+}
+
