@@ -1,0 +1,59 @@
+{% load static %}
+
+<nav class="menu-fixed-right col-1">
+    <div class="inner-menu-fixed-right">
+        <div class="content-menu">
+            <ul class="list">
+                <li class="item-menu" id="menuuuu">
+                    <a href="#" role="button">
+                        <span>
+                            <img src="{% static 'images/icons/menu.png' %}" alt="icon-menu">
+                        </span>
+                        <span class="name-menu">منو</span>
+                    </a>
+                </li>
+                <li class="item-menu" id="azmayesh-raygan">
+                    <a href="#" role="button">
+                        <span>
+                            <img src="{% static 'images/icons/test.png' %}" alt="icon-menu">
+                        </span>
+                        <span class="name-menu">آزمایش رایگان</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="#">
+                        <span>
+                            <img src="{% static 'images/icons/podcast.png' %}" alt="icon-menu">
+                        </span>
+                        <span class="name-menu">پادکست</span>
+                    </a>
+                </li>
+                <li class="item-menu" id="icon-add-rotin">
+                    <a href="#" role="button">
+                        <span>
+                            <img src="{% static 'images/icons/skin-routine.png' %}" alt="icon-menu">
+                        </span>
+                        <span class="name-menu">روتین پوستی</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="#">
+                        <span>
+                            <img src="{% static 'images/icons/profile.png' %}" alt="icon-menu">
+                        </span>
+                        <span class="name-menu">پروفایل</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="{% url 'public:index' %}">
+                        <span>
+                            <img src="{% static 'images/icons/home.png' %}" alt="icon-menu">
+                        </span>
+                        <span class="name-menu">خانه</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
