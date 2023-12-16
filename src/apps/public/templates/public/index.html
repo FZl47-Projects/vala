@@ -36,74 +36,21 @@
 
         <!-- Start Fullscreen highlights -->
         <div id="container-modals">
-            <div class="border-1 border-white rounded-4 overflow-hidden">
-                <img src="" alt="">
-            </div>
-            <div class="content-modal modal-hilight-pro">
-                <div class="inner-modal d-flex flex-column ">
-                    <div class="btn-exit display-1 text-white">×</div>
-                    <div class="border-1 border-white rounded-4 overflow-hidden ">
-                        <img class="h-100" src="{% static 'images/highlight-img/vala-highlight-1.jpg' %}" alt="Story title">
-                    </div>
-                    <p class="text-white text-justify my-4" style="font-size : 1.5em">استوری ۱</p>
-                    <div class="text-white">
-                        <button class="display-1 mx-2 btn-story next" onclick="nextHandler(0)">&lt;</button>
-                        <button class="display-1 mx-2 btn-story prev" onclick="prevHandler(0)">&gt;</button>
-                    </div>
-                </div>
-            </div>
-            <div class="content-modal modal-hilight-pro">
-                <div class="inner-modal d-flex flex-column ">
-                    <div class="btn-exit display-1 text-white">×</div>
-                    <div class="border-1 border-white rounded-4 overflow-hidden ">
-                        <img class="h-100" src="{% static 'images/highlight-img/vala-highlight-2.jpg' %}" alt="Story title">
-                    </div>
-                    <p class="text-white text-justify my-4" style="font-size : 1.5em">استوری ۲</p>
-                    <div class="text-white">
-                        <button class="display-1 mx-2 btn-story next" onclick="nextHandler(1)">&lt;</button>
-                        <button class="display-1 mx-2 btn-story prev" onclick="prevHandler(1)">&gt;</button>
+            {% for story in stories %}
+                <div class="content-modal modal-hilight-pro">
+                    <div class="inner-modal d-flex flex-column ">
+                        <div class="btn-exit display-1 text-white">×</div>
+                        <div class="border-1 border-white rounded-4 overflow-hidden ">
+                            <img class="h-100" src="{{ story.get_image_url }}" alt="{{ story.title }}">
+                        </div>
+                        <p class="text-white text-justify my-4" style="font-size : 1.5em">{{ story.title }}</p>
+                        <div class="text-white">
+                            <button class="display-1 mx-2 btn-story next" onclick="nextHandler({{ forloop.counter0 }})">&lt;</button>
+                            <button class="display-1 mx-2 btn-story prev" onclick="prevHandler({{ forloop.counter0 }})">&gt;</button>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="content-modal modal-hilight-pro">
-                <div class="inner-modal d-flex flex-column ">
-                    <div class="btn-exit display-1 text-white">×</div>
-                    <div class="border-1 border-white rounded-4 overflow-hidden ">
-                        <img class="h-100" src="{% static 'images/highlight-img/vala-highlight-3.jpg' %}" alt="Story title">
-                    </div>
-                    <p class="text-white text-justify my-4" style="font-size : 1.5em">استوری ۳</p>
-                    <div class="text-white">
-                        <button class="display-1 mx-2 btn-story next" onclick="nextHandler(2)">&lt;</button>
-                        <button class="display-1 mx-2 btn-story prev" onclick="prevHandler(2)">&gt;</button>
-                    </div>
-                </div>
-            </div>
-            <div class="content-modal modal-hilight-pro">
-                <div class="inner-modal d-flex flex-column ">
-                    <div class="btn-exit display-1 text-white">×</div>
-                    <div class="border-1 border-white rounded-4 overflow-hidden ">
-                        <img class="h-100" src="{% static 'images/highlight-img/vala-highlight-4.jpg' %}" alt="Story title">
-                    </div>
-                    <p class="text-white text-justify my-4" style="font-size : 1.5em">استوری ۴</p>
-                    <div class="text-white">
-                        <button class="display-1 mx-2 btn-story next" onclick="nextHandler(3)">&lt;</button>
-                        <button class="display-1 mx-2 btn-story prev" onclick="prevHandler(3)">&gt;</button>
-                    </div>
-                </div>
-            </div>
-            <div class="content-modal modal-hilight-pro">
-                <div class="inner-modal d-flex flex-column ">
-                    <div class="btn-exit display-1 text-white">×</div>
-                    <div class="border-1 border-white rounded-4 overflow-hidden ">
-                        <img class="h-100" src="{% static 'images/highlight-img/vala-highlight-5.jpg' %}" alt="">
-                    </div>
-                    <p class="text-white text-justify my-4" style="font-size : 1.5em">استوری ۵</p>
-                    <div class="text-white">
-                        <button class="display-1 mx-2 btn-story next" onclick="nextHandler(4)">&lt;</button>
-                        <button class="display-1 mx-2 btn-story prev" onclick="prevHandler(4)">&gt;</button>
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </div>
         <!-- .End Fullscreen highlights -->
 
@@ -114,45 +61,15 @@
                 <div class="inner-highlit-category col-12 col-md-5">
                     <div class="content-highlit" id="container-story">
 
-                        <div class="col-3 col-md-2 p-2 highlit-item story_item">
-                            <div class="highlit-item-inner">
-                                <img src="{% static 'images/highlight-img/vala-highlight-1.jpg' %}"
-                                     alt="">
+                        {% for story in stories %}
+                            <div class="col-3 col-md-2 p-2 highlit-item story_item">
+                                <div class="highlit-item-inner">
+                                    <img src="{{ story.get_image_url }}" alt="{{ story.title }}">
+                                </div>
+                                <div class="highlit-title">{{ story.title }}</div>
                             </div>
-                            <div class="highlit-title">هایلایت...</div>
-                        </div>
+                        {% endfor %}
 
-                        <div class="col-3 col-md-2 p-2 highlit-item story_item">
-                            <div class="highlit-item-inner">
-                                <img src="{% static 'images/highlight-img/vala-highlight-2.jpg' %}"
-                                     alt="">
-                            </div>
-                            <div class="highlit-title">هایلایت...</div>
-                        </div>
-
-                        <div class="col-3 col-md-2 p-2 highlit-item story_item">
-                            <div class="highlit-item-inner">
-                                <img src="{% static 'images/highlight-img/vala-highlight-3.jpg' %}"
-                                     alt="">
-                            </div>
-                            <div class="highlit-title">هایلایت...</div>
-                        </div>
-
-                        <div class="col-3 col-md-2 p-2 highlit-item story_item">
-                            <div class="highlit-item-inner">
-                                <img src="{% static 'images/highlight-img/vala-highlight-4.jpg' %}"
-                                     alt="">
-                            </div>
-                            <div class="highlit-title">هایلایت...</div>
-                        </div>
-
-                        <div class="col-3 col-md-2 p-2 highlit-item story_item">
-                            <div class="highlit-item-inner">
-                                <img src="{% static 'images/highlight-img/vala-highlight-5.jpg' %}"
-                                     alt="">
-                            </div>
-                            <div class="highlit-title">هایلایت...</div>
-                        </div>
                     </div>
                 </div>
             </div>
