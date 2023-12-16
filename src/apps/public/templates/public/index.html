@@ -10,20 +10,20 @@
 
 {% block content %}
     <!-- Start Menu-fixed-right -->
-    {% include 'includes/sidebar.html' %}
+    {% include 'includes/menu/sidebar.html' %}
     <!-- .End Menu-fixed-right -->
 
     <!-- Start Menu-bottom -->
-    {% include 'includes/bottom-menu.html' %}
+    {% include 'includes/menu/bottom-menu.html' %}
     <!-- .End Menu-bottom -->
 
     <div class="container-fluid container-admin position-relative">
         <!-- Start Menu -->
-        {% include 'includes/collapse-menu.html' %}
+        {% include 'includes/menu/collapse-menu.html' %}
         <!-- .End Menu -->
 
         <!-- Start Menu-mobile-->
-        {% include 'includes/mobile-menu.html' %}
+        {% include 'includes/menu/mobile-menu.html' %}
         <!-- .End Menu-mobile -->
 
         <!-- Start Modal-routine -->
@@ -34,6 +34,7 @@
         {% include 'public/components/free-test.html' %}
         <!-- .End Free test modal -->
 
+        <!-- Start Fullscreen highlights -->
         <div id="container-modals">
             <div class="border-1 border-white rounded-4 overflow-hidden">
                 <img src="" alt="">
@@ -104,6 +105,7 @@
                 </div>
             </div>
         </div>
+        <!-- .End Fullscreen highlights -->
 
         <main class="main container-fluid container-admin">
 
