@@ -75,12 +75,10 @@ let btnHamburger = document.querySelectorAll(".inner-content-post-two");
 
 btnHamburger.forEach((item, index) => {
     item.addEventListener("click", (e) => {
-        if (
-            e.target.className === "" ||
-            e.target.className === "" ||
+        if (e.target.className === "" ||
             e.target.className === "comment-input" ||
-            e.target.className === "btn-send"
-        )
+            e.target.className === "btn-send" ||
+            e.target.classList.contains("like-icon"))
             return;
         btnHamburger[index].classList.toggle("active");
     });
@@ -163,3 +161,17 @@ contentModalsazmayesh.addEventListener("click", (e) => {
         contentModalsazmayesh.classList.remove("active");
 });
 // ---------------------------- Modal Free test --------------------------- //
+
+
+// ---------------------------- Like Post handler -------------------------- //
+function likePost(id, el) {
+    $.get(`/post/${id}/like/`).then(response => {
+        if (response['response'] === 'liked') {
+            el.classList.replace("bi-heart", "bi-heart-fill");
+        } else {
+            el.classList.replace("bi-heart-fill", "bi-heart");
+        }
+    })
+}
+// ---------------------------- Like Post handler -------------------------- //
+
