@@ -6,4 +6,5 @@ app_name = 'public'
 
 urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
+    path('post/<int:pk>/like/', views.LikePostView.as_view(), name='like_post'),
 ]

@@ -108,11 +108,8 @@
                                 <div class="row">
                                     <div class="col-2 icon">
                                         <div class="heart">
-                                            {% if post.user_liked %}
-                                                <img src="{% static 'images/icons/heart.png' %}" alt="Like icon" onclick="">
-                                            {% else %}
-                                                <img src="{% static 'images/icons/heart-o.png' %}" alt="Like icon" onclick="">
-                                            {% endif %}
+                                            <i class="bi bi-heart{% if post.user_liked %}-fill{% endif %} text-white like-icon"
+                                               style="font-size: 1.4rem;" onclick="likePost({{ post.id }}, this)"></i>
                                         </div>
                                         <div class="comment">
                                             <img src="{% static 'images/icons/comment.png' %}" alt="Comment icon">
