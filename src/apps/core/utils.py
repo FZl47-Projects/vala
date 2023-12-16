@@ -4,6 +4,21 @@ from django.utils import timezone
 from datetime import datetime
 
 
+# Get time in format
+def get_time(frmt: str = '%Y-%m-%d %H:%M'):
+    now = timezone.now()
+    if frmt is not None:
+        now = now.strftime(frmt)
+
+    return now
+
+
+# Create image/file path based on time
+def upload_file_src(instance, path):
+    now = get_time('%Y-%m-%d')
+    return f'files/{now}/{path}'
+
+
 # Timesince in persian utils
 def get_timesince_persian(time):
     time_server = timezone.now()
