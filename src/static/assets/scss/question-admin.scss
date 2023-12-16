@@ -1,0 +1,104 @@
+@import "./base";
+@import "./component";
+@import "./mixns";
+.bg{
+    background-image:url('../images/sign-up.png');
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position:center;
+        height: 100vh;
+             
+  }
+  
+.logo-valla{
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.question-admin{
+    .upload{
+        height: 80vh;
+        display: flex;
+        justify-content: space-around;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        .upload-image-inner{
+            @include centering;
+           .upload-image-btn{
+               text-align: center;
+               color: rgb(0, 0, 0);
+               background-color: #fff;
+               padding: 10px;
+               border-radius: 50px;
+              
+           }
+            
+        }
+    }
+    
+    height: 80vh;
+    display: none;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    &.active{
+        display: flex;
+    }
+    .question-admin-inner{
+        padding: 10px;
+        .title{
+            color: #fff;
+            font-size: 18px;
+        }
+        .question{
+            color: #fff;
+            padding: 10px;
+            font-size: 15px;
+        }
+        .answer{
+            .answer-item{
+                background-color: #2e2e2eb4;
+                padding: 10px;
+                border-radius: 50px;
+                text-align: center;
+                border: 1px solid rgb(255, 255, 255);
+                color: #fff;
+                &.active{
+                    color: rgb(7, 7, 7);
+                    background-color: #ffffff;
+                }
+                
+            }
+            
+        }
+        
+    }
+}
+.forms {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-items: flex-start;
+    direction: ltr;
+    padding: 10px;
+    border-radius: 8px;
+    -webkit-border-radius: 8px;
+    -moz-border-radius: 8px;
+    -ms-border-radius: 8px;
+    -o-border-radius: 8px;
+    width: 100%;
+    background-color: transparent;
+    box-shadow: transparent;
+}
+
+
+ @import "./medias";
+
+ 
+
+
+

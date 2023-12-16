@@ -1,0 +1,350 @@
+// style for menu-mobile
+@media (max-width: 940px) {
+  .content-1{width:900px;}
+  .days-week{
+    width:900px;
+  }
+ }
+@media (max-width: 768px) {
+  .index-pagge{
+   
+    .icon-mage{
+        padding:0px;
+        
+}
+}
+
+  .content-title-row{
+    width: 900px;
+  }
+  .user-category{
+    padding: 10px 10px;
+  }
+  // -----جدول رژیم غذایی درحالت موبایل-------//
+  .cc{
+    background-color: #2f2f2f;
+    height: 90%;
+    border-radius: 20px 0px 0px 0px ;
+    color: #fff;
+    padding-top: 20px;
+    
+    .content-Definition-of-diet{
+        padding: 15px !important;
+
+        .content-Definition-inner{
+           
+            table {
+                border-collapse: collapse;
+                padding: 10px;
+            }
+          
+            table th {
+                background-color:#cdcdce;
+                color: rgb(0, 0, 0);
+                text-align: center;
+                padding: 15px;
+                font-weight:600;
+                font-size: 18px;
+               
+            }
+             td {
+               padding:15px !important;
+               color: #fff;
+             font-size: 19px !important;
+               text-align: center;
+            }
+            th{
+                padding:10px 25px !important;
+                text-align: center;
+            }
+         }
+    
+        }
+}
+
+   // -----جدول رژیم غذایی درحالت موبایل-------//
+// ---style-for input send message
+  .input-send-messageee{
+    width:100%;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    bottom:80px;
+    right:0;
+    padding: 0 10px;
+    
+}
+// ---style-for input send message
+
+// style for tickets and moshaverah operatorha font//
+  .content-ticket{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    // align-items: center;
+    .name-user{
+        width: 100%;
+        font-size:1em !important;
+        
+        
+    }
+    .description{
+        color: rgb(30, 26, 26);
+        width: 100%;
+        font-size:1em !important;
+        
+        .more{
+          padding-top: 5px;
+          color: rgb(190, 11, 196);
+          cursor: pointer;
+        }
+    }
+}
+// style for tickets and moshaverah operatorha font//
+  .test-comment{
+    font-size: 0.9em !important;
+}
+  
+  .category-foods .row-food-category .row-food-item {
+    font-size: 14px !important;
+}
+
+.right-post-item {
+  height: 60px;
+  
+}
+  .content-main{
+    padding-bottom:120px;
+    .Appointment-reservation{
+      position: fixed;
+      bottom:60px;
+      right:0;
+      width: 100%;
+      height:80px;
+     
+  }
+  
+    }
+  
+  .btn-answer{
+    font-size: 10px;
+  }
+  .description{
+    font-size: 10px;
+  }
+  .highlit-category{
+    padding: 10px;
+    position: fixed;
+    width: 100%;
+    height: 20%;
+    top: 0;
+    left: 0 !important;
+    right: 0 !important;
+    z-index: 100;
+    background-color: #292929;
+    display: flex;
+    justify-content:center;
+   }
+  .menu-bottom {
+    display: flex;
+  }
+  .menu-fixed-right {
+    display: none;
+  }
+    .content-post {
+      &.mm{
+        height:70% ;
+      }
+        position: fixed;
+        width: 100%;
+        height:70% ;
+        bottom:10%;
+        left:0 !important;
+        right: 0!important;
+        z-index: 100;
+        justify-content: end;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        .imge-post{
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
+          width: 100%;
+        }
+     
+        .inner-content-post{
+          position: fixed;
+          width: 100%;
+          height: 500px;
+          bottom:-80px;
+          left:0;
+          right: 0!important;
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
+          transition: all 500ms;
+         -webkit-transition: all 500ms;
+         -moz-transition: all 500ms;
+         -ms-transition: all 500ms;
+         -o-transition: all 500ms;
+          &.active{
+            bottom:60px;
+          }
+      
+        }
+       
+     }
+
+      .inner-content-post-two{
+       
+        position: fixed !important;
+        width: 100% !important;
+        height:460px !important;
+        bottom:-150px!important ;
+        left:0 !important;
+        right: 0!important;
+    
+        &.active{
+          bottom:20px !important;
+        }
+       
+      }
+   .posts-category{
+            background-color: red;
+            position: fixed;
+            bottom: 60px;
+            left: 0;
+            width: 100%;
+            height: auto;
+            padding: 10px 10px;
+            z-index: 1000;
+            background-color: rgba(48, 47, 47, 0.9215686275);
+            box-shadow: 0px 1px 8px 0px #757078;
+            display: flex;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            flex-direction: row !important;
+            
+            .inner-post-category{
+              display: block;
+              overflow-y: scroll;
+              height:200px;
+              width: 100%;
+              .post-item{
+                display: flex;
+               
+                .left-post-item{
+                    display: flex;
+                    justify-content: space-evenly;
+                    flex-direction: column;
+                    .title-post{
+                        color: #fff;
+                        font-size:17px;
+                    }
+                    .des-post{
+                        color: #fff;
+                        font-size:14px;
+                        
+                    }
+                    
+                }
+                .right-post-item{
+                    
+                }
+                .more{
+                    display: flex;
+                    justify-content: center;
+                    flex-direction: column;
+                }
+                }
+                
+            }
+       
+        
+    }
+    .posts-category-two{
+    
+      background-color: red;
+      position: fixed;
+      bottom: 60px;
+      left: 0;
+      width: 100%;
+      height: auto;
+      padding: 10px 10px;
+      z-index: 1000;
+      background-color: rgba(48, 47, 47, 0.9215686275);
+      box-shadow: 0px 1px 8px 0px #757078;
+      display: flex;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+     
+      flex-direction: row !important;
+      
+      .inner-post-category{
+        display: flex;
+        overflow-x: scroll;
+       overflow-y: hidden;
+       &::-webkit-scrollbar {
+         height: 2px;
+         width:10px;
+         background-color:rgba(251, 249, 251, 0.571);
+         border-radius: 50px;
+       }
+ 
+       /* Track */
+       &::-webkit-scrollbar-track {
+         background-color: transparent;
+       }
+ 
+       /* Handle */
+       &::-webkit-scrollbar-thumb {
+         border-radius: 50px;
+         background:rgba(255, 255, 255, 0.889);
+         width:8px;
+         height: 10px;
+       }
+      
+ 
+       /* Handle on hover */
+       &::-webkit-scrollbar-thumb:hover {
+         background: $color-primary;
+       }
+        height:auto;
+        .post-item{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          .left-post-item{
+              .title-post{
+                  color: #fff;
+                  font-size:17px;
+
+              }
+              .des-post{
+                  color: #fff;
+                  font-size:10px;
+                  display: none;
+                  
+              }
+              
+          }
+          .right-post-item{
+              
+          }
+          .more{
+              display: flex;
+              justify-content: center;
+              flex-direction: column;
+              display: none;
+          }
+          }
+          
+      }
+ 
+  
+     }
+
+   
+
+   
+}
+
+  // style for menu-mobile

@@ -1,0 +1,64 @@
+@import "./base";
+@import "./component";
+@import "./mixns";
+.bg{
+    background-image:url('../images/sign-up.png');
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position:center;
+        height: 100vh;
+             
+  }
+  
+.logo-valla{
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.question-admin{
+    height: 80vh;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    align-items: center;
+    .question-admin-inner{
+        padding: 10px;
+        .title{
+            color: #fff;
+            font-size: 18px;
+        }
+        .question{
+            color: #fff;
+            padding: 10px;
+            font-size: 15px;
+        }
+        .answer{
+            .answer-item{
+                background-color: #2e2e2eb4;
+                padding: 10px;
+                border-radius: 50px;
+                text-align: center;
+                border: 1px solid rgb(255, 255, 255);
+                color: #fff;
+                &.active{
+                    color: rgb(7, 7, 7);
+                    background-color: #ffffff;
+                }
+                
+            }
+            
+        }
+        
+    }
+}
+
+
+ @import "./medias";
+
+ 
+
+
+

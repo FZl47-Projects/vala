@@ -1,0 +1,99 @@
+@import "./base";
+@import "./colors";
+@import "./variables";
+@import "./mixns";
+@import "./component";
+
+.bg{
+  background-color: #4e4e4e;
+}
+
+.category{
+  padding: 10px;
+  .messege-content{
+    display: flex;
+    justify-content: end;
+    .item-message{
+      display: flex;
+      align-items: center;
+      .content-message{
+        background-color: #333232;
+        border: 1px solid #fff;
+        padding: 20px 10px;
+        color: #fff;
+        border-radius: 10px;
+      }
+      .user-profile{
+        border-radius: 100px;
+        img{
+          border-radius: 100px;
+          border: 1px solid #fff;
+        }
+      }
+    }
+  }
+  .answer{
+    display: flex;
+    justify-content: flex-start;
+  }
+
+}
+.input-send-messageee{
+     width:calc(100% - 8.3%);
+     justify-content: space-between;
+     align-items: center;
+     position: fixed;
+     bottom:0px;
+     right:8.3%;
+      padding: 10px;
+     .answer-content{
+       display: flex;
+       justify-content: center;
+      
+       .imge-admin{
+         border: 1px solid #fff;
+         border-radius:100px;
+         img{
+           border-radius: 100px;
+         }
+       }
+       .dddd{
+         display: flex;
+         justify-content: center;
+         flex-direction: column;
+
+
+        input{
+          border: 1px solid #fff;
+          border-radius: 10px;
+          width: 100%;
+          background-color: rgba(28, 26, 26, 0.445);
+          padding: 15px 0;
+          color: #fff;
+          border: 1px solid #fff;
+        }
+       }
+       .sss{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        .send-btn{
+          color:#131313;
+          font-size: 1.2em;
+          background-color: #fff;
+          padding:2px 10px;
+          border-radius: 10px;
+        }
+       }
+     
+      
+     }
+     
+}
+
+
+
+
+
+@import "./medias";

@@ -1,0 +1,47 @@
+@import "./component";
+
+
+.content-items{
+    display: flex;
+   padding: 10px;
+   flex-wrap: wrap;
+    .item-ticket {
+        background-color:rgba(83, 81, 81, 0.188);
+        border-radius:12px;
+        -webkit-border-radius:12px;
+        -moz-border-radius:12px;
+        -ms-border-radius:12px;
+        -o-border-radius:12px;
+        padding: 10px;
+        border: 1px solid rgba(146, 140, 140, 0.501);
+        .title
+    {
+          font-size: 15px;
+          font-weight: 300;
+          color:#fe04f1;
+        }
+      
+        .des-1 {
+          font-size: 15px;
+          font-weight: 300;
+          color: #fff;
+          margin: 0 0 5px 0;
+        }
+        .des-2 {
+          border: 1px solid rgba(146, 140, 140, 0.501);
+          border-radius: 5px;
+          -webkit-border-radius: 5px;
+          -moz-border-radius: 5px;
+          -ms-border-radius: 5px;
+          -o-border-radius: 5px;
+          background-color: rgba(111, 110, 110, 0.623);
+          padding: 5px;
+          color: #fff;
+          font-weight: 300;
+          font-size: 15px;
+          min-height: 100px;
+        }
+      }
+}
+
+  @import "./medias";

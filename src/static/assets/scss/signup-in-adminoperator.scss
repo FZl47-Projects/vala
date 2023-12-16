@@ -1,0 +1,74 @@
+@import "./base";
+@import "./component";
+@import "./mixns";
+.bg{
+    background-image:url('../images/sign-up.png');
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position:center;
+        height: 100vh;
+             
+  }
+  .btns-content{
+    display: flex;
+    padding: 0px 10px;
+    .btn-category-user{
+        width: 100%;
+        border-top: 1px solid rgba(94, 93, 93, 0.833);
+        border-right: 1px solid rgba(94, 93, 93, 0.833);
+        border-left: 1px solid rgba(94, 93, 93, 0.833);
+        border-bottom: none;
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+        padding: 7px 0;
+        font-size: 14px;
+        text-align: center;
+        background-color:#181818;
+        color: #fff;
+        cursor: pointer;
+        margin-top: auto;
+        &.active{
+            width:100%;
+            z-index: 1;
+            padding: 10px 5px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: default;
+            background-color:#181818;
+            background-repeat:no-repeat;
+            background-size:cover;
+        }
+    }
+  }
+.logo-valla{
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.signup-login-box{
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    .inner-signup-login-box{
+        padding: 10px;
+        
+    }
+}
+.content{
+    .group-form{
+        font-size: 19px;
+    }
+}
+
+
+ @import "./medias";
+
+ 
+
+
+

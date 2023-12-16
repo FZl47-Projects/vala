@@ -1,0 +1,363 @@
+
+@import "./component";
+.select-sec{
+  height: 200px;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    height: 2px;
+    width: 5px;
+    background-color: rgba(251, 249, 251, 0.571);
+    border-radius: 50px;
+  }
+
+  /* Track */
+  &::-webkit-scrollbar-track {
+    background-color: transparent;
+  }
+
+  /* Handle */
+  &::-webkit-scrollbar-thumb {
+    border-radius: 50px;
+    background: rgba(255, 255, 255, 0.889);
+    width: 5px;
+    height: 10px;
+  }
+
+  /* Handle on hover */
+  &::-webkit-scrollbar-thumb:hover {
+    background: $color-primary;
+  }
+}
+.hh{
+    height: 100vh;
+    .bb{
+        background-color: #2f2f2f;
+        padding: 20px;
+        height: 10%;
+       border-radius: 15px 15px 0px 0px ;
+       color: #fff;
+       text-align: center;
+       font-size: 16px;
+       font-weight: 600;
+    }
+    .cc{
+        background-color: #2f2f2f;
+        border-radius: 15px 0px 0px 0px ;
+        color: #fff;
+        padding-top: 20px;
+        
+        .content-Definition-of-diet{
+          .up-page{
+           
+            justify-content: space-between;
+            .search-header {
+                min-width: 300px;
+                background-color:rgba(102, 102, 102, 0.108);
+                border-radius: 8px;
+                -webkit-border-radius: 8px;
+                -moz-border-radius: 8px;
+                -ms-border-radius: 8px;
+                -o-border-radius: 8px;
+                padding: 8px 8px;
+                margin-bottom: 20px;
+                border: 1px solid rgb(114, 113, 113);
+                .form-header {
+                  @include flex-between;
+                  .btn-form {
+                    background-color: transparent;
+                    img {
+                      width:25px;
+                    }
+                  }
+                  .input-header {
+                    width: 100%;
+                    padding: 0 10px;
+                    color: rgb(255, 255, 255);
+                    outline: none;
+            
+                    &::placeholder {
+                      color: rgb(118, 112, 112);
+                    }
+                  }
+                }
+              }
+              .left-header {
+                .hamburger-menu {
+                  display: none;
+                  padding: 5px;
+                }
+          }
+          .add-user{
+            color: #fff;
+            font-size: 20px;
+            padding: 10px 0;
+            cursor: pointer;
+              
+       }
+
+        }
+            padding: 10px 80px;
+            padding-bottom: 80px;
+            .search-header {
+                min-width: 300px;
+                background-color:rgba(102, 102, 102, 0.108);
+                border-radius: 8px;
+                -webkit-border-radius: 8px;
+                -moz-border-radius: 8px;
+                -ms-border-radius: 8px;
+                -o-border-radius: 8px;
+                padding: 8px 8px;
+                margin-bottom: 20px;
+                border: 1px solid rgb(114, 113, 113);
+                .form-header {
+                  @include flex-between;
+                  .btn-form {
+                    background-color: transparent;
+                    img {
+                      width:25px;
+                    }
+                  }
+                  .input-header {
+                    width: 100%;
+                    padding: 0 10px;
+                    color: rgb(255, 255, 255);
+                    outline: none;
+            
+                    &::placeholder {
+                      color: rgb(118, 112, 112);
+                    }
+                  }
+                }
+              }
+              .left-header {
+                .hamburger-menu {
+                  display: none;
+                  padding: 5px;
+                }
+              }
+            }
+
+            .content-Definition-inner{
+                border: 1px solid #7471718b;
+               border-radius: 20px;
+               overflow-x: scroll;
+                overflow-y: hidden;
+
+            &::-webkit-scrollbar {
+              height: 5px;
+              border-radius: 40px;
+              padding: 20px;
+            }
+        
+            /* Track */
+            &::-webkit-scrollbar-track {
+              background-color: transparent;
+              border-radius: 40px;
+              padding: 20px;
+            }
+        
+            /* Handle */
+            &::-webkit-scrollbar-thumb {
+              background: #cdcdce;
+              width: 10px;
+              height: 5px;
+              border-radius: 40px;
+              padding: 20px;
+            }
+        
+            /* Handle on hover */
+            &::-webkit-scrollbar-thumb:hover {
+              background: #cdcdce;
+              border-radius: 40px;
+              padding: 20px;
+            }
+             .content-table{
+              position: relative;
+                 .information{
+                     display: flex;
+                     justify-content: space-around;
+                     .information-item{
+                         width: 100%;
+                         padding: 10px;
+                         color: #747474;
+                         font-size: 16px;
+                         font-weight: 600;
+                         input{
+                             width: 100%;
+                             outline: none;
+                             color: #fff;
+                             text-align: center;
+                         }
+                     }
+                 }
+               
+                .content-title-row{
+                  position: relative;
+                  padding-bottom: 50px;
+                    .title-row{
+                        display: flex;
+                        justify-content: space-between;
+                        background: #cdcdce;
+                        padding: 10px 0;
+                        border-top-left-radius: 10px;
+                        border-top-right-radius: 10px;
+   
+                        .title-item{
+                            color: #2f2f2f;
+                            font-size: 16px;
+                            font-weight: 600;
+                            text-align: center;
+                            
+                        }
+                    }
+                }
+                
+                 .table-row{
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 10px 0;
+                    .row-item{
+                        color: #ffffff;
+                         font-size: 16px;
+                         font-weight: 600;
+                         text-align: center;
+                         input{
+                          outline: none;
+                          border: 1px solid rgba(96, 96, 96, 0.64);
+                          width: 100%;
+                          color: #fff;
+                          text-align: center;
+                          border-radius: 5px;
+                          -webkit-border-radius: 5px;
+                          -moz-border-radius: 5px;
+                          -ms-border-radius: 5px;
+                          -o-border-radius: 5px;
+}
+                    }
+                    .nahiyeh{
+                      
+                      height: 70px;
+                      display: flex;
+                      input{
+                        width: 60%;
+                        height: 100%;
+                        background-color: rgba(113, 108, 108, 0.347);
+                        
+                      }
+                      textarea{
+                        color: #fff;
+                        background-color: transparent;
+                        border: 1px solid #fff;
+                      }
+                      span{
+                        width: 40%;
+                        text-align: center;
+                        align-items: center;
+                        display: flex;
+                        justify-content: center;
+                        cursor: pointer;
+                      }
+                    }
+                 }
+             }
+              
+             }
+          .btn-sabt{
+
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            background-color: rgb(72, 72, 72);
+            z-index: 10000;
+            width: 100%;
+            height: 60px;
+            display: flex;
+  justify-content: center;
+  justify-content: space-around;
+  text-align: center;
+  span{
+    color: #fff;
+    font-size: 20px;
+    font-weight: 400;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center
+  }
+
+           }
+            }
+    }
+
+       .content-modal{
+         .select-sec{
+           padding: 15px 0;
+          .select-itemm{
+            padding: 5px 2px;
+            display: flex;
+            justify-content: space-between;
+             .District-name{
+              color: #fff;
+              font-size: 18px;
+             }
+             .check{
+               display: flex;
+               align-items: center;
+               input{
+                 border: 1px solid #fff;
+                 border-radius: 5px;
+                 -webkit-border-radius: 5px;
+                 -moz-border-radius: 5px;
+                 -ms-border-radius: 5px;
+                 -o-border-radius: 5px;
+                 color: #fff;
+                 outline: none;
+}
+             }
+           }
+         }
+         .btn-modal{
+           display: flex;
+           justify-content: center;
+           padding-bottom: 30px;
+           .btn-sabt-post{
+             background-color: #fff;
+             padding: 5px 18px;
+             border-radius: 5px ;
+             -webkit-border-radius: 5px ;
+             -moz-border-radius: 5px ;
+             -ms-border-radius: 5px ;
+             -o-border-radius: 5px ;
+             cursor: pointer;
+             }
+         }
+         .add-District{
+           display: flex;
+           justify-content: space-between;
+           .in-name-District{
+             input{
+              border: 1px solid #fff;
+              outline: none;
+              padding:3px;
+              color: #fff;
+              font-size: 16px;
+              border-radius: 4px;
+              -webkit-border-radius: 4px;
+              -moz-border-radius: 4px;
+              -ms-border-radius: 4px;
+              -o-border-radius: 4px;
+           }
+            
+             
+           }
+           .btn-name-District{
+           color: #fff;
+           font-size: 20px;
+           cursor: pointer;
+          }
+         }
+         
+       } 
+        // 
+@import "./medias";

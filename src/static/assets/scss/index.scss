@@ -1,0 +1,46 @@
+@import "./base";
+@import "./component";
+@import "./mixns";
+.content-modal{
+  z-index: 1500;
+  .inner-modal{
+      z-index: 1500;
+      .px-4{
+          padding-bottom: 10px;
+          .imge{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-direction: column;
+              padding: 10px;
+              .title{
+                color: #fff;
+                font-size: 1.3em;
+              }
+              
+              
+          }
+          .date-rotin-list{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            .rotin-item{
+              color: #fff;
+              font-size: 1.2em;
+
+            }
+          }
+          
+          .title{
+             display: flex;
+             justify-content: space-between;
+          }
+          
+      }
+  }
+}
+
+ @import "./medias";
+
+

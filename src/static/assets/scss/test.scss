@@ -1,0 +1,165 @@
+@import "./component";
+.content-modal{
+    z-index: 1500;
+    .inner-modal{
+        z-index: 1500;
+        .px-4{
+            padding-bottom: 10px;
+            .inputs-add-food{
+                .input-item{
+                    display: flex;
+                    position: relative;
+                    padding: 5px;
+                    .title-input{
+                        color: #fff;
+                        padding-left: 5px;
+                    }
+                    input{
+                        width: 100%;
+                        color: #fff;
+                        outline: none;
+                       
+                           
+                            .title-input{
+                                color: #fff;
+                                font-size: 16px;
+                            }
+                            
+                        }
+                        
+                        &::after{
+                            content: "";
+                            position: absolute;
+                            width: 100%;
+                            height: 2px;
+                            background-color: #fff;
+                            bottom: 0;
+                            left: 0;
+                        } 
+                }
+                
+            }
+            .btn-modal{
+                padding: 10px;
+                display: flex;
+                justify-content: center;
+   
+                .btn-sabt-post{
+                    background-color: #fff;
+                    border-radius: 10px;
+                    width: 80px;
+                    padding: 2px;
+                    text-align: center;
+                    
+                }
+            }
+            .title{
+               display: flex;
+               justify-content: space-between;
+            }
+            
+        }
+    }
+}
+
+.up-category-user{
+    background-color: rgb(37, 37, 35);
+    .category-user-inner{
+        display: flex;
+        .imge-user{
+            img{
+                border-radius: 100px;
+                border: 1px solid #fff;
+            }
+        }
+        .jj{
+           
+            display: flex;
+            align-items: center;
+            .name-user{
+                color: #fff;
+                font-size: 18px;
+            }
+           
+        }
+    }
+
+
+  }
+  .down-category-userr{
+      .ammozesh-asbsavari{
+          .kk{
+              
+             .item-user{
+              
+                position: relative;
+                z-index: 100;
+                 display: flex;
+                 .imge-user{
+                     border-radius: 100px;
+                     img{
+                         border-radius: 100px;
+                         border: 1px solid red;
+                     }
+                 }
+                 &::after{
+                    content:"";
+                    background-color: #fff;
+                    border-radius:20px;
+                    width:calc(100% - 80px);;
+                    height:calc(100% - 20px);
+                    top:10px;
+                    left:40px;
+                    position: absolute;
+                    z-index:-1000;
+                }
+             }
+             .contenthh{
+                #title-type-range{
+                  color: #181818;
+                  font-size: 1.2em;
+                  text-align: left;
+                  display: block;
+                }
+                #amount-cream{
+                  width: 100%;
+                  direction: ltr;
+                  }
+                  #amount{
+                      display: flex;
+                      flex-direction: column;
+                      justify-content: center;
+                      writing-mode: vertical-lr;
+                      width: 100%;
+                      margin-bottom: 10px;
+                      option{
+                          text-align: center;
+                          padding: 0;
+                          transform: rotate(270deg);
+                          color: #181818;
+                      }
+                      }
+         
+              
+              padding: 10px;
+                
+                  .name-user{
+                      color: #292929;
+                     
+                  }
+                  .range-item{
+                   direction: ltr;
+                  }
+                  
+              }
+          }
+      }
+  }
+
+
+
+
+
+
+
+@import "./medias";

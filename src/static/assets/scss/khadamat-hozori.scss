@@ -1,0 +1,160 @@
+@import "./base";
+@import "./component";
+@import "./mixns";
+.bg{
+    background-image:url('../images/hozori.png');
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position:center;
+             
+  }
+.profile-user-category{
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    .inner-profile-user-category{
+        .logo{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 35px;
+        }
+       
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position: center;
+        display: flex;
+        flex-direction: column;
+        
+        
+            .profile{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+                .imge-user-profile{
+               display: flex;
+               justify-content: center;
+                img{
+                    border-radius: 20px;
+                    border: 1px solid #fff;
+                }
+               
+            }
+            }
+            .name{
+              text-align: center;
+              color: #fff;
+              font-size: 2.3em;
+              padding: 10px;
+              font-weight: bold;
+            }
+           
+        
+        
+      
+
+        
+        
+       
+    }
+    #blue{
+        background-image:linear-gradient(90deg, rgba(133,66,223,0.18841039833902307) 14%, rgba(88,1,202,1) 35%, rgba(1,18,46,1) 58%),url('../images/khadamat-hozori/عروسی.png');
+        .inner-item-hozori{border: 1px solid #3b2298;}
+       
+    }
+    #green{
+        background-image:linear-gradient(90deg, rgba(10,113,60,0.3452731434370623) 14%, rgba(0,171,85,1) 35%, rgba(0,36,52,1) 58%),url('../images/khadamat-hozori/زیبایی.png');
+        .inner-item-hozori{border: 1px solid #053444;}
+    }
+    #tree{
+        background-image:linear-gradient(90deg, rgba(10,147,77,0.10997902579000352) 7%, rgba(0,107,57,1) 37%, rgba(1,43,31,1) 58%),url('../images/khadamat-hozori/آرایشگاه.png');
+        .inner-item-hozori{border: 1px solid #14b75a;}
+    }
+    #four{
+        background-image:linear-gradient(90deg, rgba(10,147,77,0.10997902579000352) 7%, rgba(83,149,0,1) 37%, rgba(27,32,0,1) 58%),url('../images/khadamat-hozori/پزشکی.png');
+        .inner-item-hozori{border: 1px solid #5ad008;}
+    }
+    #five{
+        background-image:linear-gradient(90deg, rgba(10,147,77,0.10997902579000352) 7%, rgba(207,9,94,1) 37%, rgba(34,0,25,1) 58%),url('../images/khadamat-hozori/آرایشگاه.png');
+        .inner-item-hozori{border: 1px solid #d40555;}
+    }
+    .profile-category{
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding-top: 20px;
+      .item-profile{
+      padding: 10px;
+      border: 1px solid #fff;
+      color: #fff;
+      font-size: 30px;
+      border-radius: 80px;
+     
+        background-repeat:no-repeat;
+        background-size:contain;
+        
+        text-align: center;
+        height: 70px;
+      .inner-item-hozori{
+          
+          border-radius: 80px;
+          height: 100%;
+          display: flex;
+          justify-content: center;
+          flex-direction: column;
+          align-items: center;
+      }
+
+      }
+    }
+}
+.content-modal{
+    z-index: 1500;
+    .inner-modal{
+        z-index: 1500;
+        .px-4{
+            padding-bottom: 10px;
+            .imge{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+                padding: 10px;
+                .title{
+                  color: #fff;
+                  font-size: 1.3em;
+                }
+                
+                
+            }
+            .date-rotin-list{
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-direction: column;
+              .rotin-item{
+                color: #fff;
+                font-size: 1.2em;
+  
+              }
+            }
+            
+            .title{
+               display: flex;
+               justify-content: space-between;
+            }
+            
+        }
+    }
+  }
+  
+
+
+
+
+ @import "./medias";
+
+ 
+
+
+

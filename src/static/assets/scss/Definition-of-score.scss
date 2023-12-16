@@ -1,0 +1,66 @@
+@import "./base";
+@import "./component";
+@import "./mixns";
+.bg{
+    background-image: linear-gradient(90deg, rgba(60, 60, 61, 0.804) 0%, rgba(50, 50, 50, 0.81) 50%, rgba(58, 58, 58, 0.76) 100%),url('../images/profile.png');
+    //background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
+             
+  }
+  .main{
+    height: 100vh;
+    .Points-service{
+        padding: 20px;
+        .title{
+            color: white;
+        }
+        .content-service{
+            display: flex;
+            flex-wrap: wrap;
+            .item-service{
+                color: white;
+                height: 65px;
+                display: flex;
+                flex-direction: column;
+                .service-title{
+                    padding-right: 6px;
+                }
+                .point{
+                    border: 1px solid white;
+                    border-radius: 30px;
+                   
+                    display: flex;
+                    justify-content: space-around;
+                    .point-item{
+                        display: flex;
+                        align-items: center;
+                    }
+                    .image{
+                        display: flex;
+                        align-items: center;
+                        justify-content: left;
+                    }
+                }
+                .color-w{
+                    background-color: white;
+                    color: black;
+                }
+            }
+        }
+    }
+    .line{
+        width: 100%;
+        height: 2px;
+        background-color: rgb(114, 114, 114);
+    }
+  }
+
+
+
+ @import "./medias";
+
+ 
+
+
+

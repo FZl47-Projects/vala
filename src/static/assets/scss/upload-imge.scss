@@ -1,0 +1,47 @@
+@import "./base";
+@import "./component";
+@import "./mixns";
+.bg{
+    background-image:url('../images/sign-up.png');
+        background-repeat:no-repeat;
+        background-size:cover;
+        background-position:center;
+        height: 100vh;
+             
+  }
+  
+.logo-valla{
+    height: 20vh;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    
+}
+.upload{
+    height: 80vh;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    .upload-image-inner{
+        @include centering;
+       .upload-image-btn{
+           text-align: center;
+           color: rgb(0, 0, 0);
+           background-color: #fff;
+           padding: 10px;
+           border-radius: 50px;
+          
+       }
+        
+    }
+}
+
+
+ @import "./medias";
+
+ 
+
+
+

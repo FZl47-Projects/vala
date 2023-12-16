@@ -1,0 +1,67 @@
+
+/* ----------------------------- kalameh ----------------------------- */
+@font-face {
+  font-family: kalameh;
+  font-style: normal;
+  font-weight: 300;
+  src: url("../fonts/Kalameh\ thin.eot");
+  src: url("../fonts/Kalameh\ thin.eot")
+      format("embedded-opentype"),
+    /* IE6-8 */
+      url("../fonts/Kalameh\ thin.woff")
+      format("woff"),
+      url("../fonts/Kalameh\ thin.woff2")
+      format("woff2"),
+    /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+      url("../fonts/Kalameh\ thin.ttf")
+      format("truetype");
+}
+@font-face {
+    font-family: kalameh;
+    font-style: normal;
+    font-weight: 500;
+    src: url("../fonts/Kalameh\ Regular.eot");
+    src: url("../fonts/Kalameh\ Regular.eot")
+        format("embedded-opentype"),
+      /* IE6-8 */
+        url("../fonts/Kalameh\ Regular.woff")
+        format("woff"),
+        url("../fonts/Kalameh\ Regular.woff2")
+        format("woff2"),
+      /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+        url("../fonts/Kalameh\ Regular.otf")
+        format("truetype");
+  }
+  @font-face {
+    font-family: kalameh;
+    font-style: normal;
+    font-weight: 600;
+    src: url("../fonts/Kalameh\ Bold.eot");
+    src: url("../fonts/Kalameh\ Bold.eot?#iefix")
+        format("embedded-opentype"),
+      /* IE6-8 */
+        url("../fonts/Kalameh\ Bold.woff")
+        format("woff"),
+        url("../fonts/Kalameh\ Bold.woff2")
+        format("woff2"),
+      /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+        url("../fonts/Kalameh\ Bold.ttf")
+        format("truetype");
+  }
+  @font-face {
+    font-family: kalameh;
+    font-style: normal;
+    font-weight: 900;
+    src: url("../fonts/Kalameh\ Black.eot");
+    src: url("../fonts/Kalameh\ Black.eot?#iefix")
+        format("embedded-opentype"),
+      /* IE6-8 */
+        url("../fonts/Kalameh\ Black.woff")
+        format("woff"),
+        url("../fonts/Kalameh\ Black.woff2")
+        format("woff2"),
+      /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+        url("../fonts/Kalameh\ Black.otf")
+        format("truetype");
+  }
+  
