@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html dir="rtl" lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="shortcut icon" type="image/png" href="images/favicon.png">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>
+        {% block Title %}
+        {% endblock %}
+    </title>
+
+
+    <!-- CSS -->
+    <link href="{% static 'styles/base.css' %}" rel="stylesheet">
+
+    <link href="{% static 'template/dashboard/vendor/owl-carousel/owl.carousel.css' %}" rel="stylesheet">
+    <link href="{% static 'template/dashboard/vendor/jquery-nice-select/css/nice-select.css' %}" rel="stylesheet">
+    <link href="{% static 'template/dashboard/css/style.css' %}" rel="stylesheet">
+
+
+    {% block Link %}
+    {% endblock %}
+
+    {% block Style %}
+    {% endblock %}
+</head>
+<body>
+<div id="preloader">
+    <div class="loader">
+        <span>Cartex</span><span>Vala</span>
+    </div>
+</div>
+{% block Content %}
+{% endblock %}
+<!-- Scripts -->
+<script src="{% static 'scripts/base.js' %}"></script>
+<script src="{% static 'scripts/notify.js' %}"></script>
+<script src="{% static 'scripts/datetime-picker.js' %}"></script>
+
+<script src="{% static 'template/dashboard/vendor/global/global.min.js' %}"></script>
+<script src="{% static 'template/dashboard/vendor/chart.js/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'template/dashboard/vendor/jquery-nice-select/js/jquery.nice-select.min.js' %}"></script>
+<script src="{% static 'template/dashboard/vendor/apexchart/apexchart.js' %}"></script>
+<script src="{% static 'template/dashboard/vendor/owl-carousel/owl.carousel.js' %}"></script>
+<script src="{% static 'template/dashboard/js/dashboard/dashboard-1.js' %}"></script>
+<script src="{% static 'template/dashboard/js/custom.min.js' %}"></script>
+<script src="{% static 'template/dashboard/js/deznav-init.js' %}"></script>
+{% block Script %}
+{% endblock %}
+</body>
+</html>
+
+

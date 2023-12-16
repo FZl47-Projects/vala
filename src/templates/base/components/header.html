@@ -71,7 +71,7 @@
                     </ul>
                     <div class="side-nav two">
                         {% if user.is_authenticated %}
-                            <a class="cart" href="#">
+                            <a class="cart" href="{% url 'dashboard:index' %}">
                                 <i class="fal fa-user"></i>
                             </a>
                         {% else %}

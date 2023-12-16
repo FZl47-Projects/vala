@@ -5,8 +5,7 @@ from django.db.models import Value, Q
 from django.db.models.functions import Concat
 from django.shortcuts import render, redirect, get_object_or_404
 from django.http import JsonResponse, HttpResponseBadRequest, Http404, HttpResponse
-from django.views.decorators.http import require_POST
-from django.views.generic import View
+from django.views.generic import View, TemplateView
 from django.core import serializers
 from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -15,7 +14,7 @@ from apps.account.auth.mixins import LoginRequiredMixinCustom
 from apps.core.utils import add_prefix_phonenum, random_num, form_validate_err
 from apps.account.auth.decorators import admin_required_cbv
 from apps.core.redis_py import set_value_expire, remove_key, get_value
-# from apps.notification.models import NotificationUser
+from apps.notification.models import NotificationUser
 from apps.account import forms
 
 User = get_user_model()
@@ -23,10 +22,8 @@ RESET_PASSWORD_CONFIG = settings.RESET_PASSWORD_CONFIG
 CONFIRM_PHONENUMBER_CONFIG = settings.CONFIRM_PHONENUMBER_CONFIG
 
 
-class Login(View):
-
-    def get(self, request):
-        return render(request, 'account/login.html')
+class Login(TemplateView):
+    template_name = 'account/login.html'
 
     def post(self, request):
         data = request.POST
@@ -53,13 +50,12 @@ class Login(View):
                 return redirect(next_url)
         except Exception as e:
             pass
-        return redirect('dashboard:index')
+        # return redirect('dashboard:index')
+        return redirect('public:index')
 
 
-class Register(View):
-
-    def get(self, request):
-        return render(request, 'account/register.html')
+class Register(TemplateView):
+    template_name = 'account/register.html'
 
     def post(self, request):
         data = request.POST
@@ -76,7 +72,7 @@ class Register(View):
         password = f.cleaned_data['password2']
         user = User(
             phonenumber=phonenumber,
-            is_active=False
+            is_active=True
         )
         user.set_password(password)
         user.save()
@@ -90,110 +86,113 @@ class Logout(View):
 
     def get(self, request):
         logout_handler(request)
-        return redirect('public:home')
+        return redirect('public:index')
 
 
-def reset_password(request):
-    return render(request, 'account/reset-password.html')
+class ResetPassword(TemplateView):
+    template_name = 'account/reset-password.html'
 
 
-@require_POST
-def reset_password_send(request):
-    # AJAX view
-    data = json.loads(request.body)
-    phonenumber = data.get('phonenumber', None)
-    # validate data
-    if not phonenumber:
-        return HttpResponseBadRequest()
-    # check user is exists
-    try:
+class ResetPasswordSend(View):
+
+    def post(self, request):
+        # AJAX view
+        data = json.loads(request.body)
+        phonenumber = data.get('phonenumber', None)
+        # validate data
+        if not phonenumber:
+            return HttpResponseBadRequest()
+        # check user is exists
+        try:
+            phonenumber = add_prefix_phonenum(phonenumber)
+            user = User.objects.get(phonenumber=phonenumber)
+        except:
+            raise Http404
+        code = random_num(RESET_PASSWORD_CONFIG['CODE_LENGTH'])
+        key = RESET_PASSWORD_CONFIG['STORE_BY'].format(phonenumber)
+        # check code state set
+        if get_value(key) is not None:
+            # code is already set
+            return HttpResponse(status=409)
+        # set code
+        set_value_expire(key, code, RESET_PASSWORD_CONFIG['TIMEOUT'])
+        # send code
+        NotificationUser.objects.create(
+            type='RESET_PASSWORD_CODE_SENT',
+            kwargs={
+                'code': code
+            },
+            to_user=user,
+            title='بازیابی رمز عبور',
+            description=f"""  کد بازیابی رمز عبور : {code}""",
+            send_notify=True
+        )
+        return JsonResponse({})
+
+
+class ResetPasswordCheck(View):
+
+    def post(self, request):
+        # AJAX view
+        data = json.loads(request.body)
+        phonenumber = data.get('phonenumber', None)
+        code = data.get('code', None)
+        # validate data
+        if (not code) or (not phonenumber):
+            return HttpResponseBadRequest()
         phonenumber = add_prefix_phonenum(phonenumber)
-        user = User.objects.get(phonenumber=phonenumber)
-    except:
-        raise Http404
-    code = random_num(RESET_PASSWORD_CONFIG['CODE_LENGTH'])
-    key = RESET_PASSWORD_CONFIG['STORE_BY'].format(phonenumber)
-    # check code state set
-    if get_value(key) is not None:
-        # code is already set
-        return HttpResponse(status=409)
-    # set code
-    set_value_expire(key, code, RESET_PASSWORD_CONFIG['TIMEOUT'])
-    # send code
-    NotificationUser.objects.create(
-        type='RESET_PASSWORD_CODE_SENT',
-        kwargs={
-            'code': code
-        },
-        to_user=user,
-        title='بازیابی رمز عبور',
-        description=f"""  کد بازیابی رمز عبور : {code}""",
-        send_notify=True
-    )
-    return JsonResponse({})
+        key = RESET_PASSWORD_CONFIG['STORE_BY'].format(phonenumber)
+        # check code
+        code_stored = get_value(key)
+        if code_stored is None:
+            # code is not seted or timeout
+            return HttpResponse(status=410)
+        if code_stored != code:
+            # code is wrong(not same)
+            return HttpResponse(status=409)
+        return JsonResponse({})
 
 
-@require_POST
-def reset_password_check(request):
-    # AJAX view
-    data = json.loads(request.body)
-    phonenumber = data.get('phonenumber', None)
-    code = data.get('code', None)
-    # validate data
-    if (not code) or (not phonenumber):
-        return HttpResponseBadRequest()
-    phonenumber = add_prefix_phonenum(phonenumber)
-    key = RESET_PASSWORD_CONFIG['STORE_BY'].format(phonenumber)
-    # check code
-    code_stored = get_value(key)
-    if code_stored is None:
-        # code is not seted or timeout
-        return HttpResponse(status=410)
-    if code_stored != code:
-        # code is wrong(not same)
-        return HttpResponse(status=409)
-    return JsonResponse({})
+class ResetPasswordSet(View):
 
-
-@require_POST
-def reset_password_set(request):
-    # AJAX view
-    data = json.loads(request.body)
-    f = forms.ResetPasswordSetForm(data)
-    # validate data
-    if f.is_valid() is False:
-        return HttpResponseBadRequest()
-    clean_data = f.cleaned_data
-    # phonenumber must get from data (not clean_data)
-    phonenumber = data['phonenumber']
-    code = clean_data['code']
-    password = clean_data['password2']
-    # check user is exists
-    try:
-        phonenumber = add_prefix_phonenum(phonenumber)
-        user = User.objects.get(phonenumber=phonenumber)
-    except:
-        raise Http404
-    key = RESET_PASSWORD_CONFIG['STORE_BY'].format(phonenumber)
-    # check code
-    code_stored = get_value(key)
-    if code_stored is None:
-        # code is not seted or timeout
-        return HttpResponse(status=410)
-    if code_stored != code:
-        # code is wrong(not same)
-        return HttpResponse(status=409)
-    user.set_password(password)
-    user.save()
-    remove_key(key)
-    NotificationUser.objects.create(
-        type='PASSWORD_CHANGED_SUCCESSFULLY',
-        to_user=user,
-        title='رمز عبور شما تغییر کرد',
-        description="""رمز عبور شما با موفقیت تغییر کرد""",
-        send_notify=True
-    )
-    return JsonResponse({})
+    def post(self, request):
+        # AJAX view
+        data = json.loads(request.body)
+        f = forms.ResetPasswordSetForm(data)
+        # validate data
+        if f.is_valid() is False:
+            return HttpResponseBadRequest()
+        clean_data = f.cleaned_data
+        # phonenumber must get from data (not clean_data)
+        phonenumber = data['phonenumber']
+        code = clean_data['code']
+        password = clean_data['password2']
+        # check user is exists
+        try:
+            phonenumber = add_prefix_phonenum(phonenumber)
+            user = User.objects.get(phonenumber=phonenumber)
+        except:
+            raise Http404
+        key = RESET_PASSWORD_CONFIG['STORE_BY'].format(phonenumber)
+        # check code
+        code_stored = get_value(key)
+        if code_stored is None:
+            # code is not seted or timeout
+            return HttpResponse(status=410)
+        if code_stored != code:
+            # code is wrong(not same)
+            return HttpResponse(status=409)
+        user.set_password(password)
+        user.save()
+        remove_key(key)
+        NotificationUser.objects.create(
+            type='PASSWORD_CHANGED_SUCCESSFULLY',
+            to_user=user,
+            title='رمز عبور شما تغییر کرد',
+            description="""رمز عبور شما با موفقیت تغییر کرد""",
+            send_notify=True
+        )
+        return JsonResponse({})
 
 
 class ConfirmPhonenumber(LoginRequiredMixin, View):

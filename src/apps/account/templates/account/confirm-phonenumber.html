@@ -5,145 +5,76 @@
     تایید شماره همراه
 {% endblock %}
 
-{% block Link %}
-    <link rel="stylesheet" href="{% static 'styles/form.css' %}">
-{% endblock %}
-
-{% block Style %}
-
-    <style>
-
-        .container.forms {
-            font-size: 120%;
-            height: 100vh;
-            width: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            column-gap: 30px;
-        }
-
-        .form {
-            position: absolute;
-            max-width: 480px;
-            width: 95%;
-            margin: auto;
-            padding: 30px;
-            border-radius: 6px;
-            background: #FFF;
-            box-shadow: 0 4px 15px #ddd
-        }
-
-        .forms header {
-            font-family: "KalamehBlack";
-            font-size: 39px;
-            font-weight: 600;
-            color: #232836;
-            text-align: center;
-        }
-
-        .form-link {
-            margin-top: 20px;
-            text-align: left;
-        }
-
-        .form-link a {
-            margin: 6px;
-            font-size: 80%;
-        }
-
-        .field {
-            height: auto !important;
-        }
-
-        .field input,
-        .field button {
-            height: 50px;
-            width: 100%;
-            border: none;
-            font-size: 16px;
-            font-weight: 400;
-            border-radius: 6px;
-        }
-
-        .field input {
-            text-align: right;
-            outline: none;
-            padding: 0 15px;
-            border: 1px solid #CACACA;
-        }
-
-        .field button {
-            margin-top: 3px;
-        }
 
 
-    </style>
-
-{% endblock %}
 
 {% block Content %}
     {% include 'base/components/header.html' %}
-    <section class="breadcrumb">
-        <li>
-            <a href="{% url 'public:home' %}">خانه</a>
-        </li>
-        <li>حساب کاربری</li>
-        <li>
-            <a href="">تایید شماره همراه</a>
-        </li>
-    </section>
-    <section class="container forms">
-        <div class="form form-effect" id="send-code">
-            <div class="form-content">
-                <header>تایید شماره همراه</header>
-                <form action="{% url 'account:confirm_phonenumber' %}" id="form-confirm-phonenumber">
-                    <!-- send with ajax -->
-                    <div class="field input-field">
-                        <label class="font-60">
-                            شماره همراه
-                        </label>
-                        <input type="tel" placeholder="شماره همراه" class="input" value="{{ user.get_raw_phonenumber }}"
-                               disabled>
+    <div class="page-title-wrap">
+        <div class="page-title-area title-img-six">
+            <div class="title-shape"><img alt="Shape" src="{% static 'template/images/title/title-shape1.png' %}"></div>
+            <div class="d-table">
+                <div class="d-table-cell">
+                    <div class="title-content"><h2>تایید شماره همراه</h2>
+                        <ul>
+                            <li><a href="{% url 'public:index' %}">خانه</a></li>
+                            <li><span>تایید شماره همراه</span></li>
+                        </ul>
                     </div>
-
-                    <div class="field button-field">
-                        <button type="button">ارسال کد</button>
-                    </div>
-                </form>
-
-                <div class="form-link">
-                    <a href="{% url 'account:logout' %}">خروج</a>
-                    <a href="{% url 'account:login_register' %}">ثبت نام</a>
-                    <a href="{% url 'public:home' %}">خانه</a>
                 </div>
             </div>
         </div>
-        <div class="form d-none" id="check-code">
-            <div class="form-content">
-                <header>تایید شماره همراه</header>
-                <form action="{% url 'account:confirm_phonenumber_check_code' %}"
-                      dashboard-url="{% url 'dashboard:index' %}" id="form-check-phonenumber">
-                    <!-- send with ajax -->
-                    <label class="font-60 mt-2">
-                        لطفا کد ارسال شده را وارد نمایید
-                    </label>
-                    <div class="field input-field mt-0">
-                        <input type="text" placeholder="کد" class="input" name="code">
-                    </div>
+    </div>
 
-                    <div class="field button-field">
-                        <button type="button">بررسی کد</button>
-                    </div>
-                </form>
-                <div class="form-link">
-                    <a href="{% url 'account:logout' %}">خروج</a>
-                    <a href="{% url 'account:login_register' %}">ثبت نام</a>
-                    <a href="{% url 'public:home' %}">خانه</a>
+    <div class="user-area ptb-100">
+        <div class="container">
+            <div class="user-item">
+                <div class="user-shape">
+                    <img alt="Shape" src="{% static 'template/images/contact-shape1.png' %}">
+                    <img alt="Shape" src="{% static 'template/images/contact-shape2.png' %}">
+                </div>
+                <div id="send-code">
+                    <h2>ارسال کد تایید شماره همراه</h2>
+                    <form action="{% url 'account:confirm_phonenumber' %}" id="form-confirm-phonenumber">
+                        <div class="form-group">
+                            <label for="">شماره همراه</label>
+                            <input type="tel" placeholder="شماره همراه" class="form-control"
+                                   value="{{ user.get_raw_phonenumber }}"
+                                   disabled>
+                        </div>
+                        <button class="btn common-btn two" type="button">ارسال کد تایید</button>
+                        <div class="d-flex justify-content-between align-items-center col-11 col-md-4 mx-auto mx-md-0 text-left mt-2">
+                            <h4><a href="{% url 'account:login' %}">ورود</a></h4>
+                            <h4><a href="{% url 'account:register' %}">ثبت نام</a></h4>
+                            <h4><a href="{% url 'account:logout' %}">خروج</a></h4>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="d-none" id="check-code">
+                    <h2>بررسی کد تایید شماره همراه</h2>
+                    <form action="{% url 'account:confirm_phonenumber_check_code' %}"
+                          dashboard-url="{% url 'dashboard:index' %}" id="form-check-phonenumber">
+                        <div class="form-group">
+                            <label>
+                                کد ارسال شده
+                            </label>
+                            <input type="text" placeholder="لطفا کد ارسال شده را وارد نمایید" class="form-control"
+                                   name="code" required>
+                        </div>
+                        <button class="btn common-btn two" type="button">بررسی کد</button>
+                        <div class="d-flex justify-content-between align-items-center col-11 col-md-4 mx-auto mx-md-0 text-left mt-2">
+                            <h4><a href="{% url 'account:login' %}">ورود</a></h4>
+                            <h4><a href="{% url 'account:register' %}">ثبت نام</a></h4>
+                            <h4><a href="{% url 'account:logout' %}">خروج</a></h4>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+
+    {% include 'base/components/footer.html' %}
 {% endblock %}
 
 {% block Script %}

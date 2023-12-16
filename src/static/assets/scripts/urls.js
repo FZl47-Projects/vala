@@ -1,1 +1,2 @@
-const LOGIN_REGISTER = '/u/login-register'
+const REGISTER_URL = '/u/register'
+const LOGIN_URL = '/u/login'

@@ -1,10 +1,13 @@
 """
     Django Version => 4.2.6
 """
-from pathlib import Path
 import os
+from pathlib import Path
+from dotenv import load_dotenv
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
+
+load_dotenv(BASE_DIR / '.env')
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-yb@%1c&455k_g&y7w%+x13$vb*r24wo@=chrzp%5^aa5wd#%7&')
 
@@ -26,10 +29,13 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.public',
     'apps.account',
+    'apps.dashboard',
+    'apps.notification',
 
     # Third Party Apps
     'django_cleanup.apps.CleanupConfig',
-    'django_q'
+    'django_render_partial',
+    'django_q',
 ]
 
 MIDDLEWARE = [
@@ -102,19 +108,20 @@ MEDIA_ROOT = BASE_DIR / os.getenv('MEDIA_ROOT', 'static/media')
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'account.User'  # custom user model
-LOGIN_URL = '/u/login-register'
+LOGIN_URL = '/u/login'
 
 Q_CLUSTER = {
     'name': 'django-q',
     'timeout': 60,
-    'redis': {
-        'host': 'localhost',
-        'port': 6379,
-        'db': 0,
-        'socket_timeout': None,
-        'charset': 'utf-8',
-        'errors': 'strict',
-    }
+    'orm':'default'
+    # 'redis': {
+    #     'host': 'localhost',
+    #     'port': 6379,
+    #     'db': 0,
+    #     'socket_timeout': None,
+    #     'charset': 'utf-8',
+    #     'errors': 'strict',
+    # }
 }
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"
@@ -125,13 +132,13 @@ REDIS_CONFIG = {
 }
 
 RESET_PASSWORD_CONFIG = {
-    'TIMEOUT': 300,  # by sec
+    'TIMEOUT': 60,  # by sec
     'CODE_LENGTH': 6,
     'STORE_BY': 'reset_password_phonenumber_{}'
 }
 
 CONFIRM_PHONENUMBER_CONFIG = {
-    'TIMEOUT': 300,  # by sec
+    'TIMEOUT': 60,  # by sec
     'CODE_LENGTH': 6,
     'STORE_BY': 'confirm_phonenumber_{}'
 }

@@ -9,11 +9,12 @@
 label {
     font-size: 75%;
     text-align: right;
-    color: #858585;
+    color: #e7e7e7;
     display: block;
+    margin-bottom: 8px;
 }
 
-[label-content-seted]{
+[label-content-seted] {
     color: #888;
 }
 
@@ -90,7 +91,7 @@ label {
     border: 1px solid #e5e5e5;
 }
 
-input[disabled]{
+input[disabled] {
     color: #888;
 }
 
@@ -124,12 +125,12 @@ input[disabled]{
 .field-outline button {
     color: rgba(32, 92, 145, 0.7);
     background-color: #fff;
-    border: 1px solid rgba(32, 92, 145, 0.7)!important;
+    border: 1px solid rgba(32, 92, 145, 0.7) !important;
 }
 
 .field-outline button:hover {
     color: rgba(9, 68, 115, 0.8);
-    border: 1px solid rgba(9, 68, 115, 0.8)!important;
+    border: 1px solid rgba(9, 68, 115, 0.8) !important;
     background: #fff;
 }
 
@@ -168,6 +169,15 @@ input[disabled]{
     margin-top: 10px;
     border-radius: 6px;
     border: 1px solid #bbc1c9;
+}
+
+.form-links {
+    text-align: right;
+}
+
+.form-links > * {
+    display: inline-block;
+    margin: 2px 5px;
 }
 
 @media screen and (max-width: 400px) {

@@ -12,8 +12,8 @@ urlpatterns = [
     path('confirm/phonenumber/check', views.ConfirmPhonenumberCheckCode.as_view(),
          name='confirm_phonenumber_check_code'),
     # reset password
-    path('reset-password', views.reset_password, name='reset_password'),
-    path('reset-password/send-code', views.reset_password_send, name='reset_password_send_code'),
-    path('reset-password/check-code', views.reset_password_check, name='reset_password_check_code'),
-    path('reset-password/set', views.reset_password_set, name='reset_password_set'),
+    path('reset-password', views.ResetPassword.as_view(), name='reset_password'),
+    path('reset-password/send-code', views.ResetPasswordSend.as_view(), name='reset_password_send_code'),
+    path('reset-password/check-code', views.ResetPasswordCheck.as_view(), name='reset_password_check_code'),
+    path('reset-password/set', views.ResetPasswordSet.as_view(), name='reset_password_set'),
 ]

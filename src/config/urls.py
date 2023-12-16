@@ -8,6 +8,7 @@ urlpatterns = [
 
     path('', include('apps.public.urls', namespace='public')),
     path('u/', include('apps.account.urls', namespace='account')),
+    path('dashboard/', include('apps.dashboard.urls', namespace='dashboard')),
 ]
 
 if settings.DEBUG:

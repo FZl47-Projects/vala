@@ -1,9 +1,9 @@
-from django.shortcuts import HttpResponse
+from django.shortcuts import render
 from django.views import View
-from account.auth.mixins import LoginRequiredMixinCustom
+from apps.account.auth.mixins import LoginRequiredMixinCustom
 
 
 class Index(LoginRequiredMixinCustom, View):
 
-    def get(self,request):
-        return HttpResponse('Dashboard')
+    def get(self, request):
+        return render(request, 'dashboard/index.html')
