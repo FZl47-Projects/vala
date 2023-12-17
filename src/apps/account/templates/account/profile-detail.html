@@ -2,10 +2,174 @@
 {% load static %}
 
 
-{% block title %}والا | پروفایل کاربر{% endblock %}
+{% block title %}والا | پروفایل{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/user-information.css' %}">
+{% endblock %}
+
+{% block body_class %}bg{% endblock %}
 
 {% block content %}
+    <!-- Start Menu-fixed-right -->
+    {% include 'includes/menu/sidebar.html' %}
+    <!-- .End Menu-fixed-right -->
+
+    <!-- Start Menu-bottom -->
+    {% include 'includes/menu/bottombar.html' %}
+    <!-- .End Menu-bottom -->
+
+    <div class="container-fluid col-md-11 pb-4">
+        <!-- Start Menu -->
+        {% include 'includes/menu/collapse-menu.html' %}
+        <!-- .End Menu -->
+
+        <!-- Start Menu-mobile-->
+        {% include 'includes/menu/mobile-menu.html' %}
+        <!-- .End Menu-mobile -->
+
+        <!-- Start Modal-routine -->
+        {% include 'public/components/skin-routine.html' %}
+        <!-- .End Modal-routine -->
+
+        <!-- Start Free test modal -->
+        {% include 'public/components/free-test.html' %}
+        <!-- .End Free test modal -->
+
+        <main class="main pb-5 pt-4">
+            <div class="profile-user-category">
+                <form method="POST" action="{% url 'account:profile_details' user.pk %}" enctype="multipart/form-data"
+                      class="inner-profile-user-category col-12 col-md-7">
+                    {% csrf_token %}
+                    <div class="logo">
+                        <div class="col-3">
+                            <img src="{% static 'images/vala-logo.png' %}" alt="Vala logo">
+                        </div>
+                    </div>
+
+                    <div class="profile d-flex justify-content-start gap-3" id="title-container">
+                        <div class="imge-user-profile">
+                            <img src="{{ user.user_profile.get_image_url }}" id="userProfilePic" alt="User profile pic"
+                                 style="object-fit: cover;">
+                        </div>
+                        <div class="name-user">
+                            <label role="button" class="btn btn-light fw-semibold">
+                                تغییر تصویر
+                                <input type="file" class="d-none" alt="User profile" name="image" accept="image/*" onchange="displayImage(event)">
+                            </label>
+                        </div>
+                        <div class="name-user me-auto align-self-end">
+                            <button type="button" class="btn btn-light fw-semibold">
+                                تغییر رمز عبور
+                            </button>
+                        </div>
+                    </div>
+                    <div class="content-moshakhasat d-flex flex-column align-items-center" id="container">
+                        <div class="col-12 p-2">
+                            <label for="name" class="title">نام</label>
+                            <div class="information-item">
+                                <input type="text" value="{{ user.first_name|default:'' }}" class="item-user" id="name"
+                                       name="first_name" required>
+                                <span>
+                                    <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 p-2">
+                            <label for="lastName" class="title">نام خانوادگی</label>
+                            <div class="information-item">
+                                <input type="text" value="{{ user.last_name|default:'' }}" class="item-user" id="lastName"
+                                       name="last_name" required>
+                                <span>
+                                    <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 p-2">
+                            <label for="dateOfBirth" class="title">تاریخ تولد</label>
+                            <div class="information-item">
+                                <input type="text" value="{{ user.user_profile.get_date_of_birth }}" class="item-user persian-date-picker"
+                                       id="dateOfBirth" name="date_of_birth" required>
+                                <span>
+                                    <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 p-2">
+                            <label for="phoneNumber" class="title">شماره همراه</label>
+                            <div class="information-item">
+                                <input type="text" value="{{ user.get_phone_number }}" class="item-user" id="phoneNumber"
+                                       name="phone_number" maxlength="11" required>
+                                <span>
+                                    <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 p-2">
+                            <label for="heightInput" class="title">
+                                قد
+                                <span class="small">(سانتی‌متر)</span>
+                            </label>
+                            <div class="information-item">
+                                <input type="number" value="{{ user.user_profile.height }}" class="item-user" id="heightInput"
+                                       name="height" required>
+                                <span>
+                                    <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">
+                                </span>
+                            </div>
+                        </div>
+                        <div class="col-12 p-2">
+                            <label for="weightInput" class="title">
+                                وزن
+                                <span class="small">(کیلوگرم)</span>
+                            </label>
+                            <div class="information-item">
+                                <input type="number" value="{{ user.user_profile.weight }}" class="item-user" id="weightInput"
+                                       name="weight" required>
+                                <span>
+                                    <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">
+                                </span>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="mt-4 py-2 col-3 rounded-pill">
+                            <span class="col-3 fw-semibold">ثبت</span>
+                        </button>
+                    </div>
+
+                </form>
+            </div>
+        </main>
+    </div>
 {% endblock %}
 
 {% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(".persian-date-picker").pDatepicker({
+                initialValue: false,
+                persianDigit: false,
+                format: 'YYYY-MM-DD',
+                autoClose: true,
+            });
+        });
+
+        // Set user profile picture after select
+        function displayImage(event) {
+            const fileInput = event.target;
+            const file = fileInput.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const selectedImage = document.getElementById('userProfilePic');
+                    selectedImage.src = e.target.result;
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 {% endblock %}

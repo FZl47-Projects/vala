@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate
 from django import forms
 
 from .utils import check_phone_number, get_coded_phone_number
-from .models import User
+from .models import User, UserProfile
 
 
 # Custom User creation form
@@ -69,3 +69,34 @@ class LoginForm(forms.Form):
             raise ValidationError(_('Entered data is incorrect'))
 
         return user
+
+
+# Update Profile form
+class UpdateProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=128, widget=forms.TextInput)
+    last_name = forms.CharField(max_length=128, widget=forms.TextInput)
+    phone_number = forms.CharField(max_length=11, widget=forms.TextInput)
+
+    class Meta:
+        model = UserProfile
+        fields = ('date_of_birth', 'height', 'weight', 'image',)
+
+    def clean_phone_number(self):
+        phone_number = self.cleaned_data.get('phone_number')
+
+        if not check_phone_number(phone_number):
+            raise ValidationError(_('Enter a valid phone number'))
+
+        return get_coded_phone_number(phone_number)
+
+    def save(self, commit=True):
+        profile = super().save(commit=True)
+        user = profile.user
+
+        # Save User info
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.phone_number = self.cleaned_data['phone_number']
+        user.save()
+
+        return profile
