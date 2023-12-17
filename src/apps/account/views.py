@@ -7,6 +7,7 @@ from django.shortcuts import reverse
 from django.contrib import messages
 
 from apps.core.utils import validate_form
+from .mixins import LogoutRequiredMixin
 from . import forms
 
 
@@ -14,7 +15,7 @@ User = get_user_model()
 
 
 # Render Login view
-class LoginView(TemplateView):
+class LoginView(LogoutRequiredMixin, TemplateView):
     template_name = 'account/login.html'
 
     def post(self, request):
@@ -26,7 +27,7 @@ class LoginView(TemplateView):
             login(request, user=user)
 
             messages.success(request, _('Login successful.'))
-            return redirect('/')
+            return redirect('public:index')
 
         return redirect('account:login')
 
