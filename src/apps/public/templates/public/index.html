@@ -125,29 +125,33 @@
                                     </div>
                                 </div>
 
-                                <div class="insert-comment col-10 mx-auto">
+                                <form method="POST" action="{% url 'public:add_post_comment' %}" class="insert-comment col-10 mx-auto">
+                                    {% csrf_token %}
                                     <div class="image-insert mx-2">
                                         <img src="{% static 'images/default/comment-default.png' %}" alt="User profile pic">
                                     </div>
-                                    <div class="comment-insert">
-                                        <input type="text" placeholder="کامنت ..." class="comment-input">
-                                        <button type="button" class="btn-send btn" onclick="">ارسال</button>
-                                    </div>
-                                </div>
+                                    <label class="comment-insert">
+                                        <input type="hidden" name="post" value="{{ post.id }}">
+                                        <input type="text" name="text" placeholder="کامنت ..." class="comment-input" required>
+                                        <button type="submit" class="btn-send btn">ارسال</button>
+                                    </label>
+                                </form>
 
                                 <!-- Start post comments -->
                                 <div class="commentt">
                                     <div class="col-12 mt-2">
-                                        <div class="comment-item">
-                                            <div class="col-2 col-md-1 p-1">
-                                                <div class="imge-comment">
-                                                    <img src="{% static 'images/default/comment-default.png' %}" width="55" height="52" alt="User profile pic">
+                                        {% for comment in post.get_verified_comments %}
+                                            <div class="comment-item">
+                                                <div class="col-2 col-md-1 p-1">
+                                                    <div class="imge-comment">
+                                                        <img src="{% static 'images/default/comment-default.png' %}" width="55" height="52" alt="User profile pic">
+                                                    </div>
+                                                </div>
+                                                <div class="col-10 col-md-11 test-comment p-1 text-right">
+                                                    {{ comment.text }}
                                                 </div>
                                             </div>
-                                            <div class="col-10 col-md-11 test-comment p-1 text-right">
-                                                کامنت ثابت
-                                            </div>
-                                        </div>
+                                        {% endfor %}
                                     </div>
                                 </div>
                                 <!-- .End post comments -->

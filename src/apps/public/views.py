@@ -1,10 +1,11 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, View
-from django.shortcuts import redirect, reverse
+from django.views.generic import TemplateView, View, CreateView
 from django.db.models import Exists, OuterRef
+from django.shortcuts import redirect
+from django.urls import reverse_lazy
 from django.http import JsonResponse
 
-from .models import Story, Post, PostLike
+from .models import Story, Post, PostLike, PostComment
 
 
 # Render Index view
@@ -35,3 +36,25 @@ class LikePostView(LoginRequiredMixin, View):
             return JsonResponse({'response': 'liked'})
 
         return JsonResponse({'response': 'disliked'})
+
+
+# AddPostComment view
+class AddPostCommentView(LoginRequiredMixin, CreateView):
+    template_name = 'public/index.html'
+    model = PostComment
+    fields = ('post', 'text')
+    success_url = reverse_lazy('public:index')
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        
+        obj.user = self.request.user  # Add user to current comment
+        obj.save()
+        
+        return super().form_valid(form)
+
+
+# EditPostComment view
+class EditPostCommentView(LoginRequiredMixin, View):
+    def post(self):
+        pass

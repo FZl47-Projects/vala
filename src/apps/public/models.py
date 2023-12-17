@@ -58,6 +58,10 @@ class Post(BaseModel):
         if self.image:
             return self.image.url
 
+    def get_verified_comments(self):
+        objects = self.post_comments.filter(is_verified=True)
+        return objects
+
 
 # PostLikes model
 class PostLike(BaseModel):
