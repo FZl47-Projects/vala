@@ -3,7 +3,7 @@
 <div class="height-full-viewport" id="height-full-viewport-mobile">
     <div id="close-menu-2">
         <span id="close-2">
-          <img src="{% static 'images/icons/close.png' %}" alt="">
+          <img src="{% static 'images/icons/close.png' %}" alt="Close btn">
         </span>
     </div>
     <ul id="menu-menu-1" class="ms-navbar">
@@ -56,7 +56,7 @@
             </a>
         </li>
         <li class="col-4 menu-m-item">
-            <a href="#">
+            <a href="{% url 'account:logout' %}">
                 <img src="{% static 'images/icons/close.png' %}" alt="icon">
                 <div class="text-white" style="font-size: 8px;">خروج</div>
             </a>
