@@ -4,7 +4,11 @@ from django.contrib.auth.models import Group
 from django.contrib import admin
 
 from .forms import UserCreationForm
-from .models import User
+from .models import User, UserProfile
+
+
+# Unregister the Group model from admin.
+admin.site.unregister(Group)
 
 
 # User model admin
@@ -40,5 +44,17 @@ class UserAdmin(BaseUserAdmin):
     filter_horizontal = ()
 
 
-# Unregister the Group model from admin.
-admin.site.unregister(Group)
+# UserProfile model admin
+@admin.register(UserProfile)
+class UserProfileAdmin(admin.ModelAdmin):
+    list_display = ('user', 'date_of_birth', 'is_verified',)
+    list_display_links = ('user',)
+    readonly_fields = ('created_at', 'updated_at',)
+    list_filter = ('is_verified',)
+    search_fields = ('user.phone_number', 'user.last_name',)
+    fieldsets = (
+        (None, {'fields': ('user',)}),
+        (_('Info'), {'fields': ('image', 'date_of_birth', 'height', 'weight')}),
+        (_('Permissions'), {'fields': ('is_verified',)}),
+        (_('Dates'), {'fields': ('created_at', 'updated_at')}),
+    )
