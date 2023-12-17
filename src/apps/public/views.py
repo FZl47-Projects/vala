@@ -1,5 +1,5 @@
+from django.views.generic import View, TemplateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import TemplateView, View, CreateView
 from django.db.models import Exists, OuterRef
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -25,7 +25,7 @@ class IndexView(LoginRequiredMixin, TemplateView):
         return context
 
 
-# PostLike view
+# Post Like view
 class LikePostView(LoginRequiredMixin, View):
     def get(self, request, pk):
         try:
@@ -38,7 +38,7 @@ class LikePostView(LoginRequiredMixin, View):
         return JsonResponse({'response': 'disliked'})
 
 
-# AddPostComment view
+# Add Post Comment view
 class AddPostCommentView(LoginRequiredMixin, CreateView):
     template_name = 'public/index.html'
     model = PostComment
@@ -54,7 +54,7 @@ class AddPostCommentView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
-# EditPostComment view
+# Edit Post Comment view
 class EditPostCommentView(LoginRequiredMixin, View):
     def post(self):
         pass
