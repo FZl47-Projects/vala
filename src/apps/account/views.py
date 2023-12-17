@@ -1,3 +1,4 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View, TemplateView
 from django.utils.translation import gettext as _
 from django.shortcuts import redirect, render
@@ -41,3 +42,8 @@ class RegisterView(View):
             return redirect('/')
 
         return redirect('account:login')
+
+
+# Render Profile view
+class ProfileView(LoginRequiredMixin, TemplateView):
+    template_name = 'account/profile.html'
