@@ -90,3 +90,7 @@ class UserProfile(BaseModel):
             return self.image.url
 
         return static('images/default/comment-default.png')
+
+    def get_date_of_birth(self):
+        if self.date_of_birth:
+            return self.date_of_birth.strftime('%Y-%m-%d')
