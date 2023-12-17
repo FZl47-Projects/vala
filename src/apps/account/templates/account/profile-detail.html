@@ -36,6 +36,10 @@
         {% include 'public/components/free-test.html' %}
         <!-- .End Free test modal -->
 
+        <!-- Start Edit password modal -->
+        {% include 'account/components/edit-password.html' %}
+        <!-- .End Edit password modal -->
+
         <main class="main pb-5 pt-4">
             <div class="profile-user-category">
                 <form method="POST" action="{% url 'account:profile_details' user.pk %}" enctype="multipart/form-data"
@@ -59,7 +63,7 @@
                             </label>
                         </div>
                         <div class="name-user me-auto align-self-end">
-                            <button type="button" class="btn btn-light fw-semibold">
+                            <button type="button" data-bs-toggle="modal" data-bs-target="#editPassModal" class="btn btn-light fw-semibold">
                                 تغییر رمز عبور
                             </button>
                         </div>

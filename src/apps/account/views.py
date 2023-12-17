@@ -73,3 +73,21 @@ class ProfileDetailView(LoginRequiredMixin, View):
             messages.success(request, _('Profile saved successfully'))
 
         return redirect(reverse('account:profile_details', args=[pk]))
+
+
+# Edit User Pass view
+class EditUserPassView(LoginRequiredMixin, View):
+
+    def post(self, request):
+        data = request.POST
+        user = request.user
+
+        if user.check_password(data.get('password1')):
+            user.set_password(data.get('password2'))
+            user.save()
+
+            messages.success(request, _('Password updated successfully'))
+            return redirect(reverse('account:profile_details', args=[user.id]))
+
+        messages.error(request, _('Password is wrong!'))
+        return redirect(reverse('account:profile_details', args=[user.id]))
