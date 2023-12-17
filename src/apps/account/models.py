@@ -61,6 +61,11 @@ class User(AbstractBaseUser):
         """ Is the user a member of staff? """
         return self.is_admin
 
+    def get_full_name(self):
+        if self.first_name:
+            return f'{self.first_name} - {self.last_name}'
+        return _('No name')
+
 
 # User Profile model
 class UserProfile(BaseModel):
