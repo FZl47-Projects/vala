@@ -128,7 +128,7 @@
                                 <form method="POST" action="{% url 'public:add_post_comment' %}" class="insert-comment col-10 mx-auto">
                                     {% csrf_token %}
                                     <div class="image-insert mx-2">
-                                        <img src="{% static 'images/default/comment-default.png' %}" alt="User profile pic">
+                                        <img src="{% static 'images/default/user-default.png' %}" alt="User profile pic">
                                     </div>
                                     <label class="comment-insert">
                                         <input type="hidden" name="post" value="{{ post.id }}">
@@ -144,7 +144,7 @@
                                             <div class="comment-item">
                                                 <div class="col-2 col-md-1 p-1">
                                                     <div class="imge-comment">
-                                                        <img src="{% static 'images/default/comment-default.png' %}" width="55" height="52" alt="User profile pic">
+                                                        <img src="{{ comment.user.user_profile.get_image_url }}" width="55" height="52" alt="User profile pic">
                                                     </div>
                                                 </div>
                                                 <div class="col-10 col-md-11 test-comment p-1 text-right">
