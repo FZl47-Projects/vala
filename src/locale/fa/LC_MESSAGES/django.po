@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-17 18:56+0330\n"
+"POT-Creation-Date: 2023-12-18 01:07+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,13 +38,13 @@ msgstr "اطلاعات"
 msgid "Account"
 msgstr "حساب کاربری"
 
-#: .\apps\account\enums.py:7 .\apps\account\models.py:36
-#: .\apps\account\models.py:66 .\apps\public\models.py:68
+#: .\apps\account\enums.py:7 .\apps\account\models.py:37
+#: .\apps\account\models.py:72 .\apps\public\models.py:68
 #: .\apps\public\models.py:81
 msgid "User"
 msgstr "کاربر"
 
-#: .\apps\account\enums.py:8 .\apps\account\models.py:23
+#: .\apps\account\enums.py:8 .\apps\account\models.py:24
 msgid "Admin"
 msgstr "ادمین"
 
@@ -52,7 +52,7 @@ msgstr "ادمین"
 msgid "Operator"
 msgstr "اپراتور"
 
-#: .\apps\account\forms.py:15 .\apps\account\models.py:17
+#: .\apps\account\forms.py:15 .\apps\account\models.py:18
 msgid "Phone number"
 msgstr "شماره تماس"
 
@@ -65,6 +65,7 @@ msgid "Password repeat"
 msgstr "تکرار گذرواژه"
 
 #: .\apps\account\forms.py:28 .\apps\account\forms.py:63
+#: .\apps\account\forms.py:88
 msgid "Enter a valid phone number"
 msgstr "یک شماره تماس معتبر وارد کنید"
 
@@ -80,75 +81,91 @@ msgstr "اطلاعات وارد شده صحیح نیست."
 msgid "Users must have a mobile number!"
 msgstr "کاربران باید یک شماره تماس داشته باشند."
 
-#: .\apps\account\models.py:18
+#: .\apps\account\models.py:19
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1845
 msgid "Email address"
 msgstr "نشانی الکترونیک"
 
-#: .\apps\account\models.py:19
+#: .\apps\account\models.py:20
 msgid "First name"
 msgstr "نام"
 
-#: .\apps\account\models.py:20
+#: .\apps\account\models.py:21
 msgid "Last name"
 msgstr "نام خانوادگی"
 
-#: .\apps\account\models.py:21 .\apps\public\models.py:15
+#: .\apps\account\models.py:22 .\apps\public\models.py:15
 #: .\apps\public\models.py:47
 msgid "Active"
 msgstr "فعال"
 
-#: .\apps\account\models.py:22
+#: .\apps\account\models.py:23
 msgid "Verify"
 msgstr "تایید"
 
-#: .\apps\account\models.py:24
+#: .\apps\account\models.py:25
 msgid "Access level"
 msgstr "سطح دسترسی"
 
-#: .\apps\account\models.py:26 .\apps\core\models.py:7
+#: .\apps\account\models.py:27 .\apps\core\models.py:7
 msgid "Creation time"
 msgstr "زمان ایجاد"
 
-#: .\apps\account\models.py:27 .\apps\core\models.py:8
+#: .\apps\account\models.py:28 .\apps\core\models.py:8
 msgid "Update time"
 msgstr "زمان ویرایش"
 
-#: .\apps\account\models.py:37
+#: .\apps\account\models.py:38
 msgid "Users"
 msgstr "کاربران"
 
 #: .\apps\account\models.py:67
+msgid "No name"
+msgstr "بدون نام"
+
+#: .\apps\account\models.py:73
 msgid "Picture"
 msgstr "تصویر"
 
-#: .\apps\account\models.py:68
+#: .\apps\account\models.py:74
 msgid "Date of birth"
 msgstr "تاریخ تولد"
 
-#: .\apps\account\models.py:70
+#: .\apps\account\models.py:76
 msgid "Height"
 msgstr "قد"
 
-#: .\apps\account\models.py:71
+#: .\apps\account\models.py:77
 msgid "Weight"
 msgstr "وزن"
 
-#: .\apps\account\models.py:73 .\apps\public\models.py:84
+#: .\apps\account\models.py:79 .\apps\public\models.py:84
 msgid "Verified"
 msgstr "تایید شده"
 
-#: .\apps\account\models.py:76
+#: .\apps\account\models.py:82
 msgid "User profile"
 msgstr "پروفایل کاربر"
 
-#: .\apps\account\models.py:77
+#: .\apps\account\models.py:83
 msgid "User profiles"
 msgstr "پروفایل‌ کاربران"
 
-#: .\apps\account\views.py:23 .\apps\account\views.py:40
+#: .\apps\account\views.py:28 .\apps\account\views.py:45
 msgid "Login successful."
 msgstr "ورود موفق."
+
+#: .\apps\account\views.py:73
+msgid "Profile saved successfully"
+msgstr "پروفایل با موفقیت ذخیره شد"
+
+#: .\apps\account\views.py:88
+msgid "Password updated successfully"
+msgstr "گذرواژه با موفقیت تغییر کرد"
+
+#: .\apps\account\views.py:91
+msgid "Password is wrong!"
+msgstr "گذرواژه اشتباه است!"
 
 #: .\apps\core\utils.py:39
 #, python-format
