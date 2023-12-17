@@ -1,8 +1,10 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.utils.translation import gettext as _
+from django.templatetags.static import static
 from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
+from apps.core.models import BaseModel
 from .utils import get_raw_phone_number
 from .enums import AccessLevelsEnum
 from .managers import UserManager
@@ -58,3 +60,28 @@ class User(AbstractBaseUser):
     def is_staff(self):
         """ Is the user a member of staff? """
         return self.is_admin
+
+
+# User Profile model
+class UserProfile(BaseModel):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('User'), related_name='user_profile')
+    image = models.ImageField(_('Picture'), upload_to='images/user/profile/', null=True, blank=True)
+    date_of_birth = models.DateField(_('Date of birth'), null=True, blank=True)
+
+    height = models.PositiveIntegerField(_('Height'), default=0)
+    weight = models.PositiveIntegerField(_('Weight'), default=0)
+
+    is_verified = models.BooleanField(_('Verified'), default=False)
+
+    class Meta:
+        verbose_name = _('User profile')
+        verbose_name_plural = _('User profiles')
+
+    def __str__(self):
+        return f'{self.user}'
+
+    def get_image_url(self):
+        if self.image:
+            return self.image.url
+
+        return static('images/default/comment-default.png')
