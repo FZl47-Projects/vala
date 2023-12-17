@@ -15,8 +15,9 @@ class IndexView(LoginRequiredMixin, TemplateView):
         context = super().get_context_data(**kwargs)
 
         data = {
-            'stories': Story.get_recent_stories(),  # Recent 24 hours stories
-            'posts': Post.objects.annotate(user_liked=Exists(PostLike.objects.filter(post=OuterRef('pk'), user=self.request.user)))[:10],
+            'stories': Story.get_recent_stories(),  # Recent stories
+            'posts': Post.objects.annotate(
+                user_liked=Exists(PostLike.objects.filter(post=OuterRef('pk'), user=self.request.user)))[:10],  # Last 10 posts
         }
 
         context.update(data)

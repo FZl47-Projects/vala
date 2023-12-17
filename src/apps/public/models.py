@@ -27,10 +27,13 @@ class Story(BaseModel):
             return self.image.url
 
     @classmethod
-    def get_recent_stories(cls):
-        """ Return objects created within the last 24 hours """
-        active_time = datetime.now() - timedelta(hours=24)
-        objects = cls.objects.filter(is_active=True, created_at__gte=active_time)
+    def get_recent_stories(cls, daily=False):
+        """ Return objects created within the last 24 hours or last 8 ones """
+        if daily:
+            active_time = datetime.now() - timedelta(hours=24)
+            objects = cls.objects.filter(is_active=True, created_at__gte=active_time)
+        else:
+            objects = cls.objects.filter(is_active=True)[:8]
 
         return objects
 
