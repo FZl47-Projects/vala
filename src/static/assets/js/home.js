@@ -77,7 +77,7 @@ btnHamburger.forEach((item, index) => {
     item.addEventListener("click", (e) => {
         if (e.target.className === "" ||
             e.target.className === "comment-input" ||
-            e.target.className === "btn-send" ||
+            e.target.classList.contains("btn-send") ||
             e.target.classList.contains("like-icon"))
             return;
         btnHamburger[index].classList.toggle("active");
