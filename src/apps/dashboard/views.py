@@ -7,3 +7,9 @@ class Index(LoginRequiredMixinCustom, View):
 
     def get(self, request):
         return render(request, 'dashboard/index.html')
+
+
+class Notifications(LoginRequiredMixinCustom, View):
+
+    def get(self, request):
+        return render(request, 'dashboard/notification.html')

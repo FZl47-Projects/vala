@@ -201,3 +201,23 @@ function truncate(str, max) {
 }
 
 
+// features update
+document.querySelectorAll('.features-update').forEach(function (el) {
+    let feature_dis = document.createElement('div')
+    feature_dis.classList.add('features-update-disable-el')
+    if (el.classList.contains('features-update-parent')) {
+        el.parentElement.appendChild(feature_dis)
+    } else {
+        el.appendChild(feature_dis)
+    }
+
+
+    feature_dis.addEventListener('click', function (e) {
+        createNotify({
+            title: '',
+            message: 'بخش مورد نظر در اپدیت های بعدی اضافه میشود',
+            theme: 'warning',
+            showDuration: 7000
+        })
+    })
+})

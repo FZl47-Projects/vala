@@ -15,10 +15,12 @@
 
     <!-- CSS -->
     <link href="{% static 'styles/base.css' %}" rel="stylesheet">
+    <link href="{% static 'styles/notify.css' %}" rel="stylesheet">
 
     <link href="{% static 'template/dashboard/vendor/owl-carousel/owl.carousel.css' %}" rel="stylesheet">
     <link href="{% static 'template/dashboard/vendor/jquery-nice-select/css/nice-select.css' %}" rel="stylesheet">
     <link href="{% static 'template/dashboard/css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'fonts/fontawesome/css/all.css' %}" rel="stylesheet">
 
 
     {% block Link %}
@@ -48,6 +50,16 @@
 <script src="{% static 'template/dashboard/js/dashboard/dashboard-1.js' %}"></script>
 <script src="{% static 'template/dashboard/js/custom.min.js' %}"></script>
 <script src="{% static 'template/dashboard/js/deznav-init.js' %}"></script>
+<script>
+    window.CSRF_TOKEN = '{{ csrf_token }}'
+    {% for message in messages %}
+        createNotify({
+            title: '{{ message.tags }}' == 'success' ? 'موفق' : 'خطا',
+            message: '{{ message }}',
+            theme: '{{ message.tags }}'
+        })
+    {% endfor %}
+</script>
 {% block Script %}
 {% endblock %}
 </body>

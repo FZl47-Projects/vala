@@ -1,0 +1,84 @@
+{% load static %}
+
+<div class="deznav">
+    <div class="deznav-scroll">
+        {% include 'dashboard/components/base/menu-header.html' %}
+        <ul class="metismenu" id="menu">
+            <li>
+                <a href="{% url 'dashboard:index' %}" class="ai-icon" aria-expanded="false"><i
+                        class="flaticon-024-dashboard"></i><span class="nav-text">داشبورد</span></a>
+            </li>
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false"><i
+                        class="far fa-users"></i><span class="nav-text">کاربران</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="index.html">افزودن اپراتور</a></li>
+                    <li><a href="index-2.html">افزودن کاربر </a></li>
+                    <li><a href="coin-details.html">لیست اپراتور ها</a></li>
+                    <li><a href="my-wallet.html">لیست کاربران</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false"><i
+                        class="far fa-bell"></i><span class="nav-text">اعلانات</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="index.html">افزودن اعلان برای کاربر</a></li>
+                    <li><a href="index-2.html">لیست اعلانات کاربران </a></li>
+                    <li><a href="coin-details.html">اعلانات شخصی</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false"><i
+                        class="far fa-comment-alt"></i><span class="nav-text">نظرات</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="index.html">افزودن نظر مشتریان</a></li>
+                    <li><a href="index-2.html">لیست نظرات مشتریان</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="has-arrow ai-icon features-update features-update-parent" aria-expanded="false"><i
+                        class="far fa-magic"></i><span class="nav-text">خدمات</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="index.html">افزودن خدمات</a></li>
+                    <li><a href="index-2.html">لیست خدمات</a></li>
+                </ul>
+            </li>
+            <li>
+                <a class="has-arrow ai-icon features-update features-update-parent" aria-expanded="false"><i
+                        class="far fa-user-clock"></i><span class="nav-text">جلسات</span></a>
+                <ul aria-expanded="false">
+                    <li><a href="#">...</a></li>
+                    <li><a href="#">...</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="{% url 'public:index' %}" class="ai-icon features-update features-update-parent" aria-expanded="false"><i
+                        class="far fa-comments"></i><span class="nav-text">گفت و گو انلاین</span></a>
+            </li>
+            <li>
+                <a href="{% url 'public:index' %}" class="ai-icon" aria-expanded="false"><i
+                        class="far fa-info"></i><span class="nav-text">اطلاعات شخصی</span></a>
+            </li>
+            <li>
+                <a href="{% url 'public:index' %}" class="ai-icon" aria-expanded="false"><i
+                        class="far fa-home"></i><span class="nav-text">خانه</span></a>
+            </li>
+            <li>
+                <a href="{% url 'account:logout' %}" class="ai-icon" aria-expanded="false">
+                    <i class="far fa-sign-out"></i>
+                    <span class="nav-text">خروج</span></a>
+            </li>
+        </ul>
+        <div class="copyright text-center">
+            <p>
+                <strong>داشبورد مدیریت</strong>
+            </p>
+            <p class="fs-12">
+                ساخته شده با
+                <span class="heart"></span>
+                توسط
+                <a href="https://smartenco.ir"> Smarten Team</a>
+            </p>
+        </div>
+    </div>
+</div>

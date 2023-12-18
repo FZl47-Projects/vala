@@ -34,7 +34,7 @@ function getUrlParams(dParam)
 	
 	dezSettingsOptions = {
 			typography: "poppins",
-			version: getCookie('theme') || 'light',
+			version: getCookie('theme-mode') || 'light',
 			layout: "vertical",
 			primary: "color_1",
 			headerBg: "color_1",
@@ -61,3 +61,34 @@ function getUrlParams(dParam)
 	});
 	
 })(jQuery);
+
+
+let btn_switch_theme_dark = document.querySelector('[btn-switch-theme][theme="dark"]')
+let btn_switch_theme_light = document.querySelector('[btn-switch-theme][theme="light"]')
+
+btn_switch_theme_dark.addEventListener('click', function () {
+    btn_switch_theme_dark.classList.add('d-none')
+    btn_switch_theme_light.classList.remove('d-none')
+    set_theme('dark')
+})
+
+btn_switch_theme_light.addEventListener('click', function () {
+    btn_switch_theme_light.classList.add('d-none')
+    btn_switch_theme_dark.classList.remove('d-none')
+    set_theme('light')
+})
+
+function set_theme(theme) {
+    dezSettingsOptions = {
+        version: theme,
+    }
+    new dezSettings(dezSettingsOptions);
+	setCookie('theme-mode', theme)
+}
+
+if ((getCookie('theme-mode') || 'light') == 'light'){
+
+	btn_switch_theme_light.click()
+}else{
+	btn_switch_theme_dark.click()
+}

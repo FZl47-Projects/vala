@@ -114,8 +114,9 @@ class User(AbstractUser):
     def get_email(self):
         return self.email or '-'
 
-    def get_image_url(self):
-        return '/static/images/dashboard/client_img.png'
+    def get_picture_profile_url(self):
+        # TODO: should be completed
+        return '/static/template/images/default-user.jpg'
 
     def get_last_login(self):
         if self.last_login:
