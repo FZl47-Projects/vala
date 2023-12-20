@@ -1,0 +1,150 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}تکمیل اطلاعات{% endblock %}
+
+{% block styles%}
+    <link rel="stylesheet" href="{% static 'styles/question-admin.css' %}"/>
+{% endblock %}
+
+{% block body_class %}bg{% endblock %}
+
+{% block content%}
+    <div class="col-md-12 m-0">
+        <form method="POST" action="" class="main">
+            {% csrf_token %}
+            <!-- logo Vala -->
+            <section class="logo-valla">
+                <div class="inner-logo-valla">
+                    <img src="{% static 'images/vala-logo.png' %}" alt="Vala logo">
+                </div>
+            </section>
+            <!-- logo Vala -->
+
+            <!-- Start form question-admin -->
+            <section class="question-admin active" id="content-step-1">
+                <div class="question-admin-inner col-12 col-md-4">
+                    <div class="title">سوال ادمین</div>
+                    <div class="question">
+                        لورم ایپسوم با تولید نا مفهوم سادگی از لورم ایپسوم با تولید نا
+                        مفهوم سادگی از لورم ایپسوم با تولید نا مفهوم سادگی از؟
+                    </div>
+                    <div class="answer fw-semibold">
+                        <div class="col-12 p-2">
+                            <label role="button" for="answer-1" class="answer-item w-100 active">گزینه اول</label>
+                            <input type="radio" name="question1" id="answer-1" value="جواب اول" checked class="d-none">
+                        </div>
+                        <div class="col-12 p-2">
+                            <label role="button" for="answer-2" class="answer-item w-100">گزینه دوم</label>
+                            <input type="radio" name="question1" id="answer-2" value="جواب دوم" class="d-none">
+                        </div>
+                        <div class="col-12 p-2">
+                            <label role="button" for="answer-3" class="answer-item w-100">گزینه سوم</label>
+                            <input type="radio" name="question1" id="answer-3" value="جواب سوم" class="d-none">
+                        </div>
+                        <div class="col-12 p-2">
+                            <label role="button" for="answer-4" class="answer-item w-100">گزینه چهارم</label>
+                            <input type="radio" name="question1" id="answer-4" value="جواب چهارم" class="d-none">
+                        </div>
+                        <div class="next-level-btn mt-3" id="btn-step-2">
+                            <button type="button" class="inner-next-level-btn">ثبت و ادامه</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="question-admin" id="content-step-2">
+                <div class="question-admin-inner col-12 col-md-4">
+                    <div class="bg-dark rounded-4 p-3">
+                        <div class="text-white">
+                            <!-- question-admin Height/Weight -->
+                            <div class="active">
+                                <div class="content-moshakhasat d-flex flex-column align-items-center fw-semibold" id="container">
+                                    <div class="col-12 p-2">
+                                        <label for="name" class="title me-2">نام</label>
+                                        <div class="information-item mt-1">
+                                            <input type="text" class="item-user" id="name" name="first_name">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 p-2">
+                                        <label for="lastName" class="title me-2">نام خانوادگی</label>
+                                        <div class="information-item mt-1">
+                                            <input type="text" class="item-user" id="lastName" name="last_name">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 p-2">
+                                        <label for="dateOfBirth" class="title me-2">تاریخ تولد</label>
+                                        <div class="information-item mt-1">
+                                            <input type="text" class="item-user persian-date-picker" id="dateOfBirth" name="date_of_birth" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 p-2">
+                                        <label for="heightInput" class="title me-2">
+                                            قد
+                                            <span class="small">(سانتی‌متر)</span>
+                                        </label>
+                                        <div class="information-item mt-1">
+                                            <input type="number" class="item-user" id="heightInput" name="height">
+                                        </div>
+                                    </div>
+                                    <div class="col-12 p-2">
+                                        <label for="weightInput" class="title me-2">
+                                            وزن
+                                            <span class="small">(کیلوگرم)</span>
+                                        </label>
+                                        <div class="information-item mt-1">
+                                            <input type="number" class="item-user" id="weightInput" name="weight">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex justify-content-between gap-3 mt-3 p-3">
+                                    <button type="button" id="btn-step-1" class="rounded-pill py-2 px-4">مرحله قبل</button>
+                                    <button type="button" id="btn-step-3" class="rounded-pill py-2 px-4">ثبت و ادامه</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="question-admin" id="content-step-3">
+                <section class="upload">
+                    <div class="upload-image-inner col-12 col-md-4">
+                        <div class="d-flex flex-column gap-3 align-items-center fw-semibold">
+                            <div class="imge-user-profile">
+                                <img src="{% static 'images/default/user-default.png' %}" id="userProfilePic" width="90"
+                                     alt="User profile pic" class="rounded-circle" style="object-fit: cover;">
+                            </div>
+                            <label role="button" class="upload-image-btn mt-2">
+                                    بارگذاری عکس پروفایل
+                                <input type="file" name="image" id="profilePic" accept="image/*" onchange="displayImage(event)" hidden>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="next-level-btn">
+                        <button type="submit" class="inner-next-level-btn fw-semibold px-4">ثبت اطلاعات</button>
+                    </div>
+                </section>
+            </section>
+        </form>
+        <!-- .End form question-admin -->
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/question-admin.js' %}"></script>
+
+    <script>
+        $(document).ready(function() {
+            $(".persian-date-picker").pDatepicker({
+                initialValue: false,
+                persianDigit: false,
+                format: 'YYYY-MM-DD',
+                autoClose: true,
+            });
+        });
+    </script>
+{% endblock %}

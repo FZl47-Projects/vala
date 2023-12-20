@@ -55,6 +55,11 @@ class RegisterView(LogoutRequiredMixin, View):
         return redirect('account:login')
 
 
+# Render CompleteProfile view
+class CompleteProfileView(TemplateView):
+    template_name = 'account/complete-profile.html'
+
+
 # Render Profile view
 class ProfileView(LoginRequiredMixin, TemplateView):
     template_name = 'account/profile.html'

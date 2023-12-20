@@ -71,6 +71,28 @@ class LoginForm(forms.Form):
         return user
 
 
+# Add Profile form
+class AddProfileForm(forms.ModelForm):
+    first_name = forms.CharField(max_length=128, widget=forms.TextInput)
+    last_name = forms.CharField(max_length=128, widget=forms.TextInput)
+
+    class Meta:
+        model = UserProfile
+        exclude = ('user', 'token')
+
+    def save(self, commit=True):
+        profile = super().save(commit=True)
+        user = profile.user
+
+        # Save User info
+        user.first_name = self.cleaned_data['first_name']
+        user.last_name = self.cleaned_data['last_name']
+        user.is_verified = True
+        user.save()
+
+        return profile
+
+
 # Update Profile form
 class UpdateProfileForm(forms.ModelForm):
     first_name = forms.CharField(max_length=128, widget=forms.TextInput)
