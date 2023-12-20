@@ -139,15 +139,15 @@
 
                                 <!-- Start post comments -->
                                 <div class="commentt">
-                                    <div class="col-12 mt-2">
+                                    <div class="w-100 mt-4">
                                         {% for comment in post.get_verified_comments %}
-                                            <div class="comment-item">
+                                            <div class="comment-item mt-2">
                                                 <div class="col-2 col-md-1 p-1">
                                                     <div class="imge-comment">
                                                         <img src="{{ comment.user.user_profile.get_image_url }}" width="55" height="52" alt="User profile pic">
                                                     </div>
                                                 </div>
-                                                <div class="col-10 col-md-11 test-comment p-1 text-right">
+                                                <div class="col-10 col-md-11 text-white" style="padding: 0.5rem 4rem; font-weight: 500;">
                                                     {{ comment.text }}
                                                 </div>
                                             </div>

@@ -1,4 +1,5 @@
 from django.utils.translation import gettext as _
+from django.db.models import Exists, OuterRef
 from django.db import models
 
 from datetime import datetime, timedelta
@@ -60,6 +61,15 @@ class Post(BaseModel):
 
     def get_verified_comments(self):
         objects = self.post_comments.filter(is_verified=True)
+        return objects
+
+    @classmethod
+    def get_recent_posts(cls, user=None):
+        """ Return recent posts based on user login. if user is authenticated, returns posts with like state. """
+        objects = cls.objects.filter(is_active=True)[:10]
+        if user.is_authenticated:
+            objects = cls.objects.annotate(user_liked=Exists(PostLike.objects.filter(post=OuterRef('pk'), user=user)))
+
         return objects
 
 
