@@ -8,6 +8,7 @@ from apps.core.models import BaseModel
 from .utils import get_raw_phone_number
 from .enums import AccessLevelsEnum
 from .managers import UserManager
+from secrets import token_hex
 
 
 # Custom User model
@@ -70,13 +71,17 @@ class User(AbstractBaseUser):
 # User Profile model
 class UserProfile(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('User'), related_name='user_profile')
+    token = models.CharField(_("Profile token"), max_length=64, null=True, blank=True)
+
+    # Admin questions
+    question1 = models.CharField(_('First question'), max_length=64, default=_('No answer'))
+    question2 = models.CharField(_('Second question'), max_length=64, default=_('No answer'))
+
     image = models.ImageField(_('Picture'), upload_to='images/user/profile/', null=True, blank=True)
     date_of_birth = models.DateField(_('Date of birth'), null=True, blank=True)
 
     height = models.PositiveIntegerField(_('Height'), default=0)
     weight = models.PositiveIntegerField(_('Weight'), default=0)
-
-    is_verified = models.BooleanField(_('Verified'), default=False)
 
     class Meta:
         verbose_name = _('User profile')
@@ -94,3 +99,14 @@ class UserProfile(BaseModel):
     def get_date_of_birth(self):
         if self.date_of_birth:
             return self.date_of_birth.strftime('%Y-%m-%d')
+
+    def generate_token(self, byte: int = 12):
+        self.token = token_hex(byte)
+        self.save()
+
+    def clear_token(self, request):
+        if 'register_token' in request.session:
+            del request.session['register_token']
+
+        self.token = None
+        self.save()

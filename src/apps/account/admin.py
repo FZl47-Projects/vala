@@ -1,7 +1,9 @@
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.utils.translation import gettext as _
 from django.contrib.auth.models import Group
+from django.db import models as a_model
 from django.contrib import admin
+from django import forms
 
 from .forms import UserCreationForm
 from .models import User, UserProfile
@@ -47,14 +49,18 @@ class UserAdmin(BaseUserAdmin):
 # UserProfile model admin
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'date_of_birth', 'is_verified',)
+    list_display = ('user', 'date_of_birth',)
     list_display_links = ('user',)
     readonly_fields = ('created_at', 'updated_at',)
-    list_filter = ('is_verified',)
     search_fields = ('user.phone_number', 'user.last_name',)
     fieldsets = (
         (None, {'fields': ('user',)}),
         (_('Info'), {'fields': ('image', 'date_of_birth', 'height', 'weight')}),
-        (_('Permissions'), {'fields': ('is_verified',)}),
+        (_('Admin questions'), {'fields': ('question1', 'question2')}),
         (_('Dates'), {'fields': ('created_at', 'updated_at')}),
     )
+
+    # Change formField attributes(size)
+    formfield_overrides = {
+        a_model.CharField: {"widget": forms.TextInput(attrs={"size": "60"})},
+    }
