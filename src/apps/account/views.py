@@ -26,6 +26,12 @@ class LoginView(LogoutRequiredMixin, TemplateView):
             user = form.cleaned_data
             login(request, user=user)
 
+            # Modify login session if remember me is not checked
+            remember_me = data.get('remember_me', False)
+            if not remember_me:
+                self.request.session.set_expiry(0)
+                self.request.session.modified = True
+
             messages.success(request, _('Login successful.'))
             return redirect('public:index')
 
@@ -33,7 +39,7 @@ class LoginView(LogoutRequiredMixin, TemplateView):
 
 
 # Render Register view
-class RegisterView(View):
+class RegisterView(LogoutRequiredMixin, View):
 
     def post(self, request):
         data = request.POST.copy()
