@@ -25,6 +25,8 @@ class User(AbstractBaseUser):
     is_admin = models.BooleanField(_("Admin"), default=False)
     access_level = models.CharField(_("Access level"), max_length=32, choices=ACCESS_LEVELS.choices, default=ACCESS_LEVELS.USER)
 
+    token = models.CharField(_("Secret token"), max_length=64, null=True, blank=True, editable=False)
+
     created_at = models.DateTimeField(_('Creation time'), auto_now_add=True)
     updated_at = models.DateTimeField(_('Update time'), auto_now=True)
 
@@ -67,11 +69,23 @@ class User(AbstractBaseUser):
             return f'{self.first_name} {self.last_name}'
         return _('No name')
 
+    def generate_token(self, byte: int = 12):
+        self.token = token_hex(byte)
+        self.save()
+
+        return self.token
+
+    def clear_token(self, request):
+        if 'register_token' in request.session:
+            del request.session['register_token']
+
+        self.token = None
+        self.save()
+
 
 # User Profile model
 class UserProfile(BaseModel):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('User'), related_name='user_profile')
-    token = models.CharField(_("Profile token"), max_length=64, null=True, blank=True)
 
     # Admin questions
     question1 = models.CharField(_('First question'), max_length=64, default=_('No answer'))
@@ -99,14 +113,3 @@ class UserProfile(BaseModel):
     def get_date_of_birth(self):
         if self.date_of_birth:
             return self.date_of_birth.strftime('%Y-%m-%d')
-
-    def generate_token(self, byte: int = 12):
-        self.token = token_hex(byte)
-        self.save()
-
-    def clear_token(self, request):
-        if 'register_token' in request.session:
-            del request.session['register_token']
-
-        self.token = None
-        self.save()
