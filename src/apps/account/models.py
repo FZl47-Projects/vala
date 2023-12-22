@@ -97,6 +97,8 @@ class UserProfile(BaseModel):
     height = models.PositiveIntegerField(_('Height'), default=0)
     weight = models.PositiveIntegerField(_('Weight'), default=0)
 
+    is_verified = models.BooleanField(_('Verified'), default=False)
+
     class Meta:
         verbose_name = _('User profile')
         verbose_name_plural = _('User profiles')

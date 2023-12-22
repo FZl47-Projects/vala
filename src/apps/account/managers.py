@@ -21,6 +21,7 @@ class UserManager(BaseUserManager):
 
         user = self.create_user(password, phone_number)
         user.is_admin = True  # Set as 'admin' user
+        user.is_verified = True
         user.save(using=self._db)
 
         return user
