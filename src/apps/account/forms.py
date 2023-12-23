@@ -1,25 +1,19 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django import forms
 from phonenumber_field.formfields import PhoneNumberField
-from .models import User
+from . import models
 
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
-        model = User
+        model = models.User
         fields = ('phonenumber',)
 
 
 class CustomUserChangeForm(UserChangeForm):
     class Meta:
-        model = User
+        model = models.User
         fields = ('phonenumber',)
-
-
-class UpdateUserForm(forms.ModelForm):
-    class Meta:
-        model = User
-        fields = ('first_name', 'last_name')
 
 
 class RegisterUserForm(forms.Form):
@@ -37,22 +31,17 @@ class RegisterUserForm(forms.Form):
         return p2
 
 
-class RegisterUserFullForm(forms.ModelForm):
-    email_error_messages = {
-        'invalid': 'ایمیل نامعتبر است',
-        'unique': 'این ایمیل توسط کاربر دیگه ای در حال استفاده است'
-    }
+class AddUserForm(forms.ModelForm):
     password2 = forms.CharField(max_length=64, min_length=8, required=True, widget=forms.PasswordInput())
 
     class Meta:
-        model = User
-        exclude = ('date_joined',)
+        model = models.User
+        exclude = ('date_joined', 'is_phonenumber_confirmed')
         error_messages = {
             'phonenumber': {
                 'invalid': 'شماره همراه نامعتبر است',
                 'unique': 'کاربری با این شماره از قبل ثبت شده است'
             },
-            # TODO: should add more error messages
         }
 
     def clean_password2(self):
@@ -77,10 +66,19 @@ class ResetPasswordSetForm(forms.Form):
         return p2
 
 
-class UserUpdateByAdmin(forms.ModelForm):
+class UpdateUserProfileDetail(forms.ModelForm):
+    picture = forms.FileField(required=False)
+    note = forms.CharField(required=False)
+
     class Meta:
-        model = User
-        fields = ('is_active', 'is_phonenumber_confirmed', 'phonenumber', 'first_name', 'last_name')
+        model = models.UserProfile
+        fields = '__all__'
+
+
+class UpdateUserDetailBasic(forms.ModelForm):
+    class Meta:
+        model = models.User
+        fields = ('first_name', 'last_name')
 
 
 class UpdateUserPassword(forms.Form):

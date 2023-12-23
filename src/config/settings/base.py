@@ -15,6 +15,8 @@ DEBUG = os.getenv('DEBUG', True)
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '*').split(',')
 
+HOST_ADDRESS = 'http://127.0.0.1:8000' # without slash
+
 CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS', 'http://127.0.0.1').split(',')
 
 INSTALLED_APPS = [
@@ -28,6 +30,7 @@ INSTALLED_APPS = [
     # Apps
     'apps.core',
     'apps.public',
+    'apps.cartex',
     'apps.account',
     'apps.dashboard',
     'apps.notification',
@@ -86,7 +89,8 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'fa-ir'
+# LANGUAGE_CODE = 'fa-ir'
+LANGUAGE_CODE = 'en'
 
 TIME_ZONE = 'Asia/Tehran'
 
@@ -104,7 +108,6 @@ STATICFILES_DIRS = [
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / os.getenv('MEDIA_ROOT', 'static/media')
 
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'account.User'  # custom user model
@@ -113,7 +116,7 @@ LOGIN_URL = '/u/login'
 Q_CLUSTER = {
     'name': 'django-q',
     'timeout': 60,
-    'orm':'default'
+    'orm': 'default'
     # 'redis': {
     #     'host': 'localhost',
     #     'port': 6379,
@@ -148,3 +151,9 @@ SMS_CONFIG = {
     'API_URL': 'http://rest.ippanel.com/v1/messages/patterns/send',
     'ORIGINATOR': '983000505'
 }
+
+IMAGES_FORMAT = [
+    'png',
+    'jpg',
+    'webp'
+]

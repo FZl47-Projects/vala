@@ -2,8 +2,10 @@ from django.db import models
 from django.urls import reverse
 from django.contrib.auth.base_user import BaseUserManager
 from django.contrib.auth.models import AbstractUser
+from django.core.exceptions import BadRequest
 from django.conf import settings
 from phonenumber_field.modelfields import PhoneNumberField
+from apps.core.utils import random_str
 
 
 class CustomBaseUserManager(BaseUserManager):
@@ -115,10 +117,53 @@ class User(AbstractUser):
         return self.email or '-'
 
     def get_picture_profile_url(self):
-        # TODO: should be completed
-        return '/static/template/images/default-user.jpg'
+        default_pic = '/static/template/images/default-user.jpg'
+        profile = self.get_profile()
+        if not profile:
+            return default_pic
+        if profile.picture:
+            return profile.picture.url
+        return default_pic
 
     def get_last_login(self):
         if self.last_login:
             return self.last_login.strftime('%Y-%m-%d %H:%M:%S')
         return '-'
+
+    def get_dashboard_absolute_url(self):
+        pass
+
+    def get_notifications(self):
+        notifications = self.notificationuser_set.filter(is_showing=True)
+        return notifications
+
+    def get_unread_notifications(self):
+        return self.get_notifications().filter(is_seen=False)
+
+    def get_notifications_absolute_url(self):
+        return f"{reverse('notification:notification_user__list')}?search={self.get_raw_phonenumber()}"
+
+    def get_profile(self):
+        try:
+            return self.profile
+        except AttributeError:
+            return None
+
+
+def upload_picture_profile(instance, path):
+    frmt = str(path).split('.')[-1]
+    if frmt not in settings.IMAGES_FORMAT:
+        raise BadRequest('picture format is not correct')
+    return f'images/profile/pictures/{random_str(10)}.{frmt}'
+
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+    age = models.SmallIntegerField()
+    weight = models.SmallIntegerField()
+    height = models.SmallIntegerField()
+    picture = models.ImageField(upload_to=upload_picture_profile, null=True)
+    note = models.TextField(null=True)
+
+    def __str__(self):
+        return f'{self.user} - profile'

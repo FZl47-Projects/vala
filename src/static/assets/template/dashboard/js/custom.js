@@ -15,8 +15,7 @@
 		setTimeout(function() {
 			jQuery('#preloader').remove();
 			$('#main-wrapper').addClass('show');
-		},800);	
-		
+		},300);
 	}
 
     var handleMetisMenu = function() {

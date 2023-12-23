@@ -6,8 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <link rel="shortcut icon" type="image/png" href="images/favicon.png">
     <meta name="format-detection" content="telephone=no">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no"/>
     <title>
+        داشبورد کارتکس کلینیک والا |
         {% block Title %}
         {% endblock %}
     </title>
@@ -17,9 +18,9 @@
     <link href="{% static 'styles/base.css' %}" rel="stylesheet">
     <link href="{% static 'styles/notify.css' %}" rel="stylesheet">
 
+    <link href="{% static 'template/dashboard/css/style.css' %}" rel="stylesheet">
     <link href="{% static 'template/dashboard/vendor/owl-carousel/owl.carousel.css' %}" rel="stylesheet">
     <link href="{% static 'template/dashboard/vendor/jquery-nice-select/css/nice-select.css' %}" rel="stylesheet">
-    <link href="{% static 'template/dashboard/css/style.css' %}" rel="stylesheet">
     <link href="{% static 'fonts/fontawesome/css/all.css' %}" rel="stylesheet">
 
 
@@ -48,7 +49,7 @@
 <script src="{% static 'template/dashboard/vendor/apexchart/apexchart.js' %}"></script>
 <script src="{% static 'template/dashboard/vendor/owl-carousel/owl.carousel.js' %}"></script>
 <script src="{% static 'template/dashboard/js/dashboard/dashboard-1.js' %}"></script>
-<script src="{% static 'template/dashboard/js/custom.min.js' %}"></script>
+<script src="{% static 'template/dashboard/js/custom.js' %}"></script>
 <script src="{% static 'template/dashboard/js/deznav-init.js' %}"></script>
 <script>
     window.CSRF_TOKEN = '{{ csrf_token }}'

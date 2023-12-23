@@ -1,20 +1,20 @@
 import json
+from django.contrib.auth import authenticate, login, get_user_model, logout as logout_handler
+from django.http import JsonResponse, HttpResponseBadRequest, Http404, HttpResponse
 from django.contrib import messages
 from django.conf import settings
-from django.db.models import Value, Q
-from django.db.models.functions import Concat
-from django.shortcuts import render, redirect, get_object_or_404
-from django.http import JsonResponse, HttpResponseBadRequest, Http404, HttpResponse
+from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView
-from django.core import serializers
-from django.core.paginator import Paginator
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import authenticate, login, get_user_model, logout as logout_handler
-from apps.account.auth.mixins import LoginRequiredMixinCustom
+from django.core.paginator import Paginator
+from django.db.models import Q, Value
+from django.db.models.functions import Concat
+from apps.account.auth.mixins import LoginRequiredMixinCustom, SuperUserRequiredMixin, AdminRequiredMixin
 from apps.core.utils import add_prefix_phonenum, random_num, form_validate_err
-from apps.account.auth.decorators import admin_required_cbv
 from apps.core.redis_py import set_value_expire, remove_key, get_value
 from apps.notification.models import NotificationUser
+
+from apps.account.models import User
 from apps.account import forms
 
 User = get_user_model()
@@ -50,8 +50,7 @@ class Login(TemplateView):
                 return redirect(next_url)
         except Exception as e:
             pass
-        # return redirect('dashboard:index')
-        return redirect('public:index')
+        return redirect('dashboard:index')
 
 
 class Register(TemplateView):
@@ -266,231 +265,176 @@ class ConfirmPhonenumberCheckCode(LoginRequiredMixin, View):
         return JsonResponse({})
 
 
-class DashboardInfoDetail(LoginRequiredMixinCustom, View):
+class DashboardUserPersonalDetail(LoginRequiredMixin, TemplateView):
+    template_name = 'account/dashboard/users/personal-detail.html'
 
-    def get(self, request):
-        return render(request, 'account/dashboard/information/detail.html')
-
-
-class DashboardInfoChangePassword(LoginRequiredMixinCustom, View):
-
-    def get(self, request):
-        return render(request, 'account/dashboard/information/change-password.html')
-
-
-# class UserAdd(View):
-#     template_name = 'account/dashboard/user/add.html'
-
-#     @admin_required_cbv()
-#     def get(self, request):
-#         context = {
-#             'buildings':Building.objects.filter(is_active=True)
-#         }
-#         return render(request, self.template_name,context)
-
-#     @admin_required_cbv()
-#     def post(self, request):
-#         data = request.POST
-#         f = forms.RegisterUserFullForm(data=data)
-#         if form_validate_err(request, f) is False:
-#             return render(request, self.template_name)
-#         # create user
-#         user = f.save()
-#         user.is_active = True
-#         user.set_password(f.cleaned_data['password2'])
-#         user.save()
-#         # create notif for admin
-#         NotificationUser.objects.create(
-#             type='CREATE_USER_BY_ADMIN',
-#             to_user=request.user,
-#             title='ایجاد کاربر توسط ادمین',
-#             description=f"""
-#                     کاربر {user.phonenumber}
-#                     ایجاد شد
-#                 """,
-#             is_showing=False
-#         )
-#         messages.success(request, 'حساب کاربر با موفقیت ایجاد شد')
-#         return redirect(user.get_absolute_url())
-
-
-class UserAdd(View):
-    template_name = 'account/dashboard/user/add.html'
-
-    @admin_required_cbv()
-    def get(self, request):
-        context = {
-            'buildings': Building.objects.filter(is_active=True)
-        }
-        return render(request, self.template_name, context)
-
-    @admin_required_cbv()
     def post(self, request):
         data = request.POST.copy()
-        # create user
-        f = forms.RegisterUserFullForm(data=data)
-        if form_validate_err(request, f) is False:
-            return redirect('account:user_add')
-        user = f.save()
-        user.is_active = True
-        user.set_password(f.cleaned_data['password2'])
-        user.save()
-        # set building avaialable
-        data['user'] = user
-        building_available = BuildingAvailable.get_or_create_building_user(user)
-        f = forms.SetBuildingAvailable(data=data, instance=building_available)
-        if f.is_valid():
-            f.save()
-        # create notif for admin
-        NotificationUser.objects.create(
-            type='CREATE_USER_BY_ADMIN',
-            to_user=request.user,
-            title='ایجاد کاربر توسط ادمین',
-            description=f"""
-                    کاربر {user.phonenumber}
-                    ایجاد شد
-                """,
-            is_showing=False
-        )
-        messages.success(request, 'حساب کاربر با موفقیت ایجاد شد')
-        return redirect(user.get_absolute_url())
-
-
-class UserDetail(LoginRequiredMixinCustom, View):
-
-    def get_template(self, user_obj):
-        if user_obj.is_common_admin:
-            return 'account/dashboard/admin/detail.html'
-        else:
-            return 'account/dashboard/user/detail.html'
-
-    @admin_required_cbv()
-    def get(self, request, user_id):
-        user = get_object_or_404(User, id=user_id)
-        # ony super admin can access to admin detail
-        if user.is_common_admin and request.user.is_super_admin is False:
-            raise Http404
-        # super user detail cant be accessible
-        if user.is_super_admin:
-            raise Http404
-        context = {
-            # name 'user_detail' for prevent conflict
-            'user_detail': user,
-            'buildings_user': Building.get_buildings_user(user),
-            'buildings': Building.objects.filter(is_active=True),
-        }
-
-        if user.is_common_admin:
-            context['receipt_tasks'] = ReceiptTask.objects.filter(user_admin=user)
-
-        return render(request, self.get_template(user), context)
-
-
-class UserDetailDelete(LoginRequiredMixinCustom, View):
-
-    @admin_required_cbv(['super_user'])
-    def post(self, request, user_id):
-        user = get_object_or_404(User, id=user_id)
-        if user.is_super_admin:
-            messages.error(request, 'شما نمیتوانید کاربر ویژه را حذف کنید')
-            return redirect('account:user_list')
-        user.delete()
-        messages.success(request, 'کاربر با موفقیت حذف شد')
-        return redirect('account:user_list')
-
-
-class UserUpdate(LoginRequiredMixinCustom, View):
-
-    def post(self, request):
         user = request.user
-        data = request.POST
-        f = forms.UpdateUserForm(instance=user, data=data)
-        if form_validate_err(request, f) is False:
-            return redirect('account:info_detail')
-        f.save()
-        messages.success(request, 'مشخصات شما با موفقیت بروزرسانی شد')
-        return redirect('account:info_detail')
+        form_basic = forms.UpdateUserDetailBasic(instance=user, data=data)
+        if form_validate_err(request, form_basic) is False:
+            return redirect('account:user_personal__detail')
+        form_basic.save()
+
+        profile = user.get_profile()
+        # set additional value
+        data['user'] = user
+        form_profile = forms.UpdateUserProfileDetail(instance=profile, data=data, files=request.FILES)
+        if form_validate_err(request, form_profile) is False:
+            return redirect('account:user_personal__detail')
+        form_profile.save()
+
+        messages.success(request, 'اطلاعات شخصی شما با موفقیت ثبت و بروزرسانی شد')
+        return redirect('dashboard:index')
 
 
-class UserUpdatePassword(LoginRequiredMixinCustom, View):
+class DashboardUserChangePassword(LoginRequiredMixin, TemplateView):
+    template_name = 'account/dashboard/users/change-password.html'
 
     def post(self, request):
         user = request.user
         data = request.POST
         f = forms.UpdateUserPassword(data=data)
         if form_validate_err(request, f) is False:
-            return redirect('account:info_change_password')
+            return redirect('account:user_change_password')
         data = f.cleaned_data
         if not user.check_password(data['current_password']):
             messages.error(request, 'رمز عبور فعلی نادرست است')
-            return redirect('account:info_change_password')
+            return redirect('account:user_change_password')
         user.set_password(data['new_password'])
         user.save()
         messages.success(request, 'رمز عبور شما با موفقیت بروزرسانی شد')
-        return redirect('account:login_register')
+        return redirect('account:login')
 
 
-class UserList(View):
-    template_name = 'account/dashboard/user/list.html'
-
-    def search(self, request, objects):
-        s = request.GET.get('search')
-        if not s:
-            return objects
-        objects = objects.annotate(full_name=Concat('first_name', Value(' '), 'last_name'))
-        lookup = Q(phonenumber__icontains=s) | Q(full_name__icontains=s) | Q(
-            email__icontains=s)
-        return objects.filter(lookup)
-
-    @admin_required_cbv()
-    def get(self, request):
-        users = User.normal_user.all()
-        users = self.search(request, users)
-        page_num = request.GET.get('page', 1)
-        pagination = Paginator(users, 20)
-        pagination = pagination.get_page(page_num)
-        users = pagination.object_list
-        context = {
-            'users': users,
-            'pagination': pagination
-        }
-        return render(request, self.template_name, context)
+class DashboardUserList(LoginRequiredMixinCustom, AdminRequiredMixin, TemplateView):
+    template_name = 'account/dashboard/users/normal/list.html'
 
 
-class UserListComponentPartial(View):
-    template_name = 'account/dashboard/user/components/list.html'
+class DashboardOperatorList(LoginRequiredMixinCustom, SuperUserRequiredMixin, View):
+    template_name = 'account/dashboard/users/operator/list.html'
 
-    @admin_required_cbv()
-    def get(self, request):
-        users = User.normal_user.all()
-        page_num = request.GET.get('page', 1)
-        pagination = Paginator(users, 20)
-        pagination = pagination.get_page(page_num)
-        users = pagination.object_list
-        context = {
-            'users': users,
-            'pagination': pagination
-        }
-        return render(request, self.template_name, context)
+    def pagination(self, objects):
+        COUNT_PER_PAGE = 20
+        paginator = Paginator(objects, COUNT_PER_PAGE)
+        page_number = self.request.GET.get("page")
+        page_obj = paginator.get_page(page_number)
+        return page_obj
 
-    @admin_required_cbv()
-    def post(self, request):
-        data = json.loads(request.body)
-
-        def search(self, objects):
-            s = data.get('search')
-            if not s:
-                return objects
+    def filter(self, objects):
+        request = self.request
+        # search
+        search_text = request.GET.get('search')
+        if search_text:
             objects = objects.annotate(full_name=Concat('first_name', Value(' '), 'last_name'))
-            lookup = Q(phonenumber__icontains=s) | Q(full_name__icontains=s) | Q(
-                email__icontains=s)
-            return objects.filter(lookup)
+            lookup = Q(full_name__icontains=search_text) | Q(phonenumber__icontains=search_text)
+            objects = objects.filter(lookup)
 
-        # ajax view
-        if not request.headers.get('X_REQUESTED_WITH') == 'XMLHttpRequest':
-            raise Http404
-        users = User.normal_user.all()
-        users = search(request, users)
-        users_serialized = serializers.serialize('json', users,
-                                                 fields=('id', 'first_name', 'last_name', 'email', 'phonenumber'))
-        return JsonResponse(users_serialized, safe=False)
+        # sort
+        sort_by = request.GET.get('sort_by', 'latest')
+        if sort_by:
+            if sort_by == 'latest':
+                objects = objects.order_by('-id')
+            elif sort_by == 'oldest':
+                objects = objects.order_by('id')
+            elif sort_by == 'most-meeting':
+                # TODO: should be completed
+                pass
+
+        return objects
+
+    def get(self, request):
+        operators = User.operator_user_objects.all()
+        operators = self.filter(operators)
+        pagination = self.pagination(operators)
+        context = {
+            'operators': pagination.object_list,
+            'pagination': pagination
+        }
+        return render(request, 'account/dashboard/users/operator/list.html', context)
+
+
+class DashboardOperatorAdd(LoginRequiredMixinCustom, SuperUserRequiredMixin, TemplateView):
+    template_name = 'account/dashboard/users/operator/add.html'
+
+    def post(self, request):
+        data = request.POST.copy()
+        # set additional values
+        data['role'] = 'operator_user'
+
+        f = forms.AddUserForm(data=data)
+        if form_validate_err(request, f) is False:
+            return render(request, self.template_name)
+        # create user
+        user = f.save(commit=False)
+        user.is_active = True
+        user.set_password(f.cleaned_data['password2'])
+        user.save()
+
+        if data.get('send_notify'):
+            # create notif for user
+            NotificationUser.objects.create(
+                type='CREATED_YOUR_ACCOUNT',
+                to_user=user,
+                title='ایجاد حساب شما توسط ادمین',
+                description=f"""
+                    کاربر گرامی حساب شما توسط ادمین ایجاد شد
+                """
+            )
+
+        # create notif for admin
+        NotificationUser.objects.create(
+            type='CREATE_USER_BY_ADMIN',
+            to_user=request.user,
+            title='ایجاد کاربر اپراتور توسط شما',
+            description=f"""
+                    کاربر {user.phonenumber}
+                    ایجاد شد
+            """
+        )
+
+        messages.success(request, 'حساب اپراتور با موفقیت ایجاد شد')
+        return redirect(user.get_dashboard_absolute_url())
+
+
+class DashboardUserAdd(LoginRequiredMixinCustom, AdminRequiredMixin, TemplateView):
+    template_name = 'account/dashboard/users/normal/add.html'
+
+    def post(self, request):
+        data = request.POST.copy()
+        # set additional values
+        data['role'] = 'operator_user'
+
+        f = forms.AddUserForm(data=data)
+        if form_validate_err(request, f) is False:
+            return render(request, self.template_name)
+        # create user
+        user = f.save(commit=False)
+        user.is_active = True
+        user.set_password(f.cleaned_data['password2'])
+        user.save()
+
+        if data.get('send_notify'):
+            # create notif for user
+            NotificationUser.objects.create(
+                type='CREATED_YOUR_ACCOUNT',
+                to_user=user,
+                title='ایجاد حساب شما توسط ادمین',
+                description=f"""
+                            کاربر گرامی حساب شما توسط ادمین ایجاد شد
+                        """
+            )
+
+        # create notif for admin
+        NotificationUser.objects.create(
+            type='CREATE_USER_BY_ADMIN',
+            to_user=request.user,
+            title='ایجاد کاربر عادی توسط شما',
+            description=f"""
+                            کاربر {user.phonenumber}
+                            ایجاد شد
+                    """
+        )
+
+        messages.success(request, 'حساب اپراتور با موفقیت ایجاد شد')
+        return redirect(user.get_dashboard_absolute_url())

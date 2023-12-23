@@ -1,12 +1,10 @@
 from django.shortcuts import render
-from django.views import View
+from django.views.generic import View, TemplateView
 from apps.account.auth.mixins import LoginRequiredMixinCustom
 
 
-class Index(LoginRequiredMixinCustom, View):
-
-    def get(self, request):
-        return render(request, 'dashboard/index.html')
+class Index(LoginRequiredMixinCustom, TemplateView):
+    template_name = 'dashboard/index.html'
 
 
 class Notifications(LoginRequiredMixinCustom, View):

@@ -155,9 +155,6 @@ input[disabled] {
     text-decoration: underline;
 }
 
-.field-required {
-    color: #ef4141;
-}
 
 .form-control {
     margin-bottom: 8px;

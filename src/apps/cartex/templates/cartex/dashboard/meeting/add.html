@@ -1,0 +1,263 @@
+{% extends 'dashboard/base/base_template.html' %}
+{% load static %}
+{% load render_partial %}
+
+{% block Title %}
+    ایجاد جلسه
+{% endblock %}
+
+{% block Style %}
+    <style>
+
+        #cnt-areas{
+            max-height: 400px;
+            overflow: auto;
+        }
+
+        .area-body{
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 5px;
+            margin: 15px auto;
+            border: 1px solid #ddd;
+            border-radius: 15px;
+        }
+
+        .area-body > div{
+            margin: 5px ;
+        }
+    </style>
+{% endblock %}
+
+{% block Content %}
+    <div id="main-wrapper">
+        {% include 'dashboard/components/base/header.html' %}
+        {% render_partial 'apps.dashboard.components.views.DashboardMenu' %}
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="mb-sm-4">
+                    <h2 class="font-w600 mb-2 me-auto">ایجاد جلسه</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'dashboard:index' %}">داشبورد</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a>جلسات</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="">ایجاد جلسه</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">ایجاد جلسه </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="basic-form">
+                                    <form class="form-with-hidden-field"
+                                          action="{% url 'cartex:meeting__add' %}" method="post"
+                                          enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="mb-3 col-md-12">
+                                                <h4 class="form-label">انتخاب نواحی</h4>
+                                                <label>
+                                                    ناحیه مورد نظر را انتخاب کنید
+                                                </label>
+                                                <div class="d-block d-md-flex justify-content-between align-items-center text-center mt-4">
+                                                    <div id="cnt-areas" class="col-12 col-md-8">
+
+                                                    </div>
+                                                    <div class="text-center">
+                                                        <img src="{% static 'template/images/person-select-area-transparent.png' %}"
+                                                             id="image-person-select-area"
+                                                             usemap="#image-map" class="mx-auto d-block">
+
+                                                        <map name="image-map">
+                                                            <area target="" alt="صورت" title="صورت" href="javascript:void(0)"
+                                                                  coords="149,39,24" shape="circle" area-code="H">
+                                                            <area target="" alt="گردن" title="گردن" href="javascript:void(0)"
+                                                                  coords="163,61,175,79,126,80,133,61" shape="poly"
+                                                                  area-code="N">
+                                                            <area target="" alt="بالا سینه" title="بالا سینه" href="javascript:void(0)"
+                                                                  coords="176,82,200,88,150,98,101,90,117,84,150,80"
+                                                                  area-code="UC"
+                                                                  shape="poly">
+                                                            <area target="" alt="سینه" title="سینه" href="javascript:void(0)"
+                                                                  coords="193,91,184,146,116,145,103,92,149,100"
+                                                                  area-code="C"
+                                                                  shape="poly">
+                                                            <area target="" alt="شکم" title="شکم" href="javascript:void(0)"
+                                                                  coords="116,147,184,149,180,193,118,193" shape="poly"
+                                                                  area-code="B">
+                                                            <area target="" alt="زیر شکم" title="زیر شکم" href="javascript:void(0)"
+                                                                  coords="117,195,108,232,189,233,181,196" shape="poly"
+                                                                  area-code="G">
+                                                            <area target="" alt="بالا زانو پای راست"
+                                                                  title="بالا زانو پای راست" href="javascript:void(0)"
+                                                                  coords="153,235,164,295,191,288,189,236,168,236"
+                                                                  area-code="RF1"
+                                                                  shape="poly">
+                                                            <area target="" alt="بالا زانو پا چپ"
+                                                                  title="بالا زانو پا چپ" href="javascript:void(0)"
+                                                                  coords="147,235,109,233,110,290,133,293" shape="poly"
+                                                                  area-code="LF1">
+                                                            <area target="" alt="زانو پا راست" title="زانو پا راست"
+                                                                  href="javascript:void(0)" coords="166,297,187,292,194,320,174,322"
+                                                                  area-code="RF2"
+                                                                  shape="poly">
+                                                            <area target="" alt="زانو پا چپ" title="زانو پا چپ" href="javascript:void(0)"
+                                                                  coords="134,296,111,292,105,317,125,324" shape="poly"
+                                                                  area-code="LF2">
+                                                            <area target="" alt="ساق پا راست" title="ساق پا راست"
+                                                                  href="javascript:void(0)"
+                                                                  coords="175,324,185,384,197,386,202,343,196,322"
+                                                                  area-code="RF3"
+                                                                  shape="poly">
+                                                            <area target="" alt="ساق پا چپ" title="ساق پا چپ" href="javascript:void(0)"
+                                                                  coords="104,319,95,343,101,383,113,384,120,349,124,326"
+                                                                  area-code="LF3"
+                                                                  shape="poly">
+                                                            <area target="" alt="مچ پا راست" title="مچ پا راست" href="javascript:void(0)"
+                                                                  area-code="RF4"
+                                                                  coords="186,387,199,389,199,404,183,405" shape="poly">
+                                                            <area target="" alt="مچ پا چپ" title="مچ پا چپ" href="javascript:void(0)"
+                                                                  area-code="LF4"
+                                                                  coords="114,386,100,385,100,401,114,405,115,395"
+                                                                  shape="poly">
+                                                            <area target="" alt="بازو دست راست" title="بازو دست راست"
+                                                                  area-code="RH1"
+                                                                  href="javascript:void(0)"
+                                                                  coords="196,90,187,135,195,163,209,148,203,103"
+                                                                  shape="poly">
+                                                            <area target="" alt="بازو دست چپ" title="بازو دست چپ"
+                                                                  area-code="LH1"
+                                                                  href="javascript:void(0)" coords="99,89,112,134,106,154,91,146"
+                                                                  shape="poly">
+                                                            <area target="" alt="ساق دست راست" title="ساق دست راست"
+                                                                  area-code="RH2"
+                                                                  href="javascript:void(0)"
+                                                                  coords="215,170,219,206,205,210,194,167,210,151"
+                                                                  shape="poly">
+                                                            <area target="" alt="ساق دست چپ" title="ساق دست چپ" href="javascript:void(0)"
+                                                                  area-code="LH2"
+                                                                  coords="89,148,78,205,90,211,102,182,106,156"
+                                                                  shape="poly">
+                                                            <area target="" alt="مچ دست راست" title="مچ دست راست"
+                                                                  area-code="RH3"
+                                                                  href="javascript:void(0)" coords="207,211,206,227,219,228,218,209"
+                                                                  shape="poly">
+                                                            <area target="" alt="مچ دست چپ" title="مچ دست چپ" href="javascript:void(0)"
+                                                                  area-code="LH3"
+                                                                  coords="91,213,79,208,80,225,92,228" shape="poly">
+                                                        </map>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label">
+                                                      تاریخ شروع
+                                                </label><input type="time" name="time_start" class="form-control">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label">
+                                                      تاریخ پایان
+                                                </label><input type="time" name="time_end" class="form-control">
+                                            </div>
+                                            <div class="mb-3 col-md-12">
+                                                <label class="form-label">توضیحات</label>
+                                                <textarea name="description" class="form-control"
+                                                          style="min-height: 100px"
+                                                          placeholder="توضیحات"></textarea>
+                                            </div>
+                                            <div class="mb-3 col-md-12">
+                                                <label class="form-label" for="btnSelectUser">
+                                                    کاربر</label>
+                                                <div class="form-control d-flex justify-content-between align-items-center"
+                                                     style="height: 70px">
+                                                    <label class="form-label" for="btnSelectUser"
+                                                           id="input_select_user_component_name">-</label>
+                                                    <button id="btnSelectUser" type="button"
+                                                            class="btn btn-primary light btn-sm" data-bs-toggle="modal"
+                                                            data-bs-target="#container-users">
+                                                        انتخاب کاربر
+                                                    </button>
+                                                    <input type="hidden" name="user"
+                                                           id="input_select_user_component" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div style="text-align: left">
+                                            <button type="submit" class="btn btn-success px-5 mt-2">
+                                                ایجاد جلسه
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% render_partial 'apps.account.components.views.UserNormalListPartial' %}
+        {% include 'dashboard/components/base/footer.html' %}
+    </div>
+{% endblock %}
+
+{% block Script %}
+    <script src="{% static 'template/dashboard/vendor/jquery.maphilight.min.js' %}"></script>
+    <script>
+        $(function () {
+            $('#image-person-select-area').maphilight();
+        })
+
+        let cnt_areas = document.getElementById('cnt-areas')
+
+        document.querySelectorAll('[name="image-map"] area').forEach(function (area) {
+            area.addEventListener('click', function (e) {
+                let area_code = this.getAttribute('area-code')
+                let title = this.getAttribute('title')
+                createBodyArea(title, area_code)
+            })
+        })
+
+        function createBodyArea(title, area_code) {
+            let node = `
+
+                    <input type="hidden" name="area_code" value=${area_code}>
+                    <div>
+                        <button class="btn btn-danger light">
+                            <i class="far fa-times"></i>
+                        </button>
+                    </div>
+                    <div>
+                        <input type="text" class="form-control" name="area_name"
+                               value="${title}" required>
+                    </div>
+                    <div>
+                        <input type="text" class="form-control" name="intensity"
+                               placeholder="شدت" required>
+                    </div>
+                    <div>
+                        <textarea name="note"  class="form-control"
+                                  placeholder="توضیحات"></textarea>
+                    </div>
+            `
+            let area_body = document.createElement('div')
+            area_body.classList.add('area-body')
+            area_body.innerHTML = node
+            cnt_areas.appendChild(area_body)
+            // set events
+            area_body.querySelector('button').addEventListener('click',function (){
+                this.parentElement.parentElement.remove()
+            })
+        }
+
+    </script>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'dashboard/base/base_template.html' %}
+{% load static %}
+{% load render_partial %}
+
+{% block Title %}
+    ایجاد اعلان برای کاربر
+{% endblock %}
+
+{% block Content %}
+    <div id="main-wrapper">
+        {% include 'dashboard/components/base/header.html' %}
+        {% render_partial 'apps.dashboard.components.views.DashboardMenu' %}
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="mb-sm-4">
+                    <h2 class="font-w600 mb-2 me-auto">ایجاد اعلان برای کاربر</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'dashboard:index' %}">داشبورد</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a>اعلانات</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="">ایجاد اعلان </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">ایجاد اعلان برای کاربر </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="basic-form">
+                                    <form class="form-with-hidden-field"
+                                          action="{% url 'notification:notification_user__add' %}" method="post"
+                                          enctype="multipart/form-data">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label">عنوان</label><input type="text"
+                                                                                              name="title"
+                                                                                              class="form-control"
+                                                                                              placeholder=" عنوان"
+                                                                                              required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label">عکس پیوست</label>
+                                                <div class="input-group">
+                                                    <div class="form-file py-2"
+                                                         style="border-radius: 1rem;border-bottom-left-radius: 0;border-top-left-radius: 0">
+                                                        <input
+                                                                type="file" accept="image/*"
+                                                                class="form-file-input form-control" name="image">
+                                                    </div>
+                                                    <span class="input-group-text">بارگذاری</span>
+                                                </div>
+                                            </div>
+                                            <div class="mb-3 col-md-12">
+                                                <label class="form-label">توضیحات</label>
+                                                <textarea name="description" class="form-control"
+                                                          style="min-height: 100px"
+                                                          placeholder="توضیحات"></textarea>
+                                            </div>
+                                            <div class="mb-3 col-md-12">
+                                                <label class="form-label" for="btnSelectUser">
+                                                    کاربر</label>
+                                                <div class="form-control d-flex justify-content-between align-items-center"
+                                                     style="height: 70px">
+                                                    <label class="form-label" for="btnSelectUser"
+                                                           id="input_select_user_component_name">-</label>
+                                                    <button id="btnSelectUser" type="button"
+                                                            class="btn btn-primary light btn-sm" data-bs-toggle="modal"
+                                                            data-bs-target="#container-users">
+                                                        انتخاب کاربر
+                                                    </button>
+                                                    <input type="hidden" name="to_user"
+                                                           id="input_select_user_component" required>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 mt-2 form-control h-auto p-0">
+                                            <div class="form-check d-flex justify-content-between py-3 px-5">
+                                                <label class="form-check-label" for="check1">ارسال
+                                                    اعلان
+                                                </label>
+                                                <input type="checkbox" class="form-check-input" id="check1"
+                                                       name="send_notify"
+                                                       checked="">
+                                            </div>
+                                        </div>
+                                        <div style="text-align: left">
+                                            <button type="submit" class="btn btn-success px-5 mt-2">
+                                                ایجاد اعلان
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% render_partial 'apps.account.components.views.UserListPartial' %}
+        {% include 'dashboard/components/base/footer.html' %}
+    </div>
+{% endblock %}

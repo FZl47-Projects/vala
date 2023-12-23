@@ -13,10 +13,16 @@ def upload_notification_src(instance, path):
     return f'images/notifications/{get_random_string(20)}.{frmt}'
 
 
+def random_number_id():
+    return get_random_string(10)
+
+
 class NotificationUser(BaseModel):
     """
         notification for user
     """
+
+    number_id = models.CharField(max_length=10, default=random_number_id)
     type = models.CharField(max_length=100)
     title = models.CharField(max_length=150)
     description = models.TextField(null=True, blank=True)
@@ -28,6 +34,7 @@ class NotificationUser(BaseModel):
     to_user = models.ForeignKey(User, on_delete=models.CASCADE)
     # show for user or not
     is_showing = models.BooleanField(default=True)
+    is_seen = models.BooleanField(default=False)
 
     class Meta:
         ordering = '-id',
@@ -45,7 +52,7 @@ class NotificationUser(BaseModel):
         """
 
     def get_absolute_url(self):
-        return reverse('notification:notification_dashboard_user_detail', args=(self.id,))
+        return reverse('notification:notification_user__detail', args=(self.id,))
 
     def get_link(self):
         try:
@@ -53,8 +60,17 @@ class NotificationUser(BaseModel):
         except:
             return self.get_absolute_url()
 
+    def get_attached_link(self):
+        try:
+            return self.kwargs['link']
+        except:
+            return None
+
     def get_image(self):
         try:
             return self.image.url
         except:
             return None
+
+
+__ALL__ = [NotificationUser]

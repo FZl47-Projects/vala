@@ -1,0 +1,230 @@
+{% extends 'dashboard/base/base_template.html' %}
+{% load static %}
+{% load render_partial %}
+
+{% block Title %}
+    اعلانات کاربران
+{% endblock %}
+
+
+
+{% block Content %}
+    <div id="main-wrapper">
+        {% include 'dashboard/components/base/header.html' %}
+        {% render_partial 'apps.dashboard.components.views.DashboardMenu' %}
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="mb-sm-4">
+                    <h2 class="font-w600 mb-2 me-auto">لیست اعلانات کاربران </h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'dashboard:index' %}">داشبورد</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a>اعلانات</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="">اعلانات کاربران</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header d-block d-sm-flex">
+                                <div>
+                                    <h4>جست و جو</h4>
+                                </div>
+                                <div class="mt-3 mt-sm-0">
+                                    <span>مرتب بر اساس :</span>
+                                    {% with sort_by=request.GET.sort_by search=request.GET.search %}
+                                        <ul class="nav-switch mt-2 mx-auto">
+                                            <li {% if sort_by == 'latest' or not sort_by %}class="active"{% endif %}>
+                                                <a href="?sort_by=latest&search={{ search }}">جدید ترین</a>
+                                            </li>
+                                            <li {% if sort_by == 'oldest' %}class="active"{% endif %}>
+                                                <a href="?sort_by=oldest&search={{ search }}">قدیمی ترین</a>
+                                            </li>
+                                        </ul>
+                                    {% endwith %}
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="cnt-search">
+                                        <input type="hidden" name="sort_by" value="{{ request.GET.sort_by }}">
+
+                                        <input type="text" name="search" value="{{ request.GET.search }}"
+                                               placeholder="کد رهگیری ، عنوان ، کاربر و ..">
+                                        <div>
+                                            {% if request.GET.search %}
+                                                <a href="{% url 'notification:notification_user__list' %}"
+                                                   class="text-danger m-1">
+                                                    <i class="far fa-times alert-danger p-2 border-radius-7"></i>
+                                                </a>
+                                            {% endif %}
+                                            <button>
+                                                <span class="label">جست و جو</span>
+                                                <i class="far fa-search"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="card-header d-block">
+                                <div>
+                                    <h4>فیلتر</h4>
+                                </div>
+                                <div class="mt-3 mt-sm-0 mx-auto mb-4">
+                                    <span>
+                                        مرتب بر اساس نوع کاربر :
+                                    </span>
+                                    <div class="text-center">
+                                        {% with filter_by=request.GET.filter_by %}
+                                            <ul class="nav-links mt-2 mx-auto">
+                                                <li {% if filter_by == 'all' or not filter_by %}class="active"{% endif %}>
+                                                    <a href="?filter_by=all" class="add-params-to-href">همه</a>
+                                                </li>
+                                                <li {% if filter_by == 'normal_user' %}class="active"{% endif %}>
+                                                    <a href="?filter_by=normal_user">کاربران عادی</a>
+                                                </li>
+                                                <li {% if filter_by == 'operator_user' %}class="active"{% endif %}>
+                                                    <a href="?filter_by=operator_user">کاربران اپراتور</a>
+                                                </li>
+
+                                            </ul>
+                                        {% endwith %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">لیست اعلانات کاربران</h4>
+                                <div class="btn-group mb-1">
+                                    <button class="btn btn-outline-secondary btn-sm dropdown-toggle" type="button"
+                                            data-bs-toggle="dropdown">عملیات دسته جمعی
+                                    </button>
+                                    <div class="dropdown-menu">
+                                        <a class="dropdown-item" href="#">عمل</a>
+                                        <a class="dropdown-item" href="#">یک اقدام دیگر</a>
+                                        <a class="dropdown-item" href="#">یه چیز دیگه اینجا</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="#">لینک جدا شده</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="example5" class="display col-12 table-center">
+                                        <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th class="no-sorting select-checkbox">
+                                                <div class="ms-2">
+                                                    <input type="checkbox" class="form-check-input" id="checkAll"
+                                                           required=""><label class="form-check-label"
+                                                                              for="checkAll"></label>
+                                                </div>
+                                            </th>
+                                            <th class="no-sorting">کد رهگیری</th>
+                                            <th>عنوان</th>
+                                            <th>زمان ایجاد</th>
+                                            <th>کاربر</th>
+                                            <th class="no-sorting">مشاهده</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody class="">
+                                        {% for notification in notifications %}
+                                            <tr>
+                                                <td>
+                                                    {{ forloop.counter }}
+                                                </td>
+                                                <td class="select-checkbox">
+                                                    <div class="ms-2">
+                                                        <input type="checkbox" class="form-check-input"
+                                                               id="customCheckBox2"
+                                                               required=""><label class="form-check-label"
+                                                                                  for="customCheckBox2"></label>
+                                                    </div>
+                                                </td>
+                                                <td class="font-95">
+                                                    <a href="{{ notification.get_absolute_url }}">
+                                                        {{ notification.number_id }}
+                                                    </a>
+                                                </td>
+                                                <td>{{ notification.title }}</td>
+                                                <td>{{ notification.get_created_at_timepast }}</td>
+                                                <td>
+                                                    <a href="{{ notification.to_user.get_dashboard_absolute_url }}">
+                                                        {{ notification.to_user.get_full_name|truncatechars:14 }}
+                                                        <span class="font-60 {% if notification.to_user.role == 'normal_user' %}badge light badge-success{% else %}badge light badge-info{% endif %}">({{ notification.to_user.get_role_display }})</span>
+                                                    </a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{ notification.get_absolute_url }}"
+                                                       class="btn btn-outline-secondary py-1">
+                                                        <i class="far fa-arrow-left"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        {% empty %}
+                                            <tr>
+                                                <td colspan="100">
+                                                    <div class="container-not-found-base">
+                                                        <p>اعلانی یافت نشد</p>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                            <nav class="mx-4 my-1">
+                                <ul class="pagination">
+
+                                    {% if pagination.has_previous %}
+                                        <li class="page-item page-indicator"><a class="page-link add-params-to-href"
+                                                                                href="?page=1"><i
+                                                class="la la-angle-left"></i></a>
+                                        </li>
+                                        <li class="page-item"><a class="page-link add-params-to-href"
+                                                                 href="?page={{ pagination.previous_page_number }}">{{ pagination.previous_page_number }}</a>
+                                        </li>
+                                    {% endif %}
+
+                                    <span class="current">
+                                    صفحه {{ pagination.number }} از {{ pagination.paginator.num_pages }}.
+                                    </span>
+
+                                    {% if pagination.has_next %}
+                                        <li class="page-item"><a class="page-link add-params-to-href"
+                                                                 href="?page={{ pagination.next_page_number }}">{{ pagination.next_page_number }}</a>
+                                        </li>
+                                        <li class="page-item page-indicator"><a class="page-link add-params-to-href"
+                                                                                href="?page={{ pagination.paginator.num_pages }}"><i
+                                                class="la la-angle-right"></i></a></li>
+                                    {% endif %}
+                                </ul>
+                            </nav>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'dashboard/components/base/footer.html' %}
+    </div>
+{% endblock %}
+
+{% block Script %}
+    <script src="{% static 'template/dashboard/vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'template/dashboard/js/plugins-init/datatables.init.js' %}"></script>
+{% endblock %}

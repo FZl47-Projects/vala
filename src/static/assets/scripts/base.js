@@ -221,3 +221,38 @@ document.querySelectorAll('.features-update').forEach(function (el) {
         })
     })
 })
+
+// add query params to href
+let query_params = (new URL(location)).searchParams;
+document.querySelectorAll('.add-params-to-href').forEach(function (el) {
+    let href = el.getAttribute('href')
+    let href_params = new URLSearchParams(href)
+    for (let p of query_params) {
+        if (!p in href) {
+            href_params.set(p[0], p[1])
+        }
+    }
+    let params = href_params.toString()
+    if (params.indexOf('?') == -1) {
+        params = '?' + params
+    }
+    el.setAttribute('href', params)
+})
+
+// validate hidden field in form
+document.querySelectorAll('.form-with-hidden-field').forEach(function (form) {
+
+    form.addEventListener('submit', function (e) {
+        let valid = true
+        let hidden_fields = form.querySelectorAll('input[type="hidden"][required]')
+        for (let field of hidden_fields) {
+            if (!field.value) {
+                field.parentElement.classList.add('input-group-invalid')
+                valid = false
+            }
+        }
+        if (!valid) {
+            e.preventDefault()
+        }
+    })
+})

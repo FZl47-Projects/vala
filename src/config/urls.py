@@ -8,7 +8,9 @@ urlpatterns = [
 
     path('', include('apps.public.urls', namespace='public')),
     path('u/', include('apps.account.urls', namespace='account')),
+    path('c/', include('apps.cartex.urls', namespace='cartex')),
     path('dashboard/', include('apps.dashboard.urls', namespace='dashboard')),
+    path('notification/', include('apps.notification.urls', namespace='notification')),
 ]
 
 if settings.DEBUG:

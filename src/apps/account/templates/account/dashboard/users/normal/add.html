@@ -1,0 +1,95 @@
+{% extends 'dashboard/base/base_template.html' %}
+{% load static %}
+{% load render_partial %}
+
+{% block Title %}
+    ایجاد کاربر عادی
+{% endblock %}
+
+{% block Content %}
+    <div id="main-wrapper">
+        {% include 'dashboard/components/base/header.html' %}
+        {% render_partial 'apps.dashboard.components.views.DashboardMenu' %}
+        <div class="content-body">
+            <div class="container-fluid">
+                <div class="mb-sm-4">
+                    <h2 class="font-w600 mb-2 me-auto">ایجاد کاربر عادی</h2>
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'dashboard:index' %}">داشبورد</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a>کاربران</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="">ایجاد کاربر عادی </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">ایجاد کاربر عادی </h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="basic-form">
+                                    <form action="{% url 'account:user__add' %}" method="post">
+                                        {% csrf_token %}
+                                        <div class="row">
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label">نام کوچک</label><input type="text"
+                                                                                                 name="first_name"
+                                                                                                 class="form-control"
+                                                                                                 placeholder=" فرشته"
+                                                                                                 required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label class="form-label">نام خانوادگی</label><input type="text"
+                                                                                                     name="last_name"
+                                                                                                     class="form-control"
+                                                                                                     placeholder=" مومنی"
+                                                                                                     required>
+                                            </div>
+                                            <div class="mb-3 col-md-12">
+                                                <label class="form-label">شماره همراه</label><input type="tel"
+                                                                                                    name="phonenumber"
+                                                                                                    class="form-control"
+                                                                                                    placeholder="09130000000"
+                                                                                                    required>
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label>رمز عبور</label><input type="password" class="form-control"
+                                                                              name="password" required minlength="8" maxlength="64">
+                                            </div>
+                                            <div class="mb-3 col-md-6">
+                                                <label>تکرار رمز عبور</label><input type="password" class="form-control"
+                                                                                    name="password2" required minlength="8" maxlength="64">
+                                            </div>
+                                        </div>
+                                        <div class="mb-3 mt-2 form-control h-auto p-0">
+                                            <div class="form-check d-flex justify-content-between py-3 px-5">
+                                                <label class="form-check-label" for="check1">ارسال
+                                                    اعلان به کاربر
+                                                </label>
+                                                <input type="checkbox" class="form-check-input" id="check1" name="send_notify"
+                                                       checked="">
+
+                                            </div>
+                                        </div>
+                                        <div style="text-align: left">
+                                            <button type="submit" class="btn btn-success px-5 mt-2">ایجاد کاربر</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        {% include 'dashboard/components/base/footer.html' %}
+    </div>
+{% endblock %}

@@ -1,12 +1,8 @@
 import string
 import random
 import datetime
-import requests
-import json
 from django.utils import timezone
-from django.core.mail import send_mail as _send_email_django
 from django.conf import settings
-from django_q.tasks import async_task
 from django.contrib import messages
 
 
@@ -52,37 +48,6 @@ def get_timesince_persian(time):
     return result
 
 
-def send_sms(phonenumber, pattern_code, values={}):
-    phonenumber = str(phonenumber).replace('+', '')
-    payload = json.dumps({
-        "pattern_code": pattern_code,
-        "originator": settings.SMS_CONFIG['ORIGINATOR'],
-        "recipient": phonenumber,
-        "values": values
-    })
-    headers = {
-        'Authorization': "AccessKey {}".format(settings.SMS_CONFIG['API_KEY']),
-        'Content-Type': 'application/json'
-    }
-
-    async_task(requests.request,
-               'POST',
-               settings.SMS_CONFIG['API_URL'],
-               headers=headers,
-               data=payload
-               )
-
-
-def send_email(email, subject, content, **kwargs):
-    # send email in background
-    async_task(_send_email_django,
-               subject,
-               content,
-               settings.EMAIL_HOST_USER,
-               [email]
-               )
-
-
 def add_prefix_phonenum(phonenumber):
     phonenumber = str(phonenumber).replace('+98', '')
     return f'+98{phonenumber}'
@@ -94,19 +59,19 @@ def get_raw_phonenum(phonenumber):
 
 
 def form_validate_err(request, form):
-    if form.is_valid() is False:
-        errors = form.errors.as_data()
-        if errors:
-            for field, err in errors.items():
-                err = str(err[0])
-                err = err.replace('[', '').replace(']', '')
-                err = err.replace("'", '').replace('This', '')
-                err = f'{field} {err}'
-                messages.error(request, err)
-        else:
-            messages.error(request, 'دیتای ورودی نامعتبر است')
-        return False
-    return True
+    if form.is_valid():
+        return True
+    errors = form.errors.as_data()
+    if errors:
+        for field, err in errors.items():
+            err = str(err[0])
+            err = err.replace('[', '').replace(']', '')
+            err = err.replace("'", '').replace('This', '')
+            err = f'{field} {err}'
+            messages.error(request, err)
+    else:
+        messages.error(request, 'دیتای ورودی نامعتبر است')
+    return False
 
 
 def get_host_url(url):

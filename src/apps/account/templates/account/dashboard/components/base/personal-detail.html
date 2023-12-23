@@ -1,0 +1,173 @@
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="mb-sm-4">
+            <h2 class="font-w600 mb-2 me-auto">اطلاعات شخصی</h2>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'dashboard:index' %}">داشبورد</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a>اطلاعات شخصی</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="">جزئیات</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-xl-12 col-xxl-12">
+                <div class="card">
+                    <div class="card-header"><h4 class="card-title">اطلاعات شخصی</h4></div>
+                    <div class="card-body">
+                        <div id="smartwizard" class="form-wizard order-create sw sw-theme-default sw-justified border-0">
+                            <ul class="nav nav-wizard mb-3">
+                                <li><a class="nav-link inactive" href="#wizard_basic_info"><span>1</span></a></li>
+                                <li><a class="nav-link inactive" href="#wizard_additional_info"><span>2</span></a></li>
+                                <li><a class="nav-link inactive"
+                                       href="#wizard_additional_info_picture"><span>3</span></a></li>
+                                <li><a class="nav-link inactive" href="#wizard_completed"><span>4</span></a></li>
+                            </ul>
+                            <form id="form-personal-detail" action="{% url 'account:user_personal__detail' %}" method="post" enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <div class="tab-content">
+                                    <div id="wizard_basic_info" class="tab-pane p-3 px-4" role="tabpanel"
+                                         style="display: none;">
+                                        <h4 class="text-center mt-3 mb-4 font-weight-bold">
+                                            اطلاعات اولیه
+                                        </h4>
+                                        <div class="row">
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="mb-3">
+                                                    <label class="text-label form-label">
+                                                        نام
+                                                        <span class="field-required">*</span>
+                                                    </label><input type="text"
+                                                                   name="first_name"
+                                                                   class="form-control"
+                                                                   value="{{ user.first_name }}"
+                                                                   placeholder="فاضل"
+                                                                   required="">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="mb-3">
+                                                    <label class="text-label form-label">
+                                                        نام خانوادگی
+                                                        <span class="field-required">*</span>
+                                                    </label><input
+                                                        type="text" name="last_name" class="form-control"
+                                                        placeholder="شجاعی" required="" value="{{ user.last_name }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 mb-2">
+                                                <div class="mb-3">
+                                                    <label class="text-label form-label">
+                                                        شماره تلفن
+                                                        <span class="field-required">*</span>
+                                                    </label><input
+                                                        type="text" name="phonenumber" class="form-control"
+                                                        placeholder="9130000000" required=""
+                                                        value="{{ user.get_raw_phonenumber }}" disabled>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="wizard_additional_info" class="tab-pane p-3 px-4" role="tabpanel"
+                                         style="display: none;">
+                                        <h4 class="text-center mt-3 mb-4 font-weight-bold">
+                                            اطلاعات فردی
+                                        </h4>
+                                        <div class="row">
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="mb-3">
+                                                    <label class="text-label form-label">
+                                                        قد
+                                                        <span class="field-required">*</span>
+                                                    </label><input type="text"
+                                                                   name="height"
+                                                                   class="form-control"
+                                                                   value="{{ user.profile.height }}"
+                                                                   placeholder="180"
+                                                                   required="">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6 mb-2">
+                                                <div class="mb-3">
+                                                    <label class="text-label form-label">
+                                                        وزن
+                                                        <span class="field-required">*</span>
+                                                    </label><input
+                                                        type="text" name="weight" class="form-control"
+                                                        placeholder="70" required="" value="{{ user.profile.weight }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 mb-2">
+                                                <div class="mb-3">
+                                                    <label class="text-label form-label">
+                                                        سن
+                                                        <span class="field-required">*</span>
+                                                    </label><input
+                                                        type="text" name="age" class="form-control"
+                                                        placeholder="25" required=""
+                                                        value="{{ user.profile.age }}">
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-12 mb-2">
+                                                <div class="mb-3">
+                                                    <label class="text-label form-label">
+                                                        اگر دارای بیماری خاصی هستید در قسمت زیر توضیح دهید
+                                                        <span class="field-required"></span>
+                                                    </label><textarea
+                                                        type="text" name="note" class="form-control"
+                                                        placeholder="توضیحات اضافه"
+                                                >{{ user.profile.note }}</textarea>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="wizard_additional_info_picture" class="tab-pane p-3 px-4" role="tabpanel"
+                                         style="display: none;">
+                                        <h4 class="text-center mt-3 mb-4 font-weight-bold">
+                                            تصویر
+                                        </h4>
+                                        <div class="row">
+                                            <div class="col-11 col-md-8 mx-auto">
+                                                <label for="images" class="drop-container" id="dropcontainer">
+                                                    <span class="drop-title">تصویر را بکشید</span>
+                                                    یا
+                                                    <input type="file" id="images" accept="image/*" name="picture">
+                                                    <img src="" alt="" class="mt-4 image-hide border-radius-7"
+                                                         style="object-fit: cover;" id="previewImage" width="150px"
+                                                         height="150px">
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div id="wizard_completed" class="tab-pane" role="tabpanel" style="display: none;">
+                                        <div class="row my-5">
+                                            <div class="col-12">
+                                                <div class="text-center">
+                                                    <h1 class="badge badge-info light font-110">باتشکر از شما برای تکمیل
+                                                        پروفایل</h1>
+                                                </div>
+                                                <div class="text-center mt-4">
+                                                    <button class="btn btn-success" type="submit">
+                                                        ثبت و بروزرسانی مشخصات
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="toolbar toolbar-bottom" role="toolbar" style="text-align: left;">
+                                <button class="btn sw-btn-prev" type="button">صفحه قبل</button>
+                                <button class="btn sw-btn-next" type="button">صفحه بعد</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

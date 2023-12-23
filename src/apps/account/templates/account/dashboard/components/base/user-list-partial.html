@@ -1,0 +1,99 @@
+{% load static %}
+<div id="container-users" class="modal fade bd-example-modal-lg px-0" tabindex="-1" role="dialog" aria-modal="false"
+     style="display: none;">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">انتخاب کاربر</h3>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body">
+                <p>برای انتخاب کاربر بر روی کاربر مورد نظر کلیک کنید</p>
+                <div>
+                    <div class="mb-4 mt-4">
+                        <form id="form-search-users-component"
+                              action="{{ url_search_view }}">
+                            <label for="">جست و جو :</label>
+                            <div class="cnt-search col-11 mx-auto">
+                                <input type="text" name="search"
+                                       placeholder="نام کاربر ، شماره همراه  و.." value="">
+                                <div>
+                                    <button class="px-3">
+                                        <i class="fa fa-search"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <div class="table-responsive" style="max-height: 90vh;overflow: auto">
+                            <table class="table table-hover table-responsive-sm table-center">
+                                <thead>
+                                <tr>
+                                    <th>نام</th>
+                                    <th class="font-95">شماره همراه</th>
+                                    <th class="font-95">نوع کاربر</th>
+                                </tr>
+                                </thead>
+                                <tbody id="users-select">
+                                {% for user in users %}
+                                    <tr class="user-select" user-id="{{ user.id }}">
+                                        <td full-name>{{ user.get_full_name }}</td>
+                                        <td>{{ user.get_raw_phonenumber }}</td>
+                                        <td>
+                                            <p class="badge light {% if not user.is_admin %}badge-success{% else %}badge-info{% endif %}">{{ user.get_role_display }}</p>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="10">
+                                            <div class="container-not-found-base">
+                                                <p>کاربری یافت نشد</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div>
+                        <nav class="m-3 mb-1">
+                            <ul class="pagination mb-0">
+                                {% if pagination.has_previous %}
+                                    <li class="page-item page-indicator"><a class="page-link add-params-to-href"
+                                                                            href="?page=1"><i
+                                            class="la la-angle-left"></i></a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link add-params-to-href"
+                                                             href="?page={{ pagination.previous_page_number }}">{{ pagination.previous_page_number }}</a>
+                                    </li>
+                                {% endif %}
+
+                                <span class="current">
+                                    صفحه {{ pagination.number }} از {{ pagination.paginator.num_pages }}.
+                            </span>
+
+                                {% if pagination.has_next %}
+                                    <li class="page-item"><a class="page-link add-params-to-href"
+                                                             href="?page={{ pagination.next_page_number }}">{{ pagination.next_page_number }}</a>
+                                    </li>
+                                    <li class="page-item page-indicator"><a class="page-link add-params-to-href"
+                                                                            href="?page={{ pagination.paginator.num_pages }}"><i
+                                            class="la la-angle-right"></i></a></li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger light" data-bs-dismiss="modal">بستن</button>
+                <a href="{% url 'account:user__add' %}" class="btn btn-success light">ایجاد کاربر</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'template/dashboard/js/user-list-component.js' %}"></script>
