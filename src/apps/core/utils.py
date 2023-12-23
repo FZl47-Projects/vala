@@ -1,7 +1,10 @@
 from django.utils.translation import gettext as _
+from django.contrib.auth import settings
 from django.contrib import messages
 from django.utils import timezone
 from datetime import datetime
+
+from ippanel import Client
 
 
 # Get time in format
@@ -64,3 +67,21 @@ def validate_form(request, form):
 
     return False
 
+
+# Send SMS util
+def send_sms(phone_number, pattern, **kwargs):
+    phone_number = str(phone_number).replace('+', '')
+    api_key = settings.SMS_CONFIG['API_KEY']
+
+    # Create client instance
+    sms = Client(api_key)
+
+    # Send sms via ippanel module
+    message_id = sms.send_pattern(
+        pattern,  # pattern code
+        settings.SMS_CONFIG['ORIGINATOR'],  # originator
+        phone_number,  # recipient
+        kwargs,  # pattern values
+    )
+
+    # TODO: Send above data with django-q async
