@@ -1,6 +1,9 @@
 from django.utils.translation import gettext_lazy as _
+from dotenv import load_dotenv
 from pathlib import Path
 import os
+
+load_dotenv()
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -27,8 +30,10 @@ INSTALLED_APPS = [
     'apps.core',
     'apps.public',
     'apps.account',
+    'apps.notification',
     
     # Django modules
+    'django_q',
     'phonenumber_field',
     'django_cleanup.apps.CleanupConfig',
 ]
@@ -123,3 +128,24 @@ AUTH_USER_MODEL = 'account.User'
 
 # Login url
 LOGIN_URL = '/account/login/'
+
+
+# Django-q cluster config
+Q_CLUSTER = {
+    'name': 'django-q',
+    'timeout': int(os.getenv('Q_CLUSTER_TIMEOUT', 60)),
+    'orm': os.getenv('Q_CLUSTER_ORM', 'default')
+}
+
+# Redis db config
+REDIS_CONFIG = {
+    'HOST': os.getenv('REDIS_HOST', 'localhost'),
+    'PORT': os.getenv('REDIS_PORT', '6379')
+}
+
+
+# SMS config
+SMS_CONFIG = {
+    'API_KEY': os.getenv('SMS_CONFIG_API_KEY'),
+    'ORIGINATOR': os.getenv('SMS_CONFIG_ORIGINATOR')
+}
