@@ -12,7 +12,7 @@
 
 {% block content%}
     <div class="col-md-12 m-0">
-        <form method="POST" action="" class="main">
+        <form method="POST" action="{% url 'account:complete_profile' %}" enctype="multipart/form-data" class="main">
             {% csrf_token %}
             <!-- logo Vala -->
             <section class="logo-valla">
