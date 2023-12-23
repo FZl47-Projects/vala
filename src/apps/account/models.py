@@ -64,6 +64,12 @@ class User(AbstractBaseUser):
         """ Is the user a member of staff? """
         return self.is_admin
 
+    @property
+    def has_admin_access(self):
+        if self.access_level == self.ACCESS_LEVELS.ADMIN:
+            return True
+        return False
+
     def get_full_name(self):
         if self.first_name:
             return f'{self.first_name} {self.last_name}'
