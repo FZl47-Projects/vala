@@ -5,8 +5,8 @@ from django.contrib.auth import login, get_user_model
 from django.utils.translation import gettext as _
 from django.contrib import messages
 
+from .mixins import LogoutRequiredMixin, PermissionMixin
 from apps.core.utils import validate_form
-from .mixins import LogoutRequiredMixin
 from random import randint
 from . import forms
 
@@ -138,7 +138,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 
 # Render Profile Detail view
-class ProfileDetailView(LoginRequiredMixin, View):  # TODO: Add user permission mixin
+class ProfileDetailView(LoginRequiredMixin, PermissionMixin, View):
     template_name = 'account/profile-detail.html'
 
     def get(self, request, pk):

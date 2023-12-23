@@ -1,4 +1,7 @@
+from django.contrib.auth import get_user_model
 from django.shortcuts import redirect
+
+User = get_user_model()
 
 
 class LogoutRequiredMixin:
@@ -20,3 +23,21 @@ class ProfileCompletionMixin:
             return redirect('account:complete_profile')
 
         return super().dispatch(request, *args, **kwargs)
+
+
+class PermissionMixin:
+    """ Limit access permission to the view. """
+
+    def dispatch(self, request, *args, **kwargs):
+        pk = kwargs.get('pk')
+        
+        try:
+            obj = User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            obj = None
+
+        user = request.user
+        if user.access_level == User.ACCESS_LEVELS.ADMIN or user == obj:
+            return super().dispatch(request, *args, **kwargs)
+
+        return redirect('account:profile')
