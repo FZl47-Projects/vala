@@ -10,7 +10,9 @@ urlpatterns = [
     path('logout/', LogoutView.as_view(next_page='account:login'), name='logout'),
 
     path('register/', views.RegisterView.as_view(), name='register'),
+    path('register/verify/', views.VerifyPhoneNumberView.as_view(), name='verify_phone'),
     path('register/questions/', views.CompleteProfileView.as_view(), name='complete_profile'),
+    path('register/send-code/', views.SendCodeView.as_view(), name='send_verify_code'),
 
     path('profile/', views.ProfileView.as_view(), name='profile'),
     path('profile/<int:pk>/details/', views.ProfileDetailView.as_view(), name='profile_details'),

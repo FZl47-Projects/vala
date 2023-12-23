@@ -68,7 +68,7 @@ class LoginForm(forms.Form):
         if user is None:
             raise ValidationError(_('Entered data is incorrect'))
 
-        return user
+        return {'user': user}
 
 
 # Add Profile form
@@ -78,7 +78,7 @@ class AddProfileForm(forms.ModelForm):
 
     class Meta:
         model = UserProfile
-        exclude = ('user', 'token')
+        exclude = ('user', 'question2')
 
     def save(self, commit=True):
         profile = super().save(commit=True)
@@ -87,7 +87,6 @@ class AddProfileForm(forms.ModelForm):
         # Save User info
         user.first_name = self.cleaned_data['first_name']
         user.last_name = self.cleaned_data['last_name']
-        user.is_verified = True
         user.save()
 
         return profile

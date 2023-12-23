@@ -49,12 +49,13 @@ class UserAdmin(BaseUserAdmin):
 # UserProfile model admin
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'date_of_birth',)
+    list_display = ('user', 'date_of_birth', 'is_verified',)
     list_display_links = ('user',)
     readonly_fields = ('created_at', 'updated_at',)
     search_fields = ('user.phone_number', 'user.last_name',)
+    list_filter = ('is_verified',)
     fieldsets = (
-        (None, {'fields': ('user',)}),
+        (None, {'fields': ('user', 'is_verified')}),
         (_('Info'), {'fields': ('image', 'date_of_birth', 'height', 'weight')}),
         (_('Admin questions'), {'fields': ('question1', 'question2')}),
         (_('Dates'), {'fields': ('created_at', 'updated_at')}),

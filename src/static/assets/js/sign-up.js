@@ -1,7 +1,3 @@
-import { login ,addUser} from "./api/signandlogin.js";
-import { removeUserLocal, setDataToLocal, setUserLocal } from "./helper.js";
-import { successAlert } from "./Services.js";
-
 
 /* ------------------change btn and content--------------------- */
 let btns = document.querySelectorAll(".btn-category-user");
@@ -19,22 +15,3 @@ btns.forEach((item, index) => {
     contents[index].classList.add("active");
   });
 });
-
-// set errors
-const setErrorTo = (input, message) => {
-  const formGroup = input.parentElement;
-  const contentFormGroup = formGroup.parentElement;
-  const small = contentFormGroup.querySelector("small");
-
-  formGroup.classList.add("error");
-  small.innerText = message;
-};
-
-// set success
-const setSuccessTo = (input) => {
-  const formGroup = input.parentElement;
-  const contentFormGroup = formGroup.parentElement;
-  const small = contentFormGroup.querySelector("small");
-  formGroup.classList.add("success");
-  small.innerText = "";
-};

@@ -1,13 +1,13 @@
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render, reverse, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import View, TemplateView
 from django.contrib.auth import login, get_user_model
 from django.utils.translation import gettext as _
-from django.shortcuts import reverse
 from django.contrib import messages
 
 from apps.core.utils import validate_form
 from .mixins import LogoutRequiredMixin
+from random import randint
 from . import forms
 
 
@@ -23,7 +23,17 @@ class LoginView(LogoutRequiredMixin, TemplateView):
 
         form = forms.LoginForm(data=data)
         if validate_form(request, form):
-            user = form.cleaned_data
+            user = form.cleaned_data.get('user')
+
+            # Redirect to phone verification if user is not verified
+            if not user.is_verified:
+                # Generate token for registration
+                token = user.generate_token()
+                request.session['register_token'] = token
+
+                messages.info(request, _('Please Complete your profile'))
+                return redirect('account:complete_profile')
+
             login(request, user=user)
 
             # Modify login session if remember me is not checked
@@ -47,17 +57,79 @@ class RegisterView(LogoutRequiredMixin, View):
         form = forms.UserCreationForm(data=data)
         if validate_form(request, form):
             user = form.save()
-            # TODO: Login user and redirect to verify phone
 
-            messages.success(request, _('Login successful.'))
-            return redirect('/')
+            # Generate token for registration
+            token = user.generate_token()
+            request.session['register_token'] = token
+
+            messages.info(request, _('Please Complete your profile'))
+            return redirect('account:complete_profile')
 
         return redirect('account:login')
 
 
+# SendCode view
+class SendCodeView(View):
+    def get(self, request):
+        code = randint(10000, 99999)
+        request.session['verify_code'] = code
+        print(code)
+        # TODO: Send verification code via SMS
+
+        return redirect('account:verify_phone')
+
+
+# Render VerifyPhoneNumber view
+class VerifyPhoneNumberView(LogoutRequiredMixin, TemplateView):
+    template_name = 'account/verify-phone.html'
+
+    def post(self, request):
+        data = int(request.POST.get('code'))
+        code = request.session.get('verify_code')
+        token = request.session.get('register_token')
+
+        if code != data:
+            messages.error(request, _('Entered code is not correct'))
+            return redirect('account:verify_phone')
+
+        try:
+            user = User.objects.get(token=token)
+            user.is_verified = True
+            user.clear_token(request)
+        except User.DoesNotExist:
+            messages.error(request, _('Please try again'))
+
+            return redirect('account:login')
+
+        # Login user
+        login(request, user)
+
+        # Delete verification code from sessions
+        if 'verify_code' in request.session:
+            del request.session['verify_code']
+
+        messages.success(request, _('Register done successful'))
+        return redirect('public:index')
+
+
 # Render CompleteProfile view
-class CompleteProfileView(TemplateView):
+class CompleteProfileView(LogoutRequiredMixin, TemplateView):
     template_name = 'account/complete-profile.html'
+
+    def post(self, request):
+        data = request.POST.copy()
+        token = request.session.get('register_token')
+
+        instance = get_object_or_404(User, token=token).user_profile
+
+        form = forms.AddProfileForm(data=data, instance=instance, files=request.FILES)
+        if validate_form(request, form):
+            form.save()
+
+            messages.success(request, _('Code sent to you'))
+            return redirect('account:send_verify_code')
+
+        return redirect('account:complete_profile')
 
 
 # Render Profile view
@@ -66,7 +138,7 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 
 # Render Profile Detail view
-class ProfileDetailView(LoginRequiredMixin, View):
+class ProfileDetailView(LoginRequiredMixin, View):  # TODO: Add user permission mixin
     template_name = 'account/profile-detail.html'
 
     def get(self, request, pk):
