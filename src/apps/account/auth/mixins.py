@@ -10,6 +10,8 @@ class LoginRequiredMixinCustom(AccessMixin):
             return self.handle_no_permission()
         if not request.user.is_phonenumber_confirmed:
             return redirect('account:confirm_phonenumber')
+        if getattr(request.user,'profile',None) is None:
+            return redirect('account:user_personal__detail')
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -24,7 +26,7 @@ class SuperUserRequiredMixin(AccessMixin):
         return super().dispatch(request, *args, **kwargs)
 
 
-class OperatorUserRequiredMixin(AccessMixin):
+class OperatorUserRequiredMixin(LoginRequiredMixinCustom):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
@@ -35,7 +37,7 @@ class OperatorUserRequiredMixin(AccessMixin):
         return super().dispatch(request, *args, **kwargs)
 
 
-class AdminRequiredMixin(AccessMixin):
+class AdminRequiredMixin(LoginRequiredMixinCustom):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:

@@ -1,0 +1,22 @@
+{% extends 'dashboard/base/base_template.html' %}
+{% load static %}
+{% load render_partial %}
+
+{% block Title %}
+    لیست جلسات
+{% endblock %}
+
+
+{% block Content %}
+    <div id="main-wrapper">
+        {% include 'dashboard/components/base/header.html' %}
+        {% render_partial 'apps.dashboard.components.views.DashboardMenu' %}
+        {% render_partial 'apps.cartex.components.views.MeetingList' %}
+        {% include 'dashboard/components/base/footer.html' %}
+    </div>
+{% endblock %}
+
+{% block Script %}
+    <script src="{% static 'template/dashboard/vendor/datatables/js/jquery.dataTables.min.js' %}"></script>
+    <script src="{% static 'template/dashboard/js/plugins-init/datatables.init.js' %}"></script>
+{% endblock %}

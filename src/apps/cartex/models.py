@@ -1,11 +1,17 @@
+from django.utils.crypto import get_random_string
 from django.db import models
 from django.urls import reverse
 from apps.core.models import BaseModel
 
 
+def random_number_id():
+    return get_random_string(10)
+
+
 class Meeting(BaseModel):
+    number_id = models.CharField(max_length=10, default=random_number_id)
     user = models.ForeignKey('account.User', on_delete=models.CASCADE)
-    operator = models.ForeignKey('account.User', null=True, on_delete=models.SET_NULL, related_name='operator_user')
+    operator = models.ForeignKey('account.User', null=True, on_delete=models.SET_NULL, related_name='meetings_set_operator')
     time_start = models.TimeField(null=True)
     time_end = models.TimeField(null=True)
     description = models.TextField(null=True)
@@ -17,8 +23,18 @@ class Meeting(BaseModel):
         return f'#{self.id} - Meeting'
 
     def get_absolute_url(self):
-        # TODO: should be completed
-        return reverse('dashboard:index')
+        return reverse('cartex:meeting__detail', args=(self.id,))
+
+    def get_areas(self):
+        return self.areabody_set.all()
+
+    def get_time_start(self):
+        if self.time_start:
+            return self.time_start.strftime('%H:%M')
+
+    def get_time_end(self):
+        if self.time_end:
+            return self.time_end.strftime('%H:%M')
 
 
 class AreaBody(BaseModel):

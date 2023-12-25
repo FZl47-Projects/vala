@@ -8,10 +8,12 @@ urlpatterns = [
     path('login', views.Login.as_view(), name='login'),
     path('register', views.Register.as_view(), name='register'),
     path('logout', views.Logout.as_view(), name='logout'),
+
     # confirm account
     path('confirm/phonenumber', views.ConfirmPhonenumber.as_view(), name='confirm_phonenumber'),
     path('confirm/phonenumber/check', views.ConfirmPhonenumberCheckCode.as_view(),
          name='confirm_phonenumber_check_code'),
+
     # reset password
     path('reset-password', views.ResetPassword.as_view(), name='reset_password'),
     path('reset-password/send-code', views.ResetPasswordSend.as_view(), name='reset_password_send_code'),
@@ -23,6 +25,7 @@ urlpatterns = [
     path('dashboard/personal/detail', views.DashboardUserPersonalDetail.as_view(), name='user_personal__detail'),
     path('dashboard/change-password', views.DashboardUserChangePassword.as_view(), name='user_change_password'),
     path('dashboard/user/list', views.DashboardUserList.as_view(), name='user__list'),
+    path('dashboard/user/detail/<int:user_id>', views.DashboardUserDetail.as_view(), name='user__detail'),
     path('dashboard/operator/list', views.DashboardOperatorList.as_view(), name='operator__list'),
     path('dashboard/user/add', views.DashboardUserAdd.as_view(), name='user__add'),
     path('dashboard/operator/add', views.DashboardOperatorAdd.as_view(), name='operator__add'),

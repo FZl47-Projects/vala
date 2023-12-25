@@ -19,7 +19,8 @@
                 <div class="card">
                     <div class="card-header"><h4 class="card-title">اطلاعات شخصی</h4></div>
                     <div class="card-body">
-                        <div id="smartwizard" class="form-wizard order-create sw sw-theme-default sw-justified border-0">
+                        <div id="smartwizard"
+                             class="form-wizard order-create sw sw-theme-default sw-justified border-0">
                             <ul class="nav nav-wizard mb-3">
                                 <li><a class="nav-link inactive" href="#wizard_basic_info"><span>1</span></a></li>
                                 <li><a class="nav-link inactive" href="#wizard_additional_info"><span>2</span></a></li>
@@ -27,7 +28,8 @@
                                        href="#wizard_additional_info_picture"><span>3</span></a></li>
                                 <li><a class="nav-link inactive" href="#wizard_completed"><span>4</span></a></li>
                             </ul>
-                            <form id="form-personal-detail" action="{% url 'account:user_personal__detail' %}" method="post" enctype="multipart/form-data">
+                            <form id="form-personal-detail" action="{% url 'account:user_personal__detail' %}"
+                                  method="post" enctype="multipart/form-data">
                                 {% csrf_token %}
                                 <div class="tab-content">
                                     <div id="wizard_basic_info" class="tab-pane p-3 px-4" role="tabpanel"
@@ -82,6 +84,7 @@
                                                 <div class="mb-3">
                                                     <label class="text-label form-label">
                                                         قد
+                                                        <span class="font-75">(بر اساس سانتی متر)</span>
                                                         <span class="field-required">*</span>
                                                     </label><input type="text"
                                                                    name="height"
@@ -95,6 +98,7 @@
                                                 <div class="mb-3">
                                                     <label class="text-label form-label">
                                                         وزن
+                                                        <span class="font-75">(بر اساس کیلوگرم)</span>
                                                         <span class="field-required">*</span>
                                                     </label><input
                                                         type="text" name="weight" class="form-control"

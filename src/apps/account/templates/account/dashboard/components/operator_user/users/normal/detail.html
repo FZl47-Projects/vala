@@ -1,0 +1,304 @@
+{% load custom_tags %}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="mb-sm-4">
+            <h2 class="font-w600 mb-2 me-auto"> کاربر - {{ user.get_full_name }}</h2>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'dashboard:index' %}">داشبورد</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a>کاربران</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a>کاربران عادی</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="">{{ user.get_full_name }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-block d-sm-flex justify-content-between text-center mb-2">
+                            <div class="mb-4 mt-1 mb-sm-0">
+                                <h2 class="invoice-num">
+                                    {{ user.get_full_name }}
+                                </h2>
+                                <span>{{ user.get_raw_phonenumber }}</span>
+                            </div>
+                            <div class="icon me-3">
+                                <a href="{{ user.get_dashboard_absolute_url }}">
+                                    <img style="width: 200px;height:200px;border-radius: 25px;object-fit: cover"
+                                         src="{{ user.get_picture_profile_url }}"
+                                         alt="{{ user.get_full_name }}"
+                                         title="{{ user.get_full_name }}">
+                                </a>
+                            </div>
+                        </div>
+                        <div>
+                            <a class="btn btn-success light" href="{% url 'cartex:meeting__add' %}?user_selected={{ user.id }}&user_selected_name={{ user.get_full_name }}">
+                                ایجاد جلسه
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+
+            <div class="col-xl-4 col-xxl-6 col-sm-6">
+                <div class="card">
+                    <div class="card-body d-flex">
+                        <div class="icon me-3 text-orange">
+                            <i class="far fa-clock"></i>
+                        </div>
+                        <div>
+                            <h2 class="invoice-num">{{ all_meetings.first.get_created_at_timepast }}</h2>
+                            <p class="mb-0 invoice-num1">
+                                زمان اخرین جلسه
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-xxl-6 col-sm-6">
+                <div class="card">
+                    <div class="card-body d-flex">
+                        <div class="icon me-3">
+                            <i class="far fa-clipboard"></i>
+                        </div>
+                        <div>
+                            <h2 class="invoice-num">{{ all_meetings.count }}</h2>
+                            <p class="mb-0 invoice-num1">
+                                 تعداد کل جلسات
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-xxl-6 col-sm-6">
+                <div class="card">
+                    <div class="card-body d-flex">
+                        <div class="icon me-3 text-success">
+                            <i class="far fa-clipboard-user"></i>
+                        </div>
+                        <div>
+                            <h2 class="invoice-num">{{ meetings.count }}</h2>
+                            <p class="mb-0 invoice-num1">
+                                تعداد جلسات شما با این کاربر
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-xl-4 col-xxl-6 col-sm-6">
+                <div class="card">
+                    <div class="card-body d-flex">
+                        <div class="icon me-3 text-info">
+                            <i class="far fa-ruler-vertical"></i>
+                        </div>
+                        <div>
+                            <h2 class="invoice-num">{{ user.profile.height }} CM</h2>
+                            <p class="mb-0 invoice-num1">
+                                قد
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-xxl-6 col-sm-6">
+                <div class="card">
+                    <div class="card-body d-flex">
+                        <div class="icon me-3 text-secondary">
+                            <i class="far fa-weight"></i>
+                        </div>
+                        <div>
+                            <h2 class="invoice-num">{{ user.profile.weight }} KG</h2>
+                            <p class="mb-0 invoice-num1">
+                                وزن
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-4 col-xxl-6 col-sm-6">
+                <div class="card">
+                    <div class="card-body d-flex">
+                        <div class="icon me-3 text-yellow">
+                            <i class="far fa-male"></i>
+                        </div>
+                        <div>
+                            <h2 class="invoice-num">{{ user.profile.age }}</h2>
+                            <p class="mb-0 invoice-num1">
+                                سن
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-xl-12">
+                <div class="card">
+                    <div class="card-body d-flex">
+                        <div class="icon me-3 text-danger">
+                            <i class="far fa-notes-medical"></i>
+                        </div>
+                        <div>
+                            <h4 class=" font-weight-bold">{{ user.profile.note|default:'توضیحی ثبت نشده است' }}</h4>
+                            <p class="mb-0 invoice-num1">
+                                توضیحات مربوط به بیماری
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>جزئیات</h4>
+                        <h3>
+                            <i class="far fa-book"></i>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail">
+                            <div class="detail-field">
+                                <span>نام و نام خانوادگی</span>
+                                <p>
+                                    {{ user.get_full_name }}
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>شماره همراه</span>
+                                <p>
+                                    {{ user.get_raw_phonenumber }}
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>زمان ایجاد حساب</span>
+                                <p>
+                                    {{ user.get_created_at }}
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>زمان اخرین ورود</span>
+                                <p>
+                                    {{ user.get_last_login }}
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>تعداد جلسات</span>
+                                <p>
+                                    {{ all_meetings.count }}
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>سن</span>
+                                <p>
+                                    {{ user.profile.age }}
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>قد</span>
+                                <p>
+                                    {{ user.profile.height }}
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>وزن</span>
+                                <p>
+                                    {{ user.profile.weight }}
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>توضیحات مربوط به بیماری</span>
+                                <p>
+                                    {{ user.profile.note|default:'توضیحی ثبت نشده است' }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title"> برخی از جلسات شما با این کاربر</h5>
+                        <div>
+                            <a href="{{ user.get_meetings_absolute_url }}">
+                                مشاهده همه
+                                <i class="far fa-angle-left"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-responsive-md table-center">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="no-sorting">کد رهگیری</th>
+                                    <th>تعداد نواحی</th>
+                                    <th>زمان ایجاد</th>
+                                    <th class="no-sorting">مشاهده</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for meeting in meetings|slice:':8' %}
+                                    <tr>
+                                        <td>
+                                            {{ forloop.counter }}
+                                        </td>
+                                        <td class="font-95">
+                                            <a href="{{ meeting.get_absolute_url }}">
+                                                {{ meeting.number_id }}
+                                            </a>
+                                        </td>
+                                        <td>{{ meeting.get_areas.count }}</td>
+                                        <td>{{ meeting.get_created_at_timepast }}</td>
+                                        <td>
+                                            <a href="{{ meeting.get_absolute_url }}"
+                                               class="btn btn-outline-secondary py-1">
+                                                <i class="far fa-arrow-left"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="100">
+                                            <div class="container-not-found-base">
+                                                <p>جلسه ای یافت نشد</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,104 @@
+{% load custom_tags %}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="mb-sm-4">
+            <h2 class="font-w600 mb-2 me-auto"> اپراتور - {{ operator.get_full_name }}</h2>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'dashboard:index' %}">داشبورد</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a>کاربران</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a>اپراتور ها</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="">{{ operator.get_full_name }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-xxl-12">
+                <div class="card">
+                    <div class="card-body text-center d-block d-sm-flex justify-content-between">
+                        <div class="mb-4 mt-1 mb-sm-0">
+                            <h2 class="invoice-num">
+                                {{ operator.get_full_name }}
+                            </h2>
+                        </div>
+                        <div class="icon me-3">
+                            <a href="{{ operator.get_dashboard_absolute_url }}">
+                                <img style="width: 200px;height:200px;border-radius: 25px;object-fit: cover"
+                                     src="{{ operator.get_picture_profile_url }}"
+                                     alt="{{ operator.get_full_name }}"
+                                     title="{{ operator.get_full_name }}">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title"> برخی از جلسات شما با این اپراتور</h5>
+                        <div>
+                            <a href="{{ operator.get_meetings_absolute_url }}">
+                                مشاهده همه
+                                <i class="far fa-angle-left"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-responsive-md table-center">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="no-sorting">کد رهگیری</th>
+                                    <th>تعداد نواحی</th>
+                                    <th>زمان ایجاد</th>
+                                    <th class="no-sorting">مشاهده</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for meeting in meetings|slice:':8' %}
+                                    <tr>
+                                        <td>
+                                            {{ forloop.counter }}
+                                        </td>
+                                        <td class="font-95">
+                                            <a href="{{ meeting.get_absolute_url }}">
+                                                {{ meeting.number_id }}
+                                            </a>
+                                        </td>
+                                        <td>{{ meeting.get_areas.count }}</td>
+                                        <td>{{ meeting.get_created_at_timepast }}</td>
+                                        <td>
+                                            <a href="{{ meeting.get_absolute_url }}"
+                                               class="btn btn-outline-secondary py-1">
+                                                <i class="far fa-arrow-left"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="100">
+                                            <div class="container-not-found-base">
+                                                <p>جلسه ای یافت نشد</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

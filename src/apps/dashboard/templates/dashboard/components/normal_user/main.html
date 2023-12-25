@@ -1,0 +1,170 @@
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="mb-sm-4">
+            <h2 class="font-w600 mb-2 me-auto">داشبورد</h2>
+        </div>
+        <div class="row">
+
+            <div class="col-xl-6 col-xxl-6 col-sm-6">
+                <div class="card">
+                    <div class="card-body d-flex">
+                        <div class="icon me-3">
+                            <i class="far fa-clipboard"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-weight-bold"> تعداد جلسات</h3>
+                            <h4 class="mb-0 text-center">
+                                {{ meetings.count }}
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xl-6 col-xxl-6 col-sm-6">
+                <div class="card">
+                    <div class="card-body d-flex">
+                        <div class="icon me-3">
+                            <i class="far fa-clock"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-weight-bold">coming soon</h3>
+                            <h4 class="mb-0">
+                                ...
+                            </h4>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="row">
+                    <div class="col-xl-12 col-xxl-12">
+                        <div class="card">
+                            <div class="card-header d-block d-sm-flex flex-wrap border-0">
+                                <div class="mb-3">
+                                    <h4 class="fs-20 text-black">جلسات اخیر </h4>
+                                    <p class="mb-0 fs-12">لیست اخرین جلسات اخیر</p>
+                                </div>
+                                <a href="{% url 'cartex:meeting__list' %}">
+                                    نمایش همه
+                                    <i class="far fa-arrow-left"></i>
+                                </a>
+                            </div>
+                            <div class="card-body py-0 px-3">
+                                <div class="tab-content">
+                                    <div class="tab-pane active show fade">
+                                        <div class="table-responsive">
+                                            <table class="table border-hover card-table cardtbl-link table-center">
+                                                <thead>
+                                                <tr>
+                                                    <th class="font-95">کد</th>
+                                                    <th class="font-95">اپراتور</th>
+                                                    <th class="font-95">تعداد نواحی</th>
+                                                    <th class="font-95">توضیحات</th>
+                                                    <th class="font-95">جزئیات</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for meeting in meetings|slice:':8' %}
+                                                    <tr>
+                                                        <td>
+                                                            <a href="{{ meeting.get_absolute_url }}"
+                                                               class="border-0 px-4 py-2">
+                                                                {{ meeting.number_id }}
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ meeting.operator.get_dashboard_absolute_url }}"
+                                                               class="badge badge-info light border-0">{{ meeting.operator.get_full_name }}</a>
+                                                        </td>
+                                                        <td>
+                                                            {{ meeting.get_areas.count }}
+                                                        </td>
+                                                        <td>
+                                                            {{ meeting.description|default:'بدون توضیحات'|truncatechars:30 }}
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ meeting.get_absolute_url }}"
+                                                               class="border-0 px-4 py-2">
+                                                                <i class="far fa-angle-left"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                {% empty %}
+                                                    <tr>
+                                                        <td colspan="1000">
+                                                            <div class="container-not-found-base">
+                                                                <p>جلسه ای یافت نشد</p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xl-12">
+                <div class="row">
+                    <div class="col-xxl-12">
+                        <div class="card">
+                            <div class="card-header d-block d-sm-flex flex-wrap border-0">
+                                <div class="mb-3">
+                                    <h4 class="fs-20 text-black">coming soon</h4>
+                                    <p class="mb-0 fs-12">...</p>
+                                </div>
+                                <a href="#" class="d-none">
+                                    ...
+                                    <i class="far fa-arrow-left"></i>
+                                </a>
+                            </div>
+                            <div class="card-body py-0 px-3">
+                                <div class="tab-content">
+                                    <div class="text-center pb-5">
+                                        <h4 style="padding: 20px; background: #eee;border-radius: 10px">coming
+                                            soon</h4>
+                                    </div>
+                                    <div class="tab-pane active show fade">
+                                        <div class="table-responsive">
+                                            <table class="table border-hover tr-rounded card-table cardtbl-link d-none">
+                                                <thead>
+                                                <tr>
+                                                    <th class="font-95">...</th>
+                                                    <th class="font-95">...</th>
+                                                    <th class="font-95">...</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr>
+                                                    <td>
+                                                    </td>
+                                                    <td class="wspace-no">
+                                                    </td>
+                                                    <td class="wspace-no">
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,246 @@
+{% load custom_tags %}
+<div class="content-body">
+    <div class="container-fluid">
+        <div class="mb-sm-4">
+            <h2 class="font-w600 mb-2 me-auto"> جلسه - {{ meeting.number_id }}</h2>
+            <ul class="breadcrumb">
+                <li class="breadcrumb-item">
+                    <a href="{% url 'dashboard:index' %}">داشبورد</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a>جلسات</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href="{% url 'cartex:meeting__list' %}">لیست جلسات</a>
+                </li>
+                <li class="breadcrumb-item">
+                    <a href=""> جلسه {{ meeting.number_id }}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-xxl-6 col-lg-7">
+                {% with operator=meeting.operator %}
+                    <div class="card">
+                        <div class="card-body d-flex">
+                            <div class="icon me-3">
+                                <a href="{{ operator.get_dashboard_absolute_url }}">
+                                    <img style="width: 70px;height:70px;border-radius: 50%;object-fit: cover"
+                                         src="{{ operator.get_picture_profile_url }}"
+                                         alt="{{ operator.get_full_name }}"
+                                         title="{{ operator.get_full_name }}">
+                                </a>
+                            </div>
+                            <div>
+                                <p class="mb-1 font-120 font-weight-bold">
+                                    اپراتور
+                                </p>
+                                <div class="text-center">
+                                    <h4>
+                                        <a href="{{ operator.get_dashboard_absolute_url }}"
+                                           class="badge badge-info light">
+                                            {{ operator.get_full_name }}
+                                        </a>
+                                    </h4>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endwith %}
+            </div>
+            <div class="col-xxl-6 col-lg-5">
+                <div class="card">
+                    <div class="card-body d-flex">
+                        <div class="icon me-3">
+                            <i class="far fa-clipboard"></i>
+                        </div>
+                        <div>
+                            <div class="mb-1">
+                                <p class=" mb-0 font-120 font-weight-bold">
+                                    تعداد جلسات
+                                </p>
+                                <p class="font-70 text-muted">
+                                    تعداد جلسات شما با این اپراتور
+                                </p>
+                            </div>
+                            <div class="text-center col-12">
+                                <h3>
+                                    {% call_method meeting.user 'get_count_meetings_with_operator' meeting.operator %}
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>نواحی</h4>
+                        <h3>
+                            <i class="far fa-child"></i>
+                        </h3>
+                    </div>
+                    <div class="card-body areas-body">
+                        {% for area in meeting.get_areas %}
+
+                            <div class="area-body col-12 col-md-5 col-lg-5 col-xl-3">
+                                <div>
+                                    <div class="area-body-header">
+                                        <p>{{ area.area_name }}</p>
+                                    </div>
+                                    <div class="area-content">
+                                        <div>
+                                            <label for="">شدت</label>
+                                            <input type="text" class="form-control" placeholder="شدت"
+                                                   value="{{ area.intensity }}" required disabled
+                                                   name="intensity">
+                                        </div>
+                                        <div>
+                                            <label for="">توضیحات</label>
+                                            <textarea type="text" class="form-control" placeholder="توضیحات"
+                                                      required disabled
+                                                      name="note">{{ area.note }}</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4>جزئیات</h4>
+                        <h3>
+                            <i class="far fa-book"></i>
+                        </h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="detail">
+                            <div class="detail-field">
+                                <span>کد رهگیری</span>
+                                <p>
+                                    {{ meeting.number_id }}
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>اپراتور</span>
+                                <p>
+                                    <a class="badge light badge-info"
+                                       href="{{ meeting.operator.get_dashboard_absolute_url }}">
+                                        {{ meeting.operator.get_full_name }}
+                                    </a>
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>توضیحات</span>
+                                <p>
+                                    {{ meeting.description|default:'توضیحی ثبت نشده است' }}
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>زمان ایجاد</span>
+                                <p>
+                                    {{ meeting.get_created_at_timepast }}
+                                    <span class="font-95">({{ meeting.get_created_at }})</span>
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>زمان شروع جلسه</span>
+                                <p>
+                                    {{ meeting.get_time_start|default:'ثبت نشده است' }}
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>زمان پایان جلسه</span>
+                                <p>
+                                    {{ meeting.get_time_end|default:'ثبت نشده است' }}
+                                </p>
+                            </div>
+                            <div class="detail-field">
+                                <span>تعداد نواحی</span>
+                                <p>
+                                    {{ meeting.get_areas.count }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title"> برخی دیگر از جلسات شما</h5>
+                        <div>
+                            <a href="{% url 'cartex:meeting__list' %}">
+                                مشاهده همه
+                                <i class="far fa-angle-left"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-responsive-md table-center">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th class="no-sorting">کد رهگیری</th>
+                                    <th>اپراتور</th>
+                                    <th>تعداد نواحی</th>
+                                    <th>زمان ایجاد</th>
+                                    <th class="no-sorting">مشاهده</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for meeting in meeting.user.get_meetings|slice:':8' %}
+                                    <tr>
+                                        <td>
+                                            {{ forloop.counter }}
+                                        </td>
+                                        <td class="font-95">
+                                            <a href="{{ meeting.get_absolute_url }}">
+                                                {{ meeting.number_id }}
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{ meeting.operator.get_absolute_url }}"
+                                               class="badge badge-info light">{{ meeting.operator.get_full_name }}
+                                        </td>
+                                        <td>{{ meeting.get_areas.count }}</td>
+                                        <td>{{ meeting.get_created_at_timepast }}</td>
+                                        <td>
+                                            <a href="{{ meeting.get_absolute_url }}"
+                                               class="btn btn-outline-secondary py-1">
+                                                <i class="far fa-arrow-left"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+                                    <tr>
+                                        <td colspan="100">
+                                            <div class="container-not-found-base">
+                                                <p>جلسه ای یافت نشد</p>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

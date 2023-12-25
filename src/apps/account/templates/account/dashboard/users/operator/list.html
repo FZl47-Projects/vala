@@ -136,8 +136,8 @@
                                                 </td>
                                                 <td>{{ operator.get_full_name }}</td>
                                                 <td>{{ operator.get_raw_phonenumber }}</td>
-                                                <td>{{ operator.get_meetings.count|default:0 }}</td>
-                                                <td>{{ operator.get_customers.count|default:0 }}</td>
+                                                <td>{{ operator.get_meetings.count }}</td>
+                                                <td>{{ operator.get_customers.count }}</td>
                                                 <td>
                                                     <a href="{{ operator.get_dashboard_absolute_url }}"
                                                        class="btn btn-outline-secondary py-1">

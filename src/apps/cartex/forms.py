@@ -9,7 +9,7 @@ class MeetingAddForm(forms.ModelForm):
 
     class Meta:
         model = models.Meeting
-        fields = '__all__'
+        exclude = ('number_id',)
 
 
 class AreaBodyAddForm(forms.ModelForm):
@@ -88,3 +88,9 @@ class AreaBodyFormSetAdd(FormSetCustom):
 
     def get_iter_key(self):
         return 'area_code'
+
+
+class AreaBodyUpdateForm(forms.ModelForm):
+    class Meta:
+        model = models.AreaBody
+        fields = ('intensity', 'note')

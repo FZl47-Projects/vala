@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.views.generic import View, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.db.models import Q, Value
+from django.db.models import Q, Value, Count
 from django.db.models.functions import Concat
 from apps.account.auth.mixins import LoginRequiredMixinCustom, SuperUserRequiredMixin, AdminRequiredMixin
 from apps.core.utils import add_prefix_phonenum, random_num, form_validate_err
@@ -307,11 +307,28 @@ class DashboardUserChangePassword(LoginRequiredMixin, TemplateView):
         return redirect('account:login')
 
 
-class DashboardUserList(LoginRequiredMixinCustom, AdminRequiredMixin, TemplateView):
+class DashboardUserList(AdminRequiredMixin, TemplateView):
     template_name = 'account/dashboard/users/normal/list.html'
 
 
-class DashboardOperatorList(LoginRequiredMixinCustom, SuperUserRequiredMixin, View):
+class DashboardUserDetail(LoginRequiredMixinCustom, View):
+
+    def get_template_by_user_role(self, user):
+        if user.role == 'normal_user':
+            return 'account/dashboard/users/normal/detail.html'
+        elif user.role == 'operator_user':
+            return 'account/dashboard/users/operator/detail.html'
+
+    def get(self, request, user_id):
+        user = User.objects.exclude(role__in=User.SUPER_USER_ROLES).get(id=user_id)
+        context = {
+            'user': user,
+        }
+        template = self.get_template_by_user_role(user)
+        return render(request, template, context)
+
+
+class DashboardOperatorList(SuperUserRequiredMixin, View):
     template_name = 'account/dashboard/users/operator/list.html'
 
     def pagination(self, objects):
@@ -338,8 +355,8 @@ class DashboardOperatorList(LoginRequiredMixinCustom, SuperUserRequiredMixin, Vi
             elif sort_by == 'oldest':
                 objects = objects.order_by('id')
             elif sort_by == 'most-meeting':
-                # TODO: should be completed
-                pass
+                objects = objects.annotate(meeting_count=Count('meetings_set_operator'))
+                objects = objects.order_by('-meeting_count')
 
         return objects
 
@@ -397,7 +414,7 @@ class DashboardOperatorAdd(LoginRequiredMixinCustom, SuperUserRequiredMixin, Tem
         return redirect(user.get_dashboard_absolute_url())
 
 
-class DashboardUserAdd(LoginRequiredMixinCustom, AdminRequiredMixin, TemplateView):
+class DashboardUserAdd(AdminRequiredMixin, TemplateView):
     template_name = 'account/dashboard/users/normal/add.html'
 
     def post(self, request):

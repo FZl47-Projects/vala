@@ -1,0 +1,18 @@
+{% extends 'dashboard/base/base_template.html' %}
+{% load static %}
+{% load render_partial %}
+
+{% block Title %}
+   کاربر - {{ user.get_full_name }}
+{% endblock %}
+
+
+{% block Content %}
+    <div id="main-wrapper">
+        {% include 'dashboard/components/base/header.html' %}
+        {% render_partial 'apps.dashboard.components.views.DashboardMenu' %}
+        {% render_partial 'apps.account.components.views.DashboardOperatorUserDetail' operator=user %}
+        {% include 'dashboard/components/base/footer.html' %}
+    </div>
+{% endblock %}
+

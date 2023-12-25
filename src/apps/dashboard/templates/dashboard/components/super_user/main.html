@@ -40,10 +40,10 @@
                 <div class="card">
                     <div class="card-body d-flex">
                         <div class="icon me-3">
-                            <i class="far fa-book"></i>
+                            <i class="far fa-clipboard"></i>
                         </div>
                         <div>
-                            <h2 class="invoice-num">نامشخص</h2>
+                            <h2 class="invoice-num">{{ meetings.count }}</h2>
                             <p class="mb-0 invoice-num1">
                                 تعداد جلسات
                             </p>
@@ -85,16 +85,16 @@
                                                 {% for operator in operators_latest %}
                                                     <tr>
                                                         <td>
-                                                            {{ user.get_full_name }}
+                                                            {{ operator.get_full_name }}
                                                         </td>
                                                         <td>
-                                                            نامشخص
+                                                            {{ operator.get_meetings.count }}
                                                         </td>
                                                         <td>
-                                                            نامشخص
+                                                            {{ operator.get_customers.count }}
                                                         </td>
                                                         <td>
-                                                            <a href="{{ user.get_dashboard_absolute_url }}"
+                                                            <a href="{{ operator.get_dashboard_absolute_url }}"
                                                                class="border-0 px-4 py-2">
                                                                 <i class="far fa-angle-left"></i>
                                                             </a>
@@ -188,36 +188,70 @@
                                     <h4 class="fs-20 text-black">جلسات اخیر</h4>
                                     <p class="mb-0 fs-12">لیست جلسات اخیر</p>
                                 </div>
-                                <a href="#">
+                                <a href="{% url 'cartex:meeting__list' %}">
                                     نمایش همه
                                     <i class="far fa-arrow-left"></i>
                                 </a>
                             </div>
                             <div class="card-body py-0 px-3">
                                 <div class="tab-content">
-                                    <div class="text-center pb-5">
-                                        <h4 style="padding: 20px; background: #eee;border-radius: 10px">این بخش
-                                            در اپدیت های اینده اضافه خواهد شد</h4>
-                                    </div>
                                     <div class="tab-pane active show fade">
                                         <div class="table-responsive">
-                                            <table class="table border-hover tr-rounded card-table cardtbl-link d-none">
+                                            <table class="table border-hover table-center tr-rounded card-table cardtbl-link">
                                                 <thead>
                                                 <tr>
-                                                    <th class="font-95">...</th>
-                                                    <th class="font-95">...</th>
-                                                    <th class="font-95">...</th>
+                                                    <th class="font-95">#</th>
+                                                    <th class="font-95">کد رهگیری</th>
+                                                    <th class="font-95">کاربر</th>
+                                                    <th class="font-95">اپراتور</th>
+                                                    <th class="font-95">تعداد نواحی</th>
+                                                    <th class="font-95">مشاهده</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td>
-                                                    </td>
-                                                    <td class="wspace-no">
-                                                    </td>
-                                                    <td class="wspace-no">
-                                                    </td>
-                                                </tr>
+                                                {% for meeting in meetings|slice:':8' %}
+                                                    <tr>
+                                                        <td>
+                                                            {{ forloop.counter }}
+                                                        </td>
+                                                        <td>
+                                                            {{ meeting.number_id }}
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ meeting.user.get_dashboard_absolute_url }}"
+                                                               class="badge badge-primary light border-0">
+                                                                {{ meeting.user.get_full_name }}
+                                                                <span class="font-85">{{ meeting.user.get_raw_phonenumber }}</span>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="{{ meeting.operator.get_dashboard_absolute_url }}"
+                                                               class="badge badge-info light border-0">
+                                                                {{ meeting.operator.get_full_name }}
+                                                                <span class="font-85">{{ meeting.operator.get_raw_phonenumber }}</span>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            {{ meeting.get_areas.count }}
+                                                        </td>
+
+                                                        <td>
+                                                            <a href="{{ meeting.get_absolute_url }}"
+                                                               class="btn border-0 p-2 px-3">
+                                                                <i class="far fa-angle-left"></i>
+                                                            </a>
+                                                        </td>
+
+                                                    </tr>
+                                                {% empty %}
+                                                    <tr>
+                                                        <td colspan="100">
+                                                            <div class="container-not-found-base">
+                                                                <p>جلسه ای یافت نشد</p>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                {% endfor %}
                                                 </tbody>
                                             </table>
                                         </div>

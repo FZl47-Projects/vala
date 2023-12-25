@@ -5,11 +5,12 @@ from django.urls import reverse
 from django.views.generic import View
 from django.http import JsonResponse, Http404
 from django.shortcuts import render
-from django.db.models import Q, Value
+from django.db.models import Q, Value, Count
 from django.db.models.functions import Concat
 from apps.account.auth.mixins import AdminRequiredMixin
 from apps.account.models import User
 from apps.core.components import BaseComponentView
+from apps.cartex.models import Meeting
 
 
 class ComponentView(BaseComponentView):
@@ -20,7 +21,7 @@ class DashboardUserList(ComponentView, View):
 
     def __init__(self, *args, **kwargs):
         super(DashboardUserList, self).__init__(*args, **kwargs)
-        self.template_name = 'user-list.html'
+        self.template_name = 'user/list.html'
 
     def pagination(self, objects):
         COUNT_PER_PAGE = 20
@@ -46,13 +47,20 @@ class DashboardUserList(ComponentView, View):
             elif sort_by == 'oldest':
                 objects = objects.order_by('id')
             elif sort_by == 'most-visited':
-                # TODO: should be completed
-                pass
+                objects = objects.annotate(meeting_count=Count('meeting'))
+                objects = objects.order_by('-meeting_count')
 
         return objects
 
+    def get_users(self):
+        user = self.request.user
+        if user.role == 'super_user':
+            return User.normal_user_objects.all()
+        elif user.role == 'operator_user':
+            return user.get_customers()
+
     def get_base_context(self):
-        users = User.normal_user_objects.all()
+        users = self.get_users()
         users = self.filter(users)
         pagination = self.pagination(users)
         return {
@@ -65,7 +73,50 @@ class DashboardUserPersonalDetail(ComponentView, View):
 
     def __init__(self, *args, **kwargs):
         super(DashboardUserPersonalDetail, self).__init__(*args, **kwargs)
-        self.template_name = 'personal-detail.html'
+        self.template_name = 'user/personal-detail.html'
+
+
+class DashboardNormalUserDetail(ComponentView, View):
+
+    def __init__(self, *args, **kwargs):
+        super(DashboardNormalUserDetail, self).__init__(*args, **kwargs)
+        self.template_name = 'users/normal/detail.html'
+
+    def get_context_operator_user(self, *args, **kwargs):
+        user = kwargs.get('user')
+        operator = self.request.user
+        context = {
+            **kwargs,
+            'meetings': operator.get_meetings_with_user(user),
+            'all_meetings': Meeting.objects.filter(user=user),
+        }
+        return context
+
+    def get_context_super_user(self, *args, **kwargs):
+        user = kwargs.get('user')
+        context = {
+            **kwargs,
+            'all_meetings': Meeting.objects.filter(user=user),
+        }
+        return context
+
+
+class DashboardOperatorUserDetail(ComponentView, View):
+
+    def __init__(self, *args, **kwargs):
+        super(DashboardOperatorUserDetail, self).__init__(*args, **kwargs)
+        self.template_name = 'users/operator/detail.html'
+
+    def get_context_normal_user(self, *args, **kwargs):
+        operator = kwargs.get('operator')
+        context = {
+            **kwargs,
+            'meetings': self.request.user.get_meetings_with_operator(operator)
+        }
+        return context
+
+    def get_context_super_user(self, *args, **kwargs):
+        return kwargs
 
 
 class UserListPartial(AdminRequiredMixin, View):
@@ -87,7 +138,7 @@ class UserListPartial(AdminRequiredMixin, View):
             'pagination': pagination,
             'url_search_view': self.get_url_search_view()
         }
-        return render(request, 'account/dashboard/components/base/user-list-partial.html', context)
+        return render(request, 'account/dashboard/components/base/user/user-list-partial.html', context)
 
     def post(self, request):
         data = json.loads(request.body)

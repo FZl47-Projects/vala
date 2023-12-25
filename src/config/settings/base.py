@@ -116,15 +116,15 @@ LOGIN_URL = '/u/login'
 Q_CLUSTER = {
     'name': 'django-q',
     'timeout': 60,
-    'orm': 'default'
-    # 'redis': {
-    #     'host': 'localhost',
-    #     'port': 6379,
-    #     'db': 0,
-    #     'socket_timeout': None,
-    #     'charset': 'utf-8',
-    #     'errors': 'strict',
-    # }
+    # 'orm': 'default',
+    'redis': {
+        'host': 'localhost',
+        'port': 6379,
+        'db': 0,
+        'socket_timeout': None,
+        'charset': 'utf-8',
+        'errors': 'strict',
+    }
 }
 
 MESSAGE_STORAGE = "django.contrib.messages.storage.cookie.CookieStorage"

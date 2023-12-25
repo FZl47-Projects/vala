@@ -73,6 +73,7 @@ class User(AbstractUser):
     email = None
     phonenumber = PhoneNumberField(region='IR', unique=True)
     is_phonenumber_confirmed = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
     # type users|roles
     role = models.CharField(max_length=20, choices=ROLE_USER_OPTIONS, default='normal_user')
 
@@ -101,6 +102,9 @@ class User(AbstractUser):
 
     def __str__(self):
         return f'{self.role} - {self.phonenumber}'
+
+    def get_created_at(self):
+        return self.created_at.strftime('%Y-%m-%d %H:%M:%S')
 
     def get_role_label(self):
         return self.get_role_display()
@@ -131,7 +135,10 @@ class User(AbstractUser):
         return '-'
 
     def get_dashboard_absolute_url(self):
-        pass
+        return reverse('account:user__detail', args=(self.id,))
+
+    def get_absolute_url(self):
+        return self.get_dashboard_absolute_url()
 
     def get_notifications(self):
         notifications = self.notificationuser_set.filter(is_showing=True)
@@ -143,11 +150,32 @@ class User(AbstractUser):
     def get_notifications_absolute_url(self):
         return f"{reverse('notification:notification_user__list')}?search={self.get_raw_phonenumber()}"
 
+    def get_meetings_absolute_url(self):
+        return f"{reverse('cartex:meeting__list')}?search={self.get_raw_phonenumber()}"
+
     def get_profile(self):
         try:
             return self.profile
         except AttributeError:
             return None
+
+    def get_meetings(self):
+        if self.role == 'normal_user':
+            return self.meeting_set.all()
+        return self.meetings_set_operator.all()
+
+    def get_meetings_with_operator(self, operator):
+        return self.get_meetings().filter(operator=operator)
+
+    def get_count_meetings_with_operator(self, operator):
+        return self.get_meetings_with_operator(operator).count()
+
+    # operator methods
+    def get_customers(self):
+        return User.objects.filter(meeting__operator=self)
+
+    def get_meetings_with_user(self, user):
+        return self.get_meetings().filter(user=user)
 
 
 def upload_picture_profile(instance, path):

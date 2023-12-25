@@ -1,0 +1,34 @@
+{% extends 'dashboard/base/base_template.html' %}
+{% load static %}
+{% load render_partial %}
+
+{% block Title %}
+    جلسه  - {{ meeting.number_id }}
+{% endblock %}
+
+
+{% block Content %}
+    <div id="main-wrapper">
+        {% include 'dashboard/components/base/header.html' %}
+        {% render_partial 'apps.dashboard.components.views.DashboardMenu' %}
+        {% render_partial 'apps.cartex.components.views.MeetingDetail' meeting=meeting %}
+        {% include 'dashboard/components/base/footer.html' %}
+    </div>
+{% endblock %}
+
+{% block Script %}
+    <script>
+        document.querySelectorAll('.area-body').forEach(function (area) {
+            try {
+                area.querySelector('[btn-edit]').addEventListener('click', function () {
+                    area.setAttribute('edit', 'active')
+                    area.querySelector('textarea[name="note"]').removeAttribute('disabled')
+                    area.querySelector('input[name="intensity"]').removeAttribute('disabled')
+                })
+            } catch (e) {
+
+            }
+        })
+    </script>
+{% endblock %}
+
