@@ -19792,7 +19792,8 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 }
 
 [data-sidebar-style="overlay"] .deznav .metismenu > li {
-    padding: 0 30px;
+    padding: 5px 30px;
+    margin: 5px;
 }
 
 [data-sidebar-style="overlay"] .deznav .metismenu > li > a {
@@ -43166,7 +43167,7 @@ textarea[disabled] {
     }
 
     .card-title{
-        font-size: 100%;
+        font-size: 130%;
     }
 
     table th{
@@ -43175,5 +43176,10 @@ textarea[disabled] {
 
     table td{
         font-size: 14px!important;
+    }
+
+    .btn-group button{
+        padding: 9px;
+        font-size: 88%!important;
     }
 }
