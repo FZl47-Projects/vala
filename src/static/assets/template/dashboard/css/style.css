@@ -19860,6 +19860,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
 
     [data-sidebar-style="overlay"] .deznav .metismenu > li > a i {
         font-size: 18px;
+        margin-left: 8px;
     }
 
     [data-sidebar-style="overlay"] .deznav .metismenu ul li a {
