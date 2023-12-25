@@ -1,0 +1,25 @@
+{% extends 'dashboard/base/base_template.html' %}
+{% load static %}
+{% block Title %}
+    صفحه ای که دنبالش بودید پیدا نشد!
+{% endblock %}
+
+{% block Content %}
+    <div class="authincation h-100">
+        <div class="container h-100 mt-5">
+            <div class="row justify-content-center h-100 align-items-center">
+                <div class="col-md-7">
+                    <div class="form-input-content text-center error-page">
+                        <h1 class="error-text fw-bold">404</h1>
+                        <h4>
+                            <i class="fa fa-exclamation-triangle text-warning"></i>صفحه ای که دنبالش بودید پیدا نشد!
+                        </h4>
+                        <p>ممکن است آدرس را اشتباه تایپ کرده باشید یا صفحه جابجا شده باشد.</p>
+                        <div><a class="btn btn-primary" href="{% url 'public:index' %}">بازگشت به خانه</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+

@@ -1,0 +1,24 @@
+{% extends 'dashboard/base/base_template.html' %}
+{% load static %}
+{% block Title %}
+    اوه... مشکلی پیش امده است
+{% endblock %}
+
+{% block Content %}
+    <div class="authincation h-100">
+        <div class="container h-100 mt-5">
+            <div class="row justify-content-center h-100 align-items-center">
+            <div class="col-md-5">
+                <div class="form-input-content text-center error-page">
+                    <h1 class="error-text fw-bold">500</h1>
+                    <h4>
+                        <i class="fa fa-times-circle text-danger"></i>خطای سرور داخلی</h4>
+                    <p>مشکلی پیش امده است</p>
+                    <div><a class="btn btn-primary" href="{% url 'public:index' %}">بازگشت به خانه</a></div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </div>
+{% endblock %}
+
