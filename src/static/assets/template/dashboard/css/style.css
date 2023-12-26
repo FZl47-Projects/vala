@@ -43168,7 +43168,7 @@ body[data-theme-version="dark"] .areas-body .area-body-header p {
 
 @media screen and(max-width: 768px) {
     .areas-body .area-body {
-        margin: 13px auto;
+        margin: 13px auto!important;
     }
 }
 
