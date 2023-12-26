@@ -43118,6 +43118,10 @@ textarea[disabled] {
     color: #555;
 }
 
+body[data-theme-version="dark"] .areas-body .area-body-header p {
+    color: #c9c9c9 !important;
+}
+
 .areas-body .area-content {
     padding: 12px;
     text-align: right;
@@ -43162,25 +43166,32 @@ textarea[disabled] {
 }
 
 
+@media screen and(max-width: 768px) {
+    .areas-body .area-body {
+        margin: 13px auto;
+    }
+}
+
+
 @media screen and (max-width: 420px) {
-    .card-header{
+    .card-header {
         font-size: 90%;
     }
 
-    .card-title{
+    .card-title {
         font-size: 130%;
     }
 
-    table th{
-        font-size: 15px!important;
+    table th {
+        font-size: 15px !important;
     }
 
-    table td{
-        font-size: 14px!important;
+    table td {
+        font-size: 14px !important;
     }
 
-    .btn-group button{
+    .btn-group button {
         padding: 9px;
-        font-size: 88%!important;
+        font-size: 88% !important;
     }
 }
