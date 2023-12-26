@@ -81,6 +81,20 @@ class UpdateUserDetailBasic(forms.ModelForm):
         fields = ('first_name', 'last_name')
 
 
+class UpdateUserDetail(forms.ModelForm):
+    last_name = forms.CharField(required=False)
+
+    class Meta:
+        model = models.User
+        fields = ('first_name', 'last_name', 'is_active', 'is_phonenumber_confirmed', 'phonenumber')
+        error_messages = {
+            'phonenumber': {
+                'invalid': 'شماره همراه نامعتبر است',
+                'unique': 'کاربری با این شماره از قبل ثبت شده است'
+            },
+        }
+
+
 class UpdateUserPassword(forms.Form):
     current_password = forms.CharField(max_length=64, min_length=8, required=True, widget=forms.PasswordInput())
     new_password = forms.CharField(max_length=64, min_length=8, required=True, widget=forms.PasswordInput())

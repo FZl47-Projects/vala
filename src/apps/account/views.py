@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, get_user_model, logout as l
 from django.http import JsonResponse, HttpResponseBadRequest, Http404, HttpResponse
 from django.contrib import messages
 from django.conf import settings
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views.generic import View, TemplateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
@@ -420,7 +420,7 @@ class DashboardUserAdd(AdminRequiredMixin, TemplateView):
     def post(self, request):
         data = request.POST.copy()
         # set additional values
-        data['role'] = 'operator_user'
+        data['role'] = 'normal_user'
 
         f = forms.AddUserForm(data=data)
         if form_validate_err(request, f) is False:
@@ -454,4 +454,27 @@ class DashboardUserAdd(AdminRequiredMixin, TemplateView):
         )
 
         messages.success(request, 'حساب اپراتور با موفقیت ایجاد شد')
+        return redirect(user.get_dashboard_absolute_url())
+
+
+class DashboardDeleteUser(SuperUserRequiredMixin, View):
+
+    def post(self, request, user_id):
+        user = get_object_or_404(User, id=user_id)
+        user.delete()
+        messages.success(request, 'کاربر با موفقیت حذف شد')
+        if user.is_operator_admin:
+            return redirect('account:operator__list')
+        return redirect('account:user__list')
+
+
+class DashboardUserUpdate(SuperUserRequiredMixin, View):
+
+    def post(self, request, user_id):
+        user = get_object_or_404(User, id=user_id)
+        f = forms.UpdateUserDetail(request.POST, instance=user)
+        if form_validate_err(request, f) is False:
+            return redirect(user.get_dashboard_absolute_url())
+        f.save()
+        messages.success(request, 'اطلاعات کاربر با موفقیت بروزرسانی شد')
         return redirect(user.get_dashboard_absolute_url())

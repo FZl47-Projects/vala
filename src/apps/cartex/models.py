@@ -10,8 +10,9 @@ def random_number_id():
 
 class Meeting(BaseModel):
     number_id = models.CharField(max_length=10, default=random_number_id)
-    user = models.ForeignKey('account.User', on_delete=models.CASCADE)
-    operator = models.ForeignKey('account.User', null=True, on_delete=models.SET_NULL, related_name='meetings_set_operator')
+    user = models.ForeignKey('account.User', null=True, on_delete=models.SET_NULL)
+    operator = models.ForeignKey('account.User', null=True, on_delete=models.SET_NULL,
+                                 related_name='meetings_set_operator')
     time_start = models.TimeField(null=True)
     time_end = models.TimeField(null=True)
     description = models.TextField(null=True)
