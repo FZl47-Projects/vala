@@ -6,6 +6,7 @@ from django.utils.translation import gettext as _
 from django.contrib import messages
 
 from .mixins import LogoutRequiredMixin, PermissionMixin
+from apps.notification.models import Notification
 from apps.core.utils import validate_form
 from random import randint
 from . import forms
@@ -73,8 +74,16 @@ class SendCodeView(View):
     def get(self, request):
         code = randint(10000, 99999)
         request.session['verify_code'] = code
-        print(code)
-        # TODO: Send verification code via SMS
+
+        token = request.session.get('register_token')
+        user = get_object_or_404(User, token=token)
+
+        Notification.objects.create(
+            type=Notification.TYPES.MOBILE_VERIFICATION_CODE,
+            title=_('Phone number verification code'),
+            kwargs={'code': code},
+            to_user=user,
+        )
 
         return redirect('account:verify_phone')
 
