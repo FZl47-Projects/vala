@@ -91,6 +91,8 @@ class AreaBodyFormSetAdd(FormSetCustom):
 
 
 class AreaBodyUpdateForm(forms.ModelForm):
+    note = forms.CharField(required=False)
+
     class Meta:
         model = models.AreaBody
         fields = ('intensity', 'note')

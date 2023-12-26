@@ -154,7 +154,7 @@
                                             <div>
                                                 <label for="">توضیحات</label>
                                                 <textarea type="text" class="form-control" placeholder="توضیحات"
-                                                          required disabled
+                                                          disabled
                                                           name="note">{{ area.note }}</textarea>
                                             </div>
                                         </div>
@@ -274,11 +274,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{ meeting.operator.get_absolute_url }}"
-                                               class="badge badge-info light">{{ meeting.operator.get_full_name }}
-                                                <span class="font-80">
-                                                        {{ meeting.operator.get_raw_phonenumber }}
-                                                    </span></a>
+                                            {{ meeting.operator.get_full_name }}
                                         </td>
                                         <td>{{ meeting.get_areas.count }}</td>
                                         <td>{{ meeting.get_created_at_timepast }}</td>
