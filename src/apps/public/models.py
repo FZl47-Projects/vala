@@ -60,7 +60,11 @@ class Post(BaseModel):
             return self.image.url
 
     def get_verified_comments(self):
-        objects = self.post_comments.filter(is_verified=True)
+        objects = self.post_comments.filter(is_active=True, is_verified=True)
+        return objects
+
+    def get_all_comments(self):
+        objects = self.post_comments.filter(is_active=True)
         return objects
 
     @classmethod
@@ -92,6 +96,7 @@ class PostComment(BaseModel):
     post = models.ForeignKey(Post, verbose_name=_('Post'), on_delete=models.CASCADE, related_name='post_comments')
     text = models.TextField(_('Text'), max_length=255)
     is_verified = models.BooleanField(_('Verified'), default=False)
+    is_active = models.BooleanField(_('Active'), default=True)
 
     class Meta:
         verbose_name = _('Post comment')
