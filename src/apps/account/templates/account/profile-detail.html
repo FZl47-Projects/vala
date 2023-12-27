@@ -11,6 +11,9 @@
 {% block body_class %}bg{% endblock %}
 
 {% block content %}
+    <!-- Include user/admin menus -->
+    {% include 'menus.html' %}
+
     <div class="container-fluid col-md-11 pb-4">
         <!-- Start Modal-routine -->
         {% include 'public/components/skin-routine.html' %}

@@ -9,6 +9,9 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Include user/admin menus -->
+    {% include 'menus.html' %}
+
     <div class="container-fluid container-admin position-relative">
         <!-- Start delete post comment modal -->
         {% include 'public/admin/components/delete-post-comment.html' %}
@@ -17,7 +20,7 @@
         <!-- Start Add post modal -->
         <div class="content-modal add-post-modal">
             <div class="inner-modal">
-                <form method="POST" action="" class="px-4 pt-2">
+                <form method="POST" action="{% url 'public:add_post' %}" class="px-4 pt-2">
                     {% csrf_token %}
                     <div class="py-2">
                         <div class="title">
@@ -43,9 +46,9 @@
                         </div>
                     </div>
                     <div class="btn-modal" id="add-post">
-                        <div class="btn-sabt-post">
+                        <button type="submit" class="btn-sabt-post">
                             ثبت
-                        </div>
+                        </button>
                     </div>
                 </form>
             </div>

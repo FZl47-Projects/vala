@@ -9,6 +9,9 @@
 {% endblock %}
 
 {% block content %}
+    <!-- Include user/admin menus -->
+    {% include 'menus.html' %}
+
     <div class="container-fluid container-admin position-relative">
         <!-- Start Modal-routine -->
         {% include 'public/components/skin-routine.html' %}

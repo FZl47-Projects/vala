@@ -1,0 +1,29 @@
+{% if user.has_admin_access %}
+    <!-- Start Menu-fixed-right -->
+    {% include 'includes/menu/admin/sidebar.html' %}
+    <!-- .End Menu-fixed-right -->
+
+    <!-- Start Menu-bottom -->
+    {% include 'includes/menu/admin/bottombar.html' %}
+    <!-- .End Menu-bottom -->
+
+    <!-- Start Menu -->
+    {% include 'includes/menu/admin/collapse-menu.html' %}
+    <!-- .End Menu -->
+{% elif user %}
+    <!-- Start Menu-fixed-right -->
+    {% include 'includes/menu/sidebar.html' %}
+    <!-- .End Menu-fixed-right -->
+
+    <!-- Start Menu-bottom -->
+    {% include 'includes/menu/bottombar.html' %}
+    <!-- .End Menu-bottom -->
+
+    <!-- Start Menu -->
+    {% include 'includes/menu/collapse-menu.html' %}
+    <!-- .End Menu -->
+
+    <!-- Start Menu-mobile-->
+    {% include 'includes/menu/mobile-menu.html' %}
+    <!-- .End Menu-mobile -->
+{% endif %}

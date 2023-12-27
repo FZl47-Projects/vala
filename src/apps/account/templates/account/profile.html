@@ -11,6 +11,9 @@
 {% block body_class %}bg{% endblock %}
 
 {% block content %}
+    <!-- Include user/admin menus -->
+    {% include 'menus.html' %}
+
     <!-- START MODAL answer-ticket -->
     <div class="content-modal modal-ticket">
         <div class="inner-modal">
