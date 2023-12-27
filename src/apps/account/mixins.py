@@ -1,4 +1,5 @@
 from django.contrib.auth import get_user_model
+from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
 
 User = get_user_model()
@@ -12,6 +13,17 @@ class LogoutRequiredMixin:
             return super().dispatch(request, *args, **kwargs)
 
         return redirect("public:index")
+
+
+class AccessRequiredMixin:
+    """ Allow access only to given roles. """
+    roles = []
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_authenticated and request.user.access_level in self.roles:
+            return super().dispatch(request, *args, **kwargs)
+
+        return HttpResponseForbidden()
 
 
 class ProfileCompletionMixin:
