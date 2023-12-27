@@ -116,7 +116,7 @@ class UserProfile(BaseModel):
         if self.image:
             return self.image.url
 
-        return static('images/default/comment-default.png')
+        return static('images/default/user-default.png')
 
     def get_date_of_birth(self):
         if self.date_of_birth:
