@@ -8,6 +8,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 
 from .models import Story, Post, PostLike, PostComment
+from apps.account.mixins import AccessRequiredMixin
 
 User = get_user_model()
 
@@ -33,6 +34,19 @@ class IndexView(TemplateView):
 
         context.update(data)
         return context
+
+
+# Add Post view
+class AddPostViw(AccessRequiredMixin, CreateView):
+    template_name = 'public/admin/index-admin.html'
+    model = Post
+    fields = ('title', 'caption', 'category', 'image')
+    success_url = reverse_lazy('public:index')
+    roles = ['admin']
+
+    def form_valid(self, form):
+        messages.success(self.request, _('Post successfully added'))
+        return super().form_valid(form)
 
 
 # Post Like view
@@ -88,3 +102,16 @@ class DeletePostCommentView(LoginRequiredMixin, View):
         messages.success(request, _('Comment deleted'))
 
         return redirect('public:index')
+
+
+# Add Story view
+class AddStoryView(AccessRequiredMixin, CreateView):
+    template_name = 'public/admin/index-admin.html'
+    model = Story
+    fields = ('title', 'caption', 'image')
+    success_url = reverse_lazy('public:index')
+    roles = ['admin']
+
+    def form_valid(self, form):
+        messages.success(self.request, _('Story successfully added'))
+        return super().form_valid(form)
