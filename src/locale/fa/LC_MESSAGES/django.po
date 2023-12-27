@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-22 13:29+0330\n"
+"POT-Creation-Date: 2023-12-27 23:34+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,8 +43,8 @@ msgid "Account"
 msgstr "حساب کاربری"
 
 #: .\apps\account\enums.py:7 .\apps\account\models.py:40
-#: .\apps\account\models.py:88 .\apps\public\models.py:78
-#: .\apps\public\models.py:91
+#: .\apps\account\models.py:94 .\apps\public\models.py:82
+#: .\apps\public\models.py:95
 msgid "User"
 msgstr "کاربر"
 
@@ -99,7 +99,7 @@ msgid "Last name"
 msgstr "نام خانوادگی"
 
 #: .\apps\account\models.py:23 .\apps\public\models.py:16
-#: .\apps\public\models.py:48
+#: .\apps\public\models.py:48 .\apps\public\models.py:99
 msgid "Active"
 msgstr "فعال"
 
@@ -127,108 +127,146 @@ msgstr "زمان ویرایش"
 msgid "Users"
 msgstr "کاربران"
 
-#: .\apps\account\models.py:70
+#: .\apps\account\models.py:76
 msgid "No name"
 msgstr "بدون نام"
 
-#: .\apps\account\models.py:91
+#: .\apps\account\models.py:97
 msgid "First question"
 msgstr "سوال اول"
 
-#: .\apps\account\models.py:91 .\apps\account\models.py:92
+#: .\apps\account\models.py:97 .\apps\account\models.py:98
 msgid "No answer"
 msgstr "بدون جواب"
 
-#: .\apps\account\models.py:92
+#: .\apps\account\models.py:98
 msgid "Second question"
 msgstr "سوال دوم"
 
-#: .\apps\account\models.py:94
+#: .\apps\account\models.py:100
 msgid "Picture"
 msgstr "تصویر"
 
-#: .\apps\account\models.py:95
+#: .\apps\account\models.py:101
 msgid "Date of birth"
 msgstr "تاریخ تولد"
 
-#: .\apps\account\models.py:97
+#: .\apps\account\models.py:103
 msgid "Height"
 msgstr "قد"
 
-#: .\apps\account\models.py:98
+#: .\apps\account\models.py:104
 msgid "Weight"
 msgstr "وزن"
 
-#: .\apps\account\models.py:100 .\apps\public\models.py:94
+#: .\apps\account\models.py:106 .\apps\public\models.py:98
 msgid "Verified"
 msgstr "تایید شده"
 
-#: .\apps\account\models.py:103
+#: .\apps\account\models.py:109
 msgid "User profile"
 msgstr "پروفایل کاربر"
 
-#: .\apps\account\models.py:104
+#: .\apps\account\models.py:110
 msgid "User profiles"
 msgstr "پروفایل‌ کاربران"
 
-#: .\apps\account\views.py:34 .\apps\account\views.py:65
+#: .\apps\account\views.py:35 .\apps\account\views.py:66
 msgid "Please Complete your profile"
 msgstr "لطفا پروفایل حود را تکمیل کنید"
 
-#: .\apps\account\views.py:45
+#: .\apps\account\views.py:46
 msgid "Login successful."
 msgstr "ورود موفق."
 
-#: .\apps\account\views.py:92
+#: .\apps\account\views.py:83
+msgid "Phone number verification code"
+msgstr "کد تایید شماره موبایل"
+
+#: .\apps\account\views.py:101
 msgid "Entered code is not correct"
 msgstr "کد وارد شده صحیح نیست"
 
-#: .\apps\account\views.py:100
+#: .\apps\account\views.py:109
 msgid "Please try again"
 msgstr "لطفا مجدد امتحان کنید"
 
-#: .\apps\account\views.py:111
+#: .\apps\account\views.py:120
 msgid "Register done successful"
 msgstr "ثبت نام با موفقیت انجام شد"
 
-#: .\apps\account\views.py:129
+#: .\apps\account\views.py:138
 msgid "Code sent to you"
 msgstr "کد برای شما ارسال شد"
 
-#: .\apps\account\views.py:157
+#: .\apps\account\views.py:166
 msgid "Profile saved successfully"
 msgstr "پروفایل با موفقیت ذخیره شد"
 
-#: .\apps\account\views.py:173
+#: .\apps\account\views.py:182
 msgid "Password updated successfully"
 msgstr "گذرواژه با موفقیت تغییر کرد"
 
-#: .\apps\account\views.py:176
+#: .\apps\account\views.py:185
 msgid "Password is wrong!"
 msgstr "گذرواژه اشتباه است!"
 
-#: .\apps\core\utils.py:39
+#: .\apps\core\utils.py:42
 #, python-format
 msgid "%(minutes)s minutes ago."
 msgstr "%(minutes)s دقیقه پیش"
 
-#: .\apps\core\utils.py:41
+#: .\apps\core\utils.py:44
 #, python-format
 msgid "%(hours)s hours ago."
 msgstr "%(hours)s ساعت پیش"
 
-#: .\apps\core\utils.py:43
+#: .\apps\core\utils.py:46
 #, python-format
 msgid "%(days)s days ago."
 msgstr "%(days)s روز قبل"
 
-#: .\apps\core\utils.py:45
+#: .\apps\core\utils.py:48
 msgid "Moments ago"
 msgstr "لحظاتی قبل"
 
-#: .\apps\core\utils.py:58
+#: .\apps\core\utils.py:61
 msgid "Entered data is not correct."
 msgstr "اطلاعات وارد شده صحیح نیست."
+
+#: .\apps\notification\apps.py:8
+msgid "Notification"
+msgstr ""
+
+#: .\apps\notification\enums.py:7
+msgid "Mobile verification code"
+msgstr ""
+
+#: .\apps\notification\models.py:15
+msgid "Notif type"
+msgstr ""
+
+#: .\apps\notification\models.py:16
+#, fuzzy
+#| msgid "No title"
+msgid "Notif title"
+msgstr "بدون عنوان"
+
+#: .\apps\notification\models.py:17
+msgid "Notif description"
+msgstr ""
+
+#: .\apps\notification\models.py:21
+msgid "KeyWord args"
+msgstr ""
+
+#: .\apps\notification\models.py:23
+msgid "Send Notify"
+msgstr ""
+
+#: .\apps\notification\models.py:24
+msgid "To user"
+msgstr ""
 
 #: .\apps\public\apps.py:8
 msgid "Public"
@@ -263,8 +301,8 @@ msgstr "استوری‌ها"
 msgid "Category"
 msgstr "دسته"
 
-#: .\apps\public\models.py:51 .\apps\public\models.py:79
-#: .\apps\public\models.py:92
+#: .\apps\public\models.py:51 .\apps\public\models.py:83
+#: .\apps\public\models.py:96
 msgid "Post"
 msgstr "پست"
 
@@ -272,28 +310,40 @@ msgstr "پست"
 msgid "Posts"
 msgstr "پست‌ها"
 
-#: .\apps\public\models.py:82
+#: .\apps\public\models.py:86
 msgid "Post like"
 msgstr "لایک پست"
 
-#: .\apps\public\models.py:83
+#: .\apps\public\models.py:87
 msgid "Post likes"
 msgstr "لایک‌های پست"
 
-#: .\apps\public\models.py:93
+#: .\apps\public\models.py:97
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2373
 msgid "Text"
 msgstr "متن"
 
-#: .\apps\public\models.py:97
+#: .\apps\public\models.py:102
 msgid "Post comment"
 msgstr "کامنت"
 
-#: .\apps\public\models.py:98
+#: .\apps\public\models.py:103
 msgid "Post comments"
 msgstr "کامنت‌ها"
 
-#: .\config\settings\base.py:85
+#: .\apps\public\views.py:48
+msgid "Post successfully added"
+msgstr "پست با موفقیت افزوده شد"
+
+#: .\apps\public\views.py:102
+msgid "Comment deleted"
+msgstr "کامنت حذف شد"
+
+#: .\apps\public\views.py:116
+msgid "Story successfully added"
+msgstr "هایلایت با موفقیت افزوده شد"
+
+#: .\config\settings\base.py:90
 msgid "Persian"
 msgstr "فارسی"
 
