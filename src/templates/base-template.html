@@ -16,17 +16,17 @@
 <body class="{% block body_class %}{% endblock %}">
     {% if user.has_admin_access %}
         <!-- Start Menu-fixed-right -->
-        {% include 'public/admin/components/sidebar.html' %}
+        {% include 'includes/menu/admin/sidebar.html' %}
         <!-- .End Menu-fixed-right -->
 
         <!-- Start Menu-bottom -->
-        {% include 'public/admin/components/bottombar.html' %}
+        {% include 'includes/menu/admin/bottombar.html' %}
         <!-- .End Menu-bottom -->
 
         <!-- Start Menu -->
-        {% include 'public/admin/components/collapse-menu.html' %}
+        {% include 'includes/menu/admin/collapse-menu.html' %}
         <!-- .End Menu -->
-    {% else %}
+    {% elif user.is_authenticated %}
         <!-- Start Menu-fixed-right -->
         {% include 'includes/menu/sidebar.html' %}
         <!-- .End Menu-fixed-right -->
