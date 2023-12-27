@@ -14,6 +14,36 @@
 </head>
 
 <body class="{% block body_class %}{% endblock %}">
+    {% if user.has_admin_access %}
+        <!-- Start Menu-fixed-right -->
+        {% include 'public/admin/components/sidebar.html' %}
+        <!-- .End Menu-fixed-right -->
+
+        <!-- Start Menu-bottom -->
+        {% include 'public/admin/components/bottombar.html' %}
+        <!-- .End Menu-bottom -->
+
+        <!-- Start Menu -->
+        {% include 'public/admin/components/collapse-menu.html' %}
+        <!-- .End Menu -->
+    {% else %}
+        <!-- Start Menu-fixed-right -->
+        {% include 'includes/menu/sidebar.html' %}
+        <!-- .End Menu-fixed-right -->
+
+        <!-- Start Menu-bottom -->
+        {% include 'includes/menu/bottombar.html' %}
+        <!-- .End Menu-bottom -->
+
+        <!-- Start Menu -->
+        {% include 'includes/menu/collapse-menu.html' %}
+        <!-- .End Menu -->
+
+        <!-- Start Menu-mobile-->
+        {% include 'includes/menu/mobile-menu.html' %}
+        <!-- .End Menu-mobile -->
+    {% endif %}
+
     {% block content %}
     {% endblock %}
 
