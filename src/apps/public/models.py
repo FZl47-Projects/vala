@@ -10,6 +10,7 @@ from apps.account.models import User
 
 # Stories model
 class Story(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('User'), related_name='stories', null=True, blank=True)
     title = models.CharField(_('Title'), max_length=64, default=_('No title'))
     caption = models.TextField(_('Caption'), max_length=512, null=True, blank=True)
     image = models.ImageField(_('Image'), upload_to=f'images/story/{get_time("%Y-%m-%d")}/')
@@ -41,6 +42,7 @@ class Story(BaseModel):
 
 # Posts model
 class Post(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('User'), related_name='posts', null=True, blank=True)
     title = models.CharField(_('Title'), max_length=64, default=_('No title'))
     caption = models.TextField(_('Caption'), null=True, blank=True)
     category = models.CharField(_('Category'), max_length=64, null=True, blank=True)
@@ -94,7 +96,7 @@ class PostLike(BaseModel):
 class PostComment(BaseModel):
     user = models.ForeignKey(User, verbose_name=_('User'), on_delete=models.CASCADE, related_name='post_comments')
     post = models.ForeignKey(Post, verbose_name=_('Post'), on_delete=models.CASCADE, related_name='post_comments')
-    text = models.TextField(_('Text'), max_length=255)
+    text = models.TextField(_('Text'))
     is_verified = models.BooleanField(_('Verified'), default=False)
     is_active = models.BooleanField(_('Active'), default=True)
 
