@@ -1,15 +1,27 @@
 from django.views.generic import View, TemplateView, CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
+from django.utils.translation import gettext as _
+from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.http import JsonResponse
+from django.contrib import messages
 
 from .models import Story, Post, PostLike, PostComment
+
+User = get_user_model()
 
 
 # Render Index view
 class IndexView(TemplateView):
     template_name = 'public/index.html'
+
+    def get_template_names(self):
+        user = self.request.user
+        if user.is_authenticated and user.has_admin_access:
+            return 'public/admin/index-admin.html'
+
+        return super().get_template_names()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -54,5 +66,25 @@ class AddPostCommentView(LoginRequiredMixin, CreateView):
 
 # Verify Post Comment view
 class VerifyPostCommentView(LoginRequiredMixin, View):
-    def post(self):
-        pass
+    def get(self, request, pk):
+        obj = get_object_or_404(PostComment, pk=pk)
+
+        obj.is_verified = True
+        obj.save()
+
+        return JsonResponse({'response': 'verified'})
+
+
+# Delete Post Comment view
+class DeletePostCommentView(LoginRequiredMixin, View):
+    def post(self, request):
+        data = request.POST.copy()
+        obj = get_object_or_404(PostComment, pk=data.get('pk'))
+
+        # Delete comment (deactivate)
+        obj.is_active = False
+        obj.save()
+
+        messages.success(request, _('Comment deleted'))
+
+        return redirect('public:index')

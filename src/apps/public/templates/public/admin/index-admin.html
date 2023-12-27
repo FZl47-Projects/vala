@@ -1,0 +1,263 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}صفحه اصلی ادمین{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/index-admin.css' %}">
+{% endblock %}
+
+{% block content %}
+    <!-- Start Menu-fixed-right -->
+    {% include 'public/admin/components/sidebar.html' %}
+    <!-- .End Menu-fixed-right -->
+
+    <!-- Start Menu-bottom -->
+    {% include 'public/admin/components/bottombar.html' %}
+    <!-- .End Menu-bottom -->
+
+    <!-- Start Menu -->
+    {% include 'public/admin/components/collapse-menu.html' %}
+    <!-- .End Menu -->
+
+    <div class="container-fluid container-admin position-relative">
+        <!-- Start delete post comment modal -->
+        {% include 'public/admin/components/delete-post-comment.html' %}
+        <!-- .End delete post comment modal -->
+
+        <!-- Start Add post modal -->
+        <div class="content-modal add-post-modal">
+            <div class="inner-modal">
+                <form method="POST" action="" class="px-4 pt-2">
+                    {% csrf_token %}
+                    <div class="py-2">
+                        <div class="title">
+                            <div class="close-modal-add-post">
+                                <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
+                            </div>
+                            <div>افزودن پست جدید</div>
+                        </div>
+                        <div class="uploade-imge">
+                            <label role="button" class="item-upload" for="picture-post-add">
+                                تصویر
+                            </label>
+                            <input type="file" name="image" id="picture-post-add" accept="image/*" hidden>
+                        </div>
+                        <input type="text" name="title" class="text-add-post my-3 text-white w-100 border border-white rounded-2 "
+                               placeholder="عنوان پست را وارد کنید" id="title-post-add" style="padding: 5px;">
+
+                        <textarea name="text" class="input-modal" id="text-post-add" cols="30" rows="7"
+                                  placeholder="متن را تایپ کنید"></textarea>
+
+                        <div class="category" style="padding: 5px;">
+                            <input type="text" name="category" placeholder="دسته بندی پست">
+                        </div>
+                    </div>
+                    <div class="btn-modal" id="add-post">
+                        <div class="btn-sabt-post">
+                            ثبت
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- .End Add post modal -->
+
+        <!-- Start Add highlight modal -->
+        <div class="content-modal add-story-modal" id="modal-hilight">
+            <div class="inner-modal">
+                <form method="POST" action="" class="px-4 pt-2">
+                    {% csrf_token %}
+                    <div class="py-2">
+                        <div class="title">
+                            <div role="button" class="close-modal-add-hi">
+                                <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
+                            </div>
+                            <div>افزودن هایلایت</div>
+                        </div>
+                        <div class="uploade-imge">
+                            <label role="button" for="file-story" class="add-post">
+                                <span class="item-upload">
+                                    تصویر
+                                </span>
+                            </label>
+                            <input type="file" id="file-story" hidden>
+                        </div>
+                        <input type="text" name="title" class="text-add-post text-white w-100 border border-white rounded-2 p-2 my-3"
+                               placeholder="عنوان را وارد کنید" id="title-post-add">
+                    </div>
+                    <div class="btn-modal" id="add-story">
+                        <div class="btn-sabt-post">
+                            ثبت
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <!-- .End Add highlight modal -->
+
+        <!-- Start Fullscreen highlights -->
+        <div id="container-modals">
+            {% for story in stories %}
+                <div class="content-modal modal-hilight-pro">
+                    <div class="inner-modal d-flex flex-column ">
+                        <div class="btn-exit display-1 text-white">×</div>
+                        <div class="border-1 border-white rounded-4 overflow-hidden ">
+                            <img class="h-100" src="{{ story.get_image_url }}" alt="{{ story.title }}">
+                        </div>
+                        <p class="text-white text-justify my-4" style="font-size : 1.5em">{{ story.title }}</p>
+                        <div class="text-white">
+                            <button class="display-1 mx-2 btn-story next" onclick="nextHandler({{ forloop.counter0 }})">&lt;
+                            </button>
+                            <button class="display-1 mx-2 btn-story prev" onclick="prevHandler({{ forloop.counter0 }})">&gt;
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- .End Fullscreen highlights -->
+
+        <main class="main container-fluid container-admin">
+
+            <!-- Start Highlights -->
+            <div class="highlit-category ">
+                <div class="inner-highlit-category col-12 col-md-5">
+                    <div class="content-highlit" id="container-story">
+
+                        <div class="add-post add-story-btn" id="add-highlit">
+                            <span class="icon-add"> + </span>
+                            <span class="text-add">افزودن هایلایت</span>
+                        </div>
+
+                        {% for story in stories %}
+                            <div class="col-3 col-md-2 p-2 highlit-item story_item">
+                                <div class="highlit-item-inner">
+                                    <img src="{{ story.get_image_url }}" alt="{{ story.title }}">
+                                </div>
+                                <div class="highlit-title">{{ story.title }}</div>
+                            </div>
+                        {% endfor %}
+
+                    </div>
+                </div>
+            </div>
+            <!-- .End Highlights -->
+
+            <!-- Start post category -->
+            <div class="posts-category posts-category-two">
+                <div class="inner-post-category w-100" id="posts-container">
+                    <div class="add-post" id="show-post">
+                        <span class="icon-add"> + </span>
+                        <span class="text-add">افزودن پست</span>
+                    </div>
+                    {% for post in posts %}
+                        <div class="post-item col-3 col-md-12">
+                            <div class="col-12 col-md-4 col-lg-3 p-1">
+                                <div class="right-post-item">
+                                    <img src="{{ post.get_image_url }}" alt="{{ post.title }}">
+                                </div>
+                            </div>
+                            <div class="col-8 col-md-7 col-lg-8 p-1">
+                                <div class="left-post-item">
+                                    <div class="title-post">{{ post.title }}</div>
+                                    <div class="des-post">
+                                        {{ post.caption|truncatechars:85 }}
+                                    </div>
+                                    <div class="text-white post-category-title">دسته: {{ post.category }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div id="big-container">
+                {% for post in posts %}
+                    <div class="content-post">
+                        <img src="{{ post.get_image_url }}" alt="{{ post.title }}" class="imge-post">
+                        <div class="inner-content-post-two">
+                            <div class="line">
+                                <div class="row">
+                                    <div class="col-2 icon">
+                                        <div class="heart">
+                                            <i class="bi bi-heart{% if post.user_liked %}-fill{% endif %} text-white like-icon"
+                                               style="font-size: 1.4rem;" onclick="likePost({{ post.id }}, this)"></i>
+                                        </div>
+                                        <div class="comment">
+                                            <img src="{% static 'images/icons/comment.png' %}" alt="Comment icon">
+                                        </div>
+                                    </div>
+                                    <div class="col-10 pt-3">
+                                        <div class="up-content-post">
+                                            <div class="title-post">{{ post.title }}</div>
+                                            <div class="description">
+                                                {{ post.caption }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <form method="POST" action="{% url 'public:add_post_comment' %}"
+                                      class="insert-comment mx-auto">
+                                    {% csrf_token %}
+                                    <div class="rounded-circle ms-2" style="width: 50px; height: 50px;">
+                                        <img src="{% static 'images/default/user-default.png' %}" alt="User profile pic" class="rounded-circle w-100 h-100">
+                                    </div>
+                                    <label class="comment-insert">
+                                        <input type="hidden" name="post" value="{{ post.id }}">
+                                        <input type="text" name="text" placeholder="کامنت ..." class="comment-input" required>
+                                        <button type="submit" class="btn-send btn">ارسال</button>
+                                    </label>
+                                </form>
+
+                                <!-- Start post comments -->
+                                <div class="commentt">
+                                    <div class="w-100 mt-4">
+                                        {% for comment in post.get_all_comments %}
+                                            <div class="comment-item d-flex justify-content-between mt-2">
+                                                <div class="p-1">
+                                                    <div class="rounded-circle" style="width: 50px; height: 50px;">
+                                                        <img src="{{ comment.user.user_profile.get_image_url }}" alt="User profile pic"
+                                                             class="rounded-circle w-100 h-100">
+                                                    </div>
+                                                </div>
+                                                <div class="text-white py-2 px-md-5 px-1"
+                                                     style="font-weight: 500;">
+                                                    {{ comment.text }}
+                                                </div>
+                                                <div class="col-md-1">
+                                                    <div class="p-2">
+                                                        {% if not comment.is_verified %}
+                                                            <button type="button" class="text-success text-center fw-semibold m-1 rounded bg-light px-2 btns-post"
+                                                                 onclick="verifyComment({{ comment.id }}, this)">
+                                                                تایید
+                                                            </button>
+                                                        {% endif %}
+                                                        <button type="button" data-bs-toggle="modal" data-bs-target="#deletePostCommentModal" data-primarykey="{{ comment.pk }}"
+                                                                class="text-danger text-center fw-semibold m-1 rounded bg-light px-2 btns-post">
+                                                            حذف
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                <!-- .End post comments -->
+
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/home.js' %}"></script>
+    <script src="{% static 'js/admin/home.js' %}"></script>
+    <script src="{% static 'js/menus.js' %}"></script>
+{% endblock %}

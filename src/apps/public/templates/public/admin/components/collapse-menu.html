@@ -1,0 +1,16 @@
+{% load static %}
+
+<div class="height-full-viewport" id="height-full-viewport-desk">
+    <div id="close-menu-1">
+        <span id="close" role="button">
+            <img src="{% static 'images/icons/close.png' %}" alt="Close menu">
+        </span>
+    </div>
+    <ul id="menu-menu-1" class="ms-navbar">
+        <li class="menu-item"><a href="#">اپراتورها</a></li>
+        <li class="menu-item"><a href="#">رزروهای اپراتور</a></li>
+        <li class="menu-item"><a href="#">آنالیزهای صورت</a></li>
+        <li class="menu-item"><a href="#">محصولات</a></li>
+        <li class="menu-item"><a href="{% url 'account:logout' %}">خروج</a></li>
+    </ul>
+</div>

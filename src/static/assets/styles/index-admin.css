@@ -2855,12 +2855,14 @@ ul {
     flex-direction: column;
   }
   .posts-category .inner-post-category .post-item .left-post-item .title-post {
-    color: #fff;
-    font-size: 17px;
+    display: none;
   }
   .posts-category .inner-post-category .post-item .left-post-item .des-post {
     color: #fff;
     font-size: 14px;
+  }
+  .posts-category .inner-post-category .post-item .left-post-item .post-category-title {
+    font-size: 12px;
   }
   .posts-category .inner-post-category .post-item .more {
     display: flex;

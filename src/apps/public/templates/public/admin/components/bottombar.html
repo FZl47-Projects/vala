@@ -1,0 +1,37 @@
+{% load static %}
+
+<div class="menu-bottom">
+    <ul class="list-bottom">
+        <li class="item-bottom active">
+            <a href="{% url 'public:index' %}" class="item">
+                <img src="{% static 'images/icons/home.png' %}" alt="icon">
+                <div class="text-white" style="font-size: 8px;">خانه</div>
+            </a>
+        </li>
+        <li class="item-bottom">
+            <a href="{% url 'account:profile' %}">
+                <img src="{% static 'images/icons/profile.png' %}" alt="icon">
+                <div class="text-white" style="font-size: 8px;">پروفایل</div>
+            </a>
+        </li>
+        <li class="item-bottom">
+            <a href="#">
+                <img src="{% static 'images/icons/podcast.png' %}" alt="icon">
+                <div class="text-white" style="font-size: 8px;">پادکست‌ها</div>
+            </a>
+        </li>
+
+        <li class="item-bottom">
+            <a href="#">
+                <img src="{% static 'images/icons/wallet.png' %}" alt="icon">
+                <div class="text-white" style="font-size: 8px;">آزمایش ها</div>
+            </a>
+        </li>
+        <li class="item-bottom" id="menuuuu">
+            <a href="#">
+                <img src="{% static 'images/icons/menu.png' %}" alt="icon-menu">
+                <div class="text-white" style="font-size: 8px;">منو ادمین</div>
+            </a>
+        </li>
+    </ul>
+</div>

@@ -43,7 +43,7 @@ window.nextHandler = (index) => {
     });
     modal_story[count - 1].classList.add("active");
 };
-// --------------------------------- Highlights ------------------------------------- //
+// --------------------------------- btn next/prev Highlight ------------------------------------- //
 
 
 // ---------------------------------- Posts ----------------------------------------- //
@@ -75,10 +75,13 @@ let btnHamburger = document.querySelectorAll(".inner-content-post-two");
 
 btnHamburger.forEach((item, index) => {
     item.addEventListener("click", (e) => {
-        if (e.target.className === "" ||
+        if (
+            e.target.className === "" ||
             e.target.className === "comment-input" ||
             e.target.classList.contains("btn-send") ||
-            e.target.classList.contains("like-icon"))
+            e.target.classList.contains("like-icon") ||
+            e.target.classList.contains("btns-post")
+        )
             return;
         btnHamburger[index].classList.toggle("active");
     });

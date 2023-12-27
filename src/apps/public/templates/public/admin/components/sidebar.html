@@ -1,0 +1,51 @@
+{% load static %}
+
+<nav class="menu-fixed-right col-1">
+    <div class="inner-menu-fixed-right">
+        <div class="content-menu">
+            <ul class="list">
+                <li class="item-menu" id="menuuuu">
+                    <a href="#">
+                        <span>
+                            <img src="{% static 'images/icons/menu.png' %}" alt="icon-menu">
+                        </span>
+                        <span class="name-menu">منو ادمین</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="#">
+                        <span>
+                            <img src="{% static 'images/icons/test.png' %}" alt="icon-menu">
+                        </span>
+                        <span class="name-menu">آزمایشات ثبت شده</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="#">
+                        <span>
+                            <img src="{% static 'images/icons/podcast.png' %}" alt="icon-menu">
+                        </span>
+                        <span class="name-menu">پادکست‌ها</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="{% url 'account:profile' %}">
+                        <span>
+                            <img src="{% static 'images/icons/profile.png' %}" alt="icon-menu">
+                        </span>
+                        <span class="name-menu">پروفایل</span>
+                    </a>
+                </li>
+                <li class="item-menu">
+                    <a href="{% url 'public:index' %}">
+                        <span>
+                            <img src="{% static 'images/icons/home.png' %}" alt="icon-menu">
+                        </span>
+                        <span class="name-menu">خانه</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</nav>
