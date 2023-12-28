@@ -82,8 +82,9 @@
                     <div id="header-profile" class="mt-2">
                         <div class="profile">
                             <div class="col-6 col-md-5 imge-user-profile">
-                                <div class="col-12">
-                                    <img src="{{ user.user_profile.get_image_url }}" alt="User profile pic">
+                                <div class="col-12 rounded-circle">
+                                    <img src="{{ user.user_profile.get_image_url }}" alt="User profile pic"
+                                         class="rounded-circle" style="object-fit: cover;">
                                 </div>
                             </div>
                         </div>
@@ -102,23 +103,18 @@
                             </a>
                         </div>
                         <div class="col-12 p-2">
-                            <a href="#" class="d-block item-profile">
-                                فعالیت های من
-                            </a>
-                        </div>
-                        <div class="col-12 p-2">
                             <div class="item-profile" id="btn-moshavereh">
                                 درخواست مشاوره
                             </div>
                         </div>
                         <div class="col-12 p-2">
                             <a href="#" class="d-block item-profile" id="btn-modal-1">
-                                ارسال تیکت
+                                تیکت‌‌های من
                             </a>
                         </div>
                         <div class="col-12 p-2">
                             <a href="#" class="d-block item-profile" id="btn-modal-1">
-                                روند بهبودی
+                                روندهای بهبودی
                             </a>
                         </div>
                         <div class="col-12 p-2 d-none">

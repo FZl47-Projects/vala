@@ -6,11 +6,31 @@
             <img src="{% static 'images/icons/close.png' %}" alt="Close menu">
         </span>
     </div>
-    <ul id="menu-menu-1" class="ms-navbar">
-        <li class="menu-item"><a href="#">اپراتورها</a></li>
-        <li class="menu-item"><a href="#">رزروهای اپراتور</a></li>
-        <li class="menu-item"><a href="#">آنالیزهای صورت</a></li>
-        <li class="menu-item"><a href="#">محصولات</a></li>
-        <li class="menu-item"><a href="{% url 'account:logout' %}">خروج</a></li>
+    <ul id="menu-menu-1" class="ms-navbar gap-2 text-center" style="width: 300px;">
+        <li class="bg-white rounded-pill h3 w-100">
+            <a href="#" class="text-black d-block w-100 py-2">
+                اپراتورها
+            </a>
+        </li>
+        <li class="bg-white rounded-pill h3 w-100">
+            <a href="#" class="text-black d-block w-100 py-2">
+                رزروهای اپراتور
+            </a>
+        </li>
+        <li class="bg-white rounded-pill h3 w-100">
+            <a href="#" class="text-black d-block w-100 py-2">
+                آنالیزهای صورت
+            </a>
+        </li>
+        <li class="bg-white rounded-pill h3 w-100">
+            <a href="#" class="text-black d-block w-100 py-2">
+                محصولات
+            </a>
+        </li>
+        <li class="bg-white rounded-pill h3 w-100">
+            <a href="{% url 'account:logout' %}" class="text-black d-block w-100 py-2">
+                خروج
+            </a>
+        </li>
     </ul>
 </div>

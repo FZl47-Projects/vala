@@ -6,12 +6,31 @@
             <img src="{% static 'images/icons/close.png' %}" alt="Close menu">
         </span>
     </div>
-    <ul id="menu-menu-1" class="ms-navbar">
-        <li class="menu-item"><a href="khadamat-hozori.html">خدمات حضوری</a></li>
-        <li class="menu-item"><a href="ravands-behbodi-user.html">اضافه کردن روند بهبودی</a></li>
-        <li class="menu-item"><a href="ticket-user.html">تیکت ها</a></li>
-        <li class="menu-item"><a href="chatroom.html">چت روم</a></li>
-        <li class="menu-item"><a href="Store.html">فروشگاه</a></li>
-        <li class="menu-item"><a href="{% url 'account:logout' %}">خروج</a></li>
+    <ul id="menu-menu-1" class="ms-navbar gap-2 text-center" style="width: 300px;">
+        <li class="bg-white rounded-pill h3 w-100">
+            <a href="#" class="text-black d-block w-100 py-2">
+                خدمات حضوری
+            </a>
+        </li>
+        <li class="bg-white rounded-pill h3 w-100">
+            <a href="#" class="text-black d-block w-100 py-2">
+                اضافه کردن روند بهبودی
+            </a>
+        </li>
+        <li class="bg-white rounded-pill h3 w-100">
+            <a href="#" class="text-black d-block w-100 py-2">
+                تیکت ها
+            </a>
+        </li>
+        <li class="bg-white rounded-pill h3 w-100">
+            <a href="#" class="text-black d-block w-100 py-2">
+                فروشگاه
+            </a>
+        </li>
+        <li class="bg-white rounded-pill h3 w-100">
+            <a href="{% url 'account:logout' %}" class="text-black d-block w-100 py-2">
+                خروج
+            </a>
+        </li>
     </ul>
 </div>

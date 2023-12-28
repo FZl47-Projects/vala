@@ -1,6 +1,6 @@
 <div class="modal fade" tabindex="-1" id="deletePostCommentModal" aria-labelledby="deletePostCommentModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <form method="POST" action="{% url 'public:delete_post_comment' %}" class="modal-content text-white border-white border-1"
+        <form method="POST" action="{% url 'public:delete_post_comment' %}" class="modal-content text-white border-white border-1 rounded-4"
               style="background-color: #2d2c2c;">
             {% csrf_token %}
             <div class="modal-header">
@@ -13,8 +13,8 @@
                 </div>
             </div>
             <div class="modal-footer border-top-0">
-                <button type="button" class="btn btn-light fw-semibold" data-bs-dismiss="modal" aria-label="Close">بستن</button>
-                <button type="submit" class="btn btn-danger fw-semibold">بله، حذف</button>
+                <button type="button" class="btn btn-light fw-semibold rounded-3" data-bs-dismiss="modal" aria-label="Close">بستن</button>
+                <button type="submit" class="btn btn-danger fw-semibold rounded-3">بله، حذف</button>
             </div>
         </form>
     </div>
