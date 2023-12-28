@@ -48,20 +48,18 @@
     <div class="container-fluid col-md-11 bg">
         <div class="d-flex justify-content-between gap-3 px-3 pt-4 pb-2">
             <div></div>
-            <div>
-                <button class="btn btn-light fw-semibold" data-bs-toggle="modal" data-bs-target="#addTicketModal">
-                    تیکت جدید
-                </button>
-            </div>
         </div>
 
         <main class="main pb-5">
             <section class="content-items" id="container-tickets">
                 {% for ticket in tickets %}
                     <div class="col-12 col-md-6 p-1">
-                        <div class="item-ticket ">
+                        <div class="item-ticket">
                             <div class="title d-flex justify-content-between align-items-center mb-2">
-                                <span>شما</span>
+                                <span>{{ ticket.user.get_full_name }}</span>
+                                {% if not ticket.answer %}
+                                    <span class="text-danger fw-bold border-2 border-danger">جدید‌</span>
+                                {% endif %}
                             </div>
                             <div class="des-1 mt-3">
                                 <span class="fw-semibold">عنوان:</span> {{ ticket.title|default:'بدون عنوان' }}
@@ -72,12 +70,17 @@
                                     <span style="font-size: 16px;">{{ ticket.text }}</span>
                                 </div>
                             </div>
-                            <div class="d-flex flex-column mt-3">
-                                <span class="text-white h5">پاسخ ادمین</span>
-                                <div class="des-2">
-                                    <span class="text-warning" style="font-size: 16px;">{{ ticket.answer|default:'در حال بررسی' }}</span>
+                            <form method="POST" class="d-flex flex-column mt-3">
+                                {% csrf_token %}
+                                <input type="hidden" name="id" value="{{ ticket.id }}">
+                                <label class="text-white h5">پاسخ</label>
+                                <textarea name="answer" placeholder="پاسخ تیکت را تایپ کنید" style="font-size: 16px;"
+                                          class="des-2 text-white" required>{{ ticket.answer|default:'' }}</textarea>
+
+                                <div class="d-flex justify-content-end mt-3">
+                                    <button type="submit" class="btn btn-light fw-semibold">ثبت پاسخ</button>
                                 </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 {% endfor %}
