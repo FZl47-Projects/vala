@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-27 23:34+0330\n"
+"POT-Creation-Date: 2023-12-28 20:56+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -43,8 +43,9 @@ msgid "Account"
 msgstr "حساب کاربری"
 
 #: .\apps\account\enums.py:7 .\apps\account\models.py:40
-#: .\apps\account\models.py:94 .\apps\public\models.py:82
-#: .\apps\public\models.py:95
+#: .\apps\account\models.py:94 .\apps\communication\models.py:15
+#: .\apps\public\models.py:13 .\apps\public\models.py:45
+#: .\apps\public\models.py:84 .\apps\public\models.py:97
 msgid "User"
 msgstr "کاربر"
 
@@ -98,8 +99,9 @@ msgstr "نام"
 msgid "Last name"
 msgstr "نام خانوادگی"
 
-#: .\apps\account\models.py:23 .\apps\public\models.py:16
-#: .\apps\public\models.py:48 .\apps\public\models.py:99
+#: .\apps\account\models.py:23 .\apps\communication\models.py:20
+#: .\apps\public\models.py:17 .\apps\public\models.py:50
+#: .\apps\public\models.py:101
 msgid "Active"
 msgstr "فعال"
 
@@ -159,7 +161,7 @@ msgstr "قد"
 msgid "Weight"
 msgstr "وزن"
 
-#: .\apps\account\models.py:106 .\apps\public\models.py:98
+#: .\apps\account\models.py:106 .\apps\public\models.py:100
 msgid "Verified"
 msgstr "تایید شده"
 
@@ -211,6 +213,47 @@ msgstr "گذرواژه با موفقیت تغییر کرد"
 msgid "Password is wrong!"
 msgstr "گذرواژه اشتباه است!"
 
+#: .\apps\communication\apps.py:8
+msgid "Communication"
+msgstr "ارتباط"
+
+#: .\apps\communication\enums.py:7
+msgid "Open"
+msgstr "باز"
+
+#: .\apps\communication\enums.py:8
+msgid "Closed"
+msgstr "بسته"
+
+#: .\apps\communication\models.py:16 .\apps\public\models.py:14
+#: .\apps\public\models.py:46
+msgid "Title"
+msgstr "عنوان"
+
+#: .\apps\communication\models.py:17
+msgid "Ticket text"
+msgstr "متن تیکت"
+
+#: .\apps\communication\models.py:18
+msgid "Status"
+msgstr "وضعیت"
+
+#: .\apps\communication\models.py:19
+msgid "Admin answer"
+msgstr "پاسخ ادمین"
+
+#: .\apps\communication\models.py:23
+msgid "Ticket"
+msgstr "تیکت"
+
+#: .\apps\communication\models.py:24
+msgid "Tickets"
+msgstr "تیکت‌ها"
+
+#: .\apps\communication\views.py:35
+msgid "Ticket registered successfully"
+msgstr "تیکت با موفقیت ثبت شد"
+
 #: .\apps\core\utils.py:42
 #, python-format
 msgid "%(minutes)s minutes ago."
@@ -236,98 +279,92 @@ msgstr "اطلاعات وارد شده صحیح نیست."
 
 #: .\apps\notification\apps.py:8
 msgid "Notification"
-msgstr ""
+msgstr "اعلان"
 
 #: .\apps\notification\enums.py:7
 msgid "Mobile verification code"
-msgstr ""
+msgstr "کد تایید شماره موبایل"
 
 #: .\apps\notification\models.py:15
 msgid "Notif type"
-msgstr ""
+msgstr "نوع اعلان"
 
 #: .\apps\notification\models.py:16
-#, fuzzy
-#| msgid "No title"
 msgid "Notif title"
-msgstr "بدون عنوان"
+msgstr "عنوان عنوان"
 
 #: .\apps\notification\models.py:17
 msgid "Notif description"
-msgstr ""
+msgstr "توضیحات اعلان"
 
 #: .\apps\notification\models.py:21
 msgid "KeyWord args"
-msgstr ""
+msgstr "متغییرهای کلیدی"
 
 #: .\apps\notification\models.py:23
 msgid "Send Notify"
-msgstr ""
+msgstr "ارسال اعلان"
 
 #: .\apps\notification\models.py:24
 msgid "To user"
-msgstr ""
+msgstr "به کاربر"
 
 #: .\apps\public\apps.py:8
 msgid "Public"
 msgstr "عمومی"
 
-#: .\apps\public\models.py:13 .\apps\public\models.py:44
-msgid "Title"
-msgstr "عنوان"
-
-#: .\apps\public\models.py:13 .\apps\public\models.py:44
+#: .\apps\public\models.py:14 .\apps\public\models.py:46
 msgid "No title"
 msgstr "بدون عنوان"
 
-#: .\apps\public\models.py:14 .\apps\public\models.py:45
+#: .\apps\public\models.py:15 .\apps\public\models.py:47
 msgid "Caption"
 msgstr "متن"
 
-#: .\apps\public\models.py:15 .\apps\public\models.py:47
+#: .\apps\public\models.py:16 .\apps\public\models.py:49
 #: .\venv\Lib\site-packages\django\db\models\fields\files.py:393
 msgid "Image"
 msgstr "تصویر"
 
-#: .\apps\public\models.py:19
+#: .\apps\public\models.py:20
 msgid "Story"
 msgstr "استوری"
 
-#: .\apps\public\models.py:20
+#: .\apps\public\models.py:21
 msgid "Stories"
 msgstr "استوری‌ها"
 
-#: .\apps\public\models.py:46
+#: .\apps\public\models.py:48
 msgid "Category"
 msgstr "دسته"
 
-#: .\apps\public\models.py:51 .\apps\public\models.py:83
-#: .\apps\public\models.py:96
+#: .\apps\public\models.py:53 .\apps\public\models.py:85
+#: .\apps\public\models.py:98
 msgid "Post"
 msgstr "پست"
 
-#: .\apps\public\models.py:52
+#: .\apps\public\models.py:54
 msgid "Posts"
 msgstr "پست‌ها"
 
-#: .\apps\public\models.py:86
+#: .\apps\public\models.py:88
 msgid "Post like"
 msgstr "لایک پست"
 
-#: .\apps\public\models.py:87
+#: .\apps\public\models.py:89
 msgid "Post likes"
 msgstr "لایک‌های پست"
 
-#: .\apps\public\models.py:97
+#: .\apps\public\models.py:99
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2373
 msgid "Text"
 msgstr "متن"
 
-#: .\apps\public\models.py:102
+#: .\apps\public\models.py:104
 msgid "Post comment"
 msgstr "کامنت"
 
-#: .\apps\public\models.py:103
+#: .\apps\public\models.py:105
 msgid "Post comments"
 msgstr "کامنت‌ها"
 
@@ -343,7 +380,7 @@ msgstr "کامنت حذف شد"
 msgid "Story successfully added"
 msgstr "هایلایت با موفقیت افزوده شد"
 
-#: .\config\settings\base.py:90
+#: .\config\settings\base.py:91
 msgid "Persian"
 msgstr "فارسی"
 
