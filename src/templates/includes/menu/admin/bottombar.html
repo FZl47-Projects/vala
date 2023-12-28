@@ -9,8 +9,8 @@
                     <div class="text-white" style="font-size: 8px;">خانه</div>
                 </a>
             </li>
-            <li class="item-bottom {% if url_name == 'profile' or url_name == 'profile_details' %}active{% endif %}">
-                <a href="{% url 'account:profile' %}">
+            <li class="item-bottom {% if url_name == 'profile_details' %}active{% endif %}">
+                <a href="{% url 'account:profile_details' user.pk %}">
                     <img src="{% static 'images/icons/profile.png' %}" alt="icon">
                     <div class="text-white" style="font-size: 8px;">پروفایل</div>
                 </a>
