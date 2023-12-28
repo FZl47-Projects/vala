@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'apps.public',
     'apps.account',
     'apps.notification',
+    'apps.communication',
     
     # Django modules
     'django_q',
