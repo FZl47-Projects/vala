@@ -107,3 +107,30 @@ class PostComment(BaseModel):
 
     def __str__(self):
         return f'{self.user} - {self.post}'
+
+
+# Podcasts model
+class Podcast(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('User'), related_name='podcasts', null=True, blank=True)
+    title = models.CharField(_('Title'), max_length=128)
+    text = models.TextField(_('Podcast text'), null=True, blank=True)
+    category = models.CharField(_('Category'), max_length=128, null=True, blank=True)
+    image = models.ImageField(_('Podcast image'), upload_to='images/podcasts/')
+    audio = models.FileField(_('Podcast audio'), upload_to='audios/podcasts/')
+    is_active = models.BooleanField(_('Active'), default=True)
+
+    class Meta:
+        verbose_name = _('Podcast')
+        verbose_name_plural = _('Podcasts')
+        ordering = ('-id',)
+
+    def __str__(self):
+        return f'{self.title} - {self.text[:15]}'
+
+    def get_image_url(self):
+        if self.image:
+            return self.image.url
+
+    def get_audio_url(self):
+        if self.audio:
+            return self.image.url
