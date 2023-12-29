@@ -100,7 +100,6 @@ class DeletePostCommentView(LoginRequiredMixin, View):
         obj.save()
 
         messages.success(request, _('Comment deleted'))
-
         return redirect('public:index')
 
 
@@ -135,3 +134,33 @@ class PodcastsView(TemplateView):
         contexts['podcasts'] = Podcast.objects.filter(is_active=True)
 
         return contexts
+
+
+# Add Podcast view
+class AddPodcastView(AccessRequiredMixin, CreateView):
+    template_name = 'public/admin/podcasts-admin.html'
+    model = Podcast
+    fields = ('title', 'text', 'category', 'image', 'audio')
+    success_url = reverse_lazy('public:podcasts_list')
+    roles = ['admin']
+
+    def form_valid(self, form):
+        messages.success(self.request, _('Podcast successfully added'))
+        return super().form_valid(form)
+
+
+# Delete Podcast view
+class DeletePodcastView(AccessRequiredMixin, View):
+    template_name = 'public/admin/podcasts-admin.html'
+    roles = ['admin']
+
+    def post(self, request):
+        data = request.POST.copy()
+        obj = get_object_or_404(Podcast, pk=data.get('pk'))
+
+        # Delete podcast (deactivate)
+        obj.is_active = False
+        obj.save()
+
+        messages.success(request, _('Podcast successfully deleted'))
+        return redirect('public:podcasts_list')

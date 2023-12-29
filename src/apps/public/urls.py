@@ -16,4 +16,6 @@ urlpatterns = [
     path('story/add/', views.AddStoryView.as_view(), name='add_story'),
 
     path('podcasts/', views.PodcastsView.as_view(), name='podcasts_list'),
+    path('podcasts/add/', views.AddPodcastView.as_view(), name='add_podcast'),
+    path('podcasts/delete/', views.DeletePodcastView.as_view(), name='delete_podcast'),
 ]

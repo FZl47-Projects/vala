@@ -75,8 +75,8 @@
                             <div class=" col-8 col-md-7 col-lg-8 p-1 ">
                                 <div class=" left-post-item ">
                                     <div class="title-post">{{ podcast.title }}</div>
-                                    <div class="des-post">{{ podcast.text }}</div>
-                                    <div class="text-white">{{ podcast.category }}</div>
+                                    <div class="des-post">{{ podcast.text|truncatechars:155 }}</div>
+                                    <div class="text-white">دسته: <span class="text-warning">{{ podcast.category|default:'بدون دسته' }}</span></div>
                                 </div>
                             </div>
                         </div>

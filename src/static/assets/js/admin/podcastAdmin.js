@@ -34,3 +34,13 @@ contentModals.addEventListener("click", (e) => {
 });
 // ------------------- Add post modal ----------------- //
 
+
+// ---------------------------- Add data to delete modal -------------------------- //
+$('#deletePodcastModal').on('show.bs.modal', function (event) {
+    let button = $(event.relatedTarget)
+    let primaryKey = button.data('primarykey')
+
+    let modal = $(this)
+    modal.find('.modal-body #podcastId').val(primaryKey)
+})
+// ---------------------------- Add data to delete modal -------------------------- //

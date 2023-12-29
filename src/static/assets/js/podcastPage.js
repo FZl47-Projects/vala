@@ -1,7 +1,7 @@
 let btns = document.querySelectorAll(".post-item");
 let contents = document.querySelectorAll(".content-post");
 
-btns.forEach((item, index) => {
+btns.forEach((item,index) => {
     item.addEventListener("click", () => {
         btns.forEach((item) => {
             item.classList.remove("active");
@@ -17,20 +17,6 @@ if (btns.length) {
     btns[0].classList.add("active");
     contents[0].classList.add("active");
 }
-
-document.addEventListener(
-    "play",
-    (e) => {
-        let audios = document.querySelectorAll("audio");
-
-        for (let i = 0; i < audios.length; i++) {
-            if (audios[i] !== e.target) {
-                audios[i].pause();
-            }
-        }
-    },
-    true
-);
 
 
 // --------------------------------- story -------------------------------------//
