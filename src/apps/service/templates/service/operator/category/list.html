@@ -14,21 +14,20 @@
     <!-- Include user/admin menus -->
     {% include 'menus.html' %}
 
-    <div class="container-fluid col-md-11" style="padding-bottom: 60px;">
+    <div class="container-fluid col-md-11 pb-5">
         <main class="main">
             <div class="profile-user-category">
                 <div class="inner-profile-user-category col-12 col-md-5">
                     <div class="logo">
                         <div class="col-7 col-md-4">
-                            <img src="{% static 'images/vala uhiujou.png' %}"
-                                 alt="">
+                            <img src="{% static 'images/vala-logo.png' %}" alt="Vala logo">
                         </div>
                     </div>
                     <div class="name">
                         خدمات حضوری
                     </div>
                     {% if request.user.has_perm %}
-                        <div class="content-actions mt-5 mb-1 d-flex justify-content-between align-items-center">
+                        <div class="content-actions mt-4 mb-1 d-flex justify-content-between align-items-center">
                             <div>
                                 <h4>عملیات</h4>
                             </div>
@@ -53,7 +52,7 @@
                                     </div>
                                 </a>
                             </div>
-                            {% empty %}
+                        {% empty %}
                             <div class="container-not-found-base p-4 fs-4">
                                 <p>چیزی یافت نشد</p>
                             </div>
@@ -63,8 +62,8 @@
             </div>
         </main>
     </div>
-    {% if request.user.has_perm %}
 
+    {% if request.user.has_perm %}
         <div class="content-modal add-category-modal">
             <div class="inner-modal">
                 <form method="POST" action="{% url 'service:operator_category__add' %}"
@@ -74,7 +73,7 @@
                     <div class="py-2 text-white">
                         <div class="title">
                             <h5>افزودن دسته بندی</h5>
-                            <div role="button" class="close-modal-add-post">
+                            <div role="button" class="close-modal-add-category">
                                 <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
                             </div>
                         </div>
@@ -102,7 +101,7 @@
                     <div class="py-2 text-white">
                         <div class="title">
                             <h5>حذف دسته بندی</h5>
-                            <div role="button" class="close-modal-add-post">
+                            <div role="button" class="close-modal-delete-category">
                                 <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
                             </div>
                         </div>
@@ -126,7 +125,6 @@
                 </form>
             </div>
         </div>
-
     {% endif %}
 
 {% endblock %}
@@ -136,7 +134,7 @@
     <script>
         // ----------------- Modal Category Add -----------------
         let btnsShowModal = document.querySelector("#add-category");
-        let btnsCloseModal = document.querySelector(".close-modal-add-post");
+        let btnsCloseModal = document.querySelector(".close-modal-add-category");
         let contentModals = document.querySelector(".add-category-modal");
 
         btnsShowModal.addEventListener("click", () => {
@@ -153,7 +151,7 @@
 
         // ----------------- Modal Category Delete -----------------
         let btnsShowModal_b = document.querySelector("#delete-category");
-        let btnsCloseModal_b = document.querySelector(".close-modal-add-post");
+        let btnsCloseModal_b = document.querySelector(".close-modal-delete-category");
         let contentModals_b = document.querySelector(".delete-category-modal");
 
         btnsShowModal_b.addEventListener("click", () => {
