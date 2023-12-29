@@ -1,0 +1,118 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+{% block title %}والا | پادکست ها{% endblock %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/podcast.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <!-- Start Highlights -->
+    <div class="highlit-category ">
+        <div class="inner-highlit-category col-12 col-md-5">
+            <div class="content-highlit" id="container-story">
+                {% for story in stories %}
+                    <div class="col-3 col-md-2 p-2 highlit-item story_item">
+                        <div class="highlit-item-inner">
+                            <img src="{{ story.get_image_url }}" alt="{{ story.title }}">
+                        </div>
+                        <div class="highlit-title">{{ story.title }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- .End Highlights -->
+
+
+    <!-- start highlight  -->
+    <div class="container-fluid container-admin position-relative">
+
+        <!-- Start Fullscreen highlights -->
+        <div id="container-modals">
+            {% for story in stories %}
+                <div class="content-modal modal-hilight-pro">
+                    <div class="inner-modal d-flex flex-column ">
+                        <div class="btn-exit display-1 text-white">×</div>
+                        <div class="border-1 border-white rounded-4 overflow-hidden ">
+                            <img class="h-100" src="{{ story.get_image_url }}" alt="{{ story.title }}">
+                        </div>
+                        <p class="text-white text-justify my-4" style="font-size : 1.5em">{{ story.title }}</p>
+                        <div class="text-white">
+                            <button class="display-1 mx-2 btn-story next" onclick="nextHandler({{ forloop.counter0 }})">&lt;</button>
+                            <button class="display-1 mx-2 btn-story prev" onclick="prevHandler({{ forloop.counter0 }})">&gt;</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- .End Fullscreen highlights -->
+
+        <main class="main container-fluid container-admin">
+            <div class="up-page col-5">
+                <div class="imge-title-page">
+                    <img src="{% static 'images/icons/podcast.png' %}" alt="Podcast">
+                </div>
+                <div class="title-page">
+                    <span>پادکست</span>
+                </div>
+            </div>
+
+            <div class="posts-category">
+                <div class="inner-post-category" id="posts-container">
+                    {% for podcast in podcasts %}
+                        <div class="post-item active">
+                            <div class="col-3 col-md-4 col-lg-3 p-1">
+                                <div class=" right-post-item">
+                                    <img src="{{ podcast.get_image_url }}"
+                                         alt="{{ podcast.title }}">
+                                </div>
+                            </div>
+                            <div class=" col-8 col-md-7 col-lg-8 p-1 ">
+                                <div class=" left-post-item ">
+                                    <div class="title-post">{{ podcast.title }}</div>
+                                    <div class="des-post">{{ podcast.text }}</div>
+                                    <div class="text-white">{{ podcast.category }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <div id="big-container">
+
+                {% for podcast in podcasts %}
+                    <div class="content-post active">
+                        <!-- Podcast header -->
+                        <img src="{{ podcast.get_image_url }}" alt="{{ podcast.title }}" class="imge-post">
+                        <div class="inner-content-post">
+                            <div class="title-podcast">
+                                {{ podcast.title }}
+                            </div>
+
+                            <!-- Audio -->
+                            <div class="podcast">
+                                <audio controls class="jj">
+                                    <source src="{{ podcast.get_audio_url }}">
+                                </audio>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+    <script src="{% static 'js/podcastPage.js' %}"></script>
+{% endblock %}

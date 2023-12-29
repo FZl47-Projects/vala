@@ -14,4 +14,6 @@ urlpatterns = [
     path('post/comments/delete/', views.DeletePostCommentView.as_view(), name='delete_post_comment'),
 
     path('story/add/', views.AddStoryView.as_view(), name='add_story'),
+
+    path('podcasts/', views.PodcastsView.as_view(), name='podcasts_list'),
 ]

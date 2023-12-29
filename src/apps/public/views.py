@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.contrib import messages
 
-from .models import Story, Post, PostLike, PostComment
+from .models import Story, Post, PostLike, PostComment, Podcast
 from apps.account.mixins import AccessRequiredMixin
 
 User = get_user_model()
@@ -115,3 +115,23 @@ class AddStoryView(AccessRequiredMixin, CreateView):
     def form_valid(self, form):
         messages.success(self.request, _('Story successfully added'))
         return super().form_valid(form)
+
+
+# Render Podcast view
+class PodcastsView(TemplateView):
+    template_name = 'public/podcasts.html'
+
+    def get_template_names(self):
+        user = self.request.user
+        if user.is_authenticated and user.has_admin_access:
+            return 'public/admin/podcasts-admin.html'
+        
+        return super().get_template_names()
+
+    def get_context_data(self, **kwargs):
+        contexts = super().get_context_data(**kwargs)
+
+        contexts['stories'] = Story.get_recent_stories()  # Get recent stories
+        contexts['podcasts'] = Podcast.objects.filter(is_active=True)
+
+        return contexts

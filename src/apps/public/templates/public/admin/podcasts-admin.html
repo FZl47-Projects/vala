@@ -1,0 +1,212 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+{% block title %}والا | پادکست ها{% endblock %}
+
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/podcast-admin.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <!-- Start Add post modal -->
+    <div class="content-modal add-post-modal">
+        <div class="inner-modal">
+            <form method="POST" action="" enctype="multipart/form-data" class="px-4 pt-2" style="min-width: 300px;">
+                {% csrf_token %}
+                <div class="py-2 text-white">
+                    <div class="title">
+                        <h5>افزودن پادکست جدید</h5>
+                        <div role="button" class="close-modal-add-post">
+                            <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
+                        </div>
+                    </div>
+                    <div class="uploade-imge text-white justify-content-start px-0">
+                        <label class="text-right justify-content-start">
+                            تصویر
+                            <input type="file" name="image" accept="image/*" class="form-control bg-transparent text-white mt-2" required>
+                        </label>
+                    </div>
+                    <div class="uploade-imge text-white justify-content-start px-0">
+                        <label class="text-right justify-content-start">
+                            صوت پادکست
+                            <input type="file" name="audio" accept="audio/*" class="form-control bg-transparent text-white mt-2" required>
+                        </label>
+                    </div>
+                    <label class="text-right justify-content-start w-100 mt-2">
+                        عنوان
+                        <input type="text" name="title" placeholder="عنوان پست" class="form-control bg-transparent text-white mt-1" required>
+                    </label>
+
+                    <label class="text-right justify-content-start w-100 mt-2">
+                        متن
+                        <textarea name="text" placeholder="متن پست" class="form-control mt-1" rows="5" required></textarea>
+                    </label>
+
+                    <label class="text-right justify-content-start w-100 mt-2">
+                        دسته بندی
+                        <input type="text" name="category" placeholder="عنوان دسته بندی" class="form-control bg-transparent text-white mt-1">
+                    </label>
+                </div>
+                <div class="btn-modal mt-3" id="add-post">
+                    <button type="submit" class="btn-sabt-post fw-semibold">
+                        ثبت
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- .End Add post modal -->
+
+    <!-- Start Add highlight modal -->
+    <div class="content-modal add-story-modal" id="modal-hilight">
+        <div class="inner-modal">
+            <form method="POST" action="{% url 'public:add_story' %}" enctype="multipart/form-data"
+                  class="px-4 pt-2" style="min-width: 300px;">
+                {% csrf_token %}
+                <div class="py-2 text-white">
+                    <div class="title">
+                        <h5>افزودن هایلایت</h5>
+                        <div role="button" class="close-modal-add-hi">
+                            <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
+                        </div>
+                    </div>
+                    <div class="uploade-imge text-white justify-content-start px-0 mt-1">
+                        <label class="text-right justify-content-start">
+                            تصویر
+                            <input type="file" name="image" accept="image/*" class="form-control bg-transparent text-white mt-1" required>
+                        </label>
+                    </div>
+                    <label class="text-right justify-content-start w-100 mt-2">
+                        عنوان
+                        <input type="text" name="title" placeholder="عنوان هایلایت" class="form-control bg-transparent text-white mt-1" required>
+                    </label>
+                </div>
+                <div class="btn-modal mt-3" id="add-story">
+                    <button type="submit" class="btn-sabt-post fw-semibold">
+                        ثبت
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- .End Add highlight modal -->
+
+    <!-- Start Highlights -->
+    <div class="highlit-category ">
+        <div class="inner-highlit-category col-12 col-md-5">
+            <div class="content-highlit" id="container-story">
+                <div class="col-3 col-md-2 p-2 highlit-item add-post">
+                    <div class="highlit-item-inner d-flex align-items-center add-story-btn" style="background-color: #b8b8b8;">
+                        <i class="bi bi-plus text-dark mx-auto mt-2"></i>
+                    </div>
+                    <div class="highlit-title">افزودن هایلایت</div>
+                </div>
+                {% for story in stories %}
+                    <div class="col-3 col-md-2 p-2 highlit-item story_item">
+                        <div class="highlit-item-inner">
+                            <img src="{{ story.get_image_url }}" alt="{{ story.title }}">
+                        </div>
+                        <div class="highlit-title">{{ story.title }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <!-- .End Highlights -->
+
+
+    <!-- start highlight  -->
+    <div class="container-fluid container-admin position-relative">
+
+        <!-- Start Fullscreen highlights -->
+        <div id="container-modals">
+            {% for story in stories %}
+                <div class="content-modal modal-hilight-pro">
+                    <div class="inner-modal d-flex flex-column ">
+                        <div class="btn-exit display-1 text-white">×</div>
+                        <div class="border-1 border-white rounded-4 overflow-hidden ">
+                            <img class="h-100" src="{{ story.get_image_url }}" alt="{{ story.title }}">
+                        </div>
+                        <p class="text-white text-justify my-4" style="font-size : 1.5em">{{ story.title }}</p>
+                        <div class="text-white">
+                            <button class="display-1 mx-2 btn-story next" onclick="nextHandler({{ forloop.counter0 }})">&lt;</button>
+                            <button class="display-1 mx-2 btn-story prev" onclick="prevHandler({{ forloop.counter0 }})">&gt;</button>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        <!-- .End Fullscreen highlights -->
+
+        <main class="main container-fluid container-admin">
+            <div class="up-page col-5">
+                <div class="imge-title-page">
+                    <img src="{% static 'images/icons/podcast.png' %}" alt="Podcast">
+                </div>
+                <div class="title-page">
+                    <span>پادکست</span>
+                </div>
+            </div>
+
+            <div class="posts-category">
+                <div class="inner-post-category" id="posts-container">
+                    <div class="add-post" id="show-modal-podcast">
+                        <span class="icon-add"> + </span>
+                        <span class="text-add">افزودن پادکست</span>
+                    </div>
+
+                    {% for podcast in podcasts %}
+                        <div class="post-item active">
+                            <div class="col-3 col-md-4 col-lg-3 p-1">
+                                <div class=" right-post-item">
+                                    <img src="{{ podcast.get_image_url }}" alt="{{ podcast.title }}">
+                                </div>
+                            </div>
+                            <div class=" col-8 col-md-7 col-lg-8 p-1 ">
+                                <div class=" left-post-item ">
+                                    <div class="title-post">{{ podcast.title }}</div>
+                                    <div class="des-post">{{ podcast.text }}</div>
+                                    <div class="text-white">{{ podcast.category }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+
+            <div id="big-container">
+
+                {% for podcast in podcasts %}
+                    <div class="content-post active">
+                        <!-- Podcast header -->
+                        <img src="{{ podcast.get_image_url }}" alt="{{ podcast.title }}" class="imge-post">
+                        <div class="inner-content-post">
+                            <div class="title-podcast">
+                                {{ podcast.title }}
+                            </div>
+
+                            <!-- Audio -->
+                            <div class="podcast">
+                                <audio controls class="jj">
+                                    <source src="{{ podcast.get_audio_url }}">
+                                </audio>
+                            </div>
+
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </div>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+    <script src="{% static 'js/podcastPage.js' %}"></script>
+    <script src="{% static 'js/admin/podcastAdmin.js' %}"></script>
+{% endblock %}
