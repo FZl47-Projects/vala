@@ -23,7 +23,8 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(_("Active"), default=True)
     is_verified = models.BooleanField(_('Verify'), default=False)
     is_admin = models.BooleanField(_("Admin"), default=False)
-    access_level = models.CharField(_("Access level"), max_length=32, choices=ACCESS_LEVELS.choices, default=ACCESS_LEVELS.USER)
+    access_level = models.CharField(_("Access level"), max_length=32, choices=ACCESS_LEVELS.choices,
+                                    default=ACCESS_LEVELS.USER)
 
     token = models.CharField(_("Secret token"), max_length=64, null=True, blank=True, editable=False)
 
@@ -48,7 +49,7 @@ class User(AbstractBaseUser):
         if self.phone_number:
             return get_raw_phone_number(self.phone_number)
 
-    def has_perm(self, perm, obj=None):
+    def has_perm(self, perm=None, obj=None):
         """ Does the user have a specific permission? """
         if self.is_admin:
             return True

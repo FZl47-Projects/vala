@@ -2796,4 +2796,18 @@ ul {
   }
 }
 
-/*# sourceMappingURL=khadamat-hozori.css.map */
+
+/* Custom */
+.content-actions{
+  color: #fff;
+  padding: 10px ;
+  border-radius: 10px;
+  border: 1px solid #eee;
+  backdrop-filter: blur(8px);
+  background: rgba(40,40,40,0.7);
+}
+
+
+.content-actions button{
+  margin: 5px;
+}

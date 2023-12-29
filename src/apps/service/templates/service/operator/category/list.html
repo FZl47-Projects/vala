@@ -1,0 +1,171 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | خدمات حضوری{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/khadamat-hozori.css' %}">
+{% endblock %}
+
+{% block body_class %}bg{% endblock %}
+
+{% block content %}
+    <!-- Include user/admin menus -->
+    {% include 'menus.html' %}
+
+    <div class="container-fluid col-md-11" style="padding-bottom: 60px;">
+        <main class="main">
+            <div class="profile-user-category">
+                <div class="inner-profile-user-category col-12 col-md-5">
+                    <div class="logo">
+                        <div class="col-7 col-md-4">
+                            <img src="{% static 'images/vala uhiujou.png' %}"
+                                 alt="">
+                        </div>
+                    </div>
+                    <div class="name">
+                        خدمات حضوری
+                    </div>
+                    {% if request.user.has_perm %}
+                        <div class="content-actions mt-5 mb-1 d-flex justify-content-between align-items-center">
+                            <div>
+                                <h4>عملیات</h4>
+                            </div>
+                            <div>
+                                <button class="btn btn-success" id="add-category">
+                                    افزودن دسته بندی
+                                </button>
+                                <button class="btn btn-danger" id="delete-category">
+                                    حذف دسته بندی
+                                </button>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <section class="profile-category" id="container">
+                        {% for category in categories %}
+                            <div class="col-10 col-md-8 p-2">
+                                <a href="{% url 'service:operator_category__detail' category_id=category.id %}">
+                                    <div class="item-profile" id="blue">
+                                        <div class="inner-item-hozori">
+                                            {{ category.name }}
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            {% empty %}
+                            <div class="container-not-found-base p-4 fs-4">
+                                <p>چیزی یافت نشد</p>
+                            </div>
+                        {% endfor %}
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+    {% if request.user.has_perm %}
+
+        <div class="content-modal add-category-modal">
+            <div class="inner-modal">
+                <form method="POST" action="{% url 'service:operator_category__add' %}"
+                      class="px-4 pt-2"
+                      style="min-width: 300px;">
+                    {% csrf_token %}
+                    <div class="py-2 text-white">
+                        <div class="title">
+                            <h5>افزودن دسته بندی</h5>
+                            <div role="button" class="close-modal-add-post">
+                                <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
+                            </div>
+                        </div>
+                        <label class="text-right justify-content-start w-100 mt-2">
+                            عنوان
+                            <input type="text" name="name" placeholder="عنوان دسته بندی"
+                                   class="form-control bg-transparent text-white mt-1" required="">
+                        </label>
+                    </div>
+                    <div class="text-center mt-3" id="add-post">
+                        <button type="submit" class="btn btn-success col-12">
+                            ثبت
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="content-modal delete-category-modal">
+            <div class="inner-modal">
+                <form method="POST" action="{% url 'service:operator_category__delete' category_id=0 %}"
+                      class="px-4 pt-2"
+                      style="min-width: 300px;">
+                    {% csrf_token %}
+                    <div class="py-2 text-white">
+                        <div class="title">
+                            <h5>حذف دسته بندی</h5>
+                            <div role="button" class="close-modal-add-post">
+                                <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
+                            </div>
+                        </div>
+                        <label class="text-right justify-content-start w-100 mt-2">
+                            دسته بندی مورد نظر را انتخاب کنید
+                            <select name="category" class="form-control" required>
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}">{{ category.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                        <h4 class="text-danger mt-3">
+                            توجه کنید با حذف دسته بندی تمامی اپراتور ها و محتوای مربوط به ان حذف خواهند شد ، دقت کنید
+                        </h4>
+                    </div>
+                    <div class="text-center mt-3" id="add-post">
+                        <button type="submit" class="btn btn-danger col-12">
+                            متوجه ام ، حذف دسته بندی
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+    <script>
+        // ----------------- Modal Category Add -----------------
+        let btnsShowModal = document.querySelector("#add-category");
+        let btnsCloseModal = document.querySelector(".close-modal-add-post");
+        let contentModals = document.querySelector(".add-category-modal");
+
+        btnsShowModal.addEventListener("click", () => {
+            contentModals.classList.add("active");
+        });
+
+        btnsCloseModal.addEventListener("click", () => {
+            contentModals.classList.remove("active");
+        });
+        contentModals.addEventListener("click", (e) => {
+            if (e.target.className === "inner-modal")
+                contentModals.classList.remove("active");
+        });
+
+        // ----------------- Modal Category Delete -----------------
+        let btnsShowModal_b = document.querySelector("#delete-category");
+        let btnsCloseModal_b = document.querySelector(".close-modal-add-post");
+        let contentModals_b = document.querySelector(".delete-category-modal");
+
+        btnsShowModal_b.addEventListener("click", () => {
+            contentModals_b.classList.add("active");
+        });
+
+        btnsCloseModal_b.addEventListener("click", () => {
+            contentModals_b.classList.remove("active");
+        });
+        contentModals_b.addEventListener("click", (e) => {
+            if (e.target.className === "inner-modal")
+                contentModals_b.classList.remove("active");
+        });
+    </script>
+{% endblock %}

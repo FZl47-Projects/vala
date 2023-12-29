@@ -1,5 +1,6 @@
 from django.contrib.auth.models import BaseUserManager
 from django.utils.translation import gettext_lazy as _
+from .enums import AccessLevelsEnum
 
 
 # Custom User manager
@@ -20,6 +21,7 @@ class UserManager(BaseUserManager):
             raise ValueError(_("Users must have a mobile number!"))
 
         user = self.create_user(password, phone_number)
+        user.access_level = AccessLevelsEnum.ADMIN
         user.is_admin = True  # Set as 'admin' user
         user.is_verified = True
         user.save(using=self._db)
