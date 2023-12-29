@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-28 20:56+0330\n"
+"POT-Creation-Date: 2023-12-29 14:35+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,6 +46,7 @@ msgstr "حساب کاربری"
 #: .\apps\account\models.py:94 .\apps\communication\models.py:15
 #: .\apps\public\models.py:13 .\apps\public\models.py:45
 #: .\apps\public\models.py:84 .\apps\public\models.py:97
+#: .\apps\public\models.py:114
 msgid "User"
 msgstr "کاربر"
 
@@ -101,7 +102,7 @@ msgstr "نام خانوادگی"
 
 #: .\apps\account\models.py:23 .\apps\communication\models.py:20
 #: .\apps\public\models.py:17 .\apps\public\models.py:50
-#: .\apps\public\models.py:101
+#: .\apps\public\models.py:101 .\apps\public\models.py:120
 msgid "Active"
 msgstr "فعال"
 
@@ -226,7 +227,7 @@ msgid "Closed"
 msgstr "بسته"
 
 #: .\apps\communication\models.py:16 .\apps\public\models.py:14
-#: .\apps\public\models.py:46
+#: .\apps\public\models.py:46 .\apps\public\models.py:115
 msgid "Title"
 msgstr "عنوان"
 
@@ -250,7 +251,11 @@ msgstr "تیکت"
 msgid "Tickets"
 msgstr "تیکت‌ها"
 
-#: .\apps\communication\views.py:35
+#: .\apps\communication\views.py:46
+msgid "Answer successfully added"
+msgstr "پاسخ با موفقیت ثبت شد"
+
+#: .\apps\communication\views.py:58
 msgid "Ticket registered successfully"
 msgstr "تیکت با موفقیت ثبت شد"
 
@@ -334,7 +339,7 @@ msgstr "استوری"
 msgid "Stories"
 msgstr "استوری‌ها"
 
-#: .\apps\public\models.py:48
+#: .\apps\public\models.py:48 .\apps\public\models.py:117
 msgid "Category"
 msgstr "دسته"
 
@@ -368,6 +373,26 @@ msgstr "کامنت"
 msgid "Post comments"
 msgstr "کامنت‌ها"
 
+#: .\apps\public\models.py:116
+msgid "Podcast text"
+msgstr "متن پادکست"
+
+#: .\apps\public\models.py:118
+msgid "Podcast image"
+msgstr "تصویر پادکست"
+
+#: .\apps\public\models.py:119
+msgid "Podcast audio"
+msgstr "صوت پادکست"
+
+#: .\apps\public\models.py:123
+msgid "Podcast"
+msgstr "پادکست"
+
+#: .\apps\public\models.py:124
+msgid "Podcasts"
+msgstr "پادکست ها"
+
 #: .\apps\public\views.py:48
 msgid "Post successfully added"
 msgstr "پست با موفقیت افزوده شد"
@@ -376,9 +401,17 @@ msgstr "پست با موفقیت افزوده شد"
 msgid "Comment deleted"
 msgstr "کامنت حذف شد"
 
-#: .\apps\public\views.py:116
+#: .\apps\public\views.py:115
 msgid "Story successfully added"
 msgstr "هایلایت با موفقیت افزوده شد"
+
+#: .\apps\public\views.py:148
+msgid "Podcast successfully added"
+msgstr "پادکست با موفقیت افزوده شد"
+
+#: .\apps\public\views.py:165
+msgid "Podcast successfully deleted"
+msgstr "پادکست با موفقیت حذف شد"
 
 #: .\config\settings\base.py:91
 msgid "Persian"
