@@ -133,4 +133,4 @@ class Podcast(BaseModel):
 
     def get_audio_url(self):
         if self.audio:
-            return self.image.url
+            return self.audio.url

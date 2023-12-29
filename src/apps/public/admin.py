@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Story, Post, PostComment
+from .models import Story, Post, PostComment, Podcast
 
 
 # Register Story ModelAdmin
@@ -23,3 +23,10 @@ class PostAdmin(admin.ModelAdmin):
     list_display_links = ('title',)
     search_fields = ('title',)
     inlines = (PostCommentInline,)
+
+
+# Register Podcast ModelAdmin
+@admin.register(Podcast)
+class PodcastAdmin(admin.ModelAdmin):
+    list_display = ('title', 'category', 'image')
+    list_display_links = ('title',)
