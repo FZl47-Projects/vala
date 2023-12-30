@@ -2,7 +2,7 @@
 {% load static %}
 
 
-{% block title %}والا | آزمایش ها{% endblock %}
+{% block title %}والا | جزئیات آزمایش{% endblock %}
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'styles/test.css' %}">
@@ -11,18 +11,86 @@
 {% block content %}
     {% include 'menus.html' %}
 
+    <div class="modal fade modal-lg" tabindex="-1" id="pictureModal" aria-labelledby="pictureModalModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-body d-flex justify-content-center align-items-center">
+                <img src="{{ object.get_file_url }}" alt="Test picture">
+            </div>
+        </div>
+    </div>
+
+
     <div class="container-fluid col-md-11 bg">
         <div class="d-flex justify-content-between gap-3 px-md-5 px-3 pt-4">
             <div></div>
             <div>
-                <a href="#" class="btn btn-danger fw-semibold">
+                <a href="{% url 'operation:tests_list' %}" class="btn btn-danger fw-semibold">
                     بازگشت
                 </a>
             </div>
         </div>
 
         <main class="main pb-5">
-            <section class="p-md-5 p-3 row" id="container-tickets">
+            <section class="p-md-5 p-3" id="container-tickets">
+
+                <div class="test-detail-main">
+                    <form method="POST" class="text-white">
+                        {% csrf_token %}
+                        <input type="hidden" name="pk" value="{{ object.pk }}">
+
+                        <div class="test-detail-header pt-3 px-3 pb-2">
+                            <div class="d-flex gap-md-5 gap-4">
+                                <h4 class="fw-semibold">
+                                    <span>نام: </span>
+                                    {{ object.user.get_full_name }}
+                                </h4>
+                                <h4 class="fw-semibold">
+                                    <span>موبایل: </span>
+                                    {{ object.user.get_phone_number }}
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="test-detail-body row p-3 mx-0">
+                            <div class="col-md-6 col-12 d-flex flex-column gap-4">
+                                <div class="d-flex gap-2 text-light">
+                                    <h4 class="fw-semibold">عنوان: </h4>
+                                    <h4 class="fw-semibold">{{ object.title }}</h4>
+                                </div>
+                                <div class="d-flex flex-column">
+                                    <span class="h5 fw-semibold">متن کاربر:</span>
+                                    <p class="text-size">{{ object.text }}</p>
+                                </div>
+                                <div class="d-flex flex-column mb-4">
+                                    {% if user.has_admin_access %}
+                                        <label class="form-label">
+                                            <span class="h5 fw-semibold">پاسخ آزمایش:</span>
+                                                <textarea name="answer" class="form-control w-100 mt-2 text-size" rows="6">{{ object.answer|default:'' }}</textarea>
+                                        </label>
+                                        <button type="submit" class="btn btn-light fw-semibold col-md-2 col-3">ثبت پاسخ</button>
+                                    {% else %}
+                                        <label class="form-label">
+                                            <span class="h5 fw-semibold">پاسخ آزمایش:</span>
+                                                <textarea name="answer" class="form-control w-100 mt-2 text-size" readonly rows="6">{{ object.answer|default:'' }}</textarea>
+                                        </label>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-12 text-center m-auto">
+                                {% if object.get_file_extension == '.pdf' %}
+                                    <div class="d-flex flex-column align-items-center">
+                                        <a href="{{ object.get_file_url }}" target="_blank" class="btn btn-success fw-semibold">مشاهده فایل</a>
+                                    </div>
+                                {% else %}
+                                    <figure class="d-flex flex-column align-items-center">
+                                        <img id="testPicture" src="{{ object.get_file_url }}" alt="Test image" height="400"
+                                             data-bs-toggle="modal" data-bs-target="#pictureModal" class="user-select-none">
+                                        <figcaption>تصویر آزمایش</figcaption>
+                                    </figure>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </form>
+                </div>
 
             </section>
         </main>

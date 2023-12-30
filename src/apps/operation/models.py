@@ -6,6 +6,7 @@ from apps.core.models import BaseModel
 from apps.core.utils import get_time
 from apps.account.models import User
 from .enums import TestStatusChoices
+from os.path import splitext
 
 
 # Tests model
@@ -32,6 +33,11 @@ class Test(BaseModel):
     def get_file_url(self):
         if self.file:
             return self.file.url
+
+    def get_file_extension(self):
+        if self.file:
+            name, extension = splitext(self.file.name)
+            return extension
 
     def get_status_label(self):
         return self.get_status_display()

@@ -31,6 +31,17 @@ class TestDetailsView(LoginRequiredMixin, DetailView):
     template_name = 'operation/tests/test-details.html'
     model = models.Test
 
+    def post(self, request, pk):
+        data = request.POST.copy()
+        test = get_object_or_404(models.Test, pk=data.get('pk'))
+
+        test.answer = data.get('answer')
+        test.status = test.State.ANSWERED
+        test.save()
+
+        messages.success(request, _('The answer successfully registered'))
+        return redirect('operation:test_details', pk=test.pk)
+
 
 # Add Test view
 class AddTestView(LoginRequiredMixin, CreateView):
