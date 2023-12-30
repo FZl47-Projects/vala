@@ -31,6 +31,7 @@ INSTALLED_APPS = [
     'apps.public',
     'apps.account',
     'apps.service',
+    'apps.operation',
     'apps.notification',
     'apps.communication',
     
