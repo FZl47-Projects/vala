@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-30 18:19+0330\n"
+"POT-Creation-Date: 2023-12-31 02:36+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,9 +44,9 @@ msgstr "حساب کاربری"
 
 #: .\apps\account\enums.py:7 .\apps\account\models.py:41
 #: .\apps\account\models.py:95 .\apps\communication\models.py:15
-#: .\apps\public\models.py:13 .\apps\public\models.py:45
-#: .\apps\public\models.py:84 .\apps\public\models.py:97
-#: .\apps\public\models.py:114
+#: .\apps\operation\models.py:16 .\apps\public\models.py:13
+#: .\apps\public\models.py:45 .\apps\public\models.py:84
+#: .\apps\public\models.py:97 .\apps\public\models.py:114
 msgid "User"
 msgstr "کاربر"
 
@@ -103,8 +103,9 @@ msgid "Last name"
 msgstr "نام خانوادگی"
 
 #: .\apps\account\models.py:23 .\apps\communication\models.py:20
-#: .\apps\public\models.py:17 .\apps\public\models.py:50
-#: .\apps\public\models.py:101 .\apps\public\models.py:120
+#: .\apps\operation\models.py:23 .\apps\public\models.py:17
+#: .\apps\public\models.py:50 .\apps\public\models.py:101
+#: .\apps\public\models.py:120
 msgid "Active"
 msgstr "فعال"
 
@@ -228,9 +229,9 @@ msgstr "باز"
 msgid "Closed"
 msgstr "بسته"
 
-#: .\apps\communication\models.py:16 .\apps\public\models.py:14
-#: .\apps\public\models.py:46 .\apps\public\models.py:115
-#: .\apps\service\models.py:44
+#: .\apps\communication\models.py:16 .\apps\operation\models.py:17
+#: .\apps\public\models.py:14 .\apps\public\models.py:46
+#: .\apps\public\models.py:115 .\apps\service\models.py:44
 msgid "Title"
 msgstr "عنوان"
 
@@ -238,11 +239,11 @@ msgstr "عنوان"
 msgid "Ticket text"
 msgstr "متن تیکت"
 
-#: .\apps\communication\models.py:18
+#: .\apps\communication\models.py:18 .\apps\operation\models.py:20
 msgid "Status"
 msgstr "وضعیت"
 
-#: .\apps\communication\models.py:19
+#: .\apps\communication\models.py:19 .\apps\operation\models.py:21
 msgid "Admin answer"
 msgstr "پاسخ ادمین"
 
@@ -254,11 +255,11 @@ msgstr "تیکت"
 msgid "Tickets"
 msgstr "تیکت‌ها"
 
-#: .\apps\communication\views.py:46
+#: .\apps\communication\views.py:45
 msgid "Answer successfully added"
 msgstr "پاسخ با موفقیت ثبت شد"
 
-#: .\apps\communication\views.py:58
+#: .\apps\communication\views.py:57
 msgid "Ticket registered successfully"
 msgstr "تیکت با موفقیت ثبت شد"
 
@@ -317,13 +318,54 @@ msgstr "ارسال اعلان"
 msgid "To user"
 msgstr "به کاربر"
 
+#: .\apps\operation\apps.py:8
+msgid "Operation"
+msgstr "عملیات"
+
+#: .\apps\operation\enums.py:7
+msgid "Answered"
+msgstr "پاسخ داده"
+
+#: .\apps\operation\enums.py:8
+msgid "Await"
+msgstr "بی پاسخ"
+
+#: .\apps\operation\models.py:17 .\apps\public\models.py:14
+#: .\apps\public\models.py:46
+msgid "No title"
+msgstr "بدون عنوان"
+
+#: .\apps\operation\models.py:18
+msgid "Test text"
+msgstr "متن آزمایش"
+
+#: .\apps\operation\models.py:19
+msgid "Test file"
+msgstr "فایل آزمایش"
+
+#: .\apps\operation\models.py:26
+msgid "Test"
+msgstr "آزمایش"
+
+#: .\apps\operation\models.py:27
+msgid "Tests"
+msgstr "آزمایش‌ها"
+
+#: .\apps\operation\views.py:42
+msgid "The answer successfully registered"
+msgstr "پاسخ با موفقیت ثبت شد"
+
+#: .\apps\operation\views.py:60
+msgid "You cannot register more than 3 unanswered test"
+msgstr "شما نمی‌توانید بیش از ۳ آزمایش بی پاسخ ثبت کنید"
+
+#: .\apps\operation\views.py:65
+msgid "Test added successfully"
+msgstr "آزمایش با موفقیت افزوده شد"
+
 #: .\apps\public\apps.py:8
 msgid "Public"
 msgstr "عمومی"
-
-#: .\apps\public\models.py:14 .\apps\public\models.py:46
-msgid "No title"
-msgstr "بدون عنوان"
 
 #: .\apps\public\models.py:15 .\apps\public\models.py:47
 msgid "Caption"
@@ -462,7 +504,7 @@ msgstr "نمونه کار با موفقیت حذف گردید"
 msgid "Operator Time Was Successfully Booked"
 msgstr "زمان اپراتور با موفقیت ثبت گردید"
 
-#: .\config\settings\base.py:92
+#: .\config\settings\base.py:93
 msgid "Persian"
 msgstr "فارسی"
 
