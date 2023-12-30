@@ -2,7 +2,6 @@ from django.views.generic import TemplateView, CreateView, View
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect
 from django.utils.translation import gettext as _
-from django.contrib.auth import get_user_model
 from django.urls import reverse_lazy
 from django.contrib import messages
 
@@ -12,7 +11,7 @@ from .models import Ticket
 
 # Render TicketsListView
 class TicketsListView(LoginRequiredMixin, TemplateView):
-    template_name = 'communication/tickets/ticket-list.html'
+    template_name = 'communication/tickets/tickets.html'
 
     def get_context_data(self, **kwargs):
         contexts = super().get_context_data(**kwargs)
@@ -25,7 +24,7 @@ class TicketsListView(LoginRequiredMixin, TemplateView):
 
 # Render AdminTicketsListView
 class AdminTicketsListView(AccessRequiredMixin, TemplateView):
-    template_name = 'communication/tickets/ticket-list-admin.html'
+    template_name = 'communication/tickets/tickets-admin.html'
     roles = ['admin']
 
     def get_context_data(self, **kwargs):
@@ -49,7 +48,7 @@ class AdminTicketsListView(AccessRequiredMixin, TemplateView):
 
 # Add Ticket view
 class AddTicketView(LoginRequiredMixin, CreateView):
-    template_name = 'communication/tickets/ticket-list.html'
+    template_name = 'communication/tickets/tickets.html'
     model = Ticket
     fields = ('user', 'title', 'text')
     success_url = reverse_lazy('communication:tickets_list')

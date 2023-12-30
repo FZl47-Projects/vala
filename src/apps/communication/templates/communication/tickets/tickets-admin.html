@@ -11,40 +11,6 @@
 {% block content %}
     {% include 'menus.html' %}
 
-    <!-- Start Add ticket modal -->
-    <div class="modal fade" tabindex="-1" id="addTicketModal" aria-labelledby="addTicketModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered">
-            <form method="POST" action="{% url 'communication:add_ticket' %}" class="modal-content text-white border-white border-1 rounded-3"
-                  style="background-color: #2d2c2c;">
-                {% csrf_token %}
-                <div class="modal-header">
-                    <h5 class="modal-title fw-semibold h4">ثبت تیکت جدید</h5>
-                    <i role="button" class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
-                </div>
-                <div class="modal-body">
-                    <input type="hidden" name="user" value="{{ user.pk }}">
-                    <div class="d-flex flex-column form-group">
-                        <label class="form-label" style="font-size: 16px;">
-                            عنوان تیکت
-                            <input type="text" name="title" class="form form-control mt-1" style="background-color: #e1e1e1;" required>
-                        </label>
-                    </div>
-                    <div class="d-flex flex-column form-group">
-                        <label class="form-label" style="font-size: 16px;">
-                            متن تیکت
-                            <textarea name="text" class="form form-control mt-1" cols="5" style="background-color: #e1e1e1;" required></textarea>
-                        </label>
-                    </div>
-                </div>
-                <div class="modal-footer border-top-0">
-                    <button type="button" class="btn btn-light fw-semibold rounded-3" data-bs-dismiss="modal" aria-label="Close">بستن</button>
-                    <button type="submit" class="btn btn-light fw-semibold rounded-3">ارسال</button>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- .End Add ticket modal -->
-
     <div class="container-fluid col-md-11 bg">
         <div class="d-flex justify-content-between gap-3 px-3 pt-4 pb-2">
             <div></div>
