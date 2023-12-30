@@ -1,0 +1,92 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}
+    والا | خدمات حضوری
+    -
+    رزرو ها
+{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/khadamat-hozori.css' %}">
+    <style>
+        .reserve {
+            background: #222;
+            color: #fff;
+            border: 1px solid #eee;
+            border-radius: 10px;
+            padding: 15px;
+            margin: auto;
+            margin-top: 5px;
+        }
+
+        .reserve a {
+            color: #b3c9ff;
+        }
+
+        .reserve p {
+            margin: 0;
+        }
+
+        .reserve-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .reserve-content {
+            margin-top: 10px;
+            text-align: center;
+        }
+    </style>
+{% endblock %}
+
+{% block body_class %}bg{% endblock %}
+
+{% block content %}
+    <!-- Include user/admin menus -->
+    {% include 'menus.html' %}
+
+    <div class="container-fluid col-md-11 pb-5">
+        <main class="main">
+            <div class="profile-user-category">
+                <div class="inner-profile-user-category col-12 col-md-8">
+                    <div class="logo">
+                        <div class="col-7 col-md-4">
+                            <img src="{% static 'images/vala-logo.png' %}" alt="Vala logo">
+                        </div>
+                    </div>
+                    <div class="name">
+                        خدمات حضوری - رزرو ها
+                    </div>
+                    <section class="profile-category" id="container">
+                        {% for reserve in reserves %}
+                            <div class="reserve col-11 col-md-4 col-lg-3 ">
+                                <div class="reserve-header">
+                                    <a href="{{ reserve.operator.get_absolute_url }}">{{ reserve.operator.name }}</a>
+                                    <p>
+                                        {{ reserve.get_raw_phonenumber }}
+                                    </p>
+                                </div>
+                                <div class="reserve-content">
+                                    {{ reserve.description }}
+                                </div>
+                            </div>
+                            {% empty %}
+                            <div class="container-not-found-base p-4 fs-4">
+                                <p>چیزی یافت نشد</p>
+                            </div>
+                        {% endfor %}
+                    </section>
+                </div>
+            </div>
+        </main>
+    </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+{% endblock %}

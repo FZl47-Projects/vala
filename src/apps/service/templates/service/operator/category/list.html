@@ -26,7 +26,7 @@
                     <div class="name">
                         خدمات حضوری
                     </div>
-                    {% if request.user.has_perm %}
+                    {% if request.user.has_admin_access %}
                         <div class="content-actions mt-4 mb-1 d-flex justify-content-between align-items-center">
                             <div>
                                 <h4>عملیات</h4>
@@ -63,7 +63,7 @@
         </main>
     </div>
 
-    {% if request.user.has_perm %}
+    {% if request.user.has_admin_access %}
         <div class="content-modal add-category-modal">
             <div class="inner-modal">
                 <form method="POST" action="{% url 'service:operator_category__add' %}"

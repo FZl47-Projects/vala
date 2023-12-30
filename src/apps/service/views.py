@@ -86,7 +86,61 @@ class OperatorDetailView(TemplateView):
 
     def get_context_data(self, **kwargs):
         context = super(OperatorDetailView, self).get_context_data(**kwargs)
+        operator_id = kwargs.get('operator_id')
         context.update({
+            'operator': get_object_or_404(models.Operator, id=operator_id)
+        })
+        return context
 
+
+class OperatorWorkSampleAddView(AccessRequiredMixin, TemplateView):
+    roles = (AccessLevelsEnum.ADMIN,)
+
+    def post(self, request):
+        referer_url = request.META.get('HTTP_REFERER')
+        data = request.POST
+        f = forms.OperatorWorkSampleAdd(data, files=request.FILES)
+        if validate_form(request, f) is False:
+            return redirect(referer_url)
+        f.save()
+        messages.success(request, _('Work Sample Created Successfully'))
+        return redirect(referer_url)
+
+
+class OperatorWorkSampleDeleteView(AccessRequiredMixin, View):
+    roles = (AccessLevelsEnum.ADMIN,)
+
+    def get(self, request, work_sample_id):
+        work_sample = get_object_or_404(models.OperatorWorkSample, id=work_sample_id)
+        work_sample.delete()
+        messages.success(request, _('Work Sample Deleted Successfully'))
+        return redirect(work_sample.operator.get_absolute_url())
+
+
+class OperatorReserveAddView(View):
+
+    def post(self, request, operator_id):
+        operator = get_object_or_404(models.Operator, id=operator_id)
+        data = request.POST.copy()
+        # set additional values
+        data['operator'] = operator
+        f = forms.OperatorReserveAdd(data)
+        if validate_form(request, f) is False:
+            return redirect(operator.get_absolute_url())
+        f.save()
+        messages.success(request, _('Operator Time Was Successfully Booked'))
+        # TODO: send sms to admins
+        ...
+        return redirect(operator.get_absolute_url())
+
+
+class OperatorReserveListView(AccessRequiredMixin, TemplateView):
+    template_name = 'service/operator/reserve/list.html'
+    roles = (AccessLevelsEnum.ADMIN,)
+
+    def get_context_data(self, **kwargs):
+        context = super(OperatorReserveListView, self).get_context_data(**kwargs)
+        context.update({
+            'reserves': models.OperatorReserve.objects.all()
         })
         return context

@@ -9,9 +9,11 @@
 {% endblock %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'styles/khadamat-hozori.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/portfolio.css' %}">
     <style>
-
+        body {
+            background: #292929;
+        }
     </style>
 {% endblock %}
 
@@ -23,98 +25,192 @@
 
     <div class="container-fluid col-md-11 pb-5">
         <main class="main">
-            <div class="profile-user-category">
-                <div class="inner-profile-user-category col-12">
-                    <div class="logo">
-                        <div class="col-7 col-md-4">
-                            <img src="{% static 'images/vala-logo.png' %}" alt="Vala logo">
+            <div class="content-modal modal-reserve">
+                <div class="inner-modal">
+                    <form class="px-4 pt-2" method="post" action="{% url 'service:operator_reserve__add' operator_id=operator.id %}">
+                        {% csrf_token %}
+                        <div class="py-2">
+                            <div class="title">
+                                <div id="close-modal-azmayesh"><img
+                                        src="{% static 'images/icon-valla/close.png' %}" alt=""></div>
+                                <div style="font-size: 1.5em;">درخواست رزرو</div>
+                            </div>
+                            <label class="text-right justify-content-start w-100 mt-2 mb-4">
+                                <span class="text-light">شماره همراه</span>
+                                <input type="tel" name="phonenumber" placeholder="91300000000"
+                                       class="form-control bg-transparent text-white mt-1" required="">
+                            </label>
+                            <textarea
+                                    name="description"
+                                    class="input-modal"
+                                    id="des-azmayesh"
+                                    cols="30"
+                                    rows="7"
+                                    required
+                                    placeholder="توضیحات خود را بنویسید"></textarea>
+                        </div>
+                        <div class="btn-modal text-center">
+                            <button class="btn-sabt-post btn bg-white mx-auto" id="btn-send">
+                                ثبت
+                            </button>
+                        </div>
+                </div>
+                </form>
+            </div>
+            <div class="content-main">
+                <div class="Appointment-reservation" id="footer">
+                    <div class="inner-reservation">
+                        <div class="right">
+                            <div class="title">خدمات</div>
+                            <div class="description">{{ operator.category.name }}</div>
+
+                        </div>
+
+                        <div class="price d-none">
+                            {#  TODO: will be add in future #}
+                            یک میلیون<br/>
+                            تومان
+
+                        </div>
+                        <div class="btn-reserv" id="reserve-operator">
+                            رزرو
                         </div>
                     </div>
-                    <div class="name">
-                        {{ category.name }}
+                </div>
+                <div class="up-category-user d-flex justify-content-between">
+                    <div class="up-category-user col-6" id="container-title">
+                        <!-- user -->
+                        <div class="category-user-inner col-6">
+                            <!-- imge-user -->
+                            <div class="col-6 col-md-2 p-3">
+                                <div class="imge-user">
+                                    <img src="{{ operator.picture.url }}"
+                                         alt="{{ operator.name }}">
+                                </div>
+                            </div>
+                            <!-- imge-user -->
+                            <!-- name-user -->
+                            <div class="col-6 col-md-10 p-3 jj">
+                                <div class="name-user">
+                                    {{ operator.name }}
+                                </div>
+                            </div>
+                            <!-- name-user -->
+                        </div>
                     </div>
-                    {% if request.user.has_perm %}
-                        <div class="content-actions mt-5 mb-1 d-flex justify-content-between align-items-center col-12 col-md-5 mx-auto">
-                            <div>
-                                <h4>عملیات</h4>
-                            </div>
-                            <div>
-                                <button class="btn btn-success" id="add-operator">
-                                    افزودن اپراتور
-                                </button>
-                                <button class="btn btn-danger" id="delete-category">
-                                    حذف دسته بندی
-                                </button>
-                            </div>
+                    {% if request.user.has_admin_access %}
+                        <div
+                                style="color:#fff ; display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 10px;">
+                            <button class="btn btn-success mb-2 col-12" id="add-worksample">افزودن نمونه کار</button>
+                            <button class="btn btn-danger col-12" id="delete-operator">حذف اپراتور</button>
                         </div>
                     {% endif %}
-                    <div class="profile-user-category mt-5">
-                        <div class="inner-profile-user-category col-12 col-md-5">
-                            <div class="contentfff">
-                                <div class="user-category" id="container">
-                                    {% for operator in category.get_operators %}
-                                        <div class="col-12 p-2">
-                                            <a href="{{ operator.get_absolute_url }}">
-                                                <div class="item-user">
-                                                    <div class="col-3 col-md-2">
-                                                        <div class="image-user">
-                                                            <img src="{{ operator.picture.url }}"
-                                                                 alt="{{ operator.name }}">
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="col-9 col-md-10 nnn">
-                                                        <div class="name-user">
-                                                            {{ operator.name }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-
+                </div>
+                <div class="down-category-portfolio">
+                    <div class="portfolio" id="container-portfolio">
+                        {% for work_sample in operator.get_work_samples %}
+                            <div class="content-modal modal-portfolio">
+                                <div div="" class="inner-modal d-flex flex-column">
+                                    <div class="portifilo">
+                                        <div class="btn-close m-2" style="cursor:pointer;">
+                                            <img src="{% static 'images/icon-valla/close-modal.png' %}" alt="">
                                         </div>
-                                        {% empty %}
-                                        <div class="container-not-found-base p-4 fs-4">
-                                            <p>اپراتوری یافت نشد</p>
+                                        <div class="image-portifilo h-auto">
+                                            <div class="d-flex justify-content-between align-items-center flex-column">
+                                                <img src="{{ work_sample.image.url }}" alt="{{ work_sample.title }}">
+                                            </div>
                                         </div>
-                                    {% endfor %}
+                                        <div class="title text-center " style="font-size : 24px">
+                                            {{ work_sample.title }}
+                                        </div>
+                                        <div class="text-light">
+                                            {{ work_sample.description }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-md-2 p-3 portfolio-items">
+                                <div class="portfolio-item">
+                                    <img src="{{ work_sample.image.url }}" alt="{{ work_sample.title }}">
+                                    {% if request.user.has_admin_access %}
+                                        <a href="{% url 'service:operator_worksample__delete' work_sample_id=work_sample.id %}"
+                                           class="btn btn-danger" btn-delete>حذف</a>
+                                    {% endif %}
+                                </div>
+                                <div class="title-portfolio-item">{{ work_sample.title }}</div>
+                            </div>
+                            {% empty %}
+                            <div class="container-not-found-base text-danger">
+                                <h3>نمونه کاری یافت نشد</h3>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            <div class="comment-container mx-auto">
+                <div class="commentt">
+                    <div class="col-12 d-none">
+                        <div class="comment-item">
+                            <div class="col-2 col-md-1 p-1">
+                                <div class="imge-comment">
+                                    <img src="../assets/images/comment-img/9.png" alt="">
+                                </div>
+                            </div>
+                            <div class="col-8 col-md-10 test-comment p-1 text-right">
+                                jjjjjj
+                            </div>
+                            <div class="col-2 col-md-1">
+                                <div class="p-2">
+                                    <div class="text-success text-center font-weight-bold m-1  rounded btns-post"
+                                         style="cursor: pointer; background-color: #e3dadad1;">تایید
+                                    </div>
+                                    <div class="text-danger text-center font-weight-bold m-1  rounded btns-post"
+                                         style="cursor: pointer; background-color: #e3dadad1;">حذف
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+
         </main>
     </div>
-    {% if request.user.has_perm %}
+    {% if request.user.has_admin_access %}
 
-        <div class="content-modal add-operator-modal">
+        <div class="content-modal add-worksample-modal">
             <div class="inner-modal">
-                <form method="POST" action="{% url 'service:operator__add' %}" enctype="multipart/form-data"
+                <form method="POST" action="{% url 'service:operator_worksample__add' %}" enctype="multipart/form-data"
                       class="px-4 pt-2"
                       style="min-width: 300px;">
                     {% csrf_token %}
                     <div class="py-2 text-white">
-                        <input type="hidden" name="category" value="{{ category.id }}">
+                        <input type="hidden" name="operator" value="{{ operator.id }}">
                         <div class="title">
-                            <h5>افزودن اپراتور</h5>
+                            <h5>افزودن نمونه کار</h5>
                             <div role="button" class="close-modal-add-post">
                                 <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
                             </div>
                         </div>
                         <label class="text-right justify-content-start w-100 mt-2">
-                            نام و نام خانوادگی
-                            <input type="text" name="name" placeholder="نام و نام خانوادگی"
+                            عنوان
+                            <input type="text" name="title" placeholder="عنوان"
                                    class="form-control bg-transparent text-white mt-1" required="">
                         </label>
                         <label class="text-right justify-content-start w-100 mt-2">
+                            توضیحات
+                            <textarea name="description" class="form-control bg-transparent text-white mt-1" required
+                                      placeholder="توضیحات"></textarea>
+                        </label>
+                        <label class="text-right justify-content-start w-100 mt-2">
                             تصویر
-                            <input type="file" accept="image/*" name="picture" placeholder="تصویر"
+                            <input type="file" accept="image/*" name="image" placeholder="تصویر"
                                    class="form-control bg-transparent text-white mt-1" required="">
                         </label>
                     </div>
                     <div class="text-center mt-3" id="add-post">
                         <button type="submit" class="btn btn-success col-12">
-                            ایجاد اپراتور
+                            ایجاد نمونه کار
                         </button>
                     </div>
                 </form>
@@ -123,24 +219,24 @@
 
         <div class="content-modal delete-operator-modal">
             <div class="inner-modal">
-                <form method="POST" action="{% url 'service:operator_category__delete' category_id=category.id %}"
+                <form method="POST" action="{% url 'service:operator__delete' operator_id=operator.id %}"
                       class="px-4 pt-2"
                       style="min-width: 300px;">
                     {% csrf_token %}
                     <div class="py-2 text-white">
                         <div class="title">
-                            <h5>حذف دسته بندی</h5>
+                            <h5>حذف اپراتور</h5>
                             <div role="button" class="close-modal-add-post">
                                 <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
                             </div>
                         </div>
                         <h4 class="text-danger mt-3">
-                            توجه کنید با حذف دسته بندی تمامی اپراتور ها و محتوای مربوط به ان حذف خواهند شد ، دقت کنید
+                            توجه کنید با حذف اپراتور تمامی محتوای مربوط به ان حذف خواهند شد ، دقت کنید
                         </h4>
                     </div>
                     <div class="text-center mt-3" id="add-post">
                         <button type="submit" class="btn btn-danger col-12">
-                            متوجه ام ، حذف دسته بندی
+                            متوجه ام ، حذف اپراتور
                         </button>
                     </div>
                 </form>
@@ -155,9 +251,9 @@
     <script src="{% static 'js/menus.js' %}"></script>
     <script>
         // ----------------- Modal Category Add -----------------
-        let btnsShowModal = document.querySelector("#add-operator");
+        let btnsShowModal = document.querySelector("#add-worksample");
         let btnsCloseModal = document.querySelector(".close-modal-add-post");
-        let contentModals = document.querySelector(".add-operator-modal");
+        let contentModals = document.querySelector(".add-worksample-modal");
 
         btnsShowModal.addEventListener("click", () => {
             contentModals.classList.add("active");
@@ -172,7 +268,7 @@
         });
 
         // ----------------- Modal Operator Delete -----------------
-        let btnsShowModal_b = document.querySelector("#delete-category");
+        let btnsShowModal_b = document.querySelector("#delete-operator");
         let btnsCloseModal_b = document.querySelector(".close-modal-add-post");
         let contentModals_b = document.querySelector(".delete-operator-modal");
 
@@ -186,6 +282,46 @@
         contentModals_b.addEventListener("click", (e) => {
             if (e.target.className === "inner-modal")
                 contentModals_b.classList.remove("active");
+        });
+        // ----------------- Modal Operator Reserve -----------------
+        let btnsShowModal_c = document.querySelector("#reserve-operator");
+        let btnsCloseModal_c = document.querySelector(".close-modal-add-post");
+        let contentModals_c = document.querySelector(".modal-reserve");
+
+        btnsShowModal_c.addEventListener("click", () => {
+            contentModals_c.classList.add("active");
+        });
+
+        btnsCloseModal_c.addEventListener("click", () => {
+            contentModals_c.classList.remove("active");
+        });
+        contentModals_c.addEventListener("click", (e) => {
+            if (e.target.className === "inner-modal")
+                contentModals_c.classList.remove("active");
+        });
+
+        // ----------------- Modal Operator WorkSamples -----------------
+        let portfolio_item = document.querySelectorAll(".portfolio-items");
+        let modal_portfolio = document.querySelectorAll(".modal-portfolio");
+        let overalyModals = document.querySelectorAll(".modal-portfolio .inner-modal");
+        let closeModals = document.querySelectorAll(".btn-close");
+
+        portfolio_item.forEach((item, index) => {
+            item.addEventListener("click", () => {
+                modal_portfolio[index].classList.add("active");
+            });
+        });
+        overalyModals.forEach((item, index) => {
+            item.addEventListener("click", (e) => {
+                if (e.target.className === "inner-modal") {
+                    modal_portfolio[index].classList.remove("active");
+                }
+            });
+        });
+        closeModals.forEach((item, index) => {
+            item.addEventListener("click", () => {
+                modal_portfolio[index].classList.remove("active");
+            });
         });
     </script>
 {% endblock %}

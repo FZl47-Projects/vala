@@ -1,6 +1,7 @@
 from django.shortcuts import reverse
 from django.utils.translation import gettext as _
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 from apps.core.models import BaseModel
 
 
@@ -34,6 +35,9 @@ class Operator(BaseModel):
     def get_absolute_url(self):
         return reverse('service:operator__detail', args=(self.id,))
 
+    def get_work_samples(self):
+        return self.operatorworksample_set.all()
+
 
 class OperatorWorkSample(BaseModel):
     operator = models.ForeignKey(Operator, verbose_name=_('Operator'), on_delete=models.CASCADE)
@@ -43,3 +47,19 @@ class OperatorWorkSample(BaseModel):
 
     def __str__(self):
         return f'{self.operator} - {self.title[:30]}'
+
+
+class OperatorReserve(BaseModel):
+    operator = models.ForeignKey(Operator, verbose_name=_('Operator'), on_delete=models.CASCADE)
+    phonenumber = PhoneNumberField(_('Phone number'), max_length=32)
+    description = models.TextField(_('Description'), null=True)
+
+    class Meta:
+        ordering = ('-id',)
+
+    def __str__(self):
+        return f'#{self.id} Reserve - {self.operator}'
+
+    def get_raw_phonenumber(self):
+        p = str(self.phonenumber).replace('+98', '')
+        return p
