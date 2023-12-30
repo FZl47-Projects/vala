@@ -74,7 +74,8 @@ class AddPostCommentView(LoginRequiredMixin, CreateView):
         
         obj.user = self.request.user  # Add user to current comment
         obj.save()
-        
+
+        messages.success(self.request, _('Comment successfully sent and will be shown after admin verification'))
         return super().form_valid(form)
 
 

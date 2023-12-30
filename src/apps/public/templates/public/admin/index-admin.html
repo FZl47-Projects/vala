@@ -196,8 +196,7 @@
                                     </div>
                                 </div>
 
-                                <form method="POST" action="{% url 'public:add_post_comment' %}"
-                                      class="insert-comment mx-auto">
+                                <form method="POST" action="{% url 'public:add_post_comment' %}" class="insert-comment mx-auto">
                                     {% csrf_token %}
                                     <div class="rounded-circle ms-2" style="width: 50px; height: 50px;">
                                         <img src="{% static 'images/default/user-default.png' %}" alt="User profile pic" class="rounded-circle w-100 h-100">

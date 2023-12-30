@@ -112,10 +112,10 @@
                                     </div>
                                 </div>
 
-                                <form method="POST" action="{% url 'public:add_post_comment' %}" class="insert-comment col-10 mx-auto">
+                                <form method="POST" action="{% url 'public:add_post_comment' %}" class="insert-comment mx-auto">
                                     {% csrf_token %}
-                                    <div class="image-insert mx-2">
-                                        <img src="{% static 'images/default/user-default.png' %}" alt="User profile pic">
+                                    <div class="rounded-circle ms-2" style="width: 50px; height: 50px;">
+                                        <img src="{% static 'images/default/user-default.png' %}" alt="User profile pic" class="rounded-circle w-100 h-100">
                                     </div>
                                     <label class="comment-insert">
                                         <input type="hidden" name="post" value="{{ post.id }}">
@@ -128,13 +128,15 @@
                                 <div class="commentt">
                                     <div class="w-100 mt-4">
                                         {% for comment in post.get_verified_comments %}
-                                            <div class="comment-item mt-2">
-                                                <div class="col-2 col-md-1 p-1">
-                                                    <div class="imge-comment">
-                                                        <img src="{{ comment.user.user_profile.get_image_url }}" width="55" height="52" alt="User profile pic">
+                                            <div class="comment-item d-flex justify-content-start mt-2">
+                                                <div class="p-1">
+                                                    <div class="rounded-circle" style="width: 50px; height: 50px;">
+                                                        <img src="{{ comment.user.user_profile.get_image_url }}" alt="User profile pic"
+                                                             class="rounded-circle w-100 h-100">
                                                     </div>
                                                 </div>
-                                                <div class="col-10 col-md-11 text-white" style="padding: 0.5rem 4rem; font-weight: 500;">
+                                                <div class="text-white py-2 px-md-5 px-1"
+                                                     style="font-weight: 500;">
                                                     {{ comment.text }}
                                                 </div>
                                             </div>
