@@ -14,7 +14,7 @@
     <!-- Include user/admin menus -->
     {% include 'menus.html' %}
 
-    <div class="container-fluid col-md-11 pb-4">
+    <div class="container-fluid col-md-11 pb-5">
         <!-- Start Modal-routine -->
         {% include 'public/components/skin-routine.html' %}
         <!-- .End Modal-routine -->
@@ -79,8 +79,8 @@
                         <div class="col-12 p-2">
                             <label for="dateOfBirth" class="title">تاریخ تولد</label>
                             <div class="information-item">
-                                <input type="text" value="{{ user.user_profile.get_date_of_birth }}" class="item-user persian-date-picker"
-                                       id="dateOfBirth" name="date_of_birth" required>
+                                <input type="text" value="{{ user.user_profile.get_date_of_birth }}" class="item-user position-relative persian-date-picker"
+                                       id="dateOfBirth" name="date_of_birth" readonly required>
                                 <span>
                                     <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">
                                 </span>
