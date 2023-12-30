@@ -27,7 +27,8 @@
         <main class="main">
             <div class="content-modal modal-reserve">
                 <div class="inner-modal">
-                    <form class="px-4 pt-2" method="post" action="{% url 'service:operator_reserve__add' operator_id=operator.id %}">
+                    <form class="px-4 pt-2" method="post"
+                          action="{% url 'service:operator_reserve__add' operator_id=operator.id %}">
                         {% csrf_token %}
                         <div class="py-2">
                             <div class="title">
@@ -250,78 +251,90 @@
 {% block scripts %}
     <script src="{% static 'js/menus.js' %}"></script>
     <script>
-        // ----------------- Modal Category Add -----------------
-        let btnsShowModal = document.querySelector("#add-worksample");
-        let btnsCloseModal = document.querySelector(".close-modal-add-post");
-        let contentModals = document.querySelector(".add-worksample-modal");
+        try {
+            // ----------------- Modal Category Add -----------------
+            let btnsShowModal = document.querySelector("#add-worksample");
+            let btnsCloseModal = document.querySelector(".close-modal-add-post");
+            let contentModals = document.querySelector(".add-worksample-modal");
 
-        btnsShowModal.addEventListener("click", () => {
-            contentModals.classList.add("active");
-        });
+            btnsShowModal.addEventListener("click", () => {
+                contentModals.classList.add("active");
+            });
 
-        btnsCloseModal.addEventListener("click", () => {
-            contentModals.classList.remove("active");
-        });
-        contentModals.addEventListener("click", (e) => {
-            if (e.target.className === "inner-modal")
+            btnsCloseModal.addEventListener("click", () => {
                 contentModals.classList.remove("active");
-        });
+            });
+            contentModals.addEventListener("click", (e) => {
+                if (e.target.className === "inner-modal")
+                    contentModals.classList.remove("active");
+            });
+        } catch (e) {
+        }
 
-        // ----------------- Modal Operator Delete -----------------
-        let btnsShowModal_b = document.querySelector("#delete-operator");
-        let btnsCloseModal_b = document.querySelector(".close-modal-add-post");
-        let contentModals_b = document.querySelector(".delete-operator-modal");
+        try {
+            // ----------------- Modal Operator Delete -----------------
+            let btnsShowModal_b = document.querySelector("#delete-operator");
+            let btnsCloseModal_b = document.querySelector(".close-modal-add-post");
+            let contentModals_b = document.querySelector(".delete-operator-modal");
 
-        btnsShowModal_b.addEventListener("click", () => {
-            contentModals_b.classList.add("active");
-        });
+            btnsShowModal_b.addEventListener("click", () => {
+                contentModals_b.classList.add("active");
+            });
 
-        btnsCloseModal_b.addEventListener("click", () => {
-            contentModals_b.classList.remove("active");
-        });
-        contentModals_b.addEventListener("click", (e) => {
-            if (e.target.className === "inner-modal")
+            btnsCloseModal_b.addEventListener("click", () => {
                 contentModals_b.classList.remove("active");
-        });
+            });
+            contentModals_b.addEventListener("click", (e) => {
+                if (e.target.className === "inner-modal")
+                    contentModals_b.classList.remove("active");
+            });
+        } catch (e) {
+        }
         // ----------------- Modal Operator Reserve -----------------
-        let btnsShowModal_c = document.querySelector("#reserve-operator");
-        let btnsCloseModal_c = document.querySelector(".close-modal-add-post");
-        let contentModals_c = document.querySelector(".modal-reserve");
+        try {
+            let btnsShowModal_c = document.querySelector("#reserve-operator");
+            let btnsCloseModal_c = document.querySelector(".close-modal-add-post");
+            let contentModals_c = document.querySelector(".modal-reserve");
 
-        btnsShowModal_c.addEventListener("click", () => {
-            contentModals_c.classList.add("active");
-        });
+            btnsShowModal_c.addEventListener("click", () => {
+                contentModals_c.classList.add("active");
+            });
 
-        btnsCloseModal_c.addEventListener("click", () => {
-            contentModals_c.classList.remove("active");
-        });
-        contentModals_c.addEventListener("click", (e) => {
-            if (e.target.className === "inner-modal")
+            btnsCloseModal_c.addEventListener("click", () => {
                 contentModals_c.classList.remove("active");
-        });
-
-        // ----------------- Modal Operator WorkSamples -----------------
-        let portfolio_item = document.querySelectorAll(".portfolio-items");
-        let modal_portfolio = document.querySelectorAll(".modal-portfolio");
-        let overalyModals = document.querySelectorAll(".modal-portfolio .inner-modal");
-        let closeModals = document.querySelectorAll(".btn-close");
-
-        portfolio_item.forEach((item, index) => {
-            item.addEventListener("click", () => {
-                modal_portfolio[index].classList.add("active");
             });
-        });
-        overalyModals.forEach((item, index) => {
-            item.addEventListener("click", (e) => {
-                if (e.target.className === "inner-modal") {
+            contentModals_c.addEventListener("click", (e) => {
+                if (e.target.className === "inner-modal")
+                    contentModals_c.classList.remove("active");
+            });
+        } catch (e) {
+        }
+
+        try {
+            // ----------------- Modal Operator WorkSamples -----------------
+            let portfolio_item = document.querySelectorAll(".portfolio-items");
+            let modal_portfolio = document.querySelectorAll(".modal-portfolio");
+            let overalyModals = document.querySelectorAll(".modal-portfolio .inner-modal");
+            let closeModals = document.querySelectorAll(".btn-close");
+
+            portfolio_item.forEach((item, index) => {
+                item.addEventListener("click", () => {
+                    modal_portfolio[index].classList.add("active");
+                });
+            });
+            overalyModals.forEach((item, index) => {
+                item.addEventListener("click", (e) => {
+                    if (e.target.className === "inner-modal") {
+                        modal_portfolio[index].classList.remove("active");
+                    }
+                });
+            });
+            closeModals.forEach((item, index) => {
+                item.addEventListener("click", () => {
                     modal_portfolio[index].classList.remove("active");
-                }
+                });
             });
-        });
-        closeModals.forEach((item, index) => {
-            item.addEventListener("click", () => {
-                modal_portfolio[index].classList.remove("active");
-            });
-        });
+        } catch (e) {
+        }
     </script>
 {% endblock %}
