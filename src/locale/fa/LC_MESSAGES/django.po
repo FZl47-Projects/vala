@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-29 14:35+0330\n"
+"POT-Creation-Date: 2023-12-30 18:19+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,10 +17,6 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-
-
-msgid "Service"
-msgstr "خدمات"
 
 #: .\apps\account\admin.py:29
 msgid "Personal info"
@@ -46,8 +42,8 @@ msgstr "سوال ادمین"
 msgid "Account"
 msgstr "حساب کاربری"
 
-#: .\apps\account\enums.py:7 .\apps\account\models.py:40
-#: .\apps\account\models.py:94 .\apps\communication\models.py:15
+#: .\apps\account\enums.py:7 .\apps\account\models.py:41
+#: .\apps\account\models.py:95 .\apps\communication\models.py:15
 #: .\apps\public\models.py:13 .\apps\public\models.py:45
 #: .\apps\public\models.py:84 .\apps\public\models.py:97
 #: .\apps\public\models.py:114
@@ -58,11 +54,13 @@ msgstr "کاربر"
 msgid "Admin"
 msgstr "ادمین"
 
-#: .\apps\account\enums.py:9
+#: .\apps\account\enums.py:9 .\apps\service\models.py:43
+#: .\apps\service\models.py:53
 msgid "Operator"
 msgstr "اپراتور"
 
 #: .\apps\account\forms.py:15 .\apps\account\models.py:19
+#: .\apps\service\models.py:54
 msgid "Phone number"
 msgstr "شماره تماس"
 
@@ -87,7 +85,7 @@ msgstr "گذرواژه یکسان نیست."
 msgid "Entered data is incorrect"
 msgstr "اطلاعات وارد شده صحیح نیست."
 
-#: .\apps\account\managers.py:20
+#: .\apps\account\managers.py:21
 msgid "Users must have a mobile number!"
 msgstr "کاربران باید یک شماره تماس داشته باشند."
 
@@ -118,63 +116,63 @@ msgstr "تایید"
 msgid "Access level"
 msgstr "سطح دسترسی"
 
-#: .\apps\account\models.py:28
+#: .\apps\account\models.py:29
 msgid "Secret token"
 msgstr "رمز مخفی"
 
-#: .\apps\account\models.py:30 .\apps\core\models.py:7
+#: .\apps\account\models.py:31 .\apps\core\models.py:7
 msgid "Creation time"
 msgstr "زمان ایجاد"
 
-#: .\apps\account\models.py:31 .\apps\core\models.py:8
+#: .\apps\account\models.py:32 .\apps\core\models.py:8
 msgid "Update time"
 msgstr "زمان ویرایش"
 
-#: .\apps\account\models.py:41
+#: .\apps\account\models.py:42
 msgid "Users"
 msgstr "کاربران"
 
-#: .\apps\account\models.py:76
+#: .\apps\account\models.py:77
 msgid "No name"
 msgstr "بدون نام"
 
-#: .\apps\account\models.py:97
+#: .\apps\account\models.py:98
 msgid "First question"
 msgstr "سوال اول"
 
-#: .\apps\account\models.py:97 .\apps\account\models.py:98
+#: .\apps\account\models.py:98 .\apps\account\models.py:99
 msgid "No answer"
 msgstr "بدون جواب"
 
-#: .\apps\account\models.py:98
+#: .\apps\account\models.py:99
 msgid "Second question"
 msgstr "سوال دوم"
 
-#: .\apps\account\models.py:100
+#: .\apps\account\models.py:101 .\apps\service\models.py:26
 msgid "Picture"
 msgstr "تصویر"
 
-#: .\apps\account\models.py:101
+#: .\apps\account\models.py:102
 msgid "Date of birth"
 msgstr "تاریخ تولد"
 
-#: .\apps\account\models.py:103
+#: .\apps\account\models.py:104
 msgid "Height"
 msgstr "قد"
 
-#: .\apps\account\models.py:104
+#: .\apps\account\models.py:105
 msgid "Weight"
 msgstr "وزن"
 
-#: .\apps\account\models.py:106 .\apps\public\models.py:100
+#: .\apps\account\models.py:107 .\apps\public\models.py:100
 msgid "Verified"
 msgstr "تایید شده"
 
-#: .\apps\account\models.py:109
+#: .\apps\account\models.py:110
 msgid "User profile"
 msgstr "پروفایل کاربر"
 
-#: .\apps\account\models.py:110
+#: .\apps\account\models.py:111
 msgid "User profiles"
 msgstr "پروفایل‌ کاربران"
 
@@ -232,6 +230,7 @@ msgstr "بسته"
 
 #: .\apps\communication\models.py:16 .\apps\public\models.py:14
 #: .\apps\public\models.py:46 .\apps\public\models.py:115
+#: .\apps\service\models.py:44
 msgid "Title"
 msgstr "عنوان"
 
@@ -331,6 +330,7 @@ msgid "Caption"
 msgstr "متن"
 
 #: .\apps\public\models.py:16 .\apps\public\models.py:49
+#: .\apps\service\models.py:45
 #: .\venv\Lib\site-packages\django\db\models\fields\files.py:393
 msgid "Image"
 msgstr "تصویر"
@@ -344,6 +344,7 @@ msgid "Stories"
 msgstr "استوری‌ها"
 
 #: .\apps\public\models.py:48 .\apps\public\models.py:117
+#: .\apps\service\models.py:27
 msgid "Category"
 msgstr "دسته"
 
@@ -401,23 +402,67 @@ msgstr "پادکست ها"
 msgid "Post successfully added"
 msgstr "پست با موفقیت افزوده شد"
 
-#: .\apps\public\views.py:102
+#: .\apps\public\views.py:78
+msgid "Comment successfully sent and will be shown after admin verification"
+msgstr "کامنت با موفقیت ارسال شد و پس از تایید نمایش داده خواهد شد"
+
+#: .\apps\public\views.py:103
 msgid "Comment deleted"
 msgstr "کامنت حذف شد"
 
-#: .\apps\public\views.py:115
+#: .\apps\public\views.py:116
 msgid "Story successfully added"
 msgstr "هایلایت با موفقیت افزوده شد"
 
-#: .\apps\public\views.py:148
+#: .\apps\public\views.py:149
 msgid "Podcast successfully added"
 msgstr "پادکست با موفقیت افزوده شد"
 
-#: .\apps\public\views.py:165
+#: .\apps\public\views.py:166
 msgid "Podcast successfully deleted"
 msgstr "پادکست با موفقیت حذف شد"
 
-#: .\config\settings\base.py:91
+#: .\apps\service\apps.py:8
+msgid "Service"
+msgstr "خدمات"
+
+#: .\apps\service\models.py:12 .\apps\service\models.py:25
+msgid "Name"
+msgstr "نام"
+
+#: .\apps\service\models.py:46 .\apps\service\models.py:55
+msgid "Description"
+msgstr "توضیحات"
+
+#: .\apps\service\views.py:41
+msgid "Category Created Successfully"
+msgstr "دسته با موفقیت ایجاد شد"
+
+#: .\apps\service\views.py:56
+msgid "Category Deleted Successfully"
+msgstr "دسته با موفقیت حذف گردید"
+
+#: .\apps\service\views.py:69
+msgid "Operator Created Successfully"
+msgstr "اپراتور با موفقیت ایجاد شد"
+
+#: .\apps\service\views.py:80
+msgid "Operator Deleted Successfully"
+msgstr "اپراتور با موفقیت حذف گردید"
+
+#: .\apps\service\views.py:106
+msgid "Work Sample Created Successfully"
+msgstr "نمونه کار با موفقیت ایجاد شد"
+
+#: .\apps\service\views.py:116
+msgid "Work Sample Deleted Successfully"
+msgstr "نمونه کار با موفقیت حذف گردید"
+
+#: .\apps\service\views.py:131
+msgid "Operator Time Was Successfully Booked"
+msgstr "زمان اپراتور با موفقیت ثبت گردید"
+
+#: .\config\settings\base.py:92
 msgid "Persian"
 msgstr "فارسی"
 
