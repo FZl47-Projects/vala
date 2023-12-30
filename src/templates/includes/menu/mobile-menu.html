@@ -14,13 +14,14 @@
             </a>
         </li>
         <li class="col-4 menu-m-item ">
-            <a href="#">
+            <a href="{% url 'public:podcasts_list' %}">
                 <img src="{% static 'images/icons/podcast.png' %}" alt="icon">
                 <div class="text-white" style="font-size: 8px;">پادکست</div>
             </a>
         </li>
-        <li class="col-4 menu-m-item" id="azmayesh-raygan">
-            <a href="#">
+{#        <li class="col-4 menu-m-item" id="azmayesh-raygan">#}
+        <li class="col-4 menu-m-item">
+            <a href="{% url 'operation:tests_list' %}">
                 <img src="{% static 'images/icons/test.png' %}" alt="icon">
                 <div class="text-white" style="font-size: 8px;">آزمایش رایگان</div>
             </a>

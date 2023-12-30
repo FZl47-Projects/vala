@@ -1,0 +1,34 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | آزمایش ها{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/test.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <div class="container-fluid col-md-11 bg">
+        <div class="d-flex justify-content-between gap-3 px-md-5 px-3 pt-4">
+            <div></div>
+            <div>
+                <a href="#" class="btn btn-danger fw-semibold">
+                    بازگشت
+                </a>
+            </div>
+        </div>
+
+        <main class="main pb-5">
+            <section class="p-md-5 p-3 row" id="container-tickets">
+
+            </section>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+{% endblock %}

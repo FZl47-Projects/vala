@@ -52,9 +52,7 @@ body {
 }
 
 body {
-  /* Track */
-  /* Handle */
-  /* Handle on hover */
+  background-color: #292929;
 }
 body::-webkit-scrollbar {
   height: 15px;
@@ -115,6 +113,22 @@ button {
 input {
   border: none;
   background-color: transparent;
+}
+
+.test-card-header {
+  border-radius: 0 0.5rem 0 0;
+}
+
+.test-card-body {
+  background-color: #3d3d3d;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.test-card-state {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 0 0 0.35rem 0;
 }
 
 /*COLOR BODY*/
@@ -2251,133 +2265,45 @@ ul {
     display: none;
   }
 }
-.content-modal {
-  z-index: 1500;
-}
-.content-modal .inner-modal {
-  z-index: 1500;
-}
-.content-modal .inner-modal .px-4 {
-  padding-bottom: 10px;
-}
-.content-modal .inner-modal .px-4 .inputs-add-food .input-item {
+.content-items {
   display: flex;
-  position: relative;
+  padding: 10px;
+  flex-wrap: wrap;
+}
+.content-items .item-ticket {
+  background-color: rgba(83, 81, 81, 0.188);
+  border-radius: 12px;
+  -webkit-border-radius: 12px;
+  -moz-border-radius: 12px;
+  -ms-border-radius: 12px;
+  -o-border-radius: 12px;
+  padding: 10px;
+  border: 1px solid rgba(146, 140, 140, 0.501);
+}
+.content-items .item-ticket .title {
+  font-size: 15px;
+  font-weight: 300;
+  color: #fe04f1;
+}
+.content-items .item-ticket .des-1 {
+  font-size: 15px;
+  font-weight: 300;
+  color: #fff;
+  margin: 0 0 5px 0;
+}
+.content-items .item-ticket .des-2 {
+  border: 1px solid rgba(146, 140, 140, 0.501);
+  border-radius: 5px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  -ms-border-radius: 5px;
+  -o-border-radius: 5px;
+  background-color: rgba(111, 110, 110, 0.623);
   padding: 5px;
-}
-.content-modal .inner-modal .px-4 .inputs-add-food .input-item .title-input {
   color: #fff;
-  padding-left: 5px;
-}
-.content-modal .inner-modal .px-4 .inputs-add-food .input-item input {
-  width: 100%;
-  color: #fff;
-  outline: none;
-}
-.content-modal .inner-modal .px-4 .inputs-add-food .input-item input .title-input {
-  color: #fff;
-  font-size: 16px;
-}
-.content-modal .inner-modal .px-4 .inputs-add-food .input-item::after {
-  content: "";
-  position: absolute;
-  width: 100%;
-  height: 2px;
-  background-color: #fff;
-  bottom: 0;
-  left: 0;
-}
-.content-modal .inner-modal .px-4 .btn-modal {
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-}
-.content-modal .inner-modal .px-4 .btn-modal .btn-sabt-post {
-  background-color: #fff;
-  border-radius: 10px;
-  width: 80px;
-  padding: 2px;
-  text-align: center;
-}
-.content-modal .inner-modal .px-4 .title {
-  display: flex;
-  justify-content: space-between;
-}
-
-.up-category-user {
-  background-color: rgb(37, 37, 35);
-}
-.up-category-user .category-user-inner {
-  display: flex;
-}
-.up-category-user .category-user-inner .imge-user img {
-  border-radius: 100px;
-  border: 1px solid #fff;
-}
-.up-category-user .category-user-inner .jj {
-  display: flex;
-  align-items: center;
-}
-.up-category-user .category-user-inner .jj .name-user {
-  color: #fff;
-  font-size: 18px;
-}
-
-.down-category-userr .ammozesh-asbsavari .kk .item-user {
-  position: relative;
-  z-index: 100;
-  display: flex;
-}
-.down-category-userr .ammozesh-asbsavari .kk .item-user .imge-user {
-  border-radius: 100px;
-}
-.down-category-userr .ammozesh-asbsavari .kk .item-user .imge-user img {
-  border-radius: 100px;
-  border: 1px solid red;
-}
-.down-category-userr .ammozesh-asbsavari .kk .item-user::after {
-  content: "";
-  background-color: #fff;
-  border-radius: 20px;
-  width: calc(100% - 80px);
-  height: calc(100% - 20px);
-  top: 10px;
-  left: 40px;
-  position: absolute;
-  z-index: -1000;
-}
-.down-category-userr .ammozesh-asbsavari .kk .contenthh {
-  padding: 10px;
-}
-.down-category-userr .ammozesh-asbsavari .kk .contenthh #title-type-range {
-  color: #181818;
-  font-size: 1.2em;
-  text-align: left;
-  display: block;
-}
-.down-category-userr .ammozesh-asbsavari .kk .contenthh #amount-cream {
-  width: 100%;
-  direction: ltr;
-}
-.down-category-userr .ammozesh-asbsavari .kk .contenthh #amount {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  writing-mode: vertical-lr;
-  width: 100%;
-  margin-bottom: 10px;
-}
-.down-category-userr .ammozesh-asbsavari .kk .contenthh #amount option {
-  text-align: center;
-  padding: 0;
-  transform: rotate(270deg);
-  color: #181818;
-}
-.down-category-userr .ammozesh-asbsavari .kk .contenthh .name-user {
-  color: #292929;
-}
-.down-category-userr .ammozesh-asbsavari .kk .contenthh .range-item {
-  direction: ltr;
+  font-weight: 300;
+  font-size: 15px;
+  min-height: 100px;
 }
 
 @media (max-width: 940px) {
@@ -2659,4 +2585,4 @@ ul {
   }
 }
 
-/*# sourceMappingURL=test.css.map */
+/*# sourceMappingURL=tickets.css.map */

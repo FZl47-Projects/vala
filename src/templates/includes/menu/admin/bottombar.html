@@ -21,9 +21,8 @@
                     <div class="text-white" style="font-size: 8px;">پادکست‌ها</div>
                 </a>
             </li>
-
-            <li class="item-bottom">
-                <a href="#">
+            <li class="item-bottom {% if url_name == 'tests_list' %}active{% endif %}">
+                <a href="{% url 'operation:tests_list' %}">
                     <img src="{% static 'images/icons/wallet.png' %}" alt="icon">
                     <div class="text-white" style="font-size: 8px;">آزمایش ها</div>
                 </a>
