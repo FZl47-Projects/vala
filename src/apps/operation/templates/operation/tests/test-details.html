@@ -64,7 +64,7 @@
                                     {% if user.has_admin_access %}
                                         <label class="form-label">
                                             <span class="h5 fw-semibold">پاسخ آزمایش:</span>
-                                                <textarea name="answer" class="form-control w-100 mt-2 text-size" rows="6">{{ object.answer|default:'' }}</textarea>
+                                                <textarea name="answer" class="form-control w-100 mt-2 text-size" rows="6" required>{{ object.answer|default:'' }}</textarea>
                                         </label>
                                         <button type="submit" class="btn btn-light fw-semibold col-md-2 col-3">ثبت پاسخ</button>
                                     {% else %}

@@ -54,11 +54,13 @@
     <div class="container-fluid col-md-11 bg">
         <div class="d-flex justify-content-between gap-3 px-md-5 px-3 pt-4">
             <div></div>
-            <div>
-                <button class="btn btn-light fw-semibold" data-bs-toggle="modal" data-bs-target="#addTestModal">
-                    ثبت آزمایش
-                </button>
-            </div>
+            {% if not user.has_admin_access %}
+                <div>
+                    <button class="btn btn-light fw-semibold" data-bs-toggle="modal" data-bs-target="#addTestModal">
+                        ثبت آزمایش
+                    </button>
+                </div>
+            {% endif %}
         </div>
 
         <main class="main pb-5">

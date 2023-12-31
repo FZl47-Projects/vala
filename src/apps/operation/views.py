@@ -55,7 +55,6 @@ class AddTestView(LoginRequiredMixin, CreateView):
 
         # Check if user saved more than unanswered test
         test_counts = models.Test.objects.filter(is_active=True, user=obj.user, status='await').count()
-
         if test_counts >= 3:
             messages.error(self.request, _('You cannot register more than 3 unanswered test'))
             return redirect('operation:tests_list')
@@ -64,3 +63,4 @@ class AddTestView(LoginRequiredMixin, CreateView):
 
         messages.success(self.request, _('Test added successfully'))
         return super().form_valid(form)
+
