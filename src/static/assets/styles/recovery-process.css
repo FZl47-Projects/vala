@@ -52,9 +52,7 @@ body {
 }
 
 body {
-  /* Track */
-  /* Handle */
-  /* Handle on hover */
+  background-color: #292929;
 }
 body::-webkit-scrollbar {
   height: 15px;
@@ -115,6 +113,96 @@ button {
 input {
   border: none;
   background-color: transparent;
+}
+
+.main-tile {
+  margin-bottom: 0.75rem;
+  display: flex;
+  background-color: #3a3a3a;
+  color: white;
+  border: 2px whitesmoke solid;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.main-tile:hover {
+  scale: 101%;
+  background-color: #414141;
+  box-shadow: 0 0 8px 4px rgba(133, 133, 133, 0.25);
+  cursor: pointer;
+}
+
+.inner-tile {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  padding: 1rem 2rem 0.75rem 0;
+}
+
+.delete-main-tile {
+  padding: 0.75rem 1rem 0.5rem 0.5rem;
+}
+
+.delete-main-tile a {
+  font-size: 20px;
+  transition: all 0.2s;
+}
+
+.delete-main-tile a:hover {
+  scale: 110%;
+}
+
+.process-image-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.processSwiper {
+  width: 480px;
+  height: 280px;
+  border-radius: 0.5rem;
+}
+
+.swiper-wrapper {
+  border-radius: 0.5rem;
+}
+
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.5rem;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  user-select: none;
+}
+
+.swiper-button-prev, .swiper-button-next {
+  color: #074cee;
+  scale: 70%;
+  -webkit-text-stroke: 1pt;
+}
+
+.swiper-pagination {
+  direction: ltr;
+  position: relative;
+  font-size: 20px;
+  font-weight: 600;
+  color: whitesmoke;
+  margin-top: 1.5rem;
 }
 
 /*COLOR BODY*/
@@ -2413,6 +2501,12 @@ ul {
   }
 }
 @media (max-width: 768px) {
+  .processSwiper {
+    width: 100%;
+    height: 230px;
+    border-radius: 0.5rem;
+  }
+
   .index-pagge .icon-mage {
     padding: 0px;
   }

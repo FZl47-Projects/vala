@@ -1,0 +1,80 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | روندهای بهبودی{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/recovery-process.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <!-- Start Add test modal -->
+    <div class="modal fade" tabindex="-1" id="addProcessModal" aria-labelledby="addProcessModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form method="POST" action="{% url 'operation:add_recovery_process' %}"
+                  class="modal-content text-white border-white border-1 rounded-3" style="background-color: #2d2c2c;">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title fw-semibold h4">ثبت روند بهبودی جدید</h5>
+                    <i role="button" class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="user" value="{{ user.pk }}">
+                    <div class="d-flex flex-column form-group">
+                        <label class="form-label" style="font-size: 16px;">
+                            عنوان روند
+                            <input type="text" name="title" class="form form-control mt-1" required style="background-color: #e1e1e1;">
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-light fw-semibold px-3" data-bs-dismiss="modal" aria-label="Close">بستن</button>
+                    <button type="submit" class="btn btn-light fw-semibold px-3">ایجاد</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- .End Add test modal -->
+
+    <div class="container-fluid col-md-11 bg">
+        <div class="d-flex justify-content-between gap-3 px-md-5 px-3 pt-4">
+            <div></div>
+            <div>
+                <button class="btn btn-light fw-semibold" data-bs-toggle="modal" data-bs-target="#addProcessModal">
+                    افزودن روند جدید
+                </button>
+            </div>
+        </div>
+
+        <!-- Start main section -->
+        <main class="main pb-5">
+            <section class="p-md-5 p-3 row">
+
+                {% for process in processes %}
+                    <div class="col-md-6 col-12 main-tile">
+                        <a href="{{ process.get_absolute_url }}" class="gap-3 inner-tile">
+                            <i class="bi bi-check-circle-fill text-white"></i>
+                            <h4 class="fw-semibold">{{ process.title }}</h4>
+                        </a>
+                        <div class="d-flex align-items-center delete-main-tile">
+                            <a href="{% url 'operation:delete_recovery_process' process.pk %}" class="bi bi-trash3-fill text-white"></a>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="container-not-found-base p-4 fs-4">
+                        <p>روند بهبودی ثبت نشده</p>
+                    </div>
+                {% endfor %}
+
+            </section>
+        </main>
+        <!-- .End main section -->
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+{% endblock %}

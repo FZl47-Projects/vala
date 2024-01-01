@@ -14,61 +14,10 @@
     <!-- Include user/admin menus -->
     {% include 'menus.html' %}
 
-    <!-- START MODAL answer-ticket -->
-    <div class="content-modal modal-ticket">
-        <div class="inner-modal">
-            <form class="px-4 pt-2">
-                <div class="py-2">
-                    <div class="name">فائزه پورحسنی</div>
-                    <div class="title">
-                        روتین های پوستی
-                    </div>
-                    <textarea name="modal" class="input-modal" cols="30" rows="7" placeholder="ارسال تیکت"></textarea>
-                </div>
-                <div class="btns-modal">
-                    <div class="btn-modal col-6">
-                        <span class="btn-send-modal">ارسال</span>
-                    </div>
-                    <div class="btn-modal close-modal-adamtaeid col-6">
-                        <span>لغو</span>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- END MODAL answer-ticket -->
-
-    <!-- START MODAL moshavereh -->
-    <div class="content-modal modal-moshaveraeh" id="modal-moshavereh">
-        <div class="inner-modal">
-            <form class="px-4 pt-2">
-                <div class="py-2">
-                    <div class="name" id="name-moshavereh">www</div>
-
-                    <textarea name="modal" class="input-modal" cols="30" rows="7" id="moshavereh-description"
-                              placeholder="تایپ کنید"></textarea>
-                </div>
-                <div class="btns-modal">
-                    <div class="btn-modal col-6">
-                        <span id="submit-moshavereh" class="btn-send-modal">ارسال</span>
-                    </div>
-                    <div class="btn-modal close-modal-adamtaeiid col-6">
-                        <span>لغو</span>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-    <!-- END MODAL moshavereh -->
-
     <div class="container-fluid col-md-11">
         <!-- Start Modal-routine -->
         {% include 'public/components/skin-routine.html' %}
         <!-- .End Modal-routine -->
-
-        <!-- Start Free test modal -->
-        {% include 'public/components/free-test.html' %}
-        <!-- .End Free test modal -->
 
         <main class="main">
             <div class="profile-user-category">
@@ -113,7 +62,7 @@
                             </a>
                         </div>
                         <div class="col-12 p-2">
-                            <a href="#" class="d-block item-profile" id="btn-modal-1">
+                            <a href="{% url 'operation:recoveries_list' %}" class="d-block item-profile" id="btn-modal-1">
                                 روندهای بهبودی
                             </a>
                         </div>

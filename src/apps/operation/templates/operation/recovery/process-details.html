@@ -1,0 +1,133 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | روندهای بهبودی{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/recovery-process.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <!-- Start Add image modal -->
+    <div class="modal fade" tabindex="-1" id="addImageModal" aria-labelledby="addImageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form method="POST" action="{% url 'operation:add_recovery_process_image' %}" enctype="multipart/form-data"
+                  class="modal-content text-white border-white border-1 rounded-3" style="background-color: #2d2c2c;">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title fw-semibold h4">ثبت تصویر برای روند</h5>
+                    <i role="button" class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="recovery_process" value="{{ object.pk }}">
+                    <div class="d-flex flex-column form-group">
+                        <label class="form-label" style="font-size: 16px;">
+                            تصویر
+                            <input type="file" name="image" accept="image/*" class="form form-control mt-1" required
+                                   style="background-color: #e1e1e1;">
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-light fw-semibold px-3" data-bs-dismiss="modal" aria-label="Close">بستن
+                    </button>
+                    <button type="submit" class="btn btn-light fw-semibold px-3">ذخیره</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- .End Add image modal -->
+
+    <!-- Start Delete image modal -->
+    <div class="modal fade" tabindex="-1" id="delImageModal" aria-labelledby="delImageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form method="POST" action="{% url 'operation:delete_recovery_process_image' %}"
+                  class="modal-content text-white border-white border-1 rounded-3" style="background-color: #2d2c2c;">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title fw-semibold h4">حذف تصویر از روند</h5>
+                    <i role="button" class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex flex-column form-group">
+                        <label class="form-label" style="font-size: 16px;">
+                            شماره تصویر
+                            <select type="file" name="pk" class="form-select form-select-lg mt-1" required style="background-color: #e1e1e1;">
+                                {% for image in object.get_recovery_images %}
+                                    <option value="{{ image.pk }}">{{ forloop.counter }}</option>
+                                {% endfor %}
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-light fw-semibold px-3" data-bs-dismiss="modal" aria-label="Close">بستن
+                    </button>
+                    <button type="submit" class="btn btn-danger fw-semibold px-3">حذف</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- .End Delete image modal -->
+
+    <div class="container-fluid col-md-11 bg">
+        <div class="d-flex justify-content-between gap-3 px-md-5 px-3 pt-4">
+            <div class="d-flex align-items-center gap-3 text-white">
+                <i class="bi bi-square-fill"></i>
+                <h4 class="fw-semibold">{{ object.title }}</h4>
+            </div>
+            <div class="d-flex gap-3">
+                <button class="btn btn-danger fw-semibold" data-bs-toggle="modal" data-bs-target="#delImageModal">
+                    حذف تصویر
+                </button>
+                <button class="btn btn-light fw-semibold" data-bs-toggle="modal" data-bs-target="#addImageModal">
+                    افزودن تصویر
+                </button>
+            </div>
+        </div>
+
+        <!-- Start main section -->
+        <main class="main pb-5 w-100">
+            <div class="process-image-box mt-4 w-100">
+                <!-- Swiper -->
+                <div dir="ltr" class="swiper processSwiper">
+                    <div class="swiper-wrapper">
+                        {% for image in object.get_recovery_images %}
+                            <div class="swiper-slide">
+                                <img src="{{ image.get_image_url }}" alt="Image">
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <div class="swiper-button-next"></div>
+                    <div class="swiper-button-prev"></div>
+                </div>
+                <div class="d-flex">
+                    <div class="swiper-pagination"></div>
+                </div>
+            </div>
+        </main>
+        <!-- .End main section -->
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+    <script src="{% static 'vendors/swiper.js' %}"></script>
+    <script>
+        let swiper = new Swiper(".processSwiper", {
+            grabCursor: true,
+            pagination: {
+                el: ".swiper-pagination",
+                type: "fraction",
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+{% endblock %}
