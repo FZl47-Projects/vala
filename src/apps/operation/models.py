@@ -6,6 +6,7 @@ from apps.core.models import BaseModel
 from apps.core.utils import get_time
 from apps.account.models import User
 from .enums import TestStatusChoices
+from .utils import upload_recovery_image
 from os.path import splitext
 
 
@@ -47,3 +48,47 @@ class Test(BaseModel):
 
     def get_date_created(self):
         return self.created_at.strftime('%Y/%m/%d')
+
+
+# RecoveryProcesses model
+class RecoveryProcess(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name=_('User'), related_name='recoveries')
+    title = models.CharField(_('Title'), max_length=128, default=_('No title'))
+    is_active = models.BooleanField(_('Active'), default=True)
+
+    class Meta:
+        verbose_name = _('Recovery process')
+        verbose_name_plural = _('Recovery processes')
+        ordering = ('-id',)
+
+    def __str__(self):
+        return f'{self.user} - {self.title}'
+
+    def get_absolute_url(self):
+        return reverse('operation:recovery_process_details', args=[self.pk])
+
+    def get_recovery_images(self):
+        return self.images.all()
+
+
+# RecoveryProcessImages model
+class RecoveryProcessImage(BaseModel):
+    recovery_process = models.ForeignKey(RecoveryProcess, on_delete=models.CASCADE, verbose_name=_('Recovery process'), related_name='images')
+    image = models.ImageField(_('Image'), upload_to=upload_recovery_image)
+
+    class Meta:
+        verbose_name = _('Recovery image')
+        verbose_name_plural = _('Recovery images')
+
+    def __str__(self):
+        return f'{self.recovery_process}'
+
+    def get_absolute_url(self):
+        return reverse('operation:recovery_process_details', args=[self.recovery_process.pk])
+
+    def get_image_url(self):
+        if self.image:
+            return self.image.url
+
+    def get_user_phone(self):
+        return self.recovery_process.user.get_phone_number()
