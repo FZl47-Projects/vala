@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-12-31 02:36+0330\n"
+"POT-Creation-Date: 2024-01-01 14:10+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -44,9 +44,10 @@ msgstr "حساب کاربری"
 
 #: .\apps\account\enums.py:7 .\apps\account\models.py:41
 #: .\apps\account\models.py:95 .\apps\communication\models.py:15
-#: .\apps\operation\models.py:16 .\apps\public\models.py:13
-#: .\apps\public\models.py:45 .\apps\public\models.py:84
-#: .\apps\public\models.py:97 .\apps\public\models.py:114
+#: .\apps\operation\models.py:17 .\apps\operation\models.py:55
+#: .\apps\public\models.py:13 .\apps\public\models.py:45
+#: .\apps\public\models.py:84 .\apps\public\models.py:97
+#: .\apps\public\models.py:114
 msgid "User"
 msgstr "کاربر"
 
@@ -103,9 +104,9 @@ msgid "Last name"
 msgstr "نام خانوادگی"
 
 #: .\apps\account\models.py:23 .\apps\communication\models.py:20
-#: .\apps\operation\models.py:23 .\apps\public\models.py:17
-#: .\apps\public\models.py:50 .\apps\public\models.py:101
-#: .\apps\public\models.py:120
+#: .\apps\operation\models.py:24 .\apps\operation\models.py:57
+#: .\apps\public\models.py:17 .\apps\public\models.py:50
+#: .\apps\public\models.py:101 .\apps\public\models.py:120
 msgid "Active"
 msgstr "فعال"
 
@@ -229,9 +230,10 @@ msgstr "باز"
 msgid "Closed"
 msgstr "بسته"
 
-#: .\apps\communication\models.py:16 .\apps\operation\models.py:17
-#: .\apps\public\models.py:14 .\apps\public\models.py:46
-#: .\apps\public\models.py:115 .\apps\service\models.py:44
+#: .\apps\communication\models.py:16 .\apps\operation\models.py:18
+#: .\apps\operation\models.py:56 .\apps\public\models.py:14
+#: .\apps\public\models.py:46 .\apps\public\models.py:115
+#: .\apps\service\models.py:44
 msgid "Title"
 msgstr "عنوان"
 
@@ -239,11 +241,11 @@ msgstr "عنوان"
 msgid "Ticket text"
 msgstr "متن تیکت"
 
-#: .\apps\communication\models.py:18 .\apps\operation\models.py:20
+#: .\apps\communication\models.py:18 .\apps\operation\models.py:21
 msgid "Status"
 msgstr "وضعیت"
 
-#: .\apps\communication\models.py:19 .\apps\operation\models.py:21
+#: .\apps\communication\models.py:19 .\apps\operation\models.py:22
 msgid "Admin answer"
 msgstr "پاسخ ادمین"
 
@@ -330,38 +332,76 @@ msgstr "پاسخ داده"
 msgid "Await"
 msgstr "بی پاسخ"
 
-#: .\apps\operation\models.py:17 .\apps\public\models.py:14
-#: .\apps\public\models.py:46
+#: .\apps\operation\models.py:18 .\apps\operation\models.py:56
+#: .\apps\public\models.py:14 .\apps\public\models.py:46
 msgid "No title"
 msgstr "بدون عنوان"
 
-#: .\apps\operation\models.py:18
+#: .\apps\operation\models.py:19
 msgid "Test text"
 msgstr "متن آزمایش"
 
-#: .\apps\operation\models.py:19
+#: .\apps\operation\models.py:20
 msgid "Test file"
 msgstr "فایل آزمایش"
 
-#: .\apps\operation\models.py:26
+#: .\apps\operation\models.py:27
 msgid "Test"
 msgstr "آزمایش"
 
-#: .\apps\operation\models.py:27
+#: .\apps\operation\models.py:28
 msgid "Tests"
 msgstr "آزمایش‌ها"
 
-#: .\apps\operation\views.py:42
+#: .\apps\operation\models.py:60 .\apps\operation\models.py:76
+msgid "Recovery process"
+msgstr "روند بهبودی"
+
+#: .\apps\operation\models.py:61
+msgid "Recovery processes"
+msgstr "روندهای بهبودی"
+
+#: .\apps\operation\models.py:77 .\apps\public\models.py:16
+#: .\apps\public\models.py:49 .\apps\service\models.py:45
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:393
+msgid "Image"
+msgstr "تصویر"
+
+#: .\apps\operation\models.py:80
+msgid "Recovery image"
+msgstr "تصویر بهبودی"
+
+#: .\apps\operation\models.py:81
+msgid "Recovery images"
+msgstr "تصاویر بهبودی"
+
+#: .\apps\operation\views.py:43
 msgid "The answer successfully registered"
 msgstr "پاسخ با موفقیت ثبت شد"
 
-#: .\apps\operation\views.py:60
+#: .\apps\operation\views.py:62
 msgid "You cannot register more than 3 unanswered test"
 msgstr "شما نمی‌توانید بیش از ۳ آزمایش بی پاسخ ثبت کنید"
 
-#: .\apps\operation\views.py:65
+#: .\apps\operation\views.py:67
 msgid "Test added successfully"
 msgstr "آزمایش با موفقیت افزوده شد"
+
+#: .\apps\operation\views.py:91
+msgid "Recovery process added successfully"
+msgstr "روند بهبودی با موفقیت افزوده شد"
+
+#: .\apps\operation\views.py:103
+msgid "Recovery process deleted successfully"
+msgstr "روند بهبودی با موفقیت حذف گردید"
+
+#: .\apps\operation\views.py:120
+msgid "Image added successfully"
+msgstr "تصویر با موفقیت افزوده شد"
+
+#: .\apps\operation\views.py:134
+msgid "Image deleted successfully"
+msgstr "تصویر با موفقیت حذف گردید"
 
 #: .\apps\public\apps.py:8
 msgid "Public"
@@ -370,12 +410,6 @@ msgstr "عمومی"
 #: .\apps\public\models.py:15 .\apps\public\models.py:47
 msgid "Caption"
 msgstr "متن"
-
-#: .\apps\public\models.py:16 .\apps\public\models.py:49
-#: .\apps\service\models.py:45
-#: .\venv\Lib\site-packages\django\db\models\fields\files.py:393
-msgid "Image"
-msgstr "تصویر"
 
 #: .\apps\public\models.py:20
 msgid "Story"
