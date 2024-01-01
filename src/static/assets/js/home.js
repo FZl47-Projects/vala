@@ -80,7 +80,8 @@ btnHamburger.forEach((item, index) => {
             e.target.className === "comment-input" ||
             e.target.classList.contains("btn-send") ||
             e.target.classList.contains("like-icon") ||
-            e.target.classList.contains("btns-post")
+            e.target.classList.contains("btns-post") ||
+            e.target.classList.contains("trash-icon-del")
         )
             return;
         btnHamburger[index].classList.toggle("active");

@@ -7,8 +7,9 @@ from django.urls import reverse_lazy
 from django.http import JsonResponse
 from django.contrib import messages
 
-from .models import Story, Post, PostLike, PostComment, Podcast
 from apps.account.mixins import AccessRequiredMixin
+from apps.account.enums import AccessLevelsEnum
+from . import models
 
 User = get_user_model()
 
@@ -28,8 +29,8 @@ class IndexView(TemplateView):
         context = super().get_context_data(**kwargs)
 
         data = {
-            'stories': Story.get_recent_stories(),  # Recent stories
-            'posts': Post.get_recent_posts(self.request.user)  # Last 10 posts
+            'stories': models.Story.get_recent_stories(),  # Recent stories
+            'posts': models.Post.get_recent_posts(self.request.user)  # Last 10 posts
         }
 
         context.update(data)
@@ -39,7 +40,7 @@ class IndexView(TemplateView):
 # Add Post view
 class AddPostViw(AccessRequiredMixin, CreateView):
     template_name = 'public/admin/index-admin.html'
-    model = Post
+    model = models.Post
     fields = ('title', 'caption', 'category', 'image')
     success_url = reverse_lazy('public:index')
     roles = ['admin']
@@ -49,14 +50,29 @@ class AddPostViw(AccessRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+# Delete Post view
+class DeletePostView(AccessRequiredMixin, View):
+    roles = [AccessLevelsEnum.ADMIN]
+
+    def post(self, request):
+        data = request.POST.copy()
+
+        obj = get_object_or_404(models.Post, pk=data.get('pk'))
+        obj.is_active = False
+        obj.save()
+
+        messages.success(request, _('Post deleted successfully'))
+        return redirect('public:index')
+
+
 # Post Like view
 class LikePostView(LoginRequiredMixin, View):
     def get(self, request, pk):
         try:
-            obj = PostLike.objects.get(post_id=pk, user=request.user)
+            obj = models.PostLike.objects.get(post_id=pk, user=request.user)
             obj.delete()
-        except PostLike.DoesNotExist:
-            PostLike.objects.create(post_id=pk, user=request.user)
+        except models.PostLike.DoesNotExist:
+            models.PostLike.objects.create(post_id=pk, user=request.user)
             return JsonResponse({'response': 'liked'})
 
         return JsonResponse({'response': 'disliked'})
@@ -65,7 +81,7 @@ class LikePostView(LoginRequiredMixin, View):
 # Add Post Comment view
 class AddPostCommentView(LoginRequiredMixin, CreateView):
     template_name = 'public/index.html'
-    model = PostComment
+    model = models.PostComment
     fields = ('post', 'text')
     success_url = reverse_lazy('public:index')
 
@@ -82,7 +98,7 @@ class AddPostCommentView(LoginRequiredMixin, CreateView):
 # Verify Post Comment view
 class VerifyPostCommentView(LoginRequiredMixin, View):
     def get(self, request, pk):
-        obj = get_object_or_404(PostComment, pk=pk)
+        obj = get_object_or_404(models.PostComment, pk=pk)
 
         obj.is_verified = True
         obj.save()
@@ -94,7 +110,7 @@ class VerifyPostCommentView(LoginRequiredMixin, View):
 class DeletePostCommentView(LoginRequiredMixin, View):
     def post(self, request):
         data = request.POST.copy()
-        obj = get_object_or_404(PostComment, pk=data.get('pk'))
+        obj = get_object_or_404(models.PostComment, pk=data.get('pk'))
 
         # Delete comment (deactivate)
         obj.is_active = False
@@ -107,7 +123,7 @@ class DeletePostCommentView(LoginRequiredMixin, View):
 # Add Story view
 class AddStoryView(AccessRequiredMixin, CreateView):
     template_name = 'public/admin/index-admin.html'
-    model = Story
+    model = models.Story
     fields = ('title', 'caption', 'image')
     success_url = reverse_lazy('public:index')
     roles = ['admin']
@@ -131,8 +147,8 @@ class PodcastsView(TemplateView):
     def get_context_data(self, **kwargs):
         contexts = super().get_context_data(**kwargs)
 
-        contexts['stories'] = Story.get_recent_stories()  # Get recent stories
-        contexts['podcasts'] = Podcast.objects.filter(is_active=True)
+        contexts['stories'] = models.Story.get_recent_stories()  # Get recent stories
+        contexts['podcasts'] = models.Podcast.objects.filter(is_active=True)
 
         return contexts
 
@@ -140,7 +156,7 @@ class PodcastsView(TemplateView):
 # Add Podcast view
 class AddPodcastView(AccessRequiredMixin, CreateView):
     template_name = 'public/admin/podcasts-admin.html'
-    model = Podcast
+    model = models.Podcast
     fields = ('title', 'text', 'category', 'image', 'audio')
     success_url = reverse_lazy('public:podcasts_list')
     roles = ['admin']
@@ -157,7 +173,7 @@ class DeletePodcastView(AccessRequiredMixin, View):
 
     def post(self, request):
         data = request.POST.copy()
-        obj = get_object_or_404(Podcast, pk=data.get('pk'))
+        obj = get_object_or_404(models.Podcast, pk=data.get('pk'))
 
         # Delete podcast (deactivate)
         obj.is_active = False

@@ -53,7 +53,7 @@ function verifyComment(id, el) {
 // ---------------------------- Verify Comment handler -------------------------- //
 
 
-// ---------------------------- Add data to delete modal -------------------------- //
+// ---------------------------- Add data to delete comment modal -------------------------- //
 $('#deletePostCommentModal').on('show.bs.modal', function (event) {
     let button = $(event.relatedTarget)
     let primaryKey = button.data('primarykey')
@@ -61,4 +61,15 @@ $('#deletePostCommentModal').on('show.bs.modal', function (event) {
     let modal = $(this)
     modal.find('.modal-body #commentId').val(primaryKey)
 })
-// ---------------------------- Add data to delete modal -------------------------- //
+// ---------------------------- Add data to delete comment modal -------------------------- //
+
+
+// ---------------------------- Add data to delete post modal -------------------------- //
+$('#deletePostModal').on('show.bs.modal', function (event) {
+    let button = $(event.relatedTarget)
+    let primaryKey = button.data('primarykey')
+
+    let modal = $(this)
+    modal.find('.modal-body #postId').val(primaryKey)
+})
+// ---------------------------- Add data to delete post modal -------------------------- //

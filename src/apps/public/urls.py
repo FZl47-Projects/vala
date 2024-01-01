@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.IndexView.as_view(), name='index'),
 
     path('post/add/', views.AddPostViw.as_view(), name='add_post'),
+    path('post/delete/', views.DeletePostView.as_view(), name='delete_post'),
     path('post/<int:pk>/like/', views.LikePostView.as_view(), name='like_post'),
     path('post/comments/add/', views.AddPostCommentView.as_view(), name='add_post_comment'),
     path('post/comments/<int:pk>/verify/', views.VerifyPostCommentView.as_view(), name='verify_post_comment'),

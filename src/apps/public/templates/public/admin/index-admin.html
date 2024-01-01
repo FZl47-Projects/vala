@@ -17,6 +17,10 @@
         {% include 'public/admin/components/delete-post-comment.html' %}
         <!-- .End delete post comment modal -->
 
+        <!-- Start Delete post modal -->
+        {% include 'public/admin/components/delete-post.html' %}
+        <!-- .End Delete post modal -->
+
         <!-- Start Add post modal -->
         <div class="content-modal add-post-modal">
             <div class="inner-modal">
@@ -175,6 +179,11 @@
                     <div class="content-post">
                         <img src="{{ post.get_image_url }}" alt="{{ post.title }}" class="imge-post">
                         <div class="inner-content-post-two">
+                            <div class="position-absolute" style="left: 20px; top: 20px; font-size: 20px; z-index: 20;">
+                                <i role="button" class="bi bi-trash3-fill text-white trash-icon-del"
+                                   data-bs-toggle="modal" data-bs-target="#deletePostModal" data-primarykey="{{ post.pk }}"></i>
+                            </div>
+
                             <div class="line">
                                 <div class="row">
                                     <div class="col-2 icon">
