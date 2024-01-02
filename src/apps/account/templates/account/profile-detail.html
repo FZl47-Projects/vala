@@ -22,9 +22,11 @@
 
         <main class="main pb-5 pt-4">
             <div class="profile-user-category">
-                <form method="POST" action="{% url 'account:profile_details' user.pk %}" enctype="multipart/form-data"
+                <form method="POST" action="{% url 'account:profile_update' %}" enctype="multipart/form-data"
                       class="inner-profile-user-category col-12 col-md-7">
                     {% csrf_token %}
+                    <input type="hidden" name="pk" value="{{ user.pk }}">
+
                     <div class="logo">
                         <div class="col-3">
                             <img src="{% static 'images/vala-logo.png' %}" alt="Vala logo">

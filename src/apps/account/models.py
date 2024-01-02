@@ -92,6 +92,12 @@ class User(AbstractBaseUser):
             return True
         return False
 
+    def has_operator_access(self):
+        access = [self.ACCESSES.ADMIN, self.ACCESSES.WORKOUT_OP, self.ACCESSES.DIET_OP]
+        if self.access.filter(title__in=access).exists():
+            return True
+        return False
+
     def get_full_name(self):
         if self.first_name:
             return f'{self.first_name} {self.last_name}'

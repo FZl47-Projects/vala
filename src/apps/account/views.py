@@ -1,20 +1,17 @@
 from django.views.generic import View, TemplateView, ListView, DetailView
 from django.shortcuts import redirect, reverse, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.contrib.auth import login, get_user_model
 from django.utils.translation import gettext as _
+from django.contrib.auth import login
 from django.contrib import messages
 
 from .mixins import LogoutRequiredMixin, PermissionMixin, AccessRequiredMixin
 from apps.notification.models import Notification
 from apps.core.utils import validate_form
+from .models import Access, User
 from .enums import AccessChoices
 from random import randint
-from .models import Access
 from . import forms
-
-
-User = get_user_model()
 
 
 # Render Login view
@@ -152,7 +149,16 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 class ProfileDetailView(PermissionMixin, DetailView):
     template_name = 'account/admin/profile-detail.html'
     model = User
-    context_object_name = 'user'
+    context_object_name = 'object'
+
+    def get_template_names(self):
+        if self.request.user == self.object:
+            return 'account/profile-detail.html'
+        return super().get_template_names()
+
+
+# Update Profile View
+class UpdateProfileView(LoginRequiredMixin, View):
 
     def admin_update(self, data, obj):
         # Get selected access and set them for user
@@ -160,13 +166,9 @@ class ProfileDetailView(PermissionMixin, DetailView):
         accesses = Access.objects.filter(title__in=selected_access)
         obj.user.access.set(accesses)
 
-    def get_template_names(self):
-        if self.request.user == self.object:
-            return 'account/profile-detail.html'
-        return super().get_template_names()
-
-    def post(self, request, pk):
+    def post(self, request):
         data = request.POST.copy()
+        pk = data.get('pk')
         instance = get_object_or_404(User, pk=pk).user_profile
 
         form = forms.UpdateProfileForm(data=data, instance=instance, files=request.FILES)
@@ -202,11 +204,12 @@ class EditUserPassView(LoginRequiredMixin, View):
 
 # Render UsersList view
 class UsersListView(AccessRequiredMixin, ListView):
-    template_name = 'account/admin/list.html'
+    template_name = 'account/admin/users-list.html'
     model = User
     # TODO: Add pagination
     roles = [AccessChoices.ADMIN, AccessChoices.DIET_OP, AccessChoices.WORKOUT_OP]
 
     def get_queryset(self):
-        return super().get_queryset()
+        queryset = User.objects.exclude(access__title=AccessChoices.ADMIN)
+        return queryset
         # TODO: Add filters and search
