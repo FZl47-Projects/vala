@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 
 from apps.account.mixins import AccessRequiredMixin
-from apps.account.enums import AccessLevelsEnum
+from apps.account.enums import AccessChoices
 from . import models
 
 User = get_user_model()
@@ -52,14 +52,13 @@ class AddPostViw(AccessRequiredMixin, CreateView):
 
 # Delete Post view
 class DeletePostView(AccessRequiredMixin, View):
-    roles = [AccessLevelsEnum.ADMIN]
+    roles = [AccessChoices.ADMIN]
 
     def post(self, request):
         data = request.POST.copy()
 
         obj = get_object_or_404(models.Post, pk=data.get('pk'))
-        obj.is_active = False
-        obj.save()
+        obj.delete()
 
         messages.success(request, _('Post deleted successfully'))
         return redirect('public:index')

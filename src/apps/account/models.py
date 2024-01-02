@@ -6,14 +6,30 @@ from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 from apps.core.models import BaseModel
 from .utils import get_raw_phone_number
-from .enums import AccessLevelsEnum
+from .enums import AccessChoices
 from .managers import UserManager
 from secrets import token_hex
 
 
+# User Access model
+class Access(BaseModel):
+    ACCESS = AccessChoices
+    title = models.CharField(_('Access title'), max_length=64, choices=ACCESS.choices, unique=True)
+
+    class Meta:
+        verbose_name = _('Access')
+        verbose_name_plural = _('Accesses')
+
+    def __str__(self):
+        return self.title
+
+    def get_title_label(self):
+        return self.get_title_display()
+
+
 # Custom User model
 class User(AbstractBaseUser):
-    ACCESS_LEVELS = AccessLevelsEnum
+    ACCESSES = AccessChoices
 
     # Fields
     phone_number = PhoneNumberField(_('Phone number'), max_length=32, unique=True)
@@ -23,8 +39,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(_("Active"), default=True)
     is_verified = models.BooleanField(_('Verify'), default=False)
     is_admin = models.BooleanField(_("Admin"), default=False)
-    access_level = models.CharField(_("Access level"), max_length=32, choices=ACCESS_LEVELS.choices,
-                                    default=ACCESS_LEVELS.USER)
+    access = models.ManyToManyField(Access, verbose_name=_("Accesses"), default=ACCESSES.USER)
 
     token = models.CharField(_("Secret token"), max_length=64, null=True, blank=True, editable=False)
 
@@ -67,7 +82,7 @@ class User(AbstractBaseUser):
 
     @property
     def has_admin_access(self):
-        if self.access_level == self.ACCESS_LEVELS.ADMIN:
+        if self.access.filter(title=self.ACCESSES.ADMIN).exists():
             return True
         return False
 

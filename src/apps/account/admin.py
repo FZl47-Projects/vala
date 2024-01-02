@@ -6,11 +6,14 @@ from django.contrib import admin
 from django import forms
 
 from .forms import UserCreationForm
-from .models import User, UserProfile
+from .models import User, UserProfile, Access
 
 
 # Unregister the Group model from admin.
 admin.site.unregister(Group)
+
+# Register User Access model admin
+admin.site.register(Access)
 
 
 # User model admin
@@ -19,15 +22,14 @@ class UserAdmin(BaseUserAdmin):
     # The form to add user instances
     add_form = UserCreationForm
 
-    list_display = ('__str__', 'email', 'access_level', 'is_active', 'is_verified')
+    list_display = ('__str__', 'email', 'first_name', 'last_name', 'is_active', 'is_verified')
     list_display_links = ('__str__', 'email',)
     readonly_fields = ('created_at', 'last_login',)
-    list_filter = ('is_active', 'access_level',)
-    radio_fields = {'access_level': admin.HORIZONTAL}
+    list_filter = ('is_active', 'access',)
     fieldsets = (
         (None, {'fields': ('phone_number', 'password',)}),
         (_('Personal info'), {'fields': ('email', 'first_name', 'last_name',)}),
-        (_('Permissions'), {'fields': ('access_level', 'is_active', 'is_verified', 'is_admin',)}),
+        (_('Permissions'), {'fields': ('is_active', 'is_verified', 'is_admin', 'access',)}),
         (_('Dates'), {'fields': ('last_login', 'created_at',)}),
     )
 
@@ -43,7 +45,7 @@ class UserAdmin(BaseUserAdmin):
     # Add search and ordering fields
     search_fields = ('phone_number', 'email')
     ordering = ('phone_number',)
-    filter_horizontal = ()
+    filter_horizontal = ('access',)
 
 
 # UserProfile model admin

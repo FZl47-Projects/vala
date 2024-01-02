@@ -20,7 +20,9 @@ class AccessRequiredMixin:
     roles = []
 
     def dispatch(self, request, *args, **kwargs):
-        if request.user.is_authenticated and request.user.access_level in self.roles:
+        if request.user.is_anonymous:
+            return redirect('account:login')
+        elif request.user.access.filter(title__in=self.roles).exists():
             return super().dispatch(request, *args, **kwargs)
 
         return HttpResponseForbidden()
@@ -49,7 +51,7 @@ class PermissionMixin:
             obj = None
 
         user = request.user
-        if user.access_level == User.ACCESS_LEVELS.ADMIN or user == obj:
+        if user.access.filter(title=User.ACCESSES.ADMIN).exists() or user == obj:
             return super().dispatch(request, *args, **kwargs)
 
         return redirect('account:profile')
