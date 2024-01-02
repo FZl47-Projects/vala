@@ -1,14 +1,16 @@
 from django.shortcuts import redirect, render, reverse, get_object_or_404
+from django.views.generic import View, TemplateView, ListView, DetailView
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import View, TemplateView
 from django.contrib.auth import login, get_user_model
 from django.utils.translation import gettext as _
 from django.contrib import messages
 
-from .mixins import LogoutRequiredMixin, PermissionMixin
+from .mixins import LogoutRequiredMixin, PermissionMixin, AccessRequiredMixin
 from apps.notification.models import Notification
 from apps.core.utils import validate_form
+from .enums import AccessChoices
 from random import randint
+from .models import Access
 from . import forms
 
 
@@ -147,13 +149,21 @@ class ProfileView(LoginRequiredMixin, TemplateView):
 
 
 # Render Profile Detail view
-class ProfileDetailView(LoginRequiredMixin, PermissionMixin, View):
-    template_name = 'account/profile-detail.html'
+class ProfileDetailView(PermissionMixin, DetailView):
+    template_name = 'account/admin/profile-detail.html'
+    model = User
+    context_object_name = 'user'
 
-    def get(self, request, pk):
-        user = get_object_or_404(User, pk=pk)
+    def admin_update(self, data, obj):
+        # Get selected access and set them for user
+        selected_access = data.getlist('access')
+        accesses = Access.objects.filter(title__in=selected_access)
+        obj.user.access.set(accesses)
 
-        return render(request, 'account/profile-detail.html', context={'user': user})
+    def get_template_names(self):
+        if self.request.user == self.object:
+            return 'account/profile-detail.html'
+        return super().get_template_names()
 
     def post(self, request, pk):
         data = request.POST.copy()
@@ -161,7 +171,11 @@ class ProfileDetailView(LoginRequiredMixin, PermissionMixin, View):
 
         form = forms.UpdateProfileForm(data=data, instance=instance, files=request.FILES)
         if validate_form(request, form):
-            form.save()
+            obj = form.save()
+
+            # Do some stuff of editor is not own user
+            if request.user.user_profile != obj:
+                self.admin_update(data, obj)
 
             messages.success(request, _('Profile saved successfully'))
 
@@ -184,3 +198,15 @@ class EditUserPassView(LoginRequiredMixin, View):
 
         messages.error(request, _('Password is wrong!'))
         return redirect(reverse('account:profile_details', args=[user.id]))
+
+
+# Render UsersList view
+class UsersListView(AccessRequiredMixin, ListView):
+    template_name = 'account/admin/list.html'
+    model = User
+    # TODO: Add pagination
+    roles = [AccessChoices.ADMIN, AccessChoices.DIET_OP, AccessChoices.WORKOUT_OP]
+
+    def get_queryset(self):
+        return super().get_queryset()
+        # TODO: Add filters and search

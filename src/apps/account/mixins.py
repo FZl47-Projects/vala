@@ -1,6 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
+from .enums import AccessChoices
 
 User = get_user_model()
 
@@ -41,6 +42,7 @@ class ProfileCompletionMixin:
 
 class PermissionMixin:
     """ Limit access permission to the view. """
+    access = [AccessChoices.ADMIN, AccessChoices.WORKOUT_OP, AccessChoices.DIET_OP]
 
     def dispatch(self, request, *args, **kwargs):
         pk = kwargs.get('pk')
@@ -50,8 +52,9 @@ class PermissionMixin:
         except User.DoesNotExist:
             obj = None
 
-        user = request.user
-        if user.access.filter(title=User.ACCESSES.ADMIN).exists() or user == obj:
+        if request.user.is_anonymous:
+            return redirect('account:login')
+        elif request.user.access.filter(title__in=self.access).exists() or request.user == obj:
             return super().dispatch(request, *args, **kwargs)
 
         return redirect('account:profile')

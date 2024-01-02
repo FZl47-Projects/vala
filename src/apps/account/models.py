@@ -1,6 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser
 from django.utils.translation import gettext as _
 from django.templatetags.static import static
+from django.shortcuts import reverse
 from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
@@ -39,7 +40,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(_("Active"), default=True)
     is_verified = models.BooleanField(_('Verify'), default=False)
     is_admin = models.BooleanField(_("Admin"), default=False)
-    access = models.ManyToManyField(Access, verbose_name=_("Accesses"), default=ACCESSES.USER)
+    access = models.ManyToManyField(Access, verbose_name=_("Accesses"), default=ACCESSES.USER, blank=True)
 
     token = models.CharField(_("Secret token"), max_length=64, null=True, blank=True, editable=False)
 
@@ -86,6 +87,11 @@ class User(AbstractBaseUser):
             return True
         return False
 
+    def has_specific_access(self, access=None):
+        if self.access.filter(title=access).exists():
+            return True
+        return False
+
     def get_full_name(self):
         if self.first_name:
             return f'{self.first_name} {self.last_name}'
@@ -127,6 +133,9 @@ class UserProfile(BaseModel):
 
     def __str__(self):
         return f'{self.user}'
+
+    def get_absolute_url(self):
+        return reverse('account:profile_details', args=[self.user.pk])
 
     def get_image_url(self):
         if self.image:
