@@ -1,4 +1,5 @@
 {% load static %}
+{% load filters %}
 
 <div class="height-full-viewport" id="height-full-viewport-desk">
     <div id="close-menu-1">
@@ -14,12 +15,12 @@
         </li>
         <li class="bg-white rounded-pill h3 w-100">
             <a href="{% url 'service:operator_category__list' %}" class="text-black d-block w-100 py-2">
-                اپراتورها
+                خدمات حضوری
             </a>
         </li>
         <li class="bg-white rounded-pill h3 w-100">
             <a href="{% url 'service:operator_reserve__list' %}" class="text-black d-block w-100 py-2">
-                رزروهای اپراتور
+                رزروهای خدمات
             </a>
         </li>
         <li class="bg-white rounded-pill h3 w-100">
