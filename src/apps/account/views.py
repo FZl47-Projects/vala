@@ -1,5 +1,5 @@
-from django.shortcuts import redirect, render, reverse, get_object_or_404
 from django.views.generic import View, TemplateView, ListView, DetailView
+from django.shortcuts import redirect, reverse, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import login, get_user_model
 from django.utils.translation import gettext as _
@@ -71,6 +71,26 @@ class RegisterView(LogoutRequiredMixin, View):
         return redirect('account:login')
 
 
+# Render CompleteProfile view
+class CompleteProfileView(LogoutRequiredMixin, TemplateView):
+    template_name = 'account/complete-profile.html'
+
+    def post(self, request):
+        data = request.POST.copy()
+        token = request.session.get('register_token')
+
+        instance = get_object_or_404(User, token=token).user_profile
+
+        form = forms.AddProfileForm(data=data, instance=instance, files=request.FILES)
+        if validate_form(request, form):
+            form.save()
+
+            messages.success(request, _('Code sent to you'))
+            return redirect('account:send_verify_code')
+
+        return redirect('account:complete_profile')
+
+
 # SendCode view
 class SendCodeView(View):
     def get(self, request):
@@ -121,26 +141,6 @@ class VerifyPhoneNumberView(LogoutRequiredMixin, TemplateView):
 
         messages.success(request, _('Register done successful'))
         return redirect('public:index')
-
-
-# Render CompleteProfile view
-class CompleteProfileView(LogoutRequiredMixin, TemplateView):
-    template_name = 'account/complete-profile.html'
-
-    def post(self, request):
-        data = request.POST.copy()
-        token = request.session.get('register_token')
-
-        instance = get_object_or_404(User, token=token).user_profile
-
-        form = forms.AddProfileForm(data=data, instance=instance, files=request.FILES)
-        if validate_form(request, form):
-            form.save()
-
-            messages.success(request, _('Code sent to you'))
-            return redirect('account:send_verify_code')
-
-        return redirect('account:complete_profile')
 
 
 # Render Profile view
