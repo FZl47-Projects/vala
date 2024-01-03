@@ -104,16 +104,17 @@
                 <div class="content-modal modal-hilight-pro">
                     <div class="inner-modal d-flex flex-column ">
                         <div class="btn-exit display-1 text-white">×</div>
-                        <div class="border-1 border-white rounded-4 overflow-hidden ">
+                        <div class="border-1 border-white rounded-4 overflow-hidden">
                             <img class="h-100 user-select-none" src="{{ story.get_image_url }}" alt="{{ story.title }}">
                         </div>
-                        <p class="text-white text-justify my-4" style="font-size : 1.5em">{{ story.title }}</p>
+                        <p class="text-white text-justify my-2" style="font-size : 1.5em">{{ story.title }}</p>
                         <div class="text-white">
-                            <button class="display-1 mx-2 btn-story next" onclick="nextHandler({{ forloop.counter0 }})">&lt;
-                            </button>
-                            <button class="display-1 mx-2 btn-story prev" onclick="prevHandler({{ forloop.counter0 }})">&gt;
-                            </button>
+                            <button class="display-1 mx-2 btn-story next" onclick="nextHandler({{ forloop.counter0 }})">&lt;</button>
+                            <button class="display-1 mx-2 btn-story prev" onclick="prevHandler({{ forloop.counter0 }})">&gt;</button>
                         </div>
+                        <a href="{% url 'public:pin_story' story.pk %}?state={{ story.pinned }}" style="font-size: 20px;">
+                            <i class="bi bi-pin-angle{% if story.pinned %}-fill{% endif %} text-white"></i>
+                        </a>
                     </div>
                 </div>
             {% endfor %}
@@ -132,6 +133,7 @@
                             <span class="text-add">افزودن هایلایت</span>
                         </div>
 
+                        <!-- Start recent stories -->
                         {% for story in stories %}
                             <div class="col-3 col-md-2 p-2 highlit-item story_item">
                                 <div class="highlit-item-inner">
@@ -140,6 +142,7 @@
                                 <div class="highlit-title">{{ story.title }}</div>
                             </div>
                         {% endfor %}
+                        <!-- .End recent stories -->
 
                     </div>
                 </div>
@@ -153,6 +156,8 @@
                         <span class="icon-add"> + </span>
                         <span class="text-add">افزودن پست</span>
                     </div>
+
+                    <!-- Start recent posts -->
                     {% for post in posts %}
                         <div class="post-item col-3 col-md-12">
                             <div class="col-12 col-md-4 col-lg-3 p-1">
@@ -177,10 +182,12 @@
                             </div>
                         </div>
                     {% endfor %}
+                    <!-- .End recent posts -->
                 </div>
             </div>
 
             <div id="big-container">
+                <!-- Start recent posts -->
                 {% for post in posts %}
                     <div class="content-post">
                         {% if post.get_file_type == 'image'  %}
@@ -191,10 +198,13 @@
                             </video>
                         {% endif %}
                         <div class="inner-content-post-two">
-                            <div class="position-absolute" style="left: 20px; top: 20px; font-size: 20px; z-index: 20;">
-                                <i role="button" class="bi bi-trash3-fill text-white trash-icon-del"
+                            <div class="position-absolute trash-icon">
+                                <i role="button" class="bi bi-trash3-fill text-white btns-post"
                                    data-bs-toggle="modal" data-bs-target="#deletePostModal" data-primarykey="{{ post.pk }}"></i>
                             </div>
+                            <a href="{% url 'public:pin_post' post.pk %}?state={{ post.pinned }}" class="position-absolute pin-icon">
+                                <i class="bi bi-pin-angle{% if post.pinned %}-fill{% endif %} text-white btns-post"></i>
+                            </a>
 
                             <div class="line">
                                 <div class="row">
@@ -268,6 +278,8 @@
                         </div>
                     </div>
                 {% endfor %}
+                <!-- .End recent posts -->
+
             </div>
         </main>
     </div>

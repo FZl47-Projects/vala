@@ -241,6 +241,20 @@ input {
   background-color: transparent;
 }
 
+.trash-icon {
+  left: 25px;
+  top: 22px;
+  font-size: 20px;
+  z-index: 20;
+}
+
+.pin-icon {
+  top: 23px;
+  left: 50px;
+  z-index: 20;
+  font-size: 20px;
+}
+
 /*COLOR BODY*/
 /*COLOR BODY*/
 /* COLOR WHITE*/

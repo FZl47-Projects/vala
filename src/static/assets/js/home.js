@@ -47,6 +47,7 @@ window.nextHandler = (index) => {
 
 
 // ---------------------------------- Posts ----------------------------------------- //
+let videos = document.querySelectorAll("video");
 let postsBtn = document.querySelectorAll(".post-item");
 let contents = document.querySelectorAll(" .content-post");
 
@@ -57,6 +58,9 @@ postsBtn.forEach((item, index) => {
         });
         contents.forEach((item) => {
             item.classList.remove("active");
+        });
+        videos.forEach((item) => {
+           item.pause();
         });
         postsBtn[index].classList.add("active");
         contents[index].classList.add("active");
@@ -80,8 +84,7 @@ btnHamburger.forEach((item, index) => {
             e.target.className === "comment-input" ||
             e.target.classList.contains("btn-send") ||
             e.target.classList.contains("like-icon") ||
-            e.target.classList.contains("btns-post") ||
-            e.target.classList.contains("trash-icon-del")
+            e.target.classList.contains("btns-post")
         )
             return;
         btnHamburger[index].classList.toggle("active");

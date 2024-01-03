@@ -58,6 +58,7 @@
             <!-- Start post category -->
             <div class="posts-category posts-category-two">
                 <div class="inner-post-category w-100" id="posts-container">
+                    <!-- Start recent posts -->
                     {% for post in posts %}
                         <div class="post-item col-3 col-md-12">
                             <div class="col-12 col-md-4 col-lg-3 p-1">
@@ -86,6 +87,7 @@
             </div>
 
             <div id="big-container">
+                <!-- Start recent posts -->
                 {% for post in posts %}
                     <div class="content-post">
                         {% if post.get_file_type == 'image'  %}
@@ -154,6 +156,8 @@
                         </div>
                     </div>
                 {% endfor %}
+                <!-- .End recent posts -->
+
             </div>
         </main>
     </div>

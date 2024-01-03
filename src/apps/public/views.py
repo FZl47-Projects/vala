@@ -26,15 +26,11 @@ class IndexView(TemplateView):
         return super().get_template_names()
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        contexts = super().get_context_data(**kwargs)
+        contexts['stories'] = models.Story.get_recent_stories()  # Recent stories
+        contexts['posts'] = models.Post.get_recent_posts(self.request.user)  # Last 10 posts
 
-        data = {
-            'stories': models.Story.get_recent_stories(),  # Recent stories
-            'posts': models.Post.get_recent_posts(self.request.user)  # Last 10 posts
-        }
-
-        context.update(data)
-        return context
+        return contexts
 
 
 # Add Post view
@@ -130,6 +126,50 @@ class AddStoryView(AccessRequiredMixin, CreateView):
     def form_valid(self, form):
         messages.success(self.request, _('Story successfully added'))
         return super().form_valid(form)
+
+
+# Pin Story view
+class PinStoryView(AccessRequiredMixin, View):
+    roles = [AccessChoices.ADMIN]
+
+    def get(self, request, pk):
+        obj = get_object_or_404(models.Story, pk=pk)
+        pin_state = request.GET.get('state')
+
+        if pin_state == 'False':
+            pinned_count = models.Story.objects.filter(is_active=True, pinned=True).count()
+
+            if pinned_count >= 3:
+                messages.error(request, _('You cannot pin more than 3 stories'))
+                return redirect('public:index')
+
+        obj.pinned = not obj.pinned
+        obj.save()
+
+        messages.success(request, _('Operation done successfully'))
+        return redirect('public:index')
+
+
+# Pin Post view
+class PinPostView(AccessRequiredMixin, View):
+    roles = [AccessChoices.ADMIN]
+
+    def get(self, request, pk):
+        obj = get_object_or_404(models.Post, pk=pk)
+        pin_state = request.GET.get('state')
+
+        if pin_state == 'False':
+            pinned_count = models.Post.objects.filter(is_active=True, pinned=True).count()
+
+            if pinned_count >= 3:
+                messages.error(request, _('You cannot pin more than 3 posts'))
+                return redirect('public:index')
+
+        obj.pinned = not obj.pinned
+        obj.save()
+
+        messages.success(request, _('Operation done successfully'))
+        return redirect('public:index')
 
 
 # Render Podcast view

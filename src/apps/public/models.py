@@ -14,6 +14,7 @@ class Story(BaseModel):
     title = models.CharField(_('Title'), max_length=64, default=_('No title'))
     caption = models.TextField(_('Caption'), max_length=512, null=True, blank=True)
     image = models.ImageField(_('Image'), upload_to=f'images/story/{get_time("%Y-%m-%d")}/')
+    pinned = models.BooleanField(_('Pinned'), default=False)
     is_active = models.BooleanField(_('Active'), default=True)
 
     class Meta:
@@ -33,11 +34,14 @@ class Story(BaseModel):
         """ Return objects created within the last 24 hours or last 8 ones """
         if daily:
             active_time = datetime.now() - timedelta(hours=24)
-            objects = cls.objects.filter(is_active=True, created_at__gte=active_time)
+            objects = cls.objects.filter(is_active=True, pinned=False, created_at__gte=active_time)
         else:
-            objects = cls.objects.filter(is_active=True)[:8]
+            objects = cls.objects.filter(is_active=True, pinned=False)[:8]
 
-        return objects
+        pinned = cls.objects.filter(is_active=True, pinned=True)
+        objects = pinned | objects
+
+        return objects.order_by('-pinned', '-created_at')
 
 
 # Posts model
@@ -47,6 +51,7 @@ class Post(BaseModel):
     caption = models.TextField(_('Caption'), null=True, blank=True)
     category = models.CharField(_('Category'), max_length=64, null=True, blank=True)
     file = models.FileField(_('File'), upload_to=f'files/posts/{get_time("%Y-%m-%d")}/', null=True)
+    pinned = models.BooleanField(_('Pinned'), default=False)
     is_active = models.BooleanField(_('Active'), default=True)
 
     class Meta:
@@ -80,11 +85,14 @@ class Post(BaseModel):
     @classmethod
     def get_recent_posts(cls, user=None):
         """ Return recent posts based on user login. if user is authenticated, returns posts with like state. """
-        objects = cls.objects.filter(is_active=True)[:20]
+        objects = cls.objects.filter(is_active=True, pinned=False)[:20]
+        pinned = cls.objects.filter(is_active=True, pinned=True)
+        objects = pinned | objects
+
         if user.is_authenticated:
             objects = objects.annotate(user_liked=Exists(PostLike.objects.filter(post=OuterRef('pk'), user=user)))
 
-        return objects
+        return objects.order_by('-pinned', '-created_at')
 
 
 # PostLikes model
