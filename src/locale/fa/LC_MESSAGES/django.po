@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-02 14:14+0330\n"
+"POT-Creation-Date: 2024-01-04 00:33+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,16 +42,16 @@ msgstr "سوال ادمین"
 msgid "Account"
 msgstr "حساب کاربری"
 
-#: .\apps\account\enums.py:7 .\apps\account\models.py:56
-#: .\apps\account\models.py:110 .\apps\communication\models.py:15
+#: .\apps\account\enums.py:7 .\apps\account\models.py:57
+#: .\apps\account\models.py:122 .\apps\communication\models.py:16
 #: .\apps\operation\models.py:17 .\apps\operation\models.py:55
-#: .\apps\public\models.py:13 .\apps\public\models.py:45
-#: .\apps\public\models.py:84 .\apps\public\models.py:97
-#: .\apps\public\models.py:114
+#: .\apps\public\models.py:13 .\apps\public\models.py:49
+#: .\apps\public\models.py:100 .\apps\public\models.py:113
+#: .\apps\public\models.py:130
 msgid "User"
 msgstr "کاربر"
 
-#: .\apps\account\enums.py:8 .\apps\account\models.py:41
+#: .\apps\account\enums.py:8 .\apps\account\models.py:42
 msgid "Admin"
 msgstr "ادمین"
 
@@ -68,7 +68,7 @@ msgstr "اپراتور تغذیه"
 msgid "Workout operator"
 msgstr "اپراتور ورزشی"
 
-#: .\apps\account\forms.py:15 .\apps\account\models.py:35
+#: .\apps\account\forms.py:15 .\apps\account\models.py:36
 #: .\apps\service\models.py:54
 msgid "Phone number"
 msgstr "شماره تماس"
@@ -94,143 +94,144 @@ msgstr "گذرواژه یکسان نیست."
 msgid "Entered data is incorrect"
 msgstr "اطلاعات وارد شده صحیح نیست."
 
-#: .\apps\account\managers.py:21
+#: .\apps\account\managers.py:30
 msgid "Users must have a mobile number!"
 msgstr "کاربران باید یک شماره تماس داشته باشند."
 
-#: .\apps\account\models.py:17
+#: .\apps\account\models.py:18
 msgid "Access title"
 msgstr "عنوان دسترسی"
 
-#: .\apps\account\models.py:20
+#: .\apps\account\models.py:21
 msgid "Access"
 msgstr "دسترسی"
 
-#: .\apps\account\models.py:21 .\apps\account\models.py:42
+#: .\apps\account\models.py:22 .\apps\account\models.py:43
 msgid "Accesses"
 msgstr "دسترسی‌ها"
 
-#: .\apps\account\models.py:36
+#: .\apps\account\models.py:37
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:1845
 msgid "Email address"
 msgstr "نشانی الکترونیک"
 
-#: .\apps\account\models.py:37
+#: .\apps\account\models.py:38
 msgid "First name"
 msgstr "نام"
 
-#: .\apps\account\models.py:38
+#: .\apps\account\models.py:39
 msgid "Last name"
 msgstr "نام خانوادگی"
 
-#: .\apps\account\models.py:39 .\apps\communication\models.py:20
-#: .\apps\operation\models.py:24 .\apps\operation\models.py:57
-#: .\apps\public\models.py:17 .\apps\public\models.py:50
-#: .\apps\public\models.py:101 .\apps\public\models.py:120
+#: .\apps\account\models.py:40 .\apps\communication\models.py:21
+#: .\apps\communication\models.py:36 .\apps\operation\models.py:24
+#: .\apps\operation\models.py:57 .\apps\public\models.py:18
+#: .\apps\public\models.py:55 .\apps\public\models.py:117
+#: .\apps\public\models.py:136
 msgid "Active"
 msgstr "فعال"
 
-#: .\apps\account\models.py:40
+#: .\apps\account\models.py:41
 msgid "Verify"
 msgstr "تایید"
 
-#: .\apps\account\models.py:44
+#: .\apps\account\models.py:45
 msgid "Secret token"
 msgstr "رمز مخفی"
 
-#: .\apps\account\models.py:46 .\apps\core\models.py:7
+#: .\apps\account\models.py:47 .\apps\core\models.py:7
 msgid "Creation time"
 msgstr "زمان ایجاد"
 
-#: .\apps\account\models.py:47 .\apps\core\models.py:8
+#: .\apps\account\models.py:48 .\apps\core\models.py:8
 msgid "Update time"
 msgstr "زمان ویرایش"
 
-#: .\apps\account\models.py:57
+#: .\apps\account\models.py:58
 msgid "Users"
 msgstr "کاربران"
 
-#: .\apps\account\models.py:92
+#: .\apps\account\models.py:104
 msgid "No name"
 msgstr "بدون نام"
 
-#: .\apps\account\models.py:113
+#: .\apps\account\models.py:125
 msgid "First question"
 msgstr "سوال اول"
 
-#: .\apps\account\models.py:113 .\apps\account\models.py:114
+#: .\apps\account\models.py:125 .\apps\account\models.py:126
 msgid "No answer"
 msgstr "بدون جواب"
 
-#: .\apps\account\models.py:114
+#: .\apps\account\models.py:126
 msgid "Second question"
 msgstr "سوال دوم"
 
-#: .\apps\account\models.py:116 .\apps\service\models.py:26
+#: .\apps\account\models.py:128 .\apps\service\models.py:26
 msgid "Picture"
 msgstr "تصویر"
 
-#: .\apps\account\models.py:117
+#: .\apps\account\models.py:129
 msgid "Date of birth"
 msgstr "تاریخ تولد"
 
-#: .\apps\account\models.py:119
+#: .\apps\account\models.py:131
 msgid "Height"
 msgstr "قد"
 
-#: .\apps\account\models.py:120
+#: .\apps\account\models.py:132
 msgid "Weight"
 msgstr "وزن"
 
-#: .\apps\account\models.py:122 .\apps\public\models.py:100
+#: .\apps\account\models.py:134 .\apps\public\models.py:116
 msgid "Verified"
 msgstr "تایید شده"
 
-#: .\apps\account\models.py:125
+#: .\apps\account\models.py:137
 msgid "User profile"
 msgstr "پروفایل کاربر"
 
-#: .\apps\account\models.py:126
+#: .\apps\account\models.py:138
 msgid "User profiles"
 msgstr "پروفایل‌ کاربران"
 
-#: .\apps\account\views.py:36 .\apps\account\views.py:67
+#: .\apps\account\views.py:34 .\apps\account\views.py:65
 msgid "Please Complete your profile"
 msgstr "لطفا پروفایل حود را تکمیل کنید"
 
-#: .\apps\account\views.py:47
+#: .\apps\account\views.py:45
 msgid "Login successful."
 msgstr "ورود موفق."
 
-#: .\apps\account\views.py:84
-msgid "Phone number verification code"
-msgstr "کد تایید شماره موبایل"
-
-#: .\apps\account\views.py:102
-msgid "Entered code is not correct"
-msgstr "کد وارد شده صحیح نیست"
-
-#: .\apps\account\views.py:110
-msgid "Please try again"
-msgstr "لطفا مجدد امتحان کنید"
-
-#: .\apps\account\views.py:121
-msgid "Register done successful"
-msgstr "ثبت نام با موفقیت انجام شد"
-
-#: .\apps\account\views.py:139
+#: .\apps\account\views.py:85
 msgid "Code sent to you"
 msgstr "کد برای شما ارسال شد"
 
-#: .\apps\account\views.py:167
+#: .\apps\account\views.py:102
+msgid "Phone number verification code"
+msgstr "کد تایید شماره موبایل"
+
+#: .\apps\account\views.py:120
+msgid "Entered code is not correct"
+msgstr "کد وارد شده صحیح نیست"
+
+#: .\apps\account\views.py:128
+msgid "Please try again"
+msgstr "لطفا مجدد امتحان کنید"
+
+#: .\apps\account\views.py:139
+msgid "Register done successful"
+msgstr "ثبت نام با موفقیت انجام شد"
+
+#: .\apps\account\views.py:182
 msgid "Profile saved successfully"
 msgstr "پروفایل با موفقیت ذخیره شد"
 
-#: .\apps\account\views.py:183
+#: .\apps\account\views.py:198
 msgid "Password updated successfully"
 msgstr "گذرواژه با موفقیت تغییر کرد"
 
-#: .\apps\account\views.py:186
+#: .\apps\account\views.py:201
 msgid "Password is wrong!"
 msgstr "گذرواژه اشتباه است!"
 
@@ -246,61 +247,103 @@ msgstr "باز"
 msgid "Closed"
 msgstr "بسته"
 
-#: .\apps\communication\models.py:16 .\apps\operation\models.py:18
-#: .\apps\operation\models.py:56 .\apps\public\models.py:14
-#: .\apps\public\models.py:46 .\apps\public\models.py:115
-#: .\apps\service\models.py:44
+#: .\apps\communication\models.py:17 .\apps\communication\models.py:35
+#: .\apps\operation\models.py:18 .\apps\operation\models.py:56
+#: .\apps\public\models.py:14 .\apps\public\models.py:50
+#: .\apps\public\models.py:131 .\apps\service\models.py:44
 msgid "Title"
 msgstr "عنوان"
 
-#: .\apps\communication\models.py:17
+#: .\apps\communication\models.py:18
 msgid "Ticket text"
 msgstr "متن تیکت"
 
-#: .\apps\communication\models.py:18 .\apps\operation\models.py:21
+#: .\apps\communication\models.py:19 .\apps\operation\models.py:21
 msgid "Status"
 msgstr "وضعیت"
 
-#: .\apps\communication\models.py:19 .\apps\operation\models.py:22
+#: .\apps\communication\models.py:20 .\apps\operation\models.py:22
 msgid "Admin answer"
 msgstr "پاسخ ادمین"
 
-#: .\apps\communication\models.py:23
+#: .\apps\communication\models.py:24
 msgid "Ticket"
 msgstr "تیکت"
 
-#: .\apps\communication\models.py:24
+#: .\apps\communication\models.py:25
 msgid "Tickets"
 msgstr "تیکت‌ها"
 
-#: .\apps\communication\views.py:45
+#: .\apps\communication\models.py:34
+msgid "Participants"
+msgstr "شرکت کنندگان"
+
+#: .\apps\communication\models.py:35 .\apps\operation\models.py:18
+#: .\apps\operation\models.py:56 .\apps\public\models.py:14
+#: .\apps\public\models.py:50
+msgid "No title"
+msgstr "بدون عنوان"
+
+#: .\apps\communication\models.py:39 .\apps\communication\models.py:64
+msgid "Chat room"
+msgstr "چت روم"
+
+#: .\apps\communication\models.py:40
+msgid "Chat rooms"
+msgstr "چت روم‌ها"
+
+#: .\apps\communication\models.py:65
+msgid "Sender"
+msgstr "فرستنده"
+
+#: .\apps\communication\models.py:66
+msgid "Content"
+msgstr "محتوا"
+
+#: .\apps\communication\models.py:67
+msgid "Is read"
+msgstr "خوانده شده"
+
+#: .\apps\communication\models.py:70
+msgid "Chat message"
+msgstr "پیام‌ها چت"
+
+#: .\apps\communication\models.py:71
+msgid "Chat messages"
+msgstr "پیام‌های چت"
+
+#: .\apps\communication\views.py:46
 msgid "Answer successfully added"
 msgstr "پاسخ با موفقیت ثبت شد"
 
-#: .\apps\communication\views.py:57
+#: .\apps\communication\views.py:58
 msgid "Ticket registered successfully"
 msgstr "تیکت با موفقیت ثبت شد"
 
-#: .\apps\core\utils.py:42
+#: .\apps\communication\views.py:105
+msgid "You cannot create more than 1 active chat room"
+msgstr "شما نمی‌توانید بیش از ۱ چت روم فعال ایجاد کنید"
+
+#: .\apps\core\utils.py:49
 #, python-format
 msgid "%(minutes)s minutes ago."
 msgstr "%(minutes)s دقیقه پیش"
 
-#: .\apps\core\utils.py:44
+#: .\apps\core\utils.py:51
 #, python-format
 msgid "%(hours)s hours ago."
 msgstr "%(hours)s ساعت پیش"
 
-#: .\apps\core\utils.py:46
+#: .\apps\core\utils.py:53
 #, python-format
 msgid "%(days)s days ago."
 msgstr "%(days)s روز قبل"
 
-#: .\apps\core\utils.py:48
+#: .\apps\core\utils.py:55
 msgid "Moments ago"
 msgstr "لحظاتی قبل"
 
-#: .\apps\core\utils.py:61
+#: .\apps\core\utils.py:68
 msgid "Entered data is not correct."
 msgstr "اطلاعات وارد شده صحیح نیست."
 
@@ -348,11 +391,6 @@ msgstr "پاسخ داده"
 msgid "Await"
 msgstr "بی پاسخ"
 
-#: .\apps\operation\models.py:18 .\apps\operation\models.py:56
-#: .\apps\public\models.py:14 .\apps\public\models.py:46
-msgid "No title"
-msgstr "بدون عنوان"
-
 #: .\apps\operation\models.py:19
 msgid "Test text"
 msgstr "متن آزمایش"
@@ -378,7 +416,7 @@ msgid "Recovery processes"
 msgstr "روندهای بهبودی"
 
 #: .\apps\operation\models.py:77 .\apps\public\models.py:16
-#: .\apps\public\models.py:49 .\apps\service\models.py:45
+#: .\apps\service\models.py:45
 #: .\venv\Lib\site-packages\django\db\models\fields\files.py:393
 msgid "Image"
 msgstr "تصویر"
@@ -423,98 +461,125 @@ msgstr "تصویر با موفقیت حذف گردید"
 msgid "Public"
 msgstr "عمومی"
 
-#: .\apps\public\models.py:15 .\apps\public\models.py:47
+#: .\apps\public\models.py:15 .\apps\public\models.py:51
 msgid "Caption"
 msgstr "متن"
 
-#: .\apps\public\models.py:20
+#: .\apps\public\models.py:17 .\apps\public\models.py:54
+msgid "Pinned"
+msgstr ""
+
+#: .\apps\public\models.py:21
 msgid "Story"
 msgstr "استوری"
 
-#: .\apps\public\models.py:21
+#: .\apps\public\models.py:22
 msgid "Stories"
 msgstr "استوری‌ها"
 
-#: .\apps\public\models.py:48 .\apps\public\models.py:117
+#: .\apps\public\models.py:52 .\apps\public\models.py:133
 #: .\apps\service\models.py:27
 msgid "Category"
 msgstr "دسته"
 
-#: .\apps\public\models.py:53 .\apps\public\models.py:85
-#: .\apps\public\models.py:98
+#: .\apps\public\models.py:53
+#: .\venv\Lib\site-packages\django\db\models\fields\files.py:232
+msgid "File"
+msgstr ""
+
+#: .\apps\public\models.py:58 .\apps\public\models.py:101
+#: .\apps\public\models.py:114
 msgid "Post"
 msgstr "پست"
 
-#: .\apps\public\models.py:54
+#: .\apps\public\models.py:59
 msgid "Posts"
 msgstr "پست‌ها"
 
-#: .\apps\public\models.py:88
+#: .\apps\public\models.py:104
 msgid "Post like"
 msgstr "لایک پست"
 
-#: .\apps\public\models.py:89
+#: .\apps\public\models.py:105
 msgid "Post likes"
 msgstr "لایک‌های پست"
 
-#: .\apps\public\models.py:99
+#: .\apps\public\models.py:115
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2373
 msgid "Text"
 msgstr "متن"
 
-#: .\apps\public\models.py:104
+#: .\apps\public\models.py:120
 msgid "Post comment"
 msgstr "کامنت"
 
-#: .\apps\public\models.py:105
+#: .\apps\public\models.py:121
 msgid "Post comments"
 msgstr "کامنت‌ها"
 
-#: .\apps\public\models.py:116
+#: .\apps\public\models.py:132
 msgid "Podcast text"
 msgstr "متن پادکست"
 
-#: .\apps\public\models.py:118
+#: .\apps\public\models.py:134
 msgid "Podcast image"
 msgstr "تصویر پادکست"
 
-#: .\apps\public\models.py:119
+#: .\apps\public\models.py:135
 msgid "Podcast audio"
 msgstr "صوت پادکست"
 
-#: .\apps\public\models.py:123
+#: .\apps\public\models.py:139
 msgid "Podcast"
 msgstr "پادکست"
 
-#: .\apps\public\models.py:124
+#: .\apps\public\models.py:140
 msgid "Podcasts"
 msgstr "پادکست ها"
 
-#: .\apps\public\views.py:49
+#: .\apps\public\views.py:45
 msgid "Post successfully added"
 msgstr "پست با موفقیت افزوده شد"
 
-#: .\apps\public\views.py:63
+#: .\apps\public\views.py:59
 msgid "Post deleted successfully"
 msgstr "پست با موفقیت حذف گردید"
 
-#: .\apps\public\views.py:93
+#: .\apps\public\views.py:89
 msgid "Comment successfully sent and will be shown after admin verification"
 msgstr "کامنت با موفقیت ارسال شد و پس از تایید نمایش داده خواهد شد"
 
-#: .\apps\public\views.py:118
+#: .\apps\public\views.py:114
 msgid "Comment deleted"
 msgstr "کامنت حذف شد"
 
-#: .\apps\public\views.py:131
+#: .\apps\public\views.py:127
 msgid "Story successfully added"
 msgstr "هایلایت با موفقیت افزوده شد"
 
-#: .\apps\public\views.py:164
+#: .\apps\public\views.py:143
+#, fuzzy
+#| msgid "You cannot register more than 3 unanswered test"
+msgid "You cannot pin more than 3 stories"
+msgstr "شما نمی‌توانید بیش از ۳ آزمایش بی پاسخ ثبت کنید"
+
+#: .\apps\public\views.py:149 .\apps\public\views.py:171
+#, fuzzy
+#| msgid "Operator Created Successfully"
+msgid "Operation done successfully"
+msgstr "اپراتور با موفقیت ایجاد شد"
+
+#: .\apps\public\views.py:165
+#, fuzzy
+#| msgid "You cannot register more than 3 unanswered test"
+msgid "You cannot pin more than 3 posts"
+msgstr "شما نمی‌توانید بیش از ۳ آزمایش بی پاسخ ثبت کنید"
+
+#: .\apps\public\views.py:204
 msgid "Podcast successfully added"
 msgstr "پادکست با موفقیت افزوده شد"
 
-#: .\apps\public\views.py:181
+#: .\apps\public\views.py:221
 msgid "Podcast successfully deleted"
 msgstr "پادکست با موفقیت حذف شد"
 
@@ -955,10 +1020,6 @@ msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\__init__.py:2655
 msgid "Universally unique identifier"
-msgstr ""
-
-#: .\venv\Lib\site-packages\django\db\models\fields\files.py:232
-msgid "File"
 msgstr ""
 
 #: .\venv\Lib\site-packages\django\db\models\fields\json.py:26
