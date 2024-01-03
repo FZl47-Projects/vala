@@ -52,13 +52,19 @@
     <!-- .End Fake modal -->
 
     <div class="container-fluid col-md-11 bg">
-        <div class="d-flex justify-content-between gap-3 px-md-5 px-3 pt-4">
-            <div></div>
+        <div class="d-flex justify-content-between gap-3 px-md-4 px-3 pt-4">
+            <form method="GET" style="width: 16rem;">
+                <label class="w-100">
+                    <span class="text-white">جستجو:</span>
+                    <input type="text" name="q" value="{{ request.GET.q }}"
+                           placeholder="شماره موبایل، نام خانوادگی" class="form-control">
+                </label>
+            </form>
             <div></div>
         </div>
 
         <main class="main pb-5">
-            <section class="p-md-5 p-3 row" id="container-tickets">
+            <section class="p-md-4 p-3 row" id="container-tickets">
 
                     <div class="table-responsive">
                         <table class="table table-dark table-striped">

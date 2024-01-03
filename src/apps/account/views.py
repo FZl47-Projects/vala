@@ -4,10 +4,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext as _
 from django.contrib.auth import login
 from django.contrib import messages
+from django.db.models import Q
 
 from .mixins import LogoutRequiredMixin, PermissionMixin, AccessRequiredMixin
+from apps.core.utils import validate_form, amit_first_char
 from apps.notification.models import Notification
-from apps.core.utils import validate_form
 from .models import Access, User
 from .enums import AccessChoices
 from random import randint
@@ -209,7 +210,14 @@ class UsersListView(AccessRequiredMixin, ListView):
     # TODO: Add pagination
     roles = [AccessChoices.ADMIN, AccessChoices.DIET_OP, AccessChoices.WORKOUT_OP]
 
+    def filter(self, objects):
+        q = self.request.GET.get('q')
+        if q:
+            q = amit_first_char(q)
+            objects = objects.filter(Q(phone_number__contains=q) | Q(last_name__icontains=q))
+
+        return objects
+
     def get_queryset(self):
-        queryset = User.objects.exclude(access__title=AccessChoices.ADMIN)
-        return queryset
-        # TODO: Add filters and search
+        objects = User.objects.exclude(access__title=AccessChoices.ADMIN)
+        return self.filter(objects)
