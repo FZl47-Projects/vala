@@ -92,3 +92,11 @@ def send_sms(phone_number, pattern, **kwargs):
     )
 
     # TODO: Send above data with django-q async
+
+
+# Remove first character from str
+def amit_first_char(string):
+    try:
+        return string[1:] if string[0] == '0' else string
+    except TypeError:
+        return string

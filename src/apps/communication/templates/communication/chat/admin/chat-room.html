@@ -1,0 +1,83 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}چت روم - {{ object.title }}{% endblock %}
+
+{% block styles %}
+    <meta http-equiv="refresh" content="20">
+    <link rel="stylesheet" href="{% static 'styles/chatroom.css' %}">
+{% endblock %}
+
+{% block body_class %}bg{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <div class="container-fluid col-md-11">
+        <main class="main" style="padding-bottom: 140px;">
+            <div class="d-flex justify-content-between align-items-center p-2">
+                <div></div>
+                <div class="d-flex">
+                    <a href="{% url 'communication:chats_list' %}" class="btn btn-danger">
+                        بازگشت
+                    </a>
+                </div>
+            </div>
+
+            <section class="category">
+                <!-- Start user messages -->
+                {% for message in object.get_messages %}
+
+                    <div class="messege-content {% if message.sender == user %}answer{% else %}send-user{% endif %}">
+                        <div class="col-12 col-md-6 p-2">
+                            <div class="item-message">
+                                <div class="col-10 col-lg-11 p-2">
+                                    <div class="fw-semibold p-1" style="font-size: 18px;">
+                                        {% if message.sender == user %}
+                                            <span class="text-success">شما</span>
+                                        {% else %}
+                                            <span class="text-danger">{{ message.sender.get_full_name }}</span>
+                                        {% endif %}
+                                    </div>
+                                    <div class="content-message">
+                                        {{ message.content }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                <!-- .End user messages -->
+
+
+                <!-- Start input/send message -->
+                <form method="POST" action="{% url 'communication:send_chat_message' %}" class="input-send-messageee">
+                    {% csrf_token %}
+                    <input type="hidden" name="chat_room" value="{{ object.pk }}">
+                    <input type="hidden" name="sender" value="{{ user.pk }}">
+
+                    <div class="col-12 answer-content">
+                        <div class="col-9 col-lg-11 p-1 dddd">
+                            <input type="text" name="content" placeholder="تایپ کنید" class="px-2" required>
+                        </div>
+                        <div class="col-2 col-lg-1 sss">
+                           <button type="submit" class="btn btn-light px-3">
+                                ارسال
+                           </button>
+                        </div>
+                    </div>
+                </form>
+                <!-- .End input/send message -->
+
+            </section>
+
+        </main>
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+    <script src="{% static 'js/chat.js' %}"></script>
+{% endblock %}

@@ -7,13 +7,6 @@
         </span>
     </div>
     <ul id="menu-menu-1" class="ms-navbar gap-2 text-center" style="width: 300px;">
-        {% if user.has_operator_access %}
-            <li class="bg-white rounded-pill h3 w-100">
-                <a href="{% url 'account:users_list' %}" class="text-black d-block w-100 py-2">
-                    کاربران
-                </a>
-            </li>
-        {% endif %}
         <li class="bg-white rounded-pill h3 w-100">
             <a href="{% url 'service:operator_category__list' %}" class="text-black d-block w-100 py-2">
                 خدمات حضوری
@@ -27,6 +20,11 @@
         <li class="bg-white rounded-pill h3 w-100">
             <a href="{% url 'communication:tickets_list' %}" class="text-black d-block w-100 py-2">
                 تیکت ها
+            </a>
+        </li>
+        <li class="bg-white rounded-pill h3 w-100">
+            <a href="{% url 'communication:chats_list' %}" class="text-black d-block w-100 py-2">
+                چت روم
             </a>
         </li>
         <li class="bg-white rounded-pill h3 w-100">
