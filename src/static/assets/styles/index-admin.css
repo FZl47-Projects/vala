@@ -115,6 +115,13 @@ input {
   background-color: transparent;
 }
 
+.post-video {
+  position: absolute;
+  top: 2rem;
+  width: 100%;
+  margin-left: 1rem;
+}
+
 /* ----------------------------- kalameh ----------------------------- */
 @font-face {
   font-family: kalameh;
@@ -2099,6 +2106,12 @@ ul {
   }
 }
 @media (max-width: 768px) {
+  .post-video {
+    position: absolute;
+    top: 0.5rem;
+    width: 100%;
+    margin-left: 0;
+  }
   .index-pagge .icon-mage {
     padding: 0px;
   }

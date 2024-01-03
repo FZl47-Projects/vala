@@ -62,7 +62,13 @@
                         <div class="post-item col-3 col-md-12">
                             <div class="col-12 col-md-4 col-lg-3 p-1">
                                 <div class="right-post-item">
-                                    <img src="{{ post.get_image_url }}" alt="{{ post.title }}">
+                                    {% if post.get_file_type == 'image'  %}
+                                        <img src="{{ post.get_file_url }}" alt="{{ post.title }}" class="imge-post">
+                                    {% else %}
+                                        <video disabled>
+                                            <source src="{{ post.get_file_url }}">
+                                        </video>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="col-8 col-md-7 col-lg-8 p-1">
@@ -82,7 +88,13 @@
             <div id="big-container">
                 {% for post in posts %}
                     <div class="content-post">
-                        <img src="{{ post.get_image_url }}" alt="{{ post.title }}" class="imge-post">
+                        {% if post.get_file_type == 'image'  %}
+                            <img src="{{ post.get_file_url }}" alt="{{ post.title }}" class="imge-post">
+                        {% else %}
+                            <video controls class="post-video">
+                                <source src="{{ post.get_file_url }}">
+                            </video>
+                        {% endif %}
                         <div class="inner-content-post-two">
                             <div class="line">
                                 <div class="row">

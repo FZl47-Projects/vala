@@ -2,9 +2,9 @@ from django.utils.translation import gettext as _
 from django.db.models import Exists, OuterRef
 from django.db import models
 
+from apps.core.utils import get_time, get_file_extension
 from datetime import datetime, timedelta
 from apps.core.models import BaseModel
-from apps.core.utils import get_time
 from apps.account.models import User
 
 
@@ -46,7 +46,7 @@ class Post(BaseModel):
     title = models.CharField(_('Title'), max_length=64, default=_('No title'))
     caption = models.TextField(_('Caption'), null=True, blank=True)
     category = models.CharField(_('Category'), max_length=64, null=True, blank=True)
-    image = models.ImageField(_('Image'), upload_to=f'images/post/{get_time("%Y-%m-%d")}/')
+    file = models.FileField(_('File'), upload_to=f'files/posts/{get_time("%Y-%m-%d")}/', null=True)
     is_active = models.BooleanField(_('Active'), default=True)
 
     class Meta:
@@ -57,9 +57,17 @@ class Post(BaseModel):
     def __str__(self):
         return self.title
 
-    def get_image_url(self):
-        if self.image:
-            return self.image.url
+    def get_file_url(self):
+        if self.file:
+            return self.file.url
+
+    def get_file_type(self):
+        image_files = ['.jpg', '.jpeg', '.png', '.svg', '.webp']
+        extension = get_file_extension(self.file)
+
+        if extension in image_files:
+            return 'image'
+        return 'video'
 
     def get_verified_comments(self):
         objects = self.post_comments.filter(is_active=True, is_verified=True)

@@ -41,7 +41,7 @@ class IndexView(TemplateView):
 class AddPostViw(AccessRequiredMixin, CreateView):
     template_name = 'public/admin/index-admin.html'
     model = models.Post
-    fields = ('title', 'caption', 'category', 'image')
+    fields = ('title', 'caption', 'category', 'file')
     success_url = reverse_lazy('public:index')
     roles = ['admin']
 

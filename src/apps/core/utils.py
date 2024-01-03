@@ -5,6 +5,7 @@ from django.utils import timezone
 from datetime import datetime
 
 from ippanel import Client
+from os.path import splitext
 
 
 # Get time in format
@@ -20,6 +21,12 @@ def get_time(frmt: str = '%Y-%m-%d %H:%M'):
 def upload_file_src(instance, path):
     now = get_time('%Y-%m-%d')
     return f'files/{now}/{path}'
+
+
+# Return file extension
+def get_file_extension(file_name):
+    name, extension = splitext(file_name.file.name)
+    return extension
 
 
 # Timesince in persian utils

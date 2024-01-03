@@ -35,8 +35,8 @@
                         </div>
                         <div class="uploade-imge text-white justify-content-start px-0">
                             <label class="text-right justify-content-start">
-                                تصویر
-                                <input type="file" name="image" accept="image/*" class="form-control bg-transparent text-white mt-2" required>
+                                تصویر/ویدیو
+                                <input type="file" name="file" accept="image/*, video/*" class="form-control bg-transparent text-white mt-2" required>
                             </label>
                         </div>
                         <label class="text-right justify-content-start w-100 mt-2">
@@ -157,7 +157,13 @@
                         <div class="post-item col-3 col-md-12">
                             <div class="col-12 col-md-4 col-lg-3 p-1">
                                 <div class="right-post-item">
-                                    <img src="{{ post.get_image_url }}" alt="{{ post.title }}">
+                                    {% if post.get_file_type == 'image'  %}
+                                        <img src="{{ post.get_file_url }}" alt="{{ post.title }}" class="imge-post">
+                                    {% else %}
+                                        <video disabled>
+                                            <source src="{{ post.get_file_url }}">
+                                        </video>
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="col-8 col-md-7 col-lg-8 p-1">
@@ -177,7 +183,13 @@
             <div id="big-container">
                 {% for post in posts %}
                     <div class="content-post">
-                        <img src="{{ post.get_image_url }}" alt="{{ post.title }}" class="imge-post">
+                        {% if post.get_file_type == 'image'  %}
+                            <img src="{{ post.get_file_url }}" alt="{{ post.title }}" class="imge-post">
+                        {% else %}
+                            <video controls class="post-video">
+                                <source src="{{ post.get_file_url }}">
+                            </video>
+                        {% endif %}
                         <div class="inner-content-post-two">
                             <div class="position-absolute" style="left: 20px; top: 20px; font-size: 20px; z-index: 20;">
                                 <i role="button" class="bi bi-trash3-fill text-white trash-icon-del"

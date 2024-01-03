@@ -1,10 +1,10 @@
 from django.contrib import admin
 
-from .models import Story, Post, PostComment, Podcast
+from . import models
 
 
 # Register Story ModelAdmin
-@admin.register(Story)
+@admin.register(models.Story)
 class StoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'image')
     list_display_links = ('title',)
@@ -12,21 +12,21 @@ class StoryAdmin(admin.ModelAdmin):
 
 # Register Post comments as inline
 class PostCommentInline(admin.StackedInline):
-    model = PostComment
+    model = models.PostComment
     extra = 0
 
 
 # Register Story ModelAdmin
-@admin.register(Post)
+@admin.register(models.Post)
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'category', 'image', 'is_active')
+    list_display = ('title', 'category', 'file', 'is_active')
     list_display_links = ('title',)
     search_fields = ('title',)
     inlines = (PostCommentInline,)
 
 
 # Register Podcast ModelAdmin
-@admin.register(Podcast)
+@admin.register(models.Podcast)
 class PodcastAdmin(admin.ModelAdmin):
     list_display = ('title', 'category', 'image')
     list_display_links = ('title',)
