@@ -1,5 +1,5 @@
-from django.views.generic import View, TemplateView, CreateView, DetailView, ListView
-from django.shortcuts import redirect, get_object_or_404
+from django.views.generic import View, TemplateView, CreateView, DetailView, ListView, UpdateView
+from django.shortcuts import redirect, get_object_or_404, reverse
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext as _
 from django.http import JsonResponse
@@ -36,18 +36,25 @@ class TestDetailsView(LoginRequiredMixin, DetailView):
     template_name = 'operation/tests/test-details.html'
     model = models.Test
 
-    def post(self, request, pk):
-        data = request.POST.copy()
-        test = get_object_or_404(models.Test, pk=data.get('pk'))
 
-        test.answer = data.get('answer')
-        test.status = test.State.ANSWERED
-        test.save()
+# Update Test view
+class UpdateTestView(AccessRequiredMixin, UpdateView):
+    template_name = 'operation/tests/test-details.html'
+    model = models.Test
+    form_class = forms.AnswerTestForm
+    roles = [AccessChoices.ADMIN]
 
-        messages.success(request, _('The answer successfully registered'))
+    def get_success_url(self):
+        return reverse('operation:test_details', args=[self.object.pk])
+
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.status = obj.State.ANSWERED
+        obj.save()
 
         # TODO: Send sms for user to see the answer
-        return redirect('operation:test_details', pk=test.pk)
+        messages.success(self.request, _('Answer successfully added'))
+        return super().form_valid(form)
 
 
 # Add Test view

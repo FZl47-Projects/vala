@@ -34,9 +34,9 @@
             <section class="p-md-5 p-3" id="container-tickets">
 
                 <div class="test-detail-main">
-                    <form method="POST" class="text-white">
+                    <form method="POST" action="{% url 'operation:answer_test' object.pk %}" class="text-white">
                         {% csrf_token %}
-                        <input type="hidden" name="pk" value="{{ object.pk }}">
+                        <input type="hidden" name="user" value="{{ object.user.pk }}">
 
                         <div class="test-detail-header pt-3 px-3 pb-2">
                             <div class="d-flex gap-md-5 gap-4">
