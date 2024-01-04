@@ -71,6 +71,21 @@ class LoginForm(forms.Form):
         return {'user': user}
 
 
+# VerifyCode form
+class VerifyCodeForm(forms.Form):
+    user_code = forms.IntegerField(widget=forms.NumberInput)
+    code = forms.IntegerField(widget=forms.NumberInput)
+
+    def clean_code(self):
+        user_code = self.cleaned_data.get('user_code')
+        code = self.cleaned_data.get('code')
+
+        if code != user_code:
+            raise ValidationError(_('Entered code is not correct'))
+
+        return code
+
+
 # Add Profile form
 class AddProfileForm(forms.ModelForm):
     first_name = forms.CharField(max_length=128, widget=forms.TextInput)
@@ -121,3 +136,38 @@ class UpdateProfileForm(forms.ModelForm):
         user.save()
 
         return profile
+
+
+# GetPhoneNumber form
+class GetPhoneNumberForm(forms.Form):
+    phone = forms.CharField(max_length=11, widget=forms.TextInput)
+
+    def clean(self):
+        phone = self.cleaned_data.get('phone')
+
+        # Check phone number format
+        if not check_phone_number(phone):
+            raise ValidationError(_('Enter a valid phone number'))
+        phone = get_coded_phone_number(phone)
+
+        try:
+            user = User.objects.get(phone_number=phone)
+        except User.DoesNotExist:
+            raise ValidationError(_('User not found'))
+
+        return {'user': user}
+
+
+# ResetPassword form
+class ResetPasswordForm(forms.Form):
+    password1 = forms.CharField(max_length=128, widget=forms.PasswordInput)
+    password2 = forms.CharField(max_length=128, widget=forms.PasswordInput)
+
+    def clean_password2(self):
+        password1 = self.cleaned_data.get('password1')
+        password2 = self.cleaned_data.get('password2')
+
+        if password1 and password2 and password1 != password2:
+            raise ValidationError(_('Passwords are not the same'))
+
+        return password2

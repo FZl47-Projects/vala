@@ -2,7 +2,7 @@
 {% load static %}
 
 
-{% block title %}ورود | ثبت نام{% endblock %}
+{% block title %}والا | تغییر رمز عبور{% endblock %}
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'styles/sign-up.css' %}"/>
@@ -26,54 +26,49 @@
                 <div class="inner-signup-login-box col-12 col-md-5">
                     <div class="col-12">
 
-                        <!-- Start Sign-up form -->
+                        <!-- Start Get phone number form -->
                         <div class="content form-login active">
                             <div class="forms px-4">
-
-                                <!-- form-confirm-code and register -->
-                                <form method="POST" action="{% url 'account:verify_phone' %}" class="form form-confirm-code active">
+                                <form method="POST" action="{% url 'account:reset_password_confirm' %}" class="form form-confirm-code active">
                                     {% csrf_token %}
-                                    <h3 class="title">تایید شماره موبایل</h3>
+                                    <h3 class="title">تغییر رمز عبور</h3>
                                     <div>
                                         <div class="group-form">
-                                            <input type="number" id="code" name="code" maxlength="5" required>
-                                            <label for="code">
-                                                :کد ارسال شده
+                                            <input type="password" id="pass1" name="password1" required>
+                                            <label for="pass1">
+                                                :رمز عبور جدید
+                                            </label>
+                                        </div>
+                                        <small></small>
+                                    </div>
+                                    <div>
+                                        <div class="group-form">
+                                            <input type="password" id="pass2" name="password2" required>
+                                            <label for="pass2">
+                                                :تکرار رمز عبور
                                             </label>
                                         </div>
                                         <small></small>
                                     </div>
 
-                                    <button type="submit" class="btn-submit">تایید کد</button>
+                                    <button type="submit" class="btn-submit my-2 fw-semibold">تغییر رمز</button>
 
                                     <div class="d-flex justify-content-between align-items-center py-3 form-text-3">
                                         <a href="{% url 'account:login' %}">ورود</a>
-                                        <div class="timer d-flex justify-content-between align-items-center fw-semibold">
-                                            <span id="resendTimer">(2:00)</span>
-
-                                            <button type="button" class="btn-timer mx-2" id="resendBtn" disabled>
-                                                ارسال مجدد
-                                            </button>
-                                        </div>
+                                        <div></div>
                                     </div>
                                 </form>
-                                <!-- form-confirm-code and register -->
                             </div>
                         </div>
-                        <!-- .End Sign-up form -->
+                        <!-- .End Get phone number form -->
 
                     </div>
                 </div>
             </section>
         </main>
     </div>
+{% endblock %}
 
-    {% block scripts %}
-        <!-- PERSIAN TOOLS PACKAGE -->
-        <script src="https://cdn.jsdelivr.net/npm/@persian-tools/persian-tools/build/persian-tools.umd.js"></script>
-
-        <!-- MAIN JS -->
-        <script src="{% static 'js/sign-up.js' %}"></script>
-        <script src="{% static 'js/otp.js' %}"></script>
-    {% endblock %}
+{% block scripts %}
+    <script src="{% static 'js/sign-up.js' %}"></script>
 {% endblock %}

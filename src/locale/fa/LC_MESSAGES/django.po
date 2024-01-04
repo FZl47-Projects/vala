@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-04 00:33+0330\n"
+"POT-Creation-Date: 2024-01-04 16:34+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,9 +45,9 @@ msgstr "حساب کاربری"
 #: .\apps\account\enums.py:7 .\apps\account\models.py:57
 #: .\apps\account\models.py:122 .\apps\communication\models.py:16
 #: .\apps\operation\models.py:17 .\apps\operation\models.py:55
-#: .\apps\public\models.py:13 .\apps\public\models.py:49
-#: .\apps\public\models.py:100 .\apps\public\models.py:113
-#: .\apps\public\models.py:130
+#: .\apps\operation\models.py:99 .\apps\public\models.py:13
+#: .\apps\public\models.py:49 .\apps\public\models.py:100
+#: .\apps\public\models.py:113 .\apps\public\models.py:130
 msgid "User"
 msgstr "کاربر"
 
@@ -82,7 +82,7 @@ msgid "Password repeat"
 msgstr "تکرار گذرواژه"
 
 #: .\apps\account\forms.py:28 .\apps\account\forms.py:63
-#: .\apps\account\forms.py:109
+#: .\apps\account\forms.py:109 .\apps\account\forms.py:135
 msgid "Enter a valid phone number"
 msgstr "یک شماره تماس معتبر وارد کنید"
 
@@ -93,6 +93,14 @@ msgstr "گذرواژه یکسان نیست."
 #: .\apps\account\forms.py:69
 msgid "Entered data is incorrect"
 msgstr "اطلاعات وارد شده صحیح نیست."
+
+#: .\apps\account\forms.py:141
+msgid "User not found"
+msgstr "کاربر یافت نشد"
+
+#: .\apps\account\forms.py:156
+msgid "Passwords are not the same"
+msgstr "گذرواژه یکسان نیست."
 
 #: .\apps\account\managers.py:30
 msgid "Users must have a mobile number!"
@@ -195,43 +203,51 @@ msgstr "پروفایل کاربر"
 msgid "User profiles"
 msgstr "پروفایل‌ کاربران"
 
-#: .\apps\account\views.py:34 .\apps\account\views.py:65
+#: .\apps\account\views.py:35 .\apps\account\views.py:66
 msgid "Please Complete your profile"
 msgstr "لطفا پروفایل حود را تکمیل کنید"
 
-#: .\apps\account\views.py:45
+#: .\apps\account\views.py:46
 msgid "Login successful."
-msgstr "ورود موفق."
+msgstr "ورود موفق"
 
-#: .\apps\account\views.py:85
+#: .\apps\account\views.py:86
 msgid "Code sent to you"
 msgstr "کد برای شما ارسال شد"
 
-#: .\apps\account\views.py:102
+#: .\apps\account\views.py:106 .\apps\account\views.py:199
+msgid "There is an issue! please try again"
+msgstr "مشکلی پیش آمده! لطفا مجدد امتحان کنید"
+
+#: .\apps\account\views.py:111
 msgid "Phone number verification code"
 msgstr "کد تایید شماره موبایل"
 
-#: .\apps\account\views.py:120
-msgid "Entered code is not correct"
-msgstr "کد وارد شده صحیح نیست"
-
-#: .\apps\account\views.py:128
-msgid "Please try again"
-msgstr "لطفا مجدد امتحان کنید"
-
-#: .\apps\account\views.py:139
+#: .\apps\account\views.py:130
 msgid "Register done successful"
 msgstr "ثبت نام با موفقیت انجام شد"
 
-#: .\apps\account\views.py:182
+#: .\apps\account\views.py:139
+msgid "Entered code is not correct"
+msgstr "کد وارد شده صحیح نیست"
+
+#: .\apps\account\views.py:147
+msgid "Please try again"
+msgstr "لطفا مجدد امتحان کنید"
+
+#: .\apps\account\views.py:205
+msgid "Password changed successfully"
+msgstr "گذرواژه با موفقیت تغییر کرد"
+
+#: .\apps\account\views.py:250
 msgid "Profile saved successfully"
 msgstr "پروفایل با موفقیت ذخیره شد"
 
-#: .\apps\account\views.py:198
+#: .\apps\account\views.py:266
 msgid "Password updated successfully"
 msgstr "گذرواژه با موفقیت تغییر کرد"
 
-#: .\apps\account\views.py:201
+#: .\apps\account\views.py:269
 msgid "Password is wrong!"
 msgstr "گذرواژه اشتباه است!"
 
@@ -249,8 +265,9 @@ msgstr "بسته"
 
 #: .\apps\communication\models.py:17 .\apps\communication\models.py:35
 #: .\apps\operation\models.py:18 .\apps\operation\models.py:56
-#: .\apps\public\models.py:14 .\apps\public\models.py:50
-#: .\apps\public\models.py:131 .\apps\service\models.py:44
+#: .\apps\operation\models.py:100 .\apps\public\models.py:14
+#: .\apps\public\models.py:50 .\apps\public\models.py:131
+#: .\apps\service\models.py:44
 msgid "Title"
 msgstr "عنوان"
 
@@ -279,8 +296,8 @@ msgid "Participants"
 msgstr "شرکت کنندگان"
 
 #: .\apps\communication\models.py:35 .\apps\operation\models.py:18
-#: .\apps\operation\models.py:56 .\apps\public\models.py:14
-#: .\apps\public\models.py:50
+#: .\apps\operation\models.py:56 .\apps\operation\models.py:100
+#: .\apps\public\models.py:14 .\apps\public\models.py:50
 msgid "No title"
 msgstr "بدون عنوان"
 
@@ -312,15 +329,15 @@ msgstr "پیام‌ها چت"
 msgid "Chat messages"
 msgstr "پیام‌های چت"
 
-#: .\apps\communication\views.py:46
+#: .\apps\communication\views.py:48
 msgid "Answer successfully added"
 msgstr "پاسخ با موفقیت ثبت شد"
 
-#: .\apps\communication\views.py:58
+#: .\apps\communication\views.py:60
 msgid "Ticket registered successfully"
 msgstr "تیکت با موفقیت ثبت شد"
 
-#: .\apps\communication\views.py:105
+#: .\apps\communication\views.py:116
 msgid "You cannot create more than 1 active chat room"
 msgstr "شما نمی‌توانید بیش از ۱ چت روم فعال ایجاد کنید"
 
@@ -429,33 +446,62 @@ msgstr "تصویر بهبودی"
 msgid "Recovery images"
 msgstr "تصاویر بهبودی"
 
-#: .\apps\operation\views.py:43
+#: .\apps\operation\models.py:101 .\apps\service\models.py:46
+#: .\apps\service\models.py:55
+msgid "Description"
+msgstr "توضیحات"
+
+#: .\apps\operation\models.py:102
+msgid "Counseling file"
+msgstr "فایل مشاوره"
+
+#: .\apps\operation\models.py:103
+msgid "Is answered"
+msgstr "پاسخ داده"
+
+#: .\apps\operation\models.py:104
+msgid "Is active"
+msgstr "فعال"
+
+#: .\apps\operation\models.py:107
+msgid "Counseling"
+msgstr "مشاوره"
+
+#: .\apps\operation\models.py:108
+msgid "Counselings"
+msgstr "مشاوره‌ها"
+
+#: .\apps\operation\views.py:47
 msgid "The answer successfully registered"
 msgstr "پاسخ با موفقیت ثبت شد"
 
-#: .\apps\operation\views.py:62
+#: .\apps\operation\views.py:66
 msgid "You cannot register more than 3 unanswered test"
 msgstr "شما نمی‌توانید بیش از ۳ آزمایش بی پاسخ ثبت کنید"
 
-#: .\apps\operation\views.py:67
+#: .\apps\operation\views.py:71
 msgid "Test added successfully"
 msgstr "آزمایش با موفقیت افزوده شد"
 
-#: .\apps\operation\views.py:91
+#: .\apps\operation\views.py:95
 msgid "Recovery process added successfully"
 msgstr "روند بهبودی با موفقیت افزوده شد"
 
-#: .\apps\operation\views.py:103
+#: .\apps\operation\views.py:107
 msgid "Recovery process deleted successfully"
 msgstr "روند بهبودی با موفقیت حذف گردید"
 
-#: .\apps\operation\views.py:120
+#: .\apps\operation\views.py:124
 msgid "Image added successfully"
 msgstr "تصویر با موفقیت افزوده شد"
 
-#: .\apps\operation\views.py:134
+#: .\apps\operation\views.py:138
 msgid "Image deleted successfully"
 msgstr "تصویر با موفقیت حذف گردید"
+
+#: .\apps\operation\views.py:176
+msgid "Counseling request registered successfully"
+msgstr "درخواست مشاوره با موفقیت ثبت شد"
 
 #: .\apps\public\apps.py:8
 msgid "Public"
@@ -558,22 +604,16 @@ msgid "Story successfully added"
 msgstr "هایلایت با موفقیت افزوده شد"
 
 #: .\apps\public\views.py:143
-#, fuzzy
-#| msgid "You cannot register more than 3 unanswered test"
 msgid "You cannot pin more than 3 stories"
-msgstr "شما نمی‌توانید بیش از ۳ آزمایش بی پاسخ ثبت کنید"
+msgstr "شما نمی‌توانید بیش از ۳ استوری پین کنید"
 
 #: .\apps\public\views.py:149 .\apps\public\views.py:171
-#, fuzzy
-#| msgid "Operator Created Successfully"
 msgid "Operation done successfully"
-msgstr "اپراتور با موفقیت ایجاد شد"
+msgstr "عملیات با موفقیت انجام شد"
 
 #: .\apps\public\views.py:165
-#, fuzzy
-#| msgid "You cannot register more than 3 unanswered test"
 msgid "You cannot pin more than 3 posts"
-msgstr "شما نمی‌توانید بیش از ۳ آزمایش بی پاسخ ثبت کنید"
+msgstr "شما نمی‌توانید بیش از ۳ پست پین کنید"
 
 #: .\apps\public\views.py:204
 msgid "Podcast successfully added"
@@ -590,10 +630,6 @@ msgstr "خدمات"
 #: .\apps\service\models.py:12 .\apps\service\models.py:25
 msgid "Name"
 msgstr "نام"
-
-#: .\apps\service\models.py:46 .\apps\service\models.py:55
-msgid "Description"
-msgstr "توضیحات"
 
 #: .\apps\service\views.py:41
 msgid "Category Created Successfully"
@@ -1817,3 +1853,6 @@ msgstr ""
 #: .\venv\Lib\site-packages\django\views\templates\default_urlconf.html:248
 msgid "Connect, get help, or contribute"
 msgstr ""
+
+#~ msgid "User with this phone number does not exists"
+#~ msgstr "کاربر یافت نشد"

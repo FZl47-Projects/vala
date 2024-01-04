@@ -83,7 +83,6 @@ class CompleteProfileView(LogoutRequiredMixin, TemplateView):
         if validate_form(request, form):
             form.save()
 
-            messages.success(request, _('Code sent to you'))
             return redirect('account:send_verify_code')
 
         return redirect('account:complete_profile')
@@ -91,21 +90,32 @@ class CompleteProfileView(LogoutRequiredMixin, TemplateView):
 
 # SendCode view
 class SendCodeView(View):
+    def get_redirect_url(self):
+        next_url = self.request.GET.get('next', reverse('account:verify_phone'))
+        return next_url
+
     def get(self, request):
         code = randint(10000, 99999)
         request.session['verify_code'] = code
 
         token = request.session.get('register_token')
-        user = get_object_or_404(User, token=token)
+        try:
+            user = User.objects.get(token=token)
+        except User.DoesNotExist:
+            messages.error(request, _('There is an issue! please try again'))
+            return redirect('account:login')
 
         Notification.objects.create(
             type=Notification.TYPES.MOBILE_VERIFICATION_CODE,
             title=_('Phone number verification code'),
             kwargs={'code': code},
             to_user=user,
+            send_notify=False,
         )
 
-        return redirect('account:verify_phone')
+        print(code)
+        messages.success(request, _('Code sent to you'))
+        return redirect(self.get_redirect_url())
 
 
 # Render VerifyPhoneNumber view
@@ -113,13 +123,27 @@ class VerifyPhoneNumberView(LogoutRequiredMixin, TemplateView):
     template_name = 'account/verify-phone.html'
 
     def post(self, request):
-        data = int(request.POST.get('code'))
-        code = request.session.get('verify_code')
-        token = request.session.get('register_token')
+        data = {
+            'user_code': int(request.POST.get('code')),
+            'code': request.session.get('verify_code')
+        }
 
-        if code != data:
-            messages.error(request, _('Entered code is not correct'))
-            return redirect('account:verify_phone')
+        form = forms.VerifyCodeForm(data=data)
+        if validate_form(request, form):
+            return redirect('account:complete_register')
+
+        return redirect('account:verify_phone')
+
+
+# Complete RegisterView
+class CompleteRegisterView(LogoutRequiredMixin, View):
+    def dispatch(self, request, *args, **kwargs):
+        http_referer = request.META.get('HTTP_REFERER')
+        print(http_referer)
+        return super().dispatch(request, *args, **kwargs)
+
+    def get(self, request):
+        token = request.session.get('register_token')
 
         try:
             user = User.objects.get(token=token)
@@ -137,8 +161,75 @@ class VerifyPhoneNumberView(LogoutRequiredMixin, TemplateView):
         if 'verify_code' in request.session:
             del request.session['verify_code']
 
-        messages.success(request, _('Register done successful'))
+        messages.success(self.request, _('Register done successful'))
         return redirect('public:index')
+
+
+# Render GetPhoneNumber view
+class GetPhoneNumberView(LogoutRequiredMixin, TemplateView):
+    template_name = 'account/password/get-phone.html'
+
+    def post(self, request):
+        data = request.POST.copy()
+
+        form = forms.GetPhoneNumberForm(data=data)
+        if validate_form(request, form):
+            user = form.cleaned_data.get('user')
+
+            # Generate token for registration
+            token = user.generate_token()
+            request.session['register_token'] = token
+
+            return redirect(reverse('account:send_verify_code') + f'?next={reverse("account:reset_password_verify")}')
+
+        return redirect('account:get_phone_number')
+
+
+# Render ResetPasswordVerify view
+class ResetPasswordVerifyView(LogoutRequiredMixin, TemplateView):
+    template_name = 'account/password/verify-phone.html'
+
+    def post(self, request):
+        data = {
+            'user_code': int(request.POST.get('code')),
+            'code': request.session.get('verify_code')
+        }
+
+        form = forms.VerifyCodeForm(data=data)
+        if validate_form(request, form):
+            return redirect('account:reset_password_confirm')
+
+        return redirect('account:reset_password_verify')
+
+
+# Render ResetPasswordConfirm view
+class ResetPasswordConfirmView(LogoutRequiredMixin, TemplateView):
+    template_name = 'account/password/reset-pass.html'
+
+    def post(self, request):
+        data = request.POST.copy()
+
+        form = forms.ResetPasswordForm(data=data)
+        if validate_form(request, form):
+            password = form.cleaned_data.get('password2')
+            token = request.session.get('register_token')
+
+            # Get user and set new password
+            try:
+                user = User.objects.get(token=token)
+                user.set_password(password)
+                user.save()
+            except User.DoesNotExist:
+                messages.error(request, _('There is an issue! please try again'))
+                return redirect('account:login')
+
+            user.clear_token(request)
+
+            # Redirect to login page
+            messages.success(request, _('Password changed successfully'))
+            return redirect('account:login')
+
+        return redirect('account:reset_password_confirm')
 
 
 # Render Profile view

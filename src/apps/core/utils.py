@@ -78,10 +78,11 @@ def validate_form(request, form):
 # Send SMS util
 def send_sms(phone_number, pattern, **kwargs):
     phone_number = str(phone_number).replace('+', '')
-    api_key = settings.SMS_CONFIG['API_KEY']
+
+    print("Im sending sms to", phone_number)
 
     # Create client instance
-    sms = Client(api_key)
+    sms = Client(settings.SMS_CONFIG['API_KEY'])
 
     # Send sms via ippanel module
     message_id = sms.send_pattern(

@@ -73,7 +73,7 @@
                                         ورود
                                     </button>
                                     <div class="d-flex justify-content-center align-items-center my-2 form-text-1">
-                                        <a href="#" class="fw-semibold">
+                                        <a href="{% url 'account:get_phone_number' %}" class="fw-semibold">
                                             رمز عبورم را فراموش کردم
                                         </a>
                                     </div>
@@ -121,54 +121,6 @@
                                 </form>
                                 <!-- disposable-code -->
 
-                                <!-- form-confirm-code and register -->
-{#                                <form method="POST" class="form form-confirm-code">#}
-{#                                    <h3 class="title">تایید کد</h3>#}
-{#                                    <div>#}
-{#                                        <div class="group-form">#}
-{#                                            <input type="text" id="code" name="numberPhone">#}
-{#                                            <label for="code">#}
-{#                                                :کد ارسال شده#}
-{#                                            </label>#}
-{#                                        </div>#}
-{#                                        <small></small>#}
-{#                                    </div>#}
-{#                                    <div>#}
-{#                                        <div class="group-form">#}
-{#                                            <input type="password" id="password-signUp" name="password">#}
-{#                                            <label for="password-signUp">#}
-{#                                                :رمز عبور#}
-{#                                            </label>#}
-{#                                        </div>#}
-{#                                        <small></small>#}
-{#                                    </div>#}
-{#                                    <div>#}
-{#                                        <div class="group-form">#}
-{#                                            <input type="password" id="confirmPassword-signUP" name="confirmPassword">#}
-{#                                            <label for="confirmPassword-signUP">#}
-{#                                                :تکرار رمز عبور#}
-{#                                            </label>#}
-{#                                        </div>#}
-{#                                        <small></small>#}
-{#                                    </div>#}
-{#                                    <button type="submit" class="btn-submit">تایید کد</button>#}
-{##}
-{#                                    <div class="d-flex justify-content-between align-items-center py-3 form-text-3">#}
-{#                                        <a href="#">ورود</a>#}
-{#                                        <div class="timer d-flex justify-content-between align-items-center">#}
-{#                                            <div class="time" id="time">#}
-{#                                                <span id="minute"></span>#}
-{#                                                :#}
-{#                                                <span id="second"></span>#}
-{#                                            </div>#}
-{##}
-{#                                            <button type="button" class="btn-timer mx-2" id="btn-timer" disabled>#}
-{#                                                ارسال مجدد#}
-{#                                            </button>#}
-{#                                        </div>#}
-{#                                    </div>#}
-{#                                </form>#}
-                                <!-- form-confirm-code and register -->
                             </div>
                         </div>
                         <!-- .End Sign-up form -->
