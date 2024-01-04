@@ -1,0 +1,126 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | ثبت روتین جدید{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/face-analysis.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container-fluid bg">
+        <main class="main">
+            <div class="hh">
+                <form method="POST" action="{% url 'operation:add_routine' %}" enctype="multipart/form-data" class="col-12 cc">
+                    {% csrf_token %}
+
+                    <div class="d-flex justify-content-between px-3">
+                        <div></div>
+                        <div>
+                            <a href="{% url 'operation:routines_list' %}" class="btn btn-danger">بازگشت</a>
+                        </div>
+                    </div>
+
+                    <input type="hidden" name="user" value="{{ user.pk }}">
+
+                    <div class="content-Definition-of-diet active" id="upload-step-1">
+                        <div class="text-center mt-4 mb-3">
+                            <h4 class="fw-semibold">لطفا تصویر تمام رخ صورت خود را آپلود کنید</h4>
+                            <h5>(تصویر به صورت عمودی باشد)</h5>
+                        </div>
+                        <div class="content-upload">
+                            <img src="{% static 'images/face-front.png' %}" alt="Front face" id="image1" width="220" height="350">
+                        </div>
+                        <div class="uploade-imge">
+                            <label role="button" class="item-upload" for="frontFace">
+                                آپلود
+                            </label>
+                            <input type="file" name="image1" accept="image/jpeg, image/jpg, image/png"
+                                   id="frontFace" onchange="displayImage(event)" hidden>
+                        </div>
+                        <div class="next-step mt-2 active step-2">
+                            مرحله بعد
+                        </div>
+                    </div>
+
+                    <div class="content-Definition-of-diet" id="upload-step-2">
+                        <div class="text-center mt-4 mb-3">
+                            <h4 class="fw-semibold">تصویر نیم رخ راست صورت خود را آپلود کنید</h4>
+                            <h5>(تصویر به صورت عمودی باشد)</h5>
+                        </div>
+                        <div class="content-upload">
+                            <img src="{% static 'images/face-right.png' %}" alt="Right face" id="image2" width="270" height="350">
+                        </div>
+                        <div class="uploade-imge">
+                            <label role="button" for="rightFace" class="item-upload">
+                                آپلود
+                            </label>
+                            <input type="file" name="image2" accept="image/jpeg, image/jpg, image/png"
+                                   id="rightFace" onchange="displayImage(event)" hidden>
+                        </div>
+                        <div class="d-flex justify-content-center gap-4 mt-2">
+                            <div class="next-step active step-1">
+                                < مرحله قبل
+                            </div>
+                            <div class="next-step active step-3">
+                                مرحله بعد >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-Definition-of-diet" id="upload-step-3">
+                        <div class="text-center mt-4 mb-3">
+                            <h4 class="fw-semibold">تصویر نیم رخ چپ صورت خود را آپلود کنید</h4>
+                            <h5>(تصویر به صورت عمودی باشد)</h5>
+                        </div>
+                        <div class="content-upload">
+                            <img src="{% static 'images/face-left.png' %}" alt="Right face" id="image3" width="270" height="350">
+                        </div>
+                        <div class="uploade-imge">
+                            <label role="button" class="item-upload" for="leftFace">
+                                آپلود
+                            </label>
+                            <input type="file" name="image3" accept="image/jpeg, image/jpg, image/png"
+                                   id="leftFace" onchange="displayImage(event)" hidden>
+                        </div>
+                        <div class="d-flex justify-content-center gap-4 mt-2">
+                            <div class="next-step active step-2">
+                                < مرحله قبل
+                            </div>
+                            <div class="next-step active step-4">
+                                مرحله بعد >
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="content-Definition-of-diet" id="upload-step-4">
+                        <div class="text-center mt-4 mb-3">
+                            <h4 class="fw-semibold">توضحیات تکمیلی خود را در کادر پایین وارد کنید</h4>
+                        </div>
+                        <div class="uploade-imge">
+                            <label>
+                                <textarea placeholder="توضیحات خود را بنویسید" name="description" cols="60" rows="8" class="form-control"></textarea>
+                            </label>
+                        </div>
+                        <div class="d-flex justify-content-center gap-4 mt-2">
+                            <div class="next-step active step-3">
+                                < مرحله قبل
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-center mt-5">
+                            <button type="submit" class="btn btn-success fw-semibold px-5">ثبت</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </main>
+    </div>
+
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{% static 'js/face-analysist.js' %}"></script>
+{% endblock %}

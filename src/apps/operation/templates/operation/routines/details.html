@@ -1,0 +1,139 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | جزئیات روتین{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/routine-details.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <!-- Start Delete routine modal -->
+    <div class="modal fade" tabindex="-1" id="delRoutineModal" aria-labelledby="delRoutineModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form method="GET" action="{% url 'operation:delete_routine' object.pk %}" class="modal-content text-white border-white border-1 rounded-4"
+                  style="background-color: #2d2c2c;">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-semibold h4">حذف روتین</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex flex-column form-group">
+                        <h5 class="">آیا از حذف این روتین اطمینان دارید؟</h5>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-light fw-semibold rounded-3" data-bs-dismiss="modal" aria-label="Close">بستن</button>
+                    <button type="submit" class="btn btn-danger fw-semibold rounded-3">بله، حذف</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="container-fluid col-md-11 bg">
+        <main class="main pb-5">
+            <div class="d-flex justify-content-between pt-3 px-3">
+                <div></div>
+                <div>
+                    <a href="{% url 'operation:routines_list' %}" class="btn btn-danger">بازگشت</a>
+                </div>
+            </div>
+
+            <section class="p-md-5 p-3" id="container-tickets">
+
+                <div class="test-detail-main">
+                    <form method="POST" action="{% url 'operation:answer_routine' object.pk %}" class="text-white">
+                        {% csrf_token %}
+                        <input type="hidden" name="user" value="{{ object.user.pk }}">
+
+                        <div class="test-detail-header pt-3 px-3 pb-2">
+                            <div class="d-flex gap-md-5 gap-4">
+                                <h4 class="fw-semibold">
+                                    <span>نام: </span>
+                                    {{ object.user.get_full_name }}
+                                </h4>
+                                <h4 class="fw-semibold">
+                                    <span>موبایل: </span>
+                                    <span class="convert-digits">{{ object.user.get_phone_number }}</span>
+                                </h4>
+                                <h4 class="fw-semibold">
+                                    <span>تاریخ: </span>
+                                    <span class="datetime-convert">{{ object.get_date_created }}</span>
+                                </h4>
+                            </div>
+                        </div>
+                        <div class="test-detail-body row p-3 mx-0">
+                            <div class="col-md-7 col-12 d-flex flex-column gap-4">
+                                <div class="d-flex flex-column">
+                                    <span class="h5 fw-semibold">متن کاربر:</span>
+                                    <p class="text-size">{{ object.description }}</p>
+                                </div>
+                                <div class="d-flex flex-column mb-4">
+                                    {% if user.has_admin_access %}
+                                        <label class="form-label">
+                                            <span class="h5 fw-semibold">تعریف روتین:</span>
+                                                <textarea name="answer" class="form-control w-100 mt-2 text-size" rows="7" required>{{ object.answer|default:'' }}</textarea>
+                                        </label>
+                                        <div class="d-flex gap-3 mt-1">
+                                            <button type="submit" class="btn btn-light fw-semibold">ثبت پاسخ</button>
+                                            <button type="button" class="btn btn-danger fw-semibold"
+                                                    data-bs-toggle="modal" data-bs-target="#delRoutineModal">حذف روتین</button>
+                                        </div>
+                                    {% else %}
+                                        <label class="form-label">
+                                            <span class="h5 fw-semibold">روتین تعریف شده:</span>
+                                                <textarea name="answer" class="form-control w-100 mt-2 text-size" readonly rows="7">{{ object.answer|default:'' }}</textarea>
+                                        </label>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            <div class="col-md-5 col-12 text-center m-auto">
+                                <!-- Swiper -->
+                                <div dir="ltr" class="swiper imagesSwiper">
+                                    <div class="swiper-wrapper">
+                                        <div class="swiper-slide">
+                                            <img src="{{ object.get_image1_url }}" alt="Image">
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <img src="{{ object.get_image2_url }}" alt="Image">
+                                        </div>
+                                        <div class="swiper-slide">
+                                            <img src="{{ object.get_image3_url }}" alt="Image">
+                                        </div>
+                                    </div>
+
+                                    <div class="swiper-button-next"></div>
+                                    <div class="swiper-button-prev"></div>
+                                </div>
+                                <div class="d-flex">
+                                    <div class="swiper-pagination"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </section>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+    <script src="{% static 'vendors/swiper.js' %}"></script>
+    <script>
+        let swiper = new Swiper(".imagesSwiper", {
+            grabCursor: true,
+            pagination: {
+                el: ".swiper-pagination",
+                type: "fraction",
+            },
+            navigation: {
+                nextEl: ".swiper-button-next",
+                prevEl: ".swiper-button-prev",
+            },
+        });
+    </script>
+{% endblock %}

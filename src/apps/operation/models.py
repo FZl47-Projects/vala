@@ -5,8 +5,8 @@ from django.db import models
 from apps.core.models import BaseModel
 from apps.core.utils import get_time
 from apps.account.models import User
+from .utils import upload_routine_image, upload_recovery_image
 from .enums import TestStatusChoices
-from .utils import upload_recovery_image
 from os.path import splitext
 
 
@@ -115,3 +115,42 @@ class Counseling(BaseModel):
         if self.file:
             return self.file.url
         return '#'
+
+
+# SkinRoutines model
+class SkinRoutine(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='skin_routines', verbose_name=_('user'))
+    description = models.TextField(_('Description'), null=True, blank=True)
+    answer = models.TextField(_('Answer'), null=True, blank=True)
+
+    image1 = models.ImageField(_('Full face image'), upload_to=upload_routine_image, null=True, blank=True)
+    image2 = models.ImageField(_('Right face image'), upload_to=upload_routine_image, null=True, blank=True)
+    image3 = models.ImageField(_('Left face image'), upload_to=upload_routine_image, null=True, blank=True)
+
+    is_active = models.BooleanField(_('Active'), default=True)
+
+    class Meta:
+        verbose_name = _('Skin routine')
+        verbose_name_plural = _('Skin routines')
+        ordering = ('-id',)
+
+    def __str__(self):
+        return f'{self.user} - {self.description[:15]}'
+
+    def get_absolute_url(self):
+        return reverse('operation:routine_details', args=[self.pk])
+
+    def get_date_created(self):
+        return self.created_at.strftime('%Y-%m-%d')
+
+    def get_image1_url(self):
+        if self.image1:
+            return self.image1.url
+
+    def get_image2_url(self):
+        if self.image2:
+            return self.image2.url
+
+    def get_image3_url(self):
+        if self.image3:
+            return self.image3.url

@@ -21,3 +21,10 @@ class RecoveryProcessAdmin(admin.ModelAdmin):
     list_display = ('user', 'title', 'is_active')
     list_display_links = ('user', 'title')
     inlines = (RecoveryProcessInline,)
+
+
+# Register SkinRoutine model admin
+@admin.register(models.SkinRoutine)
+class SkinRoutineAdmin(admin.ModelAdmin):
+    list_display = ('id', 'user', 'is_active')
+    list_display_links = ('id', 'user',)
