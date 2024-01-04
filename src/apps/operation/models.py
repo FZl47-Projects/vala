@@ -92,3 +92,26 @@ class RecoveryProcessImage(BaseModel):
 
     def get_user_phone(self):
         return self.recovery_process.user.get_phone_number()
+
+
+# Counselings model
+class Counseling(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='counselings', verbose_name=_('User'))
+    title = models.CharField(_('Title'), max_length=128, default=_('No title'))
+    description = models.TextField(_('Description'))
+    file = models.FileField(_('Counseling file'), upload_to=f'files/counselings/{get_time("%Y-%m-%d")}/', null=True, blank=True)
+    is_answered = models.BooleanField(_('Is answered'), default=False)
+    is_active = models.BooleanField(_('Is active'), default=True)
+
+    class Meta:
+        verbose_name = _('Counseling')
+        verbose_name_plural = _('Counselings')
+        ordering = ('-id',)
+
+    def __str__(self):
+        return f'{self.user} - {self.title} - {self.created_at}'
+
+    def get_file_url(self):
+        if self.file:
+            return self.file.url
+        return '#'

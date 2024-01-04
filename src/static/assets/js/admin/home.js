@@ -49,7 +49,6 @@ function verifyComment(id, el) {
         }
     })
 }
-
 // ---------------------------- Verify Comment handler -------------------------- //
 
 

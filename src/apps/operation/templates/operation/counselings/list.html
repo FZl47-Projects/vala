@@ -1,0 +1,110 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | مشاوره ها{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/counselings.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <!-- Start Request counseling modal -->
+    <div class="modal fade" tabindex="-1" id="requestCounselingModal" aria-labelledby="requestCounselingModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form method="POST" action="{% url 'operation:add_counseling' %}" enctype="multipart/form-data"
+                  class="modal-content text-white border-white border-1 rounded-3" style="background-color: #2d2c2c;">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title fw-semibold h4">درخواست مشاوره جدید</h5>
+                    <i role="button" class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="user" value="{{ user.pk }}">
+                    <div class="d-flex flex-column form-group">
+                        <label class="form-label" style="font-size: 16px;">
+                            عنوان مشاوره
+                            <input type="text" name="title" class="form form-control mt-1" style="background-color: #e1e1e1;" required>
+                        </label>
+                    </div>
+                    <div class="d-flex flex-column form-group">
+                        <label class="form-label" style="font-size: 16px;">
+                            متن درخواست
+                            <textarea name="description" class="form form-control mt-1" cols="5" style="background-color: #e1e1e1;" required></textarea>
+                        </label>
+                    </div>
+                    <div class="d-flex flex-column form-group">
+                        <label class="form-label" style="font-size: 16px;">
+                            فایل پیوست(اختیاری)
+                            <input type="file" name="file" accept="application/pdf, image/*" class="form form-control mt-1" style="background-color: #e1e1e1;">
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-danger fw-semibold rounded-3 px-3" data-bs-dismiss="modal" aria-label="Close">بستن</button>
+                    <button type="submit" class="btn btn-light fw-semibold rounded-3 px-3">ارسال</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- .End Request counseling modal -->
+
+    <div class="container-fluid col-md-11 bg">
+        <div class="d-flex justify-content-between gap-3 px-3 pt-4 pb-2">
+            <div></div>
+            <div>
+                <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#requestCounselingModal">
+                    درخواست مشاوره
+                </button>
+            </div>
+        </div>
+
+        <main class="main pb-5">
+            <section class="content-items" id="container-tickets">
+
+                {% for obj in object_list %}
+                    <div class="col-12 col-md-6 p-1">
+                        <div class="item-ticket position-relative">
+                            <div class="counseling-state text-white">
+                                {% if obj.is_answered %}
+                                    <span class="bg-success p-2 state">پایان</span>
+                                {% else %}
+                                    <span class="bg-danger p-2 state">بی پاسخ</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="title d-flex justify-content-between align-items-center mb-2">
+                                <span>شما</span>
+                            </div>
+                            <div class="des-1 mt-3">
+                                <span class="fw-semibold">عنوان:</span> {{ obj.title }}
+                            </div>
+                            <div class="d-flex flex-column mt-3">
+                                <span class="text-white">متن درخواست</span>
+                                <div class="des-2">
+                                    <span style="font-size: 16px;">{{ obj.description }}</span>
+                                </div>
+                            </div>
+                            <div class="d-flex mt-2">
+                                <a href="{{ obj.get_file_url }}" target="_self" class="btn btn-success">
+                                    فایل پیوست
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="container-not-found-base p-4 fs-4">
+                        <p>مشاوره‌ ای ثبت نشده</p>
+                    </div>
+                {% endfor %}
+
+            </section>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+{% endblock %}

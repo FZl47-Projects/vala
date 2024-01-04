@@ -15,4 +15,8 @@ urlpatterns = [
     path('recovery/<int:pk>/details/', views.RecoveryProcessDetailsView.as_view(), name='recovery_process_details'),
     path('recovery/add-image/', views.AddRecoveryProcessImageView.as_view(), name='add_recovery_process_image'),
     path('recovery/delete-image/', views.DeleteRecoveryProcessImageView.as_view(), name='delete_recovery_process_image'),
+
+    path('counseling/list/', views.CounselingsListView.as_view(), name='counselings_list'),
+    path('counseling/add/', views.AddCounselingView.as_view(), name='add_counseling'),
+    path('counseling/<int:pk>/answer/', views.ToggleCounselingAnswerView.as_view(), name='counseling_answer'),
 ]

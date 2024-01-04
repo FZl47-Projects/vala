@@ -1,0 +1,91 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | مشاوره ها{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/counselings.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <div class="container-fluid col-md-11 bg">
+        <div class="d-flex justify-content-between gap-3 px-3 pt-4 pb-2">
+            <form method="GET" style="width: 16rem;">
+                <label class="w-100">
+                    <span class="text-white">جستجو:</span>
+                    <input type="text" name="q" value="{{ request.GET.q }}"
+                           placeholder="موبایل کاربر، نام خانوادگی" class="form-control">
+                </label>
+            </form>
+            <div></div>
+        </div>
+
+        <main class="main pb-5">
+            <section class="content-items" id="container-tickets">
+
+                {% for obj in object_list %}
+                    <div class="col-12 col-md-6 p-1">
+                        <div class="item-ticket position-relative">
+                            <div class="counseling-state text-white">
+                                {% if obj.is_answered %}
+                                    <span class="bg-success p-2 state">پایان</span>
+                                {% else %}
+                                    <span class="bg-danger p-2 state">بی پاسخ</span>
+                                {% endif %}
+                            </div>
+
+                            <div class="title d-flex flex-column gap-1 mb-2">
+                                <span class="fw-semibold">
+                                    <a href="{{ obj.user.user_profile.get_absolute_url }}" class="counseling-user">
+                                        {{ obj.user.get_full_name }}
+                                    </a>
+                                </span>
+                                <span class="convert-digits">تلفن:
+                                    <span class="fw-semibold">{{ obj.user.get_phone_number }}</span>
+                                </span>
+                            </div>
+                            <div class="des-1 mt-3">
+                                <span class="fw-semibold">عنوان:</span> {{ obj.title }}
+                            </div>
+                            <div class="d-flex flex-column mt-2">
+                                <span class="text-white pe-1">متن درخواست</span>
+                                <div class="des-2">
+                                    <span style="font-size: 16px;">{{ obj.description }}</span>
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-2">
+                                <div>
+                                    {% if obj.file %}
+                                        <a href="{{ obj.get_file_url }}" target="_blank" class="btn btn-success">
+                                            فایل پیوست
+                                        </a>
+                                    {% endif %}
+                                </div>
+                                <div class="d-flex align-items-center mt-1 ms-1">
+                                    <label class="form-label d-flex gap-1">
+                                        <span class="text-white">اتمام مشاوره: </span>
+                                        <input type="checkbox" class="form-check-input" {% if obj.is_answered %}checked{% endif %}
+                                               onchange="answerCounseling({{ obj.pk }}, this)">
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="container-not-found-base p-4 fs-4">
+                        <p>مشاوره‌ ای ثبت نشده</p>
+                    </div>
+                {% endfor %}
+
+            </section>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+    <script src="{% static 'js/counseling.js' %}"></script>
+{% endblock %}
