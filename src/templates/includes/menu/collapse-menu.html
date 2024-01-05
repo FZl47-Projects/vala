@@ -12,6 +12,19 @@
                 خدمات حضوری
             </a>
         </li>
+        {% if user.has_operator_access %}
+            <li class="bg-white rounded-pill h3 w-100">
+                <a href="{% url 'program:categories' %}" class="text-black d-block w-100 py-2">
+                    برنامه‌های کاربران
+                </a>
+            </li>
+        {% else %}
+            <li class="bg-white rounded-pill h3 w-100">
+                <a href="{% url 'program:list' %}" class="text-black d-block w-100 py-2">
+                    برنامه ها
+                </a>
+            </li>
+        {% endif %}
         <li class="bg-white rounded-pill h3 w-100">
             <a href="{% url 'communication:tickets_list' %}" class="text-black d-block w-100 py-2">
                 تیکت ها

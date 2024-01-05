@@ -1,0 +1,60 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | برنامه ها{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/khadamat-hozori.css' %}">
+{% endblock %}
+
+{% block body_class %}bg{% endblock %}
+
+{% block content %}
+    <!-- Include user/admin menus -->
+    {% include 'menus.html' %}
+
+    <div class="container-fluid col-md-11">
+        <main class="main">
+            <div class="profile-user-category">
+                <div class="inner-profile-user-category col-12 col-md-5">
+                    <div class="logo">
+                        <div class="col-7 col-md-4">
+                            <img src="{% static 'images/vala-logo.png' %}" alt="Vala logo">
+                        </div>
+                    </div>
+                    <div class="name">
+                        برنامه ها
+                    </div>
+
+                    <section class="profile-category" id="container">
+                        <div class="col-10 col-md-8 p-2">
+                            <a href="{% url 'program:diet_list' %}">
+                                <div class="item-profile" id="blue">
+                                    <div class="inner-item-hozori">
+                                        برنامه‌های غذایی
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="col-10 col-md-8 p-2">
+                            <a href="{% url 'program:exercise_list' %}">
+                                <div class="item-profile" id="tree">
+                                    <div class="inner-item-hozori">
+                                        برنامه های ورزشی
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                    </section>
+
+                </div>
+            </div>
+        </main>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+{% endblock %}

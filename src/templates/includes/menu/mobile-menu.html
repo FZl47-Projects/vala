@@ -32,6 +32,21 @@
                 <div class="text-white" style="font-size: 8px;">خدمات حضوری</div>
             </a>
         </li>
+        {% if user.has_operator_access %}
+            <li class="col-4 menu-m-item">
+                <a href="{% url 'program:categories' %}">
+                    <img src="{% static 'images/icons/ravand.png' %}" alt="icon">
+                    <div class="text-white" style="font-size: 8px;">برنامه‌های کاربران</div>
+                </a>
+            </li>
+        {% else %}
+            <li class="col-4 menu-m-item">
+                <a href="{% url 'program:list' %}">
+                    <img src="{% static 'images/icons/ravand.png' %}" alt="icon">
+                    <div class="text-white" style="font-size: 8px;">برنامه ها</div>
+                </a>
+            </li>
+        {% endif %}
         <li class="col-4 menu-m-item">
             <a href="{% url 'operation:recoveries_list' %}">
                 <img src="{% static 'images/icons/ravand.png' %}" alt="icon">

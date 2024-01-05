@@ -1,0 +1,151 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | برنامه‌ها{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/program-list.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <!-- Start Send program request modal -->
+    <div class="modal fade" tabindex="-1" id="sendRequestModal" aria-labelledby="sendRequestModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form method="POST" action="{% url 'program:add_program' %}" class="modal-content text-white border-white border-1 rounded-3"
+                  style="background-color: #2d2c2c;">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title fw-semibold h4">ثبت درخواست برنامه</h5>
+                    <i role="button" class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="user" value="{{ user.pk }}">
+                    <div class="d-flex flex-column form-group">
+                        <label class="form-label" style="font-size: 16px;">
+                            نوع برنامه
+                            <select name="program_type" class="form-select mt-1" style="font-size: 18px;">
+                                <option value="diet" style="font-size: 17px;">برنامه تغذیه</option>
+                                <option value="exercise" style="font-size: 17px;">برنامه ورزشی</option>
+                            </select>
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-light fw-semibold rounded-3" data-bs-dismiss="modal" aria-label="Close">بستن</button>
+                    <button type="submit" class="btn btn-light fw-semibold rounded-3">ارسال</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- .End Send program request modal -->
+
+    <div class="container-fluid col-md-11 bg">
+        <div class="d-flex justify-content-between gap-3 px-md-5 px-3 pt-4">
+            <div></div>
+            {% if not user.has_admin_access %}
+                <div>
+                    <button class="btn btn-light fw-semibold" data-bs-toggle="modal" data-bs-target="#sendRequestModal">
+                        درخواست برنامه
+                    </button>
+                </div>
+            {% endif %}
+        </div>
+
+        <main class="main pb-5">
+            <section class="p-md-5 p-3 row" id="container-tickets">
+
+                {% for program in diet_programs %}
+                    <div class="col-md-6 col-12 mb-4 test-card">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-column position-relative p-3 test-card-header">
+                                {% if program.status == 'defined' %}
+                                    <div class="bg-success text-white fw-semibold px-3 py-1 test-card-state">
+                                        تعریف شده
+                                    </div>
+                                {% else %}
+                                    <div class="bg-danger text-white fw-semibold px-3 py-1 test-card-state">
+                                        ارسال شده
+                                    </div>
+                                {% endif %}
+                                <h4 style="font-weight: 600;">{{ program.title }}</h4>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center gap-2 text-white px-3 pt-3 pb-2 test-card-body">
+                                <div class="d-flex gap-md-5 gap-4">
+                                    <div class="d-flex flex-column fw-semibold">
+                                        <span>نوع:</span>
+                                        <span class="text-wrap convert-digits">تغذیه</span>
+                                    </div>
+                                    <div class="d-flex flex-column fw-semibold">
+                                        <span>شناسه:</span>
+                                        <span class="convert-digits">{{ program.id }}</span>
+                                    </div>
+                                    <div class="d-flex flex-column fw-semibold">
+                                        <span>تاریخ:</span>
+                                        <span class="datetime-convert">{{ program.get_date_created }}</span>
+                                    </div>
+                                </div>
+
+                                {% if program.status == 'defined' %}
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <a href="{{ program.get_absolute_url }}" class="btn btn-sm btn-success fw-semibold">مشاهده</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+                {% for program in exercise_programs %}
+                    <div class="col-md-6 col-12 mb-4 test-card">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-column position-relative p-3 test-card-header">
+                                {% if program.status == 'defined' %}
+                                    <div class="bg-success text-white fw-semibold px-3 py-1 test-card-state">
+                                        تعریف شده
+                                    </div>
+                                {% else %}
+                                    <div class="bg-danger text-white fw-semibold px-3 py-1 test-card-state">
+                                        تعریف نشده
+                                    </div>
+                                {% endif %}
+                                <h4 style="font-weight: 600;">{{ program.title }}</h4>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center gap-2 text-white px-3 pt-3 pb-2 test-card-body">
+                                <div class="d-flex gap-md-5 gap-4">
+                                    <div class="d-flex flex-column fw-semibold">
+                                        <span>نوع:</span>
+                                        <span class="text-wrap convert-digits">ورزشی</span>
+                                    </div>
+                                    <div class="d-flex flex-column fw-semibold">
+                                        <span>شناسه:</span>
+                                        <span class="convert-digits">{{ program.id }}</span>
+                                    </div>
+                                    <div class="d-flex flex-column fw-semibold">
+                                        <span>تاریخ:</span>
+                                        <span class="datetime-convert">{{ program.get_date_created }}</span>
+                                    </div>
+                                </div>
+
+                                {% if program.status == 'defined' %}
+                                    <div class="d-flex flex-wrap gap-2">
+                                        <a href="{{ program.get_absolute_url }}" class="btn btn-sm btn-success fw-semibold">مشاهده</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            </section>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+{% endblock %}

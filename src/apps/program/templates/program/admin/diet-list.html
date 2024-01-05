@@ -1,0 +1,82 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | برنامه‌های تغذیه{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/program-list.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <div class="container-fluid col-md-11 bg">
+        <div class="d-flex justify-content-between gap-3 px-md-4 px-3 pt-4">
+            <form method="GET" style="width: 16rem;">
+                <label class="w-100">
+                    <span class="text-white">جستجو:</span>
+                    <input type="text" name="q" value="{{ request.GET.q }}"
+                           placeholder="شناسه برنامه، موبایل کاربر" class="form-control">
+                </label>
+            </form>
+            <div>
+                <a href="{% url 'program:categories' %}" class="btn btn-danger fw-semibold">بازگشت</a>
+            </div>
+        </div>
+
+        <main class="main pb-5">
+            <section class="py-md-5 px-md-4 p-3 row" id="container-tickets">
+
+                {% for program in object_list %}
+                    <div class="col-md-6 col-12 mb-4 test-card">
+                        <div class="d-flex flex-column">
+                            <div class="d-flex flex-column position-relative p-3 test-card-header">
+                                {% if program.status == 'defined' %}
+                                    <div class="bg-success text-white fw-semibold px-3 py-1 test-card-state">
+                                        تعریف شده
+                                    </div>
+                                {% else %}
+                                    <div class="bg-danger text-white fw-semibold px-3 py-1 test-card-state">
+                                        تعریف نشده
+                                    </div>
+                                {% endif %}
+                                <h4 style="font-weight: 600;">{{ program.title }}</h4>
+                            </div>
+
+                            <div class="d-flex justify-content-between align-items-center gap-2 text-white px-3 pt-3 pb-2 test-card-body">
+                                <div class="d-flex gap-md-5 gap-4">
+                                    <div class="d-flex flex-column fw-semibold">
+                                        <span>کاربر:</span>
+                                        <span class="text-wrap convert-digits">{{ program.user.get_phone_number }}</span>
+                                    </div>
+                                    <div class="d-flex flex-column fw-semibold">
+                                        <span>شناسه:</span>
+                                        <span class="convert-digits">{{ program.id }}</span>
+                                    </div>
+                                    <div class="d-flex flex-column fw-semibold">
+                                        <span>تاریخ:</span>
+                                        <span class="datetime-convert">{{ program.get_date_created }}</span>
+                                    </div>
+                                </div>
+
+                                <div class="d-flex flex-wrap gap-2">
+                                    <a href="{{ program.get_absolute_url }}" class="btn btn-sm btn-success fw-semibold">مشاهده</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="container-not-found-base p-4 fs-4">
+                        <p>درخواستی ثبت نشده</p>
+                    </div>
+                {% endfor %}
+
+            </section>
+        </main>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+{% endblock %}

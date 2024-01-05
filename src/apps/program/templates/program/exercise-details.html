@@ -1,0 +1,158 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | برنامه ورزشی{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/program-definition.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <div class="container-fluid col-md-11 bg">
+        <div class="d-flex justify-content-between gap-3 px-md-5 px-3 pt-4">
+            <div></div>
+            <div>
+                {% if user.has_operator_access %}
+                    <a href="{% url 'program:exercise_list' %}" class="btn btn-danger">بازگشت</a>
+                {% else %}
+                    <a href="{% url 'program:list' %}" class="btn btn-danger">بازگشت</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <main class="main pb-5">
+            <section class="p-md-5 p-3 main-section" id="container-tickets">
+
+                <header class="d-flex justify-content-between align-items-center gap-3 p-header">
+                    <div class="d-flex flex-wrap gap-md-5 gap-3">
+                        <span class="d-flex gap-2 fw-semibold">
+                            <span>نام: </span>
+                            <span>{{ object.user.get_full_name }}</span>
+                        </span>
+                        <span class="d-flex gap-2 fw-semibold">
+                            <span>تلفن: </span>
+                            <span class="convert-digits">{{ object.user.get_phone_number }}</span>
+                        </span>
+                        <span class="d-flex gap-2 fw-semibold">
+                            <span>تاریخ: </span>
+                            <span class="datetime-convert">{{ object.get_date_created }}</span>
+                        </span>
+                    </div>
+                    {% if user.has_operator_access %}
+                        <div>
+                            <a href="{{ object.user.user_profile.get_absolute_url }}" class="btn btn-success">پروفایل</a>
+                        </div>
+                    {% endif %}
+                </header>
+
+                <div class="mt-4 p-body">
+                    <form method="POST" action="{% url 'program:exercise_details' object.pk %}">
+                        {% csrf_token %}
+                        <input type="hidden" name="user" value="{{ object.user.pk }}">
+
+                        <div class="d-flex flex-column gap-3 p-body-inner">
+                            {% if user.has_operator_access %}
+                                <label class="form-label col-lg-4 col-md-6 col-11">
+                                    <span class="form-lbl">عنوان برنامه</span>
+                                    <input type="text" name="title" placeholder="برنامه ماه اول" value="{{ object.title }}"
+                                           class="form-control form-new" required>
+                                </label>
+                                <label class="form-label col-md-6 col-12 mt-2">
+                                    <span class="p-day-label">توضیحات</span>
+                                    <textarea name="description" rows="5" class="form-control p-day-input">{{ object.description|default:'' }}</textarea>
+                                </label>
+                            {% else %}
+                                <div class="form-label col-lg-4 col-md-6 col-11">
+                                    <span class="form-lbl">عنوان برنامه</span>
+                                    <span class="form-control form-new">{{ object.title }}</span>
+                                </div>
+                                <label class="form-label col-md-6 col-12 mt-2">
+                                    <span class="p-day-label">توضیحات</span>
+                                    <textarea rows="5" class="form-control p-day-input" readonly>{{ object.description|default:'' }}</textarea>
+                                </label>
+                            {% endif %}
+                            <hr class="text-white">
+
+                            {% if user.has_operator_access %}
+                                <div class="d-flex flex-column gap-2 mt-2">
+                                    <label class="form-label">
+                                        <span class="p-day-label">برنامه شنبه</span>
+                                        <textarea name="saturday" rows="10" class="form-control rich-text">{{ object.saturday|default:'' }}</textarea>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span class="p-day-label">برنامه یکشنبه</span>
+                                        <textarea name="sunday" rows="10" class="form-control rich-text">{{ object.sunday|default:'' }}</textarea>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span class="p-day-label">برنامه دوشنبه</span>
+                                        <textarea name="monday" rows="10" class="form-control rich-text">{{ object.monday|default:'' }}</textarea>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span class="p-day-label">برنامه سه‌شنبه</span>
+                                        <textarea name="tuesday" rows="10" class="form-control rich-text">{{ object.tuesday|default:'' }}</textarea>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span class="p-day-label">برنامه چهارشنبه</span>
+                                        <textarea name="wednesday" rows="10" class="form-control rich-text">{{ object.wednesday|default:'' }}</textarea>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span class="p-day-label">برنامه پنجشنبه</span>
+                                        <textarea name="thursday" rows="10" class="form-control rich-text">{{ object.thursday|default:'' }}</textarea>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span class="p-day-label">برنامه جمعه</span>
+                                        <textarea name="friday" rows="10" class="form-control rich-text">{{ object.friday|default:'' }}</textarea>
+                                    </label>
+                                </div>
+                            {% else %}
+                                <div class="d-flex flex-column gap-2 mt-2">
+                                    <label class="form-label">
+                                        <span class="p-day-label">برنامه شنبه</span>
+                                        <textarea rows="10" class="form-control rich-text" readonly>{{ object.saturday|default:'' }}</textarea>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span class="p-day-label">برنامه یکشنبه</span>
+                                        <textarea rows="10" class="form-control rich-text" readonly>{{ object.sunday|default:'' }}</textarea>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span class="p-day-label">برنامه دوشنبه</span>
+                                        <textarea rows="10" class="form-control rich-text" readonly>{{ object.monday|default:'' }}</textarea>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span class="p-day-label">برنامه سه‌شنبه</span>
+                                        <textarea rows="10" class="form-control rich-text" readonly>{{ object.tuesday|default:'' }}</textarea>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span class="p-day-label">برنامه چهارشنبه</span>
+                                        <textarea rows="10" class="form-control rich-text" readonly>{{ object.wednesday|default:'' }}</textarea>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span class="p-day-label">برنامه پنجشنبه</span>
+                                        <textarea rows="10" class="form-control rich-text" readonly>{{ object.friday|default:'' }}</textarea>
+                                    </label>
+                                    <label class="form-label mt-3">
+                                        <span class="p-day-label">برنامه جمعه</span>
+                                        <textarea rows="10" class="form-control rich-text" readonly>{{ object.friday|default:'' }}</textarea>
+                                    </label>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                        {% if user.has_operator_access %}
+                            <button type="submit" class="btn btn-light fw-semibold mt-2">ثبت برنامه</button>
+                        {% endif %}
+                    </form>
+                </div>
+
+            </section>
+        </main>
+
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+{% endblock %}
