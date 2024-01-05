@@ -12479,8 +12479,9 @@ label {
 
 .loader > span {
     font-size: 60px;
+    font-weight: bold;
     color: var(--primary);
-    font-family: "franklin gothic medium", sans-serif;
+    font-family: "Vazir", sans-serif;
     display: inline-block;
     animation: flip 1s infinite linear;
     transform-origin: 0 70%;
@@ -35468,7 +35469,7 @@ code {
 
 .table th, .table td {
     border-color: #f5f5f5;
-    padding: 15px 10px;
+    padding: 15px 10px!important;
 }
 
 [data-theme-version="dark"] .table th, [data-theme-version="dark"] .table td {

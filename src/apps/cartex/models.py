@@ -13,6 +13,7 @@ class Meeting(BaseModel):
     user = models.ForeignKey('account.User', null=True, on_delete=models.SET_NULL)
     operator = models.ForeignKey('account.User', null=True, on_delete=models.SET_NULL,
                                  related_name='meetings_set_operator')
+    device_name = models.CharField(max_length=100)
     time_start = models.TimeField(null=True)
     time_end = models.TimeField(null=True)
     description = models.TextField(null=True)
