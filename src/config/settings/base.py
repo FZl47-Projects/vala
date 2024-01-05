@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'apps.account',
     'apps.service',
     'apps.shop',
+    'apps.program',
     'apps.operation',
     'apps.notification',
     'apps.communication',

@@ -9,7 +9,8 @@ urlpatterns = [
     path('', include('apps.public.urls', namespace='public')),
     path('account/', include('apps.account.urls', namespace='account')),
     path('service/', include('apps.service.urls', namespace='service')),
-    path('products/', include('apps.shop.urls', namespace='shop')),
+    path('shop/', include('apps.shop.urls', namespace='shop')),
+    path('program/', include('apps.program.urls', namespace='program')),
     path('operation/', include('apps.operation.urls', namespace='operation')),
     path('communication/', include('apps.communication.urls', namespace='communication')),
 ]
