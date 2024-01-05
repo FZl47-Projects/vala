@@ -7,16 +7,16 @@ from django.contrib import messages
 from django.db.models import Q
 
 from apps.account.mixins import AccessRequiredMixin
-from apps.account.enums import AccessChoices
+from apps.account.enums import UserAccessEnum
 from apps.core.utils import amit_first_char
-from .. import models
+from ..models import Counseling
 from .. import forms
 
 
 # Render CounselingsList view
 class CounselingsListView(LoginRequiredMixin, ListView):
     template_name = 'operation/counselings/list.html'
-    model = models.Counseling
+    model = Counseling
 
     def get_template_names(self):
         if self.request.user.has_admin_access:
@@ -33,16 +33,16 @@ class CounselingsListView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         if self.request.user.has_admin_access:
-            objects = models.Counseling.objects.filter(is_active=True)
+            objects = Counseling.objects.filter(is_active=True)
             return self.filter(objects)
 
-        return models.Counseling.objects.filter(is_active=True, user=self.request.user)
+        return Counseling.objects.filter(is_active=True, user=self.request.user)
 
 
 # Add Counseling view
 class AddCounselingView(LoginRequiredMixin, CreateView):
     template_name = 'operation/counselings/list.html'
-    model = models.Counseling
+    model = Counseling
     form_class = forms.AddCounselingForm
     success_url = reverse_lazy('operation:counselings_list')
 
@@ -53,14 +53,14 @@ class AddCounselingView(LoginRequiredMixin, CreateView):
 
 # Toggle Counseling answer view
 class ToggleCounselingAnswerView(AccessRequiredMixin, View):
-    roles = [AccessChoices.ADMIN]
+    roles = [UserAccessEnum.ADMIN]
 
     def get(self, request, pk):
         try:
-            obj = models.Counseling.objects.get(pk=pk)
+            obj = Counseling.objects.get(pk=pk)
             obj.is_answered = not obj.is_answered
             obj.save()
-        except models.Counseling.DoesNotExist:
+        except Counseling.DoesNotExist:
             return JsonResponse({'response': 'error'}, status=404)
 
         return JsonResponse({'response': 'answered'}, status=200)

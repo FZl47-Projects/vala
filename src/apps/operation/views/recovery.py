@@ -5,7 +5,7 @@ from django.utils.translation import gettext as _
 from django.urls import reverse_lazy
 from django.contrib import messages
 
-from .. import models
+from ..models import RecoveryProcess, RecoveryProcessImage
 
 
 # Render RecoveryProcesses view
@@ -14,7 +14,7 @@ class RecoveryProcessesView(LoginRequiredMixin, TemplateView):
 
     def get_context_data(self, **kwargs):
         contexts = super().get_context_data(**kwargs)
-        processes = models.RecoveryProcess.objects.filter(is_active=True, user=self.request.user)
+        processes = RecoveryProcess.objects.filter(is_active=True, user=self.request.user)
         contexts['processes'] = processes
 
         return contexts
@@ -24,7 +24,7 @@ class RecoveryProcessesView(LoginRequiredMixin, TemplateView):
 class AddRecoveryProcessView(LoginRequiredMixin, CreateView):
     template_name = 'operation/recovery/processes-list.html'
     success_url = reverse_lazy('operation:recoveries_list')
-    model = models.RecoveryProcess
+    model = RecoveryProcess
     fields = ('user', 'title')
 
     def form_valid(self, form):
@@ -36,7 +36,7 @@ class AddRecoveryProcessView(LoginRequiredMixin, CreateView):
 class DeleteRecoveryProcessView(LoginRequiredMixin, View):
 
     def get(self, request, pk):
-        obj = get_object_or_404(models.RecoveryProcess, pk=pk)
+        obj = get_object_or_404(RecoveryProcess, pk=pk)
         obj.is_active = False
         obj.save()
 
@@ -47,13 +47,13 @@ class DeleteRecoveryProcessView(LoginRequiredMixin, View):
 # Render RecoveryProcessDetails view
 class RecoveryProcessDetailsView(LoginRequiredMixin, DetailView):
     template_name = 'operation/recovery/process-details.html'
-    model = models.RecoveryProcess
+    model = RecoveryProcess
 
 
 # Add RecoveryProcessImage view
 class AddRecoveryProcessImageView(LoginRequiredMixin, CreateView):
     template_name = 'operation/recovery/process-details.html'
-    model = models.RecoveryProcessImage
+    model = RecoveryProcessImage
     fields = ('recovery_process', 'image')
 
     def form_valid(self, form):
@@ -66,7 +66,7 @@ class DeleteRecoveryProcessImageView(LoginRequiredMixin, View):
 
     def post(self, request):
         data = request.POST.copy()
-        obj = get_object_or_404(models.RecoveryProcessImage, pk=data.get('pk'))
+        obj = get_object_or_404(RecoveryProcessImage, pk=data.get('pk'))
 
         parent_pk = obj.recovery_process.pk
         obj.delete()

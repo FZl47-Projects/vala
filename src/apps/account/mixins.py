@@ -1,7 +1,13 @@
+from django.utils.translation import gettext as _
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseForbidden
 from django.shortcuts import redirect
-from .enums import AccessChoices
+from django.contrib import messages
+from django.db.models import Q
+
+from .enums import UserAccessEnum
+from .models import UserProfile
+from functools import reduce
 
 User = get_user_model()
 
@@ -23,10 +29,29 @@ class AccessRequiredMixin:
     def dispatch(self, request, *args, **kwargs):
         if request.user.is_anonymous:
             return redirect('account:login')
-        elif request.user.access.filter(title__in=self.roles).exists():
+
+        q = reduce(lambda x, y: x | y, [Q(title__contains=role) for role in self.roles])
+        if request.user.access.filter(q).exists():
             return super().dispatch(request, *args, **kwargs)
 
+        messages.error(request, _('You do not have permission to access this page!'))
         return HttpResponseForbidden()
+
+
+class VIPRequiredMixin:
+    """ Allow access only to VIP users. """
+
+    def dispatch(self, request, *args, **kwargs):
+        if request.user.is_anonymous:
+            return redirect('account:login')
+
+        if request.user.user_profile.level == UserProfile.LEVELS.VIP:
+            return super().dispatch(request, *args, **kwargs)
+
+        messages.error(request, _('You do not have permission to access this page!'))
+
+        http_referer = request.META.get('HTTP_REFERER')
+        return redirect(http_referer)
 
 
 class ProfileCompletionMixin:
@@ -42,7 +67,6 @@ class ProfileCompletionMixin:
 
 class PermissionMixin:
     """ Limit access permission to the view. """
-    access = [AccessChoices.ADMIN, AccessChoices.WORKOUT_OP, AccessChoices.DIET_OP]
 
     def dispatch(self, request, *args, **kwargs):
         pk = kwargs.get('pk')
@@ -54,7 +78,7 @@ class PermissionMixin:
 
         if request.user.is_anonymous:
             return redirect('account:login')
-        elif request.user.access.filter(title__in=self.access).exists() or request.user == obj:
+        elif request.user.access.filter(title__in=User.OP_ROLES).exists() or request.user == obj:
             return super().dispatch(request, *args, **kwargs)
 
         return redirect('account:profile')

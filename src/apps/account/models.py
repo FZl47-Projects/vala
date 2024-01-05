@@ -5,16 +5,16 @@ from django.shortcuts import reverse
 from django.db import models
 
 from phonenumber_field.modelfields import PhoneNumberField
+from .enums import UserAccessEnum, ProfileLevelsEnum
 from apps.core.models import BaseModel
 from .utils import get_raw_phone_number
-from .enums import AccessChoices
 from .managers import UserManager
 from secrets import token_hex
 
 
 # User Access model
 class Access(BaseModel):
-    ACCESS = AccessChoices
+    ACCESS = UserAccessEnum
     title = models.CharField(_('Access title'), max_length=64, choices=ACCESS.choices, unique=True)
 
     class Meta:
@@ -30,7 +30,7 @@ class Access(BaseModel):
 
 # Custom User model
 class User(AbstractBaseUser):
-    ACCESSES = AccessChoices
+    ACCESSES = UserAccessEnum
 
     # Fields
     phone_number = PhoneNumberField(_('Phone number'), max_length=32, unique=True)
@@ -40,7 +40,7 @@ class User(AbstractBaseUser):
     is_active = models.BooleanField(_("Active"), default=True)
     is_verified = models.BooleanField(_('Verify'), default=False)
     is_admin = models.BooleanField(_("Admin"), default=False)
-    access = models.ManyToManyField(Access, verbose_name=_("Accesses"), default=ACCESSES.USER, blank=True)
+    access = models.ManyToManyField(Access, verbose_name=_("Accesses"), blank=True)
 
     token = models.CharField(_("Secret token"), max_length=64, null=True, blank=True, editable=False)
 
@@ -52,6 +52,8 @@ class User(AbstractBaseUser):
     USERNAME_FIELD = "phone_number"
 
     REQUIRED_FIELDS = []
+
+    OP_ROLES = [ACCESSES.DIET_OP, ACCESSES.WORKOUT_OP, ACCESSES.ADMIN]
 
     class Meta:
         verbose_name = _("User")
@@ -93,8 +95,7 @@ class User(AbstractBaseUser):
         return False
 
     def has_operator_access(self):
-        access = [self.ACCESSES.ADMIN, self.ACCESSES.WORKOUT_OP, self.ACCESSES.DIET_OP]
-        if self.access.filter(title__in=access).exists():
+        if self.access.filter(title__in=self.OP_ROLES).exists():
             return True
         return False
 
@@ -119,7 +120,10 @@ class User(AbstractBaseUser):
 
 # User Profile model
 class UserProfile(BaseModel):
+    LEVELS = ProfileLevelsEnum
+
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name=_('User'), related_name='user_profile')
+    level = models.CharField(_('Profile level'), max_length=32, choices=LEVELS.choices, default=LEVELS.BASIC)
 
     # Admin questions
     question1 = models.CharField(_('First question'), max_length=64, default=_('No answer'))

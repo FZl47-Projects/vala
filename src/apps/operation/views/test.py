@@ -6,8 +6,8 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 
 from apps.account.mixins import AccessRequiredMixin
-from apps.account.enums import AccessChoices
-from .. import models
+from apps.account.enums import UserAccessEnum
+from ..models import Test
 from .. import forms
 
 
@@ -19,9 +19,9 @@ class TestsView(LoginRequiredMixin, TemplateView):
         contexts = super().get_context_data(**kwargs)
 
         if self.request.user.has_admin_access:
-            tests = models.Test.objects.filter(is_active=True)
+            tests = Test.objects.filter(is_active=True)
         else:
-            tests = models.Test.objects.filter(is_active=True, user=self.request.user)
+            tests = Test.objects.filter(is_active=True, user=self.request.user)
 
         contexts['tests'] = tests
         return contexts
@@ -30,15 +30,15 @@ class TestsView(LoginRequiredMixin, TemplateView):
 # Render TestDetails view
 class TestDetailsView(LoginRequiredMixin, DetailView):
     template_name = 'operation/tests/test-details.html'
-    model = models.Test
+    model = Test
 
 
 # Update Test view
 class UpdateTestView(AccessRequiredMixin, UpdateView):
     template_name = 'operation/tests/test-details.html'
-    model = models.Test
+    model = Test
     form_class = forms.AnswerTestForm
-    roles = [AccessChoices.ADMIN]
+    roles = [UserAccessEnum.ADMIN]
 
     def get_success_url(self):
         return reverse('operation:test_details', args=[self.object.pk])
@@ -57,14 +57,14 @@ class UpdateTestView(AccessRequiredMixin, UpdateView):
 class AddTestView(LoginRequiredMixin, CreateView):
     template_name = 'operation/tests/tests.html'
     success_url = reverse_lazy('operation:tests_list')
-    model = models.Test
+    model = Test
     fields = ('user', 'title', 'text', 'file')
 
     def form_valid(self, form):
         obj = form.save(commit=False)
 
         # Check if user saved more than unanswered test
-        test_counts = models.Test.objects.filter(is_active=True, user=obj.user, status='await').count()
+        test_counts = Test.objects.filter(is_active=True, user=obj.user, status='await').count()
         if test_counts >= 3:
             messages.error(self.request, _('You cannot register more than 3 unanswered test'))
             return redirect('operation:tests_list')

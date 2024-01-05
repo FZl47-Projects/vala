@@ -4,15 +4,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext as _
 from django.urls import reverse_lazy
 
-from apps.account.mixins import AccessRequiredMixin, AccessChoices
-from . import models
+from apps.account.mixins import AccessRequiredMixin, UserAccessEnum
+from .models import Product
 from . import forms
 
 
 # Render ProductsList view
 class ProductListView(LoginRequiredMixin, ListView):
     template_name = 'shop/products.html'
-    model = models.Product
+    model = Product
 
     def get_template_names(self):
         if self.request.user.has_admin_access:

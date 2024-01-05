@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView, View
 from apps.account.mixins import AccessRequiredMixin
-from apps.account.enums import AccessChoices
+from apps.account.enums import UserAccessEnum
 from apps.core.utils import validate_form
 from django.contrib import messages
 from . import models
@@ -30,7 +30,7 @@ class OperatorCategoryDetailView(View):
 
 
 class OperatorCategoryAddView(AccessRequiredMixin, View):
-    roles = (AccessChoices.ADMIN,)
+    roles = [UserAccessEnum.ADMIN]
 
     def post(self, request):
         data = request.POST
@@ -43,7 +43,7 @@ class OperatorCategoryAddView(AccessRequiredMixin, View):
 
 
 class OperatorCategoryDeleteView(AccessRequiredMixin, View):
-    roles = (AccessChoices.ADMIN,)
+    roles = [UserAccessEnum.ADMIN]
 
     def post(self, request, category_id=0):
         """
@@ -71,7 +71,7 @@ class OperatorAddView(View):
 
 
 class OperatorDeleteView(AccessRequiredMixin, View):
-    roles = (AccessChoices.ADMIN,)
+    roles = [UserAccessEnum.ADMIN]
 
     def post(self, request, operator_id):
         referer_url = request.META.get('HTTP_REFERER')
@@ -94,7 +94,7 @@ class OperatorDetailView(TemplateView):
 
 
 class OperatorWorkSampleAddView(AccessRequiredMixin, TemplateView):
-    roles = (AccessChoices.ADMIN,)
+    roles = [UserAccessEnum.ADMIN]
 
     def post(self, request):
         referer_url = request.META.get('HTTP_REFERER')
@@ -108,7 +108,7 @@ class OperatorWorkSampleAddView(AccessRequiredMixin, TemplateView):
 
 
 class OperatorWorkSampleDeleteView(AccessRequiredMixin, View):
-    roles = (AccessChoices.ADMIN,)
+    roles = UserAccessEnum.ADMIN
 
     def get(self, request, work_sample_id):
         work_sample = get_object_or_404(models.OperatorWorkSample, id=work_sample_id)
@@ -136,7 +136,7 @@ class OperatorReserveAddView(View):
 
 class OperatorReserveListView(AccessRequiredMixin, TemplateView):
     template_name = 'service/operator/reserve/list.html'
-    roles = (AccessChoices.ADMIN,)
+    roles = UserAccessEnum.ADMIN
 
     def get_context_data(self, **kwargs):
         context = super(OperatorReserveListView, self).get_context_data(**kwargs)

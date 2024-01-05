@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 from django.db.models import Q
 
-from apps.account.mixins import AccessRequiredMixin
+from apps.account.mixins import AccessRequiredMixin, UserAccessEnum
 from apps.core.utils import amit_first_char
 from . import models
 from . import forms
@@ -28,7 +28,7 @@ class TicketsListView(LoginRequiredMixin, TemplateView):
 # Render AdminTicketsListView
 class AdminTicketsListView(AccessRequiredMixin, TemplateView):
     template_name = 'communication/tickets/tickets-admin.html'
-    roles = ['admin']
+    roles = [UserAccessEnum.ADMIN]
 
     def get_context_data(self, **kwargs):
         contexts = super().get_context_data(**kwargs)

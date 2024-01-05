@@ -57,7 +57,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     search_fields = ('user.phone_number', 'user.last_name',)
     list_filter = ('is_verified',)
     fieldsets = (
-        (None, {'fields': ('user',)}),
+        (None, {'fields': ('user', 'level',)}),
         (_('Info'), {'fields': ('image', 'date_of_birth', 'height', 'weight')}),
         (_('Admin questions'), {'fields': ('question1', 'question2')}),
         (_('Dates'), {'fields': ('created_at', 'updated_at')}),

@@ -8,7 +8,7 @@ from django.http import JsonResponse
 from django.contrib import messages
 
 from apps.account.mixins import AccessRequiredMixin
-from apps.account.enums import AccessChoices
+from apps.account.enums import UserAccessEnum
 from . import models
 
 User = get_user_model()
@@ -39,7 +39,7 @@ class AddPostViw(AccessRequiredMixin, CreateView):
     model = models.Post
     fields = ('title', 'caption', 'category', 'file')
     success_url = reverse_lazy('public:index')
-    roles = ['admin']
+    roles = [UserAccessEnum.ADMIN]
 
     def form_valid(self, form):
         messages.success(self.request, _('Post successfully added'))
@@ -48,7 +48,7 @@ class AddPostViw(AccessRequiredMixin, CreateView):
 
 # Delete Post view
 class DeletePostView(AccessRequiredMixin, View):
-    roles = [AccessChoices.ADMIN]
+    roles = [UserAccessEnum.ADMIN]
 
     def post(self, request):
         data = request.POST.copy()
@@ -121,7 +121,7 @@ class AddStoryView(AccessRequiredMixin, CreateView):
     model = models.Story
     fields = ('title', 'caption', 'image')
     success_url = reverse_lazy('public:index')
-    roles = ['admin']
+    roles = [UserAccessEnum.ADMIN]
 
     def form_valid(self, form):
         messages.success(self.request, _('Story successfully added'))
@@ -130,7 +130,7 @@ class AddStoryView(AccessRequiredMixin, CreateView):
 
 # Pin Story view
 class PinStoryView(AccessRequiredMixin, View):
-    roles = [AccessChoices.ADMIN]
+    roles = [UserAccessEnum.ADMIN]
 
     def get(self, request, pk):
         obj = get_object_or_404(models.Story, pk=pk)
@@ -152,7 +152,7 @@ class PinStoryView(AccessRequiredMixin, View):
 
 # Pin Post view
 class PinPostView(AccessRequiredMixin, View):
-    roles = [AccessChoices.ADMIN]
+    roles = [UserAccessEnum.ADMIN]
 
     def get(self, request, pk):
         obj = get_object_or_404(models.Post, pk=pk)
@@ -198,7 +198,7 @@ class AddPodcastView(AccessRequiredMixin, CreateView):
     model = models.Podcast
     fields = ('title', 'text', 'category', 'image', 'audio')
     success_url = reverse_lazy('public:podcasts_list')
-    roles = ['admin']
+    roles = [UserAccessEnum.ADMIN]
 
     def form_valid(self, form):
         messages.success(self.request, _('Podcast successfully added'))
@@ -208,7 +208,7 @@ class AddPodcastView(AccessRequiredMixin, CreateView):
 # Delete Podcast view
 class DeletePodcastView(AccessRequiredMixin, View):
     template_name = 'public/admin/podcasts-admin.html'
-    roles = ['admin']
+    roles = [UserAccessEnum.ADMIN]
 
     def post(self, request):
         data = request.POST.copy()

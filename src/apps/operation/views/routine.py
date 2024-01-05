@@ -6,15 +6,15 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 
 from apps.account.mixins import AccessRequiredMixin
-from apps.account.enums import AccessChoices
-from .. import models
+from apps.account.enums import UserAccessEnum
+from ..models import SkinRoutine
 from .. import forms
 
 
 # Render Routines view
 class RoutinesView(LoginRequiredMixin, ListView):
     template_name = 'operation/routines/routines.html'
-    model = models.SkinRoutine
+    model = SkinRoutine
 
     def get_template_names(self):
         if self.request.user.has_admin_access:
@@ -23,22 +23,22 @@ class RoutinesView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         if self.request.user.has_admin_access:
-            objects = models.SkinRoutine.objects.filter(is_active=True)
+            objects = SkinRoutine.objects.filter(is_active=True)
             return objects
 
-        return models.SkinRoutine.objects.filter(is_active=True, user=self.request.user)
+        return SkinRoutine.objects.filter(is_active=True, user=self.request.user)
 
 
 # Render RoutineDetails view
 class RoutineDetailsView(LoginRequiredMixin, DetailView):
     template_name = 'operation/routines/details.html'
-    model = models.SkinRoutine
+    model = SkinRoutine
 
 
 # Add Routine view
 class AddRoutineView(LoginRequiredMixin, CreateView):
     template_name = 'operation/routines/add.html'
-    model = models.SkinRoutine
+    model = SkinRoutine
     form_class = forms.AddSkinRoutineForm
     success_url = reverse_lazy('operation:routines_list')
 
@@ -50,9 +50,9 @@ class AddRoutineView(LoginRequiredMixin, CreateView):
 # Answer Routine view
 class AnswerRoutineView(AccessRequiredMixin, UpdateView):
     template_name = 'operation/routines/details.html'
-    model = models.SkinRoutine
+    model = SkinRoutine
     form_class = forms.AnswerRoutineForm
-    roles = [AccessChoices.ADMIN]
+    roles = [UserAccessEnum.ADMIN]
 
     def get_success_url(self):
         return reverse('operation:routine_details', args=[self.object.pk])
@@ -64,14 +64,14 @@ class AnswerRoutineView(AccessRequiredMixin, UpdateView):
 
 # Delete Routine view
 class DeleteRoutineView(AccessRequiredMixin, View):
-    roles = [AccessChoices.ADMIN]
+    roles = [UserAccessEnum.ADMIN]
 
     def get(self, request, pk):
         try:
-            obj = models.SkinRoutine.objects.get(pk=pk)
+            obj = SkinRoutine.objects.get(pk=pk)
             obj.is_active = False
             obj.save()
-        except models.SkinRoutine.DoesNotExist:
+        except SkinRoutine.DoesNotExist:
             messages.error(request, _('There is an issue'))
             return redirect('operation:routines_list')
 

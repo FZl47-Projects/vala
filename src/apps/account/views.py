@@ -10,7 +10,6 @@ from .mixins import LogoutRequiredMixin, PermissionMixin, AccessRequiredMixin
 from apps.core.utils import validate_form, amit_first_char
 from apps.notification.models import Notification
 from .models import Access, User
-from .enums import AccessChoices
 from random import randint
 from . import forms
 
@@ -299,7 +298,7 @@ class UsersListView(AccessRequiredMixin, ListView):
     template_name = 'account/admin/users-list.html'
     model = User
     # TODO: Add pagination
-    roles = [AccessChoices.ADMIN, AccessChoices.DIET_OP, AccessChoices.WORKOUT_OP]
+    roles = [User.ACCESSES.OPERATOR]
 
     def filter(self, objects):
         q = self.request.GET.get('q')

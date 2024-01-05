@@ -1,6 +1,6 @@
 from django.contrib.auth.models import BaseUserManager
 from django.utils.translation import gettext_lazy as _
-from .enums import AccessChoices
+from .enums import UserAccessEnum
 from . import models
 
 
@@ -8,9 +8,9 @@ from . import models
 class UserManager(BaseUserManager):
     def create_admin_access(self, user):
         try:
-            obj = models.Access.objects.get(title=AccessChoices.ADMIN)
+            obj = models.Access.objects.get(title=UserAccessEnum.ADMIN)
         except models.Access.DoesNotExist:
-            obj = models.Access.objects.create(title=AccessChoices.ADMIN)
+            obj = models.Access.objects.create(title=UserAccessEnum.ADMIN)
 
         return obj
 
