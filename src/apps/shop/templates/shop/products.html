@@ -1,0 +1,42 @@
+{% extends 'base-template.html' %}
+{% load static %}
+
+
+{% block title %}والا | محصولات{% endblock %}
+
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'styles/store.css' %}">
+{% endblock %}
+
+{% block content %}
+    {% include 'menus.html' %}
+
+    <div class="container-fluid col-md-11">
+        <div class="container-fluid bg">
+            <main class="main">
+
+                <div class="hh">
+                    <div class="col-8 col-md-3 bb">
+                            <span>
+                                <img src="{% static 'images/icons/chat-right.png' %}" alt="Shop icon">
+                            </span>
+                        <span>فروشگاه</span>
+                    </div>
+
+                    <div class="col-12 cc">
+                        <div class="products pb-5" id="container-product">
+
+                        </div>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+{% endblock %}
+
+
+{% block scripts %}
+    <script src="{% static 'js/menus.js' %}"></script>
+    <script src="{% static 'js/store-user.js' %}"></script>
+{% endblock %}
