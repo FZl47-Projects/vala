@@ -48,7 +48,7 @@ class VIPRequiredMixin:
         if request.user.user_profile.level == UserProfile.LEVELS.VIP:
             return super().dispatch(request, *args, **kwargs)
 
-        messages.error(request, _('You do not have permission to access this page!'))
+        messages.error(request, _('Only vip users can access this page. Please follow your request by tickets.'))
 
         http_referer = request.META.get('HTTP_REFERER')
         return redirect(http_referer)

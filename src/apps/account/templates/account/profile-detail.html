@@ -25,7 +25,7 @@
                 <form method="POST" action="{% url 'account:profile_update' %}" enctype="multipart/form-data"
                       class="inner-profile-user-category col-12 col-md-7">
                     {% csrf_token %}
-                    <input type="hidden" name="pk" value="{{ user.pk }}">
+                    <input type="hidden" name="pk" value="{{ object.pk }}">
 
                     <div class="logo">
                         <div class="col-3">
@@ -35,7 +35,7 @@
 
                     <div class="profile d-flex justify-content-start gap-3" id="title-container">
                         <div class="imge-user-profile">
-                            <img src="{{ user.user_profile.get_image_url }}" id="userProfilePic" alt="User profile pic"
+                            <img src="{{ object.user_profile.get_image_url }}" id="userProfilePic" alt="User profile pic"
                                  style="object-fit: cover;">
                         </div>
                         <div class="name-user">
@@ -54,7 +54,7 @@
                         <div class="col-12 p-2">
                             <label for="name" class="title">نام</label>
                             <div class="information-item">
-                                <input type="text" value="{{ user.first_name|default:'' }}" class="item-user" id="name"
+                                <input type="text" value="{{ object.first_name|default:'' }}" class="item-user" id="name"
                                        name="first_name" required>
                                 <span>
                                     <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">
@@ -64,7 +64,7 @@
                         <div class="col-12 p-2">
                             <label for="lastName" class="title">نام خانوادگی</label>
                             <div class="information-item">
-                                <input type="text" value="{{ user.last_name|default:'' }}" class="item-user" id="lastName"
+                                <input type="text" value="{{ object.last_name|default:'' }}" class="item-user" id="lastName"
                                        name="last_name" required>
                                 <span>
                                     <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">
@@ -74,7 +74,7 @@
                         <div class="col-12 p-2">
                             <label for="dateOfBirth" class="title">تاریخ تولد</label>
                             <div class="information-item">
-                                <input type="text" value="{{ user.user_profile.get_date_of_birth }}" class="item-user position-relative persian-date-picker"
+                                <input type="text" value="{{ object.user_profile.get_date_of_birth }}" class="item-user position-relative persian-date-picker"
                                        id="dateOfBirth" name="date_of_birth" readonly required>
                                 <span>
                                     <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">
@@ -84,7 +84,7 @@
                         <div class="col-12 p-2">
                             <label for="phoneNumber" class="title">شماره همراه</label>
                             <div class="information-item">
-                                <input type="text" value="{{ user.get_phone_number }}" class="item-user" id="phoneNumber"
+                                <input type="text" value="{{ object.get_phone_number }}" class="item-user" id="phoneNumber"
                                        name="phone_number" maxlength="11" required>
                                 <span>
                                     <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">
@@ -97,7 +97,7 @@
                                 <span class="small">(سانتی‌متر)</span>
                             </label>
                             <div class="information-item">
-                                <input type="number" value="{{ user.user_profile.height }}" class="item-user" id="heightInput"
+                                <input type="number" value="{{ object.user_profile.height }}" class="item-user" id="heightInput"
                                        name="height" required>
                                 <span>
                                     <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">
@@ -110,7 +110,7 @@
                                 <span class="small">(کیلوگرم)</span>
                             </label>
                             <div class="information-item">
-                                <input type="number" value="{{ user.user_profile.weight }}" class="item-user" id="weightInput"
+                                <input type="number" value="{{ object.user_profile.weight }}" class="item-user" id="weightInput"
                                        name="weight" required>
                                 <span>
                                     <img src="{% static 'images/icons/edit.png' %}" alt="Edit icon">

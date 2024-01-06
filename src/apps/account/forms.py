@@ -126,7 +126,7 @@ class UpdateProfileForm(forms.ModelForm):
         return get_coded_phone_number(phone_number)
 
     def save(self, commit=True):
-        profile = super().save(commit=True)
+        profile = super().save(commit=commit)
         user = profile.user
 
         # Save User info

@@ -156,3 +156,6 @@ class UserProfile(BaseModel):
     def get_date_of_birth(self):
         if self.date_of_birth:
             return self.date_of_birth.strftime('%Y-%m-%d')
+
+    def get_level_label(self):
+        return self.get_level_display()

@@ -52,6 +52,17 @@
                                 </label>
                             </div>
                         </div>
+                        <div class="name-user mt-3 mb-md-0 mb-2 me-auto">
+                            <div class="d-flex align-items-center gap-2 form-group text-white fw-semibold mt-3">
+                                <label class="form-label d-flex align-items-center gap-2">
+                                    <span>سطح: </span>
+                                    <select name="level" class="form-select fw-semibold">
+                                        <option value="basic" {% if object.user_profile.level == 'baic' %}selected{% endif %}>عادی</option>
+                                        <option value="vip" {% if object.user_profile.level == 'vip' %}selected{% endif %}>ویژه</option>
+                                    </select>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                     <div class="content-moshakhasat d-flex flex-column align-items-center" id="container">
                         <div class="col-12 p-2">

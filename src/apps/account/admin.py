@@ -22,8 +22,8 @@ class UserAdmin(BaseUserAdmin):
     # The form to add user instances
     add_form = UserCreationForm
 
-    list_display = ('__str__', 'email', 'first_name', 'last_name', 'is_active', 'is_verified')
-    list_display_links = ('__str__', 'email',)
+    list_display = ('id', '__str__', 'email', 'first_name', 'last_name', 'is_active', 'is_verified')
+    list_display_links = ('id', '__str__', 'email',)
     readonly_fields = ('created_at', 'last_login',)
     list_filter = ('is_active', 'access',)
     fieldsets = (
@@ -51,8 +51,8 @@ class UserAdmin(BaseUserAdmin):
 # UserProfile model admin
 @admin.register(UserProfile)
 class UserProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'date_of_birth', 'is_verified',)
-    list_display_links = ('user',)
+    list_display = ('id', 'user', 'date_of_birth', 'is_verified',)
+    list_display_links = ('id', 'user',)
     readonly_fields = ('created_at', 'updated_at',)
     search_fields = ('user.phone_number', 'user.last_name',)
     list_filter = ('is_verified',)

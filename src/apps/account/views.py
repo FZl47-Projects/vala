@@ -2,6 +2,7 @@ from django.views.generic import View, TemplateView, ListView, DetailView
 from django.shortcuts import redirect, reverse, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext as _
+from django.http import HttpResponseForbidden
 from django.contrib.auth import login
 from django.contrib import messages
 from django.db.models import Q
@@ -109,7 +110,6 @@ class SendCodeView(View):
             title=_('Phone number verification code'),
             kwargs={'code': code},
             to_user=user,
-            send_notify=False,
         )
 
         print(code)
@@ -138,7 +138,6 @@ class VerifyPhoneNumberView(LogoutRequiredMixin, TemplateView):
 class CompleteRegisterView(LogoutRequiredMixin, View):
     def dispatch(self, request, *args, **kwargs):
         http_referer = request.META.get('HTTP_REFERER')
-        print(http_referer)
         return super().dispatch(request, *args, **kwargs)
 
     def get(self, request):
@@ -257,18 +256,28 @@ class UpdateProfileView(LoginRequiredMixin, View):
         accesses = Access.objects.filter(title__in=selected_access)
         obj.user.access.set(accesses)
 
+        level = data.get('level')
+        obj.level = level
+
+        return obj
+
     def post(self, request):
         data = request.POST.copy()
         pk = data.get('pk')
-        instance = get_object_or_404(User, pk=pk).user_profile
+        user = get_object_or_404(User, pk=pk)
 
-        form = forms.UpdateProfileForm(data=data, instance=instance, files=request.FILES)
+        # Restrict unauthorized access
+        if not request.user.has_admin_access and user != request.user:
+            return HttpResponseForbidden()
+
+        form = forms.UpdateProfileForm(data=data, instance=user.user_profile, files=request.FILES)
         if validate_form(request, form):
-            obj = form.save()
+            obj = form.save(commit=False)
 
             # Do some stuff of editor is not own user
             if request.user.user_profile != obj:
-                self.admin_update(data, obj)
+                obj = self.admin_update(data, obj)
+            obj.save()
 
             messages.success(request, _('Profile saved successfully'))
 
@@ -298,7 +307,7 @@ class UsersListView(AccessRequiredMixin, ListView):
     template_name = 'account/admin/users-list.html'
     model = User
     # TODO: Add pagination
-    roles = [User.ACCESSES.OPERATOR]
+    roles = [User.ACCESSES.ADMIN, User.ACCESSES.OPERATOR]
 
     def filter(self, objects):
         q = self.request.GET.get('q')
@@ -309,5 +318,5 @@ class UsersListView(AccessRequiredMixin, ListView):
         return objects
 
     def get_queryset(self):
-        objects = User.objects.exclude(access__title=AccessChoices.ADMIN)
+        objects = User.objects.exclude(access__title=User.ACCESSES.ADMIN)
         return self.filter(objects)
