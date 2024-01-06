@@ -53,7 +53,7 @@ class OrderRequest(BaseModel):
     user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='order_requests', null=True, blank=True, verbose_name=_('User'))
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, related_name='orders_requests', null=True, blank=True, verbose_name=_('Product'))
     extra_data = models.TextField(_('Extra data'), null=True, blank=True)
-    delivered = models.BooleanField(_('Id delivered'), default=False)
+    delivered = models.BooleanField(_('Is delivered'), default=False)
 
     class Meta:
         verbose_name = _('Order request')
