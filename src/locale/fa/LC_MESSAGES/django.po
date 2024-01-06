@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-06 15:01+0330\n"
+"POT-Creation-Date: 2024-01-06 17:13+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -741,23 +741,27 @@ msgstr "کامنت حذف شد"
 msgid "Story successfully added"
 msgstr "هایلایت با موفقیت افزوده شد"
 
-#: .\apps\public\views.py:143
+#: .\apps\public\views.py:142
+msgid "Story successfully deleted"
+msgstr "هایلایت با موفقیت حذف گردید"
+
+#: .\apps\public\views.py:158
 msgid "You cannot pin more than 3 stories"
 msgstr "شما نمی‌توانید بیش از ۳ استوری پین کنید"
 
-#: .\apps\public\views.py:149 .\apps\public\views.py:171
+#: .\apps\public\views.py:164 .\apps\public\views.py:186
 msgid "Operation done successfully"
 msgstr "عملیات با موفقیت انجام شد"
 
-#: .\apps\public\views.py:165
+#: .\apps\public\views.py:180
 msgid "You cannot pin more than 3 posts"
 msgstr "شما نمی‌توانید بیش از ۳ پست پین کنید"
 
-#: .\apps\public\views.py:204
+#: .\apps\public\views.py:219
 msgid "Podcast successfully added"
 msgstr "پادکست با موفقیت افزوده شد"
 
-#: .\apps\public\views.py:221
+#: .\apps\public\views.py:236
 msgid "Podcast successfully deleted"
 msgstr "پادکست با موفقیت حذف شد"
 

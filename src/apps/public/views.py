@@ -128,6 +128,21 @@ class AddStoryView(AccessRequiredMixin, CreateView):
         return super().form_valid(form)
 
 
+# Delete Story view
+class DeleteStoryView(AccessRequiredMixin, View):
+    roles = [UserAccessEnum.ADMIN]
+
+    def post(self, request):
+        pk = request.POST.get('pk')
+        obj = get_object_or_404(models.Story, pk=pk)
+
+        obj.is_active = False
+        obj.save()
+
+        messages.success(self.request, _('Story successfully deleted'))
+        return redirect('public:index')
+
+
 # Pin Story view
 class PinStoryView(AccessRequiredMixin, View):
     roles = [UserAccessEnum.ADMIN]

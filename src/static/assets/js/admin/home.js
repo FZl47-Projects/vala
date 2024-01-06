@@ -72,3 +72,14 @@ $('#deletePostModal').on('show.bs.modal', function (event) {
     modal.find('.modal-body #postId').val(primaryKey)
 })
 // ---------------------------- Add data to delete post modal -------------------------- //
+
+
+// ---------------------------- Add data to delete story modal -------------------------- //
+$('#deleteStoryModal').on('show.bs.modal', function (event) {
+    let button = $(event.relatedTarget)
+    let primaryKey = button.data('primarykey')
+
+    let modal = $(this)
+    modal.find('.modal-body #storyId').val(primaryKey)
+})
+// ---------------------------- Add data to delete story modal -------------------------- //

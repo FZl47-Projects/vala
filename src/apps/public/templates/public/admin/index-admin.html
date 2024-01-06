@@ -21,81 +21,16 @@
         {% include 'public/admin/components/delete-post.html' %}
         <!-- .End Delete post modal -->
 
+        <!-- Start Delete post modal -->
+        {% include 'public/admin/components/delete-highlight.html' %}
+        <!-- .End Delete post modal -->
+
         <!-- Start Add post modal -->
-        <div class="content-modal add-post-modal">
-            <div class="inner-modal">
-                <form method="POST" action="{% url 'public:add_post' %}" enctype="multipart/form-data" class="px-4 pt-2" style="min-width: 300px;">
-                    {% csrf_token %}
-                    <div class="py-2 text-white">
-                        <div class="title">
-                            <h5>افزودن پست جدید</h5>
-                            <div role="button" class="close-modal-add-post">
-                                <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
-                            </div>
-                        </div>
-                        <div class="uploade-imge text-white justify-content-start px-0">
-                            <label class="text-right justify-content-start">
-                                تصویر/ویدیو
-                                <input type="file" name="file" accept="image/*, video/*" class="form-control bg-transparent text-white mt-2" required>
-                            </label>
-                        </div>
-                        <label class="text-right justify-content-start w-100 mt-2">
-                            عنوان
-                            <input type="text" name="title" placeholder="عنوان پست" class="form-control bg-transparent text-white mt-1" required>
-                        </label>
-
-                        <label class="text-right justify-content-start w-100 mt-2">
-                            متن
-                            <textarea name="caption" placeholder="متن پست" class="form-control mt-1" rows="5" required></textarea>
-                        </label>
-
-                        <label class="text-right justify-content-start w-100 mt-2">
-                            دسته بندی
-                            <input type="text" name="category" placeholder="عنوان دسته بندی" class="form-control bg-transparent text-white mt-1">
-                        </label>
-                    </div>
-                    <div class="btn-modal mt-3" id="add-post">
-                        <button type="submit" class="btn-sabt-post fw-semibold">
-                            ثبت
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        {% include 'public/admin/components/add-post.html' %}
         <!-- .End Add post modal -->
 
         <!-- Start Add highlight modal -->
-        <div class="content-modal add-story-modal" id="modal-hilight">
-            <div class="inner-modal">
-                <form method="POST" action="{% url 'public:add_story' %}" enctype="multipart/form-data"
-                      class="px-4 pt-2" style="min-width: 300px;">
-                    {% csrf_token %}
-                    <div class="py-2 text-white">
-                        <div class="title">
-                            <h5>افزودن هایلایت</h5>
-                            <div role="button" class="close-modal-add-hi">
-                                <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
-                            </div>
-                        </div>
-                        <div class="uploade-imge text-white justify-content-start px-0 mt-1">
-                            <label class="text-right justify-content-start">
-                                تصویر
-                                <input type="file" name="image" accept="image/*" class="form-control bg-transparent text-white mt-1" required>
-                            </label>
-                        </div>
-                        <label class="text-right justify-content-start w-100 mt-2">
-                            عنوان
-                            <input type="text" name="title" placeholder="عنوان هایلایت" class="form-control bg-transparent text-white mt-1" required>
-                        </label>
-                    </div>
-                    <div class="btn-modal mt-3" id="add-story">
-                        <button type="submit" class="btn-sabt-post fw-semibold">
-                            ثبت
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        {% include 'public/admin/components/add-highlight.html' %}
         <!-- .End Add highlight modal -->
 
         <!-- Start Fullscreen highlights -->
@@ -112,9 +47,15 @@
                             <button class="display-1 mx-2 btn-story next" onclick="nextHandler({{ forloop.counter0 }})">&lt;</button>
                             <button class="display-1 mx-2 btn-story prev" onclick="prevHandler({{ forloop.counter0 }})">&gt;</button>
                         </div>
-                        <a href="{% url 'public:pin_story' story.pk %}?state={{ story.pinned }}" style="font-size: 20px;">
-                            <i class="bi bi-pin-angle{% if story.pinned %}-fill{% endif %} text-white"></i>
-                        </a>
+                        <div class="d-flex gap-4">
+                            <button type="button" style="font-size: 20px;" class="bg-transparent" title="حذف هایلایت"
+                                    data-bs-toggle="modal" data-bs-target="#deleteStoryModal" data-primarykey="{{ story.pk }}">
+                                <i class="bi bi-trash3-fill text-white"></i>
+                            </button>
+                            <a href="{% url 'public:pin_story' story.pk %}?state={{ story.pinned }}" style="font-size: 20px;" title="پین کردن">
+                                <i class="bi bi-pin-angle{% if story.pinned %}-fill{% endif %} text-white"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             {% endfor %}
@@ -199,10 +140,10 @@
                         {% endif %}
                         <div class="inner-content-post-two">
                             <div class="position-absolute trash-icon">
-                                <i role="button" class="bi bi-trash3-fill text-white btns-post"
+                                <i role="button" class="bi bi-trash3-fill text-white btns-post" title="حذف پست"
                                    data-bs-toggle="modal" data-bs-target="#deletePostModal" data-primarykey="{{ post.pk }}"></i>
                             </div>
-                            <a href="{% url 'public:pin_post' post.pk %}?state={{ post.pinned }}" class="position-absolute pin-icon">
+                            <a href="{% url 'public:pin_post' post.pk %}?state={{ post.pinned }}" class="position-absolute pin-icon" title="پین کردن">
                                 <i class="bi bi-pin-angle{% if post.pinned %}-fill{% endif %} text-white btns-post"></i>
                             </a>
 

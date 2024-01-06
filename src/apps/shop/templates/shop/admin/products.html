@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="down-product-item">
                                         <div class="title-product">{{ product.title }}</div>
-                                        <div class="discription-product">{{ product.description|truncatechars:360 }}</div>
+                                        <div class="discription-product" title="{{ product.description }}">{{ product.description|truncatechars:360 }}</div>
                                         <div class="price mt-2">
                                             <span>قیمت </span>
                                             <span class="convert-digits">{{ product.selling_price|separate_price }} ریال</span>

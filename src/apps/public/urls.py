@@ -17,6 +17,7 @@ urlpatterns = [
 
     path('story/add/', views.AddStoryView.as_view(), name='add_story'),
     path('story/<int:pk>/pin/', views.PinStoryView.as_view(), name='pin_story'),
+    path('story/delete/', views.DeleteStoryView.as_view(), name='delete_story'),
 
     path('podcasts/', views.PodcastsView.as_view(), name='podcasts_list'),
     path('podcasts/add/', views.AddPodcastView.as_view(), name='add_podcast'),

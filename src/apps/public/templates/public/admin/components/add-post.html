@@ -1,0 +1,46 @@
+{% load static %}
+
+<div class="content-modal add-post-modal">
+    <div class="inner-modal">
+        <form method="POST" action="{% url 'public:add_post' %}" enctype="multipart/form-data" class="px-4 pt-2"
+              style="min-width: 300px;">
+            {% csrf_token %}
+            <div class="py-2 text-white">
+                <div class="title">
+                    <h5>افزودن پست جدید</h5>
+                    <div role="button" class="close-modal-add-post">
+                        <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
+                    </div>
+                </div>
+                <div class="uploade-imge text-white justify-content-start px-0">
+                    <label class="text-right justify-content-start">
+                        تصویر/ویدیو
+                        <input type="file" name="file" accept="image/*, video/*"
+                               class="form-control bg-transparent text-white mt-2" required>
+                    </label>
+                </div>
+                <label class="text-right justify-content-start w-100 mt-2">
+                    عنوان
+                    <input type="text" name="title" placeholder="عنوان پست" class="form-control bg-transparent text-white mt-1"
+                           required>
+                </label>
+
+                <label class="text-right justify-content-start w-100 mt-2">
+                    متن
+                    <textarea name="caption" placeholder="متن پست" class="form-control mt-1" rows="5" required></textarea>
+                </label>
+
+                <label class="text-right justify-content-start w-100 mt-2">
+                    دسته بندی
+                    <input type="text" name="category" placeholder="عنوان دسته بندی"
+                           class="form-control bg-transparent text-white mt-1">
+                </label>
+            </div>
+            <div class="btn-modal mt-3" id="add-post">
+                <button type="submit" class="btn-sabt-post fw-semibold">
+                    ثبت
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
