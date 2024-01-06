@@ -31,9 +31,9 @@
                         <div class="item-ticket position-relative">
                             <div class="counseling-state text-white">
                                 {% if obj.is_answered %}
-                                    <span class="bg-success p-2 state">پایان</span>
+                                    <span class="bg-success p-2 state" id="state-{{ obj.pk }}">پایان</span>
                                 {% else %}
-                                    <span class="bg-danger p-2 state">بی پاسخ</span>
+                                    <span class="bg-danger p-2 state" id="state={{ obj.pk }}">بی پاسخ</span>
                                 {% endif %}
                             </div>
 

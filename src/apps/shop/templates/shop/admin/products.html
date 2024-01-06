@@ -1,5 +1,6 @@
 {% extends 'base-template.html' %}
 {% load static %}
+{% load filters %}
 
 
 {% block title %}والا | محصولات{% endblock %}
@@ -9,10 +10,82 @@
 {% endblock %}
 
 {% block content %}
+    {% include 'menus.html' %}
+
+    <div class="container-fluid col-md-11">
+        <div class="container-fluid bg">
+            <div class="d-flex justify-content-between gap-3 px-md-5 px-3 pt-4">
+                <div></div>
+                <div></div>
+            </div>
+
+            <main class="main">
+                <div class="col-12 cc w-100">
+
+                    <div class="d-flex flex-column w-100 px-4">
+                        <div class="d-flex justify-content-between fw-semibold text-white mb-3">
+                            <h4>افزودن محصول جدید</h4>
+                            <a href="{% url 'shop:order_requests_list' %}" class="btn btn-light fw-semibold">سفارشات ثبت شده</a>
+                        </div>
+                        <form method="POST" action="{% url 'shop:add_product' %}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <label class="form-label text-white fw-semibold col-md-6 col-12">
+                                    <span>عنوان محصول</span>
+                                    <input type="text" name="title" class="form-control input-new" required>
+                                </label>
+                                <label class="form-label text-white fw-semibold col-md-6 col-12">
+                                    <span>قیمت</span>
+                                    <input type="number" name="price" placeholder="ریال" class="form-control input-new" required>
+                                </label>
+                                <label class="form-label text-white fw-semibold col-md-6 col-12">
+                                    <span>توضیحات</span>
+                                    <textarea name="description" rows="6" class="form-control input-new" required></textarea>
+                                </label>
+                                <label class="form-label text-white fw-semibold col-md-6 col-12">
+                                    <span>تصویر محصول</span>
+                                    <input type="file" name="image" accept="image/jpeg" class="form-control input-new" required>
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-success mt-3">ثبت محصول</button>
+                        </form>
+                    </div>
+                    <hr class="text-white">
+
+                    <div class="fw-semibold text-white px-4">
+                        <h4>محصولات</h4>
+                    </div>
+                    <div class="products pb-5" id="container-product">
+                        {% for product in object_list %}
+                            <div class="col-12 col-md-3 col-lg-2 product-item">
+                                <div class="product-item-inner">
+                                    <div class="image-product">
+                                        <img src="{{ product.images.first.get_image_url }}" alt="">
+                                    </div>
+                                    <div class="down-product-item">
+                                        <div class="title-product">{{ product.title }}</div>
+                                        <div class="discription-product">{{ product.description|truncatechars:360 }}</div>
+                                        <div class="price mt-2">
+                                            <span>قیمت </span>
+                                            <span class="convert-digits">{{ product.selling_price|separate_price }} ریال</span>
+                                        </div>
+                                    </div>
+                                    <a href="{% url 'shop:delete_product' product.pk %}">
+                                        <button type="button" id="add" class="fw-semibold">حذف محصول</button>
+                                    </a>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
 {% endblock %}
 
 
 {% block scripts %}
     <script src="{% static 'js/menus.js' %}"></script>
-    <script src="{% static 'js/admin/store-admin.js' %}"></script>
 {% endblock %}

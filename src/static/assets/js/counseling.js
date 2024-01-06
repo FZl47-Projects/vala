@@ -3,7 +3,7 @@
 function answerCounseling(id, el) {
     $.get(`/operation/counseling/${id}/answer/`).then(response => {
         if (response['response'] === 'answered') {
-            let state = document.querySelector('.state');
+            let state = document.querySelector(`#state-${id}`);
 
             if (el.checked) {
                 state.innerHTML = 'پایان';

@@ -1,5 +1,6 @@
 {% extends 'base-template.html' %}
 {% load static %}
+{% load filters %}
 
 
 {% block title %}والا | محصولات{% endblock %}
@@ -11,25 +12,64 @@
 {% block content %}
     {% include 'menus.html' %}
 
+    <!-- Start Send buy request modal -->
+    <div class="modal fade" tabindex="-1" id="requestProductModal" aria-labelledby="requestProductModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <form method="POST" action="{% url 'shop:add_order_request' %}" class="modal-content text-white border-white border-1 rounded-3"
+                  style="background-color: #2d2c2c;">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title fw-semibold h4">ثبت درخواست سفارش</h5>
+                    <i role="button" class="bi bi-x-lg" data-bs-dismiss="modal" aria-label="Close"></i>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" name="product" id="ProductId" value="-1">
+
+                    <div class="d-flex flex-column form-group">
+                        <span>ثبت سفارش جدید برای محصول:
+                            <span id="productTitle" class="fw-semibold"></span>
+                        </span>
+                    </div>
+                </div>
+                <div class="modal-footer border-top-0">
+                    <button type="button" class="btn btn-light fw-semibold rounded-3" data-bs-dismiss="modal" aria-label="Close">بستن</button>
+                    <button type="submit" class="btn btn-success fw-semibold rounded-3">ثبت</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- .End Send buy request modal -->
+
     <div class="container-fluid col-md-11">
         <div class="container-fluid bg">
             <main class="main">
-
-                <div class="hh">
-                    <div class="col-8 col-md-3 bb">
-                            <span>
-                                <img src="{% static 'images/icons/chat-right.png' %}" alt="Shop icon">
-                            </span>
-                        <span>فروشگاه</span>
-                    </div>
-
-                    <div class="col-12 cc">
-                        <div class="products pb-5" id="container-product">
-
-                        </div>
-                    </div>
+                <div class="fw-semibold text-white px-4 mt-4">
+                    <h4>محصولات</h4>
                 </div>
 
+                <div class="col-12 cc pb-5">
+                    <div class="products pb-5" id="container-product">
+                        {% for product in object_list %}
+                            <div class="col-12 col-md-3 col-lg-2 product-item">
+                                <div class="product-item-inner">
+                                    <div class="image-product">
+                                        <img src="{{ product.images.first.get_image_url }}" alt="">
+                                    </div>
+                                    <div class="down-product-item">
+                                        <div class="title-product">{{ product.title }}</div>
+                                        <div class="discription-product">{{ product.description|truncatechars:360 }}</div>
+                                        <div class="price">
+                                            <span>قیمت </span>
+                                            <span class="convert-digits">{{ product.selling_price|separate_price }} ریال</span>
+                                        </div>
+                                    </div>
+                                    <button id="add" class="fw-semibold" data-bs-toggle="modal" data-product-title="{{ product.title }}"
+                                            data-bs-target="#requestProductModal" data-primarykey="{{ product.pk }}">ثبت سفارش</button>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
             </main>
         </div>
     </div>

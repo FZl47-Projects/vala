@@ -1,6 +1,7 @@
 from django.utils.translation import gettext as _
 from django.db import models
 
+from apps.account.models import User
 from apps.core.models import BaseModel
 
 
@@ -41,3 +42,26 @@ class ProductImage(BaseModel):
 
     def __str__(self):
         return f'{self.product} - {self.id}'
+
+    def get_image_url(self):
+        if self.image:
+            return self.image.url
+
+
+# OrderRequests model
+class OrderRequest(BaseModel):
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='order_requests', null=True, blank=True, verbose_name=_('User'))
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, related_name='orders_requests', null=True, blank=True, verbose_name=_('Product'))
+    extra_data = models.TextField(_('Extra data'), null=True, blank=True)
+    delivered = models.BooleanField(_('Id delivered'), default=False)
+
+    class Meta:
+        verbose_name = _('Order request')
+        verbose_name_plural = _('Order requests')
+        ordering = ('-id',)
+
+    def __str__(self):
+        return f'{self.user} - {self.product}'
+
+    def get_date_created(self):
+        return self.created_at.strftime('%Y-%m-%d')
