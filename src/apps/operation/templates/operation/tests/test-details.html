@@ -48,6 +48,10 @@
                                     <span>موبایل: </span>
                                     {{ object.user.get_phone_number }}
                                 </h4>
+                                <h4 class="fw-semibold">
+                                    <span>تاریخ: </span>
+                                    <span class="datetime-convert">{{ object.get_date_created }}</span>
+                                </h4>
                             </div>
                         </div>
                         <div class="test-detail-body row p-3 mx-0">

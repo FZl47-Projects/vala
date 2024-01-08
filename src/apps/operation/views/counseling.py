@@ -8,7 +8,7 @@ from django.db.models import Q
 
 from apps.account.mixins import AccessRequiredMixin
 from apps.account.enums import UserAccessEnum
-from apps.core.utils import amit_first_char
+from apps.core.utils import remove_first_char
 from ..models import Counseling
 from .. import forms
 
@@ -26,8 +26,8 @@ class CounselingsListView(LoginRequiredMixin, ListView):
     def filter(self, objects):
         q = self.request.GET.get('q')
         if q:
-            q = amit_first_char(q)
-            objects = objects.filter(Q(user__phone_numbe__contains=q) | Q(user__last_name__icontains=q))
+            q = remove_first_char(q)
+            objects = objects.filter(Q(user__phone_number__contains=q) | Q(user__last_name__icontains=q))
 
         return objects
 

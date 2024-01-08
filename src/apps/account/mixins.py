@@ -50,8 +50,8 @@ class VIPRequiredMixin:
 
         messages.error(request, _('Only vip users can access this page. Please follow your request by tickets.'))
 
-        http_referer = request.META.get('HTTP_REFERER')
-        return redirect(http_referer)
+        referer_url = request.META.get('HTTP_REFERER')
+        return redirect(referer_url)
 
 
 class ProfileCompletionMixin:

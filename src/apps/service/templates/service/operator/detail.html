@@ -10,11 +10,6 @@
 
 {% block styles %}
     <link rel="stylesheet" href="{% static 'styles/portfolio.css' %}">
-    <style>
-        body {
-            background: #292929;
-        }
-    </style>
 {% endblock %}
 
 {% block body_class %}bg{% endblock %}
@@ -25,46 +20,42 @@
 
     <div class="container-fluid col-md-11 pb-5">
         <main class="main">
+
             <div class="content-modal modal-reserve">
                 <div class="inner-modal">
-                    <form class="px-4 pt-2" method="post"
+                    <form class="px-4 pt-2" method="POST"
                           action="{% url 'service:operator_reserve__add' operator_id=operator.id %}">
                         {% csrf_token %}
                         <div class="py-2">
                             <div class="title">
-                                <div id="close-modal-azmayesh"><img
-                                        src="{% static 'images/icon-valla/close.png' %}" alt=""></div>
-                                <div style="font-size: 1.5em;">درخواست رزرو</div>
+                                <h5>درخواست رزرو</h5>
+                                <div role="button" id="close-modal-azmayesh" class="mt-2 close-modal-operator-reserve">
+                                    <i class="bi bi-x-lg" style="font-size: 1rem;"></i>
+                                </div>
                             </div>
                             <label class="text-right justify-content-start w-100 mt-2 mb-4">
                                 <span class="text-light">شماره همراه</span>
                                 <input type="tel" name="phonenumber" placeholder="91300000000"
                                        class="form-control bg-transparent text-white mt-1" required="">
                             </label>
-                            <textarea
-                                    name="description"
-                                    class="input-modal"
-                                    id="des-azmayesh"
-                                    cols="30"
-                                    rows="7"
-                                    required
+                            <textarea name="description" id="des-azmayesh" class="input-modal" cols="30" rows="7" required
                                     placeholder="توضیحات خود را بنویسید"></textarea>
                         </div>
                         <div class="btn-modal text-center">
-                            <button class="btn-sabt-post btn bg-white mx-auto" id="btn-send">
+                            <button class="btn-sabt-post btn bg-white mx-auto mt-2 fw-semibold px-4 py-1" id="btn-send">
                                 ثبت
                             </button>
                         </div>
+                    </form>
                 </div>
-                </form>
             </div>
+
             <div class="content-main">
                 <div class="Appointment-reservation" id="footer">
                     <div class="inner-reservation">
                         <div class="right">
                             <div class="title">خدمات</div>
                             <div class="description">{{ operator.category.name }}</div>
-
                         </div>
 
                         <div class="price d-none">
@@ -82,26 +73,21 @@
                     <div class="up-category-user col-6" id="container-title">
                         <!-- user -->
                         <div class="category-user-inner col-6">
-                            <!-- imge-user -->
                             <div class="col-6 col-md-2 p-3">
-                                <div class="imge-user">
-                                    <img src="{{ operator.picture.url }}"
-                                         alt="{{ operator.name }}">
+                                <div class="imge-user" style="min-width: 80px;">
+                                    <img src="{{ operator.picture.url }}" alt="{{ operator.name }}" class="w-100" style="object-fit: cover;">
                                 </div>
                             </div>
-                            <!-- imge-user -->
-                            <!-- name-user -->
-                            <div class="col-6 col-md-10 p-3 jj">
+
+                            <div class="col-6 col-md-10 p-3 jj me-5">
                                 <div class="name-user">
                                     {{ operator.name }}
                                 </div>
                             </div>
-                            <!-- name-user -->
                         </div>
                     </div>
                     {% if request.user.has_admin_access %}
-                        <div
-                                style="color:#fff ; display: flex; justify-content: center; align-items: center; flex-direction: column; padding: 10px;">
+                        <div class="d-flex flex-column justify-content-center align-items-center text-white" style="padding: 10px;">
                             <button class="btn btn-success mb-2 col-12" id="add-worksample">افزودن نمونه کار</button>
                             <button class="btn btn-danger col-12" id="delete-operator">حذف اپراتور</button>
                         </div>
@@ -111,17 +97,17 @@
                     <div class="portfolio" id="container-portfolio">
                         {% for work_sample in operator.get_work_samples %}
                             <div class="content-modal modal-portfolio">
-                                <div div="" class="inner-modal d-flex flex-column">
+                                <div class="inner-modal d-flex flex-column">
                                     <div class="portifilo">
-                                        <div class="btn-close m-2" style="cursor:pointer;">
-                                            <img src="{% static 'images/icon-valla/close-modal.png' %}" alt="">
+                                        <div class="btn-close m-2" style="cursor: pointer;">
+                                            <img src="{% static 'images/icons/close-modal.png' %}" alt="">
                                         </div>
                                         <div class="image-portifilo h-auto">
                                             <div class="d-flex justify-content-between align-items-center flex-column">
                                                 <img src="{{ work_sample.image.url }}" alt="{{ work_sample.title }}">
                                             </div>
                                         </div>
-                                        <div class="title text-center " style="font-size : 24px">
+                                        <div class="title text-center" style="font-size: 24px;">
                                             {{ work_sample.title }}
                                         </div>
                                         <div class="text-light">
@@ -148,6 +134,7 @@
                     </div>
                 </div>
             </div>
+
             <div class="comment-container mx-auto">
                 <div class="commentt">
                     <div class="col-12 d-none">
@@ -177,8 +164,8 @@
 
         </main>
     </div>
-    {% if request.user.has_admin_access %}
 
+    {% if request.user.has_admin_access %}
         <div class="content-modal add-worksample-modal">
             <div class="inner-modal">
                 <form method="POST" action="{% url 'service:operator_worksample__add' %}" enctype="multipart/form-data"
@@ -227,7 +214,7 @@
                     <div class="py-2 text-white">
                         <div class="title">
                             <h5>حذف اپراتور</h5>
-                            <div role="button" class="close-modal-add-post">
+                            <div role="button" class="close-modal-delete-operator">
                                 <img src="{% static 'images/icons/close-modal.png' %}" alt="Close button">
                             </div>
                         </div>
@@ -237,13 +224,12 @@
                     </div>
                     <div class="text-center mt-3" id="add-post">
                         <button type="submit" class="btn btn-danger col-12">
-                            متوجه ام ، حذف اپراتور
+                            متوجه ام، حذف اپراتور
                         </button>
                     </div>
                 </form>
             </div>
         </div>
-
     {% endif %}
 
 {% endblock %}
@@ -274,7 +260,7 @@
         try {
             // ----------------- Modal Operator Delete -----------------
             let btnsShowModal_b = document.querySelector("#delete-operator");
-            let btnsCloseModal_b = document.querySelector(".close-modal-add-post");
+            let btnsCloseModal_b = document.querySelector(".close-modal-delete-operator");
             let contentModals_b = document.querySelector(".delete-operator-modal");
 
             btnsShowModal_b.addEventListener("click", () => {
@@ -293,7 +279,7 @@
         // ----------------- Modal Operator Reserve -----------------
         try {
             let btnsShowModal_c = document.querySelector("#reserve-operator");
-            let btnsCloseModal_c = document.querySelector(".close-modal-add-post");
+            let btnsCloseModal_c = document.querySelector(".close-modal-operator-reserve");
             let contentModals_c = document.querySelector(".modal-reserve");
 
             btnsShowModal_c.addEventListener("click", () => {

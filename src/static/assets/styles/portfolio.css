@@ -52,9 +52,7 @@ body {
 }
 
 body {
-  /* Track */
-  /* Handle */
-  /* Handle on hover */
+  background: #292929;
 }
 body::-webkit-scrollbar {
   height: 15px;

@@ -1,30 +1,38 @@
-from django.views.generic import TemplateView, CreateView, DetailView, UpdateView
+from django.views.generic import CreateView, DetailView, UpdateView, ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.translation import gettext as _
 from django.shortcuts import redirect, reverse
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.db.models import Q
 
 from apps.account.mixins import AccessRequiredMixin
 from apps.account.enums import UserAccessEnum
+from apps.core.utils import remove_first_char
 from ..models import Test
 from .. import forms
 
 
 # Render Tests view
-class TestsView(LoginRequiredMixin, TemplateView):
+class TestsView(LoginRequiredMixin, ListView):
     template_name = 'operation/tests/tests.html'
+    model = Test
+    context_object_name = 'tests'
 
-    def get_context_data(self, **kwargs):
-        contexts = super().get_context_data(**kwargs)
+    def filter(self, objects):
+        q = self.request.GET.get('q')
+        if q:
+            q = remove_first_char(q)
+            objects = objects.filter(Q(user__phone_number__contains=q) | Q(user__last_name__icontains=q))
 
+        return objects
+
+    def get_queryset(self):
         if self.request.user.has_admin_access:
-            tests = Test.objects.filter(is_active=True)
-        else:
-            tests = Test.objects.filter(is_active=True, user=self.request.user)
+            objects = Test.objects.filter(is_active=True)
+            return self.filter(objects)
 
-        contexts['tests'] = tests
-        return contexts
+        return Test.objects.filter(is_active=True, user=self.request.user)
 
 
 # Render TestDetails view

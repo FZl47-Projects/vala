@@ -8,7 +8,7 @@ from django.contrib import messages
 from django.db.models import Q
 
 from .mixins import LogoutRequiredMixin, PermissionMixin, AccessRequiredMixin
-from apps.core.utils import validate_form, amit_first_char
+from apps.core.utils import validate_form, remove_first_char
 from apps.notification.models import Notification
 from .models import Access, User
 from random import randint
@@ -312,7 +312,7 @@ class UsersListView(AccessRequiredMixin, ListView):
     def filter(self, objects):
         q = self.request.GET.get('q')
         if q:
-            q = amit_first_char(q)
+            q = remove_first_char(q)
             objects = objects.filter(Q(phone_number__contains=q) | Q(last_name__icontains=q))
 
         return objects

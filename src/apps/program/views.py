@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.db.models import Q
 
 from apps.account.mixins import AccessRequiredMixin, UserAccessEnum
-from apps.core.utils import validate_form, amit_first_char
+from apps.core.utils import validate_form, remove_first_char
 from .models import DietProgram, ExerciseProgram
 from . import forms
 
@@ -26,9 +26,12 @@ class DietProgramListView(AccessRequiredMixin, ListView):
 
     def filter(self, objects):
         q = self.request.GET.get('q')
-        if q:
-            q = amit_first_char(q)
+        try:
+            q = remove_first_char(q)
             objects = objects.filter(Q(id=q) | Q(user__phone_number__contains=q))
+        except (ValueError, AttributeError, TypeError):
+            pass
+        
         return objects
 
     def get_queryset(self):
@@ -45,7 +48,7 @@ class ExerciseProgramListView(AccessRequiredMixin, ListView):
     def filter(self, objects):
         q = self.request.GET.get('q')
         if q:
-            q = amit_first_char(q)
+            q = remove_first_char(q)
             objects = objects.filter(Q(id=q) | Q(user__phone_number__contains=q))
         return objects
 

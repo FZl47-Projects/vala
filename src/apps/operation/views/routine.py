@@ -4,9 +4,11 @@ from django.utils.translation import gettext as _
 from django.shortcuts import redirect, reverse
 from django.urls import reverse_lazy
 from django.contrib import messages
+from django.db.models import Q
 
 from apps.account.mixins import AccessRequiredMixin
 from apps.account.enums import UserAccessEnum
+from apps.core.utils import remove_first_char
 from ..models import SkinRoutine
 from .. import forms
 
@@ -21,10 +23,18 @@ class RoutinesView(LoginRequiredMixin, ListView):
             return 'operation/routines/admin/routines.html'
         return super().get_template_names()
 
+    def filter(self, objects):
+        q = self.request.GET.get('q')
+        if q:
+            q = remove_first_char(q)
+            objects = objects.filter(Q(user__phone_number__contains=q) | Q(user__last_name__icontains=q))
+
+        return objects
+
     def get_queryset(self):
         if self.request.user.has_admin_access:
             objects = SkinRoutine.objects.filter(is_active=True)
-            return objects
+            return self.filter(objects)
 
         return SkinRoutine.objects.filter(is_active=True, user=self.request.user)
 

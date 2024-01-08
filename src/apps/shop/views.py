@@ -7,7 +7,6 @@ from django.urls import reverse_lazy
 from django.contrib import messages
 
 from apps.account.mixins import AccessRequiredMixin, UserAccessEnum
-from apps.core.utils import validate_form
 from .models import Product, OrderRequest
 from . import forms
 
