@@ -15,7 +15,7 @@ class CreateChatMessageForm(forms.ModelForm):
 
         try:
             chat_room = ChatRoom.objects.get(pk=room.pk)
-            if not chat_room.participants.filter(pk=sender.pk).exists():
+            if not sender.has_admin_access and not chat_room.participants.filter(pk=sender.pk).exists():
                 raise ValidationError('An error has occurred', code='403_FORBIDDEN')
         except (ChatRoom.DoesNotExist, AttributeError):
             raise ValidationError('An error has occurred', code='403_FORBIDDEN')
