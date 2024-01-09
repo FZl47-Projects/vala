@@ -11,6 +11,10 @@ class OperatorCategory(BaseModel):
     """
     name = models.CharField(_('Name'), max_length=100)
 
+    class Meta:
+        verbose_name = _('Operator category')
+        verbose_name_plural = _('Operator categories')
+
     def __str__(self):
         return self.name
 
@@ -27,6 +31,8 @@ class Operator(BaseModel):
     category = models.ForeignKey(OperatorCategory, verbose_name=_('Category'), on_delete=models.CASCADE)
 
     class Meta:
+        verbose_name = _('Operator')
+        verbose_name_plural = _('Operators')
         ordering = ('-id',)
 
     def __str__(self):
@@ -45,6 +51,10 @@ class OperatorWorkSample(BaseModel):
     image = models.ImageField(_('Image'), upload_to='images/services/operators/work_samples/')
     description = models.TextField(_('Description'), null=True)
 
+    class Meta:
+        verbose_name = _('Operator work sample')
+        verbose_name_plural = _('Operator work samples')
+
     def __str__(self):
         return f'{self.operator} - {self.title[:30]}'
 
@@ -55,6 +65,8 @@ class OperatorReserve(BaseModel):
     description = models.TextField(_('Description'), null=True)
 
     class Meta:
+        verbose_name = _('Operator reserve')
+        verbose_name_plural = _('Operator reserves')
         ordering = ('-id',)
 
     def __str__(self):

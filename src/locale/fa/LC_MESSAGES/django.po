@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-06 17:13+0330\n"
+"POT-Creation-Date: 2024-01-09 17:11+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,8 +57,8 @@ msgstr "کاربر"
 msgid "Admin"
 msgstr "ادمین"
 
-#: .\apps\account\enums.py:9 .\apps\service\models.py:43
-#: .\apps\service\models.py:53
+#: .\apps\account\enums.py:9 .\apps\service\models.py:34
+#: .\apps\service\models.py:49 .\apps\service\models.py:63
 msgid "Operator"
 msgstr "اپراتور"
 
@@ -79,7 +79,7 @@ msgid "VIP"
 msgstr "ویژه"
 
 #: .\apps\account\forms.py:15 .\apps\account\models.py:36
-#: .\apps\service\models.py:54
+#: .\apps\service\models.py:64
 msgid "Phone number"
 msgstr "شماره تماس"
 
@@ -205,7 +205,7 @@ msgstr "بدون جواب"
 msgid "Second question"
 msgstr "سوال دوم"
 
-#: .\apps\account\models.py:132 .\apps\service\models.py:26
+#: .\apps\account\models.py:132 .\apps\service\models.py:30
 msgid "Picture"
 msgstr "تصویر"
 
@@ -294,7 +294,7 @@ msgstr "بسته"
 #: .\apps\operation\models.py:100 .\apps\program\models.py:15
 #: .\apps\program\models.py:49 .\apps\public\models.py:14
 #: .\apps\public\models.py:50 .\apps\public\models.py:131
-#: .\apps\service\models.py:44
+#: .\apps\service\models.py:50
 msgid "Title"
 msgstr "عنوان"
 
@@ -359,8 +359,8 @@ msgstr "پیام‌ها چت"
 msgid "Chat messages"
 msgstr "پیام‌های چت"
 
-#: .\apps\communication\views.py:48 .\apps\operation\views\routine.py:61
-#: .\apps\operation\views\test.py:52
+#: .\apps\communication\views.py:48 .\apps\operation\views\routine.py:71
+#: .\apps\operation\views\test.py:60
 msgid "Answer successfully added"
 msgstr "پاسخ با موفقیت ثبت شد"
 
@@ -368,7 +368,7 @@ msgstr "پاسخ با موفقیت ثبت شد"
 msgid "Ticket registered successfully"
 msgstr "تیکت با موفقیت ثبت شد"
 
-#: .\apps\communication\views.py:116
+#: .\apps\communication\views.py:118
 msgid "You cannot create more than 1 active chat room"
 msgstr "شما نمی‌توانید بیش از ۱ چت روم فعال ایجاد کنید"
 
@@ -464,7 +464,7 @@ msgid "Recovery processes"
 msgstr "روندهای بهبودی"
 
 #: .\apps\operation\models.py:77 .\apps\public\models.py:16
-#: .\apps\service\models.py:45 .\apps\shop\models.py:36
+#: .\apps\service\models.py:51 .\apps\shop\models.py:36
 #: .\venv\Lib\site-packages\django\db\models\fields\files.py:393
 msgid "Image"
 msgstr "تصویر"
@@ -479,7 +479,7 @@ msgstr "تصاویر بهبودی"
 
 #: .\apps\operation\models.py:101 .\apps\operation\models.py:123
 #: .\apps\program\models.py:16 .\apps\program\models.py:50
-#: .\apps\service\models.py:46 .\apps\service\models.py:55
+#: .\apps\service\models.py:52 .\apps\service\models.py:65
 #: .\apps\shop\models.py:11
 msgid "Description"
 msgstr "توضیحات"
@@ -553,23 +553,23 @@ msgstr "تصویر با موفقیت افزوده شد"
 msgid "Image deleted successfully"
 msgstr "تصویر با موفقیت حذف گردید"
 
-#: .\apps\operation\views\routine.py:46
+#: .\apps\operation\views\routine.py:56
 msgid "Routine registered successfully"
 msgstr "روتین با موفقیت ثبت شد"
 
-#: .\apps\operation\views\routine.py:75
+#: .\apps\operation\views\routine.py:85
 msgid "There is an issue"
 msgstr "خطایی رخ داده است"
 
-#: .\apps\operation\views\routine.py:78
+#: .\apps\operation\views\routine.py:88
 msgid "Routine successfully deleted"
 msgstr "روتین با موفقیت حذف شد"
 
-#: .\apps\operation\views\test.py:69
+#: .\apps\operation\views\test.py:77
 msgid "You cannot register more than 3 unanswered test"
 msgstr "شما نمی‌توانید بیش از ۳ آزمایش بی پاسخ ثبت کنید"
 
-#: .\apps\operation\views\test.py:74
+#: .\apps\operation\views\test.py:82
 msgid "Test added successfully"
 msgstr "آزمایش با موفقیت افزوده شد"
 
@@ -633,11 +633,11 @@ msgstr "برنامه ورزشی"
 msgid "Exercise programs"
 msgstr "برنامه‌های ورزشی"
 
-#: .\apps\program\views.py:84
+#: .\apps\program\views.py:87
 msgid "Request successfully sent"
 msgstr "درخواست با موفقیت ارسال گردید"
 
-#: .\apps\program\views.py:103 .\apps\program\views.py:124
+#: .\apps\program\views.py:106 .\apps\program\views.py:127
 msgid "Program successfully saved"
 msgstr "برنامه با موفقیت ذخیره شد"
 
@@ -662,7 +662,7 @@ msgid "Stories"
 msgstr "استوری‌ها"
 
 #: .\apps\public\models.py:52 .\apps\public\models.py:133
-#: .\apps\service\models.py:27
+#: .\apps\service\models.py:31
 msgid "Category"
 msgstr "دسته"
 
@@ -769,19 +769,47 @@ msgstr "پادکست با موفقیت حذف شد"
 msgid "Service"
 msgstr "خدمات"
 
-#: .\apps\service\models.py:12 .\apps\service\models.py:25
+#: .\apps\service\models.py:12 .\apps\service\models.py:29
 msgid "Name"
 msgstr "نام"
 
-#: .\apps\service\views.py:41
+#: .\apps\service\models.py:15
+msgid "Operator category"
+msgstr "دسته‌ اپراتور"
+
+#: .\apps\service\models.py:16
+msgid "Operator categories"
+msgstr "دسته‌های اپراتور"
+
+#: .\apps\service\models.py:35
+msgid "Operators"
+msgstr "اپراتورها"
+
+#: .\apps\service\models.py:55
+msgid "Operator work sample"
+msgstr "نمونه‌کار اپراتور"
+
+#: .\apps\service\models.py:56
+msgid "Operator work samples"
+msgstr "نمونه‌کارهای اپراتور"
+
+#: .\apps\service\models.py:68
+msgid "Operator reserve"
+msgstr "رزرو‌ اپراتور"
+
+#: .\apps\service\models.py:69
+msgid "Operator reserves"
+msgstr "رزروهای اپراتور"
+
+#: .\apps\service\views.py:38
 msgid "Category Created Successfully"
 msgstr "دسته با موفقیت ایجاد شد"
 
-#: .\apps\service\views.py:56
+#: .\apps\service\views.py:53
 msgid "Category Deleted Successfully"
 msgstr "دسته با موفقیت حذف گردید"
 
-#: .\apps\service\views.py:69
+#: .\apps\service\views.py:68
 msgid "Operator Created Successfully"
 msgstr "اپراتور با موفقیت ایجاد شد"
 
@@ -789,15 +817,15 @@ msgstr "اپراتور با موفقیت ایجاد شد"
 msgid "Operator Deleted Successfully"
 msgstr "اپراتور با موفقیت حذف گردید"
 
-#: .\apps\service\views.py:106
+#: .\apps\service\views.py:109
 msgid "Work Sample Created Successfully"
 msgstr "نمونه کار با موفقیت ایجاد شد"
 
-#: .\apps\service\views.py:116
+#: .\apps\service\views.py:120
 msgid "Work Sample Deleted Successfully"
 msgstr "نمونه کار با موفقیت حذف گردید"
 
-#: .\apps\service\views.py:131
+#: .\apps\service\views.py:138
 msgid "Operator Time Was Successfully Booked"
 msgstr "زمان اپراتور با موفقیت ثبت گردید"
 
@@ -865,15 +893,15 @@ msgstr "درخواست سفارش"
 msgid "Order requests"
 msgstr "درخواست‌های سفارش"
 
-#: .\apps\shop\views.py:38
+#: .\apps\shop\views.py:37
 msgid "Product successfully added"
 msgstr "محصول با موفقیت افزوده شد"
 
-#: .\apps\shop\views.py:51
+#: .\apps\shop\views.py:50
 msgid "Product successfully deleted"
 msgstr "محصول با موفقیت حذف شد"
 
-#: .\apps\shop\views.py:64
+#: .\apps\shop\views.py:63
 msgid ""
 "Your request successfully sent and You will be contacted as soon as possible"
 msgstr "درخواست شما با موفقیت ارسال شد و در اسرع وقت با شما تماس حاصل می‌شود"
