@@ -8,6 +8,7 @@ class DietProgramAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'title', 'status', 'is_active')
     list_display_links = ('id', 'user', 'title')
     list_filter = ('is_active', 'status')
+    search_fields = ('id', 'user__phone_number')
 
 
 # Register ExerciseProgram model amin
@@ -16,3 +17,4 @@ class ExerciseProgramAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'title', 'status', 'is_active')
     list_display_links = ('id', 'user', 'title')
     list_filter = ('is_active', 'status')
+    search_fields = ('id', 'user__phone_number')

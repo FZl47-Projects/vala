@@ -11,8 +11,10 @@ class ProductImageInline(admin.StackedInline):
 # Register Product model admin
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    list_display = ('id', 'title', 'price', 'quantity', 'selling_price', 'is_active')
+    list_display = ('id', 'title', 'price', 'quantity', 'selling_price')
     list_display_links = ('id', 'title')
+    list_filter = ('is_active',)
+    search_fields = ('title',)
     inlines = (ProductImageInline,)
 
 
@@ -21,3 +23,5 @@ class ProductAdmin(admin.ModelAdmin):
 class OrderRequestAdmin(admin.ModelAdmin):
     list_display = ('id', 'product', 'user')
     list_display_links = ('id', 'product')
+    search_fields = ('product__title', 'user__phone_number')
+    list_filter = ('delivered',)

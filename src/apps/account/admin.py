@@ -43,7 +43,7 @@ class UserAdmin(BaseUserAdmin):
     )
 
     # Add search and ordering fields
-    search_fields = ('phone_number', 'email')
+    search_fields = ('phone_number', 'last_name')
     ordering = ('phone_number',)
     filter_horizontal = ('access',)
 
@@ -54,7 +54,7 @@ class UserProfileAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'date_of_birth', 'is_verified',)
     list_display_links = ('id', 'user',)
     readonly_fields = ('created_at', 'updated_at',)
-    search_fields = ('user.phone_number', 'user.last_name',)
+    search_fields = ('user__phone_number', 'user__last_name',)
     list_filter = ('is_verified',)
     fieldsets = (
         (None, {'fields': ('user', 'level',)}),
