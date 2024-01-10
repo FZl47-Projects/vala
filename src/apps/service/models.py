@@ -1,6 +1,7 @@
-from django.shortcuts import reverse
 from django.utils.translation import gettext as _
+from django.shortcuts import reverse
 from django.db import models
+
 from phonenumber_field.modelfields import PhoneNumberField
 from apps.core.models import BaseModel
 
