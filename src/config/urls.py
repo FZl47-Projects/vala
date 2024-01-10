@@ -1,7 +1,8 @@
-from django.contrib import admin
-from django.urls import path, include
-from django.conf import settings
+from django.utils.translation import gettext as _
 from django.conf.urls.static import static
+from django.urls import path, include
+from django.contrib import admin
+from django.conf import settings
 
 
 urlpatterns = [
@@ -24,3 +25,9 @@ if settings.DEBUG:
 # handler403 = 'apps.public.views.err_403_handler'
 # handler404 = 'apps.public.views.err_404_handler'
 # handler500 = 'apps.public.views.err_500_handler'
+
+
+# Rename site header & title & index_title
+admin.site.site_header = _("Site Management")
+admin.site.index_title = _("Management Panel")
+admin.site.site_title = _("Vala Clinic")

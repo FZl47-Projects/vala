@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-09 17:11+0330\n"
+"POT-Creation-Date: 2024-01-10 17:06+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -57,8 +57,8 @@ msgstr "کاربر"
 msgid "Admin"
 msgstr "ادمین"
 
-#: .\apps\account\enums.py:9 .\apps\service\models.py:34
-#: .\apps\service\models.py:49 .\apps\service\models.py:63
+#: .\apps\account\enums.py:9 .\apps\service\models.py:35
+#: .\apps\service\models.py:50 .\apps\service\models.py:64
 msgid "Operator"
 msgstr "اپراتور"
 
@@ -79,7 +79,7 @@ msgid "VIP"
 msgstr "ویژه"
 
 #: .\apps\account\forms.py:15 .\apps\account\models.py:36
-#: .\apps\service\models.py:64
+#: .\apps\service\models.py:65
 msgid "Phone number"
 msgstr "شماره تماس"
 
@@ -205,7 +205,7 @@ msgstr "بدون جواب"
 msgid "Second question"
 msgstr "سوال دوم"
 
-#: .\apps\account\models.py:132 .\apps\service\models.py:30
+#: .\apps\account\models.py:132 .\apps\service\models.py:31
 msgid "Picture"
 msgstr "تصویر"
 
@@ -294,7 +294,7 @@ msgstr "بسته"
 #: .\apps\operation\models.py:100 .\apps\program\models.py:15
 #: .\apps\program\models.py:49 .\apps\public\models.py:14
 #: .\apps\public\models.py:50 .\apps\public\models.py:131
-#: .\apps\service\models.py:50
+#: .\apps\service\models.py:51
 msgid "Title"
 msgstr "عنوان"
 
@@ -464,7 +464,7 @@ msgid "Recovery processes"
 msgstr "روندهای بهبودی"
 
 #: .\apps\operation\models.py:77 .\apps\public\models.py:16
-#: .\apps\service\models.py:51 .\apps\shop\models.py:36
+#: .\apps\service\models.py:52 .\apps\shop\models.py:36
 #: .\venv\Lib\site-packages\django\db\models\fields\files.py:393
 msgid "Image"
 msgstr "تصویر"
@@ -479,7 +479,7 @@ msgstr "تصاویر بهبودی"
 
 #: .\apps\operation\models.py:101 .\apps\operation\models.py:123
 #: .\apps\program\models.py:16 .\apps\program\models.py:50
-#: .\apps\service\models.py:52 .\apps\service\models.py:65
+#: .\apps\service\models.py:53 .\apps\service\models.py:66
 #: .\apps\shop\models.py:11
 msgid "Description"
 msgstr "توضیحات"
@@ -662,7 +662,7 @@ msgid "Stories"
 msgstr "استوری‌ها"
 
 #: .\apps\public\models.py:52 .\apps\public\models.py:133
-#: .\apps\service\models.py:31
+#: .\apps\service\models.py:32
 msgid "Category"
 msgstr "دسته"
 
@@ -769,35 +769,35 @@ msgstr "پادکست با موفقیت حذف شد"
 msgid "Service"
 msgstr "خدمات"
 
-#: .\apps\service\models.py:12 .\apps\service\models.py:29
+#: .\apps\service\models.py:13 .\apps\service\models.py:30
 msgid "Name"
 msgstr "نام"
 
-#: .\apps\service\models.py:15
+#: .\apps\service\models.py:16
 msgid "Operator category"
 msgstr "دسته‌ اپراتور"
 
-#: .\apps\service\models.py:16
+#: .\apps\service\models.py:17
 msgid "Operator categories"
 msgstr "دسته‌های اپراتور"
 
-#: .\apps\service\models.py:35
+#: .\apps\service\models.py:36
 msgid "Operators"
 msgstr "اپراتورها"
 
-#: .\apps\service\models.py:55
+#: .\apps\service\models.py:56
 msgid "Operator work sample"
 msgstr "نمونه‌کار اپراتور"
 
-#: .\apps\service\models.py:56
+#: .\apps\service\models.py:57
 msgid "Operator work samples"
 msgstr "نمونه‌کارهای اپراتور"
 
-#: .\apps\service\models.py:68
+#: .\apps\service\models.py:69
 msgid "Operator reserve"
 msgstr "رزرو‌ اپراتور"
 
-#: .\apps\service\models.py:69
+#: .\apps\service\models.py:70
 msgid "Operator reserves"
 msgstr "رزروهای اپراتور"
 
@@ -906,9 +906,29 @@ msgid ""
 "Your request successfully sent and You will be contacted as soon as possible"
 msgstr "درخواست شما با موفقیت ارسال شد و در اسرع وقت با شما تماس حاصل می‌شود"
 
-#: .\config\settings\base.py:95
+#: .\config\settings\base.py:96
 msgid "Persian"
 msgstr "فارسی"
+
+#: .\config\urls.py:31
+msgid "Site Management"
+msgstr "مدیریت سایت"
+
+#: .\config\urls.py:32
+msgid "Management Panel"
+msgstr "پنل مدیریت"
+
+#: .\config\urls.py:33
+msgid "Vala Clinic"
+msgstr "کلینیک والا"
+
+#: .\templates\admin\base_site.html:4
+msgid "Django site admin"
+msgstr ""
+
+#: .\templates\admin\base_site.html:7
+msgid "Django administration"
+msgstr ""
 
 #: .\venv\Lib\site-packages\django\contrib\messages\apps.py:15
 msgid "Messages"
